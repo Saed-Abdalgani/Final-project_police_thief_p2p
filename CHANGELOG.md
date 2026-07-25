@@ -2,6 +2,25 @@
 
 All notable project changes are documented here. The project follows semantic versioning for documentation, package, protocol, config, and schema contracts, with compatibility recorded separately when those versions diverge.
 
+## Package [0.1.0] - 2026-07-25
+
+### Added
+
+- `uv`-managed Python 3.13+ pure-Python package and locked dependencies.
+- Typed `SimulationSdk` readiness facade, DTOs, errors, and service ports.
+- Injectable clocks, secure/deterministic random sources, structured JSON logging,
+  and central redaction.
+- Repository, structure, source-size, traceability, CI, secret, and import-boundary
+  quality controls.
+- Unit, integration, contract, property, security, performance, and chaos test
+  foundations.
+
+### Repository hygiene
+
+- Stopped tracking generated PDF analysis and the reference checkout under `tmp/`;
+  both remain available locally and are protected from future commits by
+  `.gitignore`.
+
 ## [1.0.0] - 2026-07-25
 
 ### Added
@@ -24,4 +43,3 @@ All notable project changes are documented here. The project follows semantic ve
 
 - Documentation baseline `1.0.0` is frozen and approved for M1 entry.
 - No software implementation readiness or final project `READY` status is implied.
-

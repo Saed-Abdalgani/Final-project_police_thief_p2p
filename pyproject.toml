@@ -1,0 +1,165 @@
+[project]
+name = "police-thief-p2p"
+version = "0.1.0"
+description = "Distributed, auditable Cops-and-Robbers peers over FastMCP."
+readme = "README.md"
+requires-python = ">=3.13"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Police-Thief P2P Project Team" },
+]
+keywords = [
+    "agents",
+    "commit-reveal",
+    "distributed-systems",
+    "fastmcp",
+    "pursuit-evasion",
+]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Education",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Typing :: Typed",
+]
+dependencies = [
+    "fastmcp>=3.4.3,<4",
+    "jsonschema>=4.25,<5",
+    "pydantic>=2.12,<3",
+]
+
+[project.scripts]
+police-thief-p2p = "police_thief_p2p.adapters.cli.app:main"
+
+[project.urls]
+Documentation = "https://github.com/Saed-Abdalgani/Final-project_police_thief_p2p/tree/main/docs"
+Repository = "https://github.com/Saed-Abdalgani/Final-project_police_thief_p2p"
+
+[build-system]
+requires = ["uv_build>=0.11.14,<0.12"]
+build-backend = "uv_build"
+
+[tool.uv]
+required-version = "==0.11.14"
+
+[tool.uv.build-backend]
+module-root = "src"
+source-include = [
+    ".env-example",
+    ".pre-commit-config.yaml",
+    "docs/**",
+    "scripts/**",
+    "tests/**",
+]
+
+[tool.ruff]
+required-version = ">=0.14.0"
+target-version = "py313"
+line-length = 100
+extend-exclude = [
+    ".git",
+    ".venv",
+    "build",
+    "data",
+    "dist",
+    "results",
+    "tmp",
+]
+
+[tool.ruff.lint]
+select = [
+    "ASYNC",
+    "B",
+    "D",
+    "E4",
+    "E7",
+    "E9",
+    "F",
+    "I",
+    "PERF",
+    "PT",
+    "RUF",
+    "S",
+    "SIM",
+    "UP",
+]
+ignore = ["D203", "D213"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["D", "S101", "S105", "S106", "S108", "S311"]
+"src/police_thief_p2p/adapters/system/deterministic_random.py" = ["S311"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+docstring-code-format = true
+line-ending = "lf"
+quote-style = "double"
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+mypy_path = ["src"]
+files = ["src", "tests", "scripts"]
+exclude = ["^build/", "^dist/", "^tmp/"]
+pretty = true
+show_error_codes = true
+show_column_numbers = true
+warn_unreachable = true
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+norecursedirs = [".git", ".hypothesis", ".venv", "build", "dist", "tests/fixtures"]
+addopts = [
+    "--strict-config",
+    "--strict-markers",
+    "-ra",
+    "--cov=police_thief_p2p",
+    "--cov=scripts",
+    "--cov-branch",
+    "--cov-report=term-missing",
+    "--cov-report=xml",
+    "--cov-fail-under=85",
+]
+markers = [
+    "chaos: deterministic fault and deadline behavior",
+    "contract: structural and public-boundary contracts",
+    "integration: multi-component SDK integration",
+    "performance: non-flaky foundation performance guards",
+    "property: Hypothesis property tests",
+    "security: security and privacy controls",
+]
+xfail_strict = true
+
+[tool.coverage.run]
+branch = true
+source = ["police_thief_p2p", "scripts"]
+
+[tool.coverage.report]
+fail_under = 85
+show_missing = true
+skip_covered = false
+exclude_also = [
+    "if TYPE_CHECKING:",
+    "if __name__ == .__main__.:",
+    "@overload",
+    "raise NotImplementedError",
+]
+
+[dependency-groups]
+dev = [
+    "detect-secrets>=1.5,<2",
+    "hypothesis>=6.138,<7",
+    "mypy>=1.17,<2",
+    "pre-commit>=4.3,<5",
+    "pytest>=8.4,<10",
+    "pytest-cov>=6.2,<8",
+    "pyyaml>=6.0,<7",
+    "ruff>=0.14,<0.15",
+    "types-pyyaml>=6.0,<7",
+]

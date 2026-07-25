@@ -1,0 +1,54 @@
+minimum_pre_commit_version: "4.0.0"
+default_install_hook_types: [pre-commit, pre-push]
+
+repos:
+  - repo: local
+    hooks:
+      - id: ruff-check
+        name: Ruff lint
+        entry: uv run ruff check
+        language: system
+        types_or: [python, pyi]
+      - id: ruff-format
+        name: Ruff format check
+        entry: uv run ruff format --check
+        language: system
+        types_or: [python, pyi]
+      - id: file-hygiene
+        name: Text file hygiene
+        entry: uv run python scripts/check_file_hygiene.py
+        language: system
+        types: [text]
+      - id: detect-secrets
+        name: Detect committed secrets
+        entry: uv run detect-secrets-hook
+        language: system
+        types: [text]
+        exclude: >-
+          (?x)^(
+            docs/SOURCES\.md|
+            docs/PRD\.md|
+            docs/TODO\.md
+          )$
+      - id: structure
+        name: Required repository structure
+        entry: uv run python scripts/validate_structure.py
+        language: system
+        pass_filenames: false
+      - id: traceability
+        name: Requirement and task IDs
+        entry: uv run python scripts/validate_traceability.py
+        language: system
+        pass_filenames: false
+      - id: mypy
+        name: Strict mypy
+        entry: uv run mypy src tests scripts
+        language: system
+        pass_filenames: false
+        stages: [pre-push]
+      - id: pytest
+        name: Full pytest and coverage
+        entry: uv run pytest
+        language: system
+        pass_filenames: false
+        stages: [pre-push]

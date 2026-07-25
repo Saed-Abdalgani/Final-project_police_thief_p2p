@@ -111,38 +111,38 @@ A checked task has:
 **Exit gate:** a clean clone uses `uv` to install, lint, type-check, test, and build the SDK shell on supported systems.
 
 - [x] **T041 [P0]** Initialize Git in the canonical workspace without modifying user-owned external files; evidence: clean repository root and initial status.
-- [ ] **T042 [P0]** Create `.gitignore` before credentials or runtime artifacts exist; evidence: `.env`, `credentials.json`, `token.json`, keys, logs, caches, results, and IDE files covered.
-- [ ] **T043 [P0]** Initialize the Python project with `uv` and package name `police_thief_p2p`; evidence: valid `pyproject.toml`.
-- [ ] **T044 [P0]** Set Python requirement to 3.13+ and document supported interpreters; evidence: `requires-python` and README agree.
-- [ ] **T045 [P0]** Create the complete root directory skeleton required by `system prompt.txt`; evidence: structure audit passes.
-- [ ] **T046 [P0]** Create `src/police_thief_p2p/__init__.py` with package docstring and public version export; evidence: import test.
-- [ ] **T047 [P0]** Create `sdk`, `services`, `adapters`, and `shared` package boundaries; evidence: architecture import test.
-- [ ] **T048 [P0]** Create `tests/unit`, `integration`, `contract`, `property`, `security`, `performance`, `chaos`, and `fixtures`; evidence: pytest discovers placeholders.
-- [ ] **T049 [P0]** Add runtime dependencies only through `uv add`; evidence: dependency rationale recorded and lockfile updated.
-- [ ] **T050 [P0]** Add pytest, pytest-cov, Hypothesis, Ruff, and mypy through `uv add --dev`; evidence: frozen sync succeeds.
-- [ ] **T051 [P0]** Configure Ruff lint rules, format settings, Python target, and exclusions; evidence: `uv run ruff check .` passes.
-- [ ] **T052 [P0]** Configure strict mypy for source and typed test helpers; evidence: `uv run mypy src tests` passes.
-- [ ] **T053 [P0]** Configure pytest markers, deterministic defaults, and coverage threshold 85%; evidence: intentional sub-threshold run fails.
-- [ ] **T054 [P0]** Create `shared/version.py` with semantic package/protocol/schema versions; evidence: unit tests for valid formatting.
-- [ ] **T055 [P0]** Create `constants.py` containing only true non-configurable constants; evidence: config-value audit finds no runtime tunables.
-- [ ] **T056 [P0]** Create the initial `SimulationSdk` facade with typed no-op readiness method; evidence: CLI-style caller uses SDK only.
-- [ ] **T057 [P0]** Create SDK DTO and typed error modules; evidence: serialization/repr tests confirm safe output.
-- [ ] **T058 [P0]** Define service port protocols for clock, RNG, transport, repository, language, email, and system info; evidence: mypy structural-conformance tests.
-- [ ] **T059 [P0]** Implement injectable system and fake monotonic clocks; evidence: deadline tests run without sleeping.
-- [ ] **T060 [P0]** Implement injectable cryptographic and deterministic test random sources; evidence: production source cannot be seeded accidentally.
-- [ ] **T061 [P0]** Create structured logging configuration with correlation context; evidence: JSON log fixture validates.
-- [ ] **T062 [P0]** Implement central redaction helpers for secrets, tokens, URLs, email, and payload fields; evidence: parameterized leakage tests.
-- [ ] **T063 [P0]** Create `.env-example` with safe placeholders and descriptions; evidence: secret scanner reports no credential-like values.
-- [ ] **T064 [P0]** Add pre-commit configuration for Ruff, formatting, secret scan, and basic file hygiene; evidence: hook suite passes.
-- [ ] **T065 [P0]** Add CI workflow for frozen `uv` sync, lint, format, types, unit tests, and coverage; evidence: workflow syntax validation.
-- [ ] **T066 [P0]** Add Windows and Linux CI matrix with a macOS smoke job where available; evidence: platform matrix documented.
-- [ ] **T067 [P0]** Add repository-structure validation script invoked through `uv run python`; evidence: missing required file causes failure.
-- [ ] **T068 [P0]** Add source-file code-line counter with 150-line warnings/fail policy; evidence: synthetic oversized fixture detected.
-- [ ] **T069 [P0]** Add requirement/task ID validator for docs and tests; evidence: duplicate/missing synthetic IDs detected.
-- [ ] **T070 [P0]** Create `README.md` skeleton with install, usage, config, examples, troubleshooting, contribution, credits, and license sections.
-- [ ] **T071 [P0]** Add `LICENSE`, `CREDITS.md`, and `CHANGELOG.md` placeholders with reference-code attribution policy.
-- [ ] **T072 [P0]** Create package build configuration using `uv_build`; evidence: wheel builds and installs in a clean temporary environment.
-- [ ] **T073 [P0]** Add an import-boundary test preventing domain/services imports from CLI, GUI, FastMCP, or Gmail adapters.
+- [x] **T042 [P0]** Create `.gitignore` before credentials or runtime artifacts exist; evidence: `.env`, `credentials.json`, `token.json`, keys, logs, caches, results, and IDE files covered.
+- [x] **T043 [P0]** Initialize the Python project with `uv` and package name `police_thief_p2p`; evidence: valid `pyproject.toml`.
+- [x] **T044 [P0]** Set Python requirement to 3.13+ and document supported interpreters; evidence: `requires-python` and README agree.
+- [x] **T045 [P0]** Create the complete root directory skeleton required by `system prompt.txt`; evidence: structure audit passes.
+- [x] **T046 [P0]** Create `src/police_thief_p2p/__init__.py` with package docstring and public version export; evidence: import test.
+- [x] **T047 [P0]** Create `sdk`, `services`, `adapters`, and `shared` package boundaries; evidence: architecture import test.
+- [x] **T048 [P0]** Create `tests/unit`, `integration`, `contract`, `property`, `security`, `performance`, `chaos`, and `fixtures`; evidence: pytest discovers placeholders.
+- [x] **T049 [P0]** Add runtime dependencies only through `uv add`; evidence: dependency rationale recorded and lockfile updated.
+- [x] **T050 [P0]** Add pytest, pytest-cov, Hypothesis, Ruff, and mypy through `uv add --dev`; evidence: frozen sync succeeds.
+- [x] **T051 [P0]** Configure Ruff lint rules, format settings, Python target, and exclusions; evidence: `uv run ruff check .` passes.
+- [x] **T052 [P0]** Configure strict mypy for source and typed test helpers; evidence: `uv run mypy src tests` passes.
+- [x] **T053 [P0]** Configure pytest markers, deterministic defaults, and coverage threshold 85%; evidence: intentional sub-threshold run fails.
+- [x] **T054 [P0]** Create `shared/version.py` with semantic package/protocol/schema versions; evidence: unit tests for valid formatting.
+- [x] **T055 [P0]** Create `constants.py` containing only true non-configurable constants; evidence: config-value audit finds no runtime tunables.
+- [x] **T056 [P0]** Create the initial `SimulationSdk` facade with typed no-op readiness method; evidence: CLI-style caller uses SDK only.
+- [x] **T057 [P0]** Create SDK DTO and typed error modules; evidence: serialization/repr tests confirm safe output.
+- [x] **T058 [P0]** Define service port protocols for clock, RNG, transport, repository, language, email, and system info; evidence: mypy structural-conformance tests.
+- [x] **T059 [P0]** Implement injectable system and fake monotonic clocks; evidence: deadline tests run without sleeping.
+- [x] **T060 [P0]** Implement injectable cryptographic and deterministic test random sources; evidence: production source cannot be seeded accidentally.
+- [x] **T061 [P0]** Create structured logging configuration with correlation context; evidence: JSON log fixture validates.
+- [x] **T062 [P0]** Implement central redaction helpers for secrets, tokens, URLs, email, and payload fields; evidence: parameterized leakage tests.
+- [x] **T063 [P0]** Create `.env-example` with safe placeholders and descriptions; evidence: secret scanner reports no credential-like values.
+- [x] **T064 [P0]** Add pre-commit configuration for Ruff, formatting, secret scan, and basic file hygiene; evidence: hook suite passes.
+- [x] **T065 [P0]** Add CI workflow for frozen `uv` sync, lint, format, types, unit tests, and coverage; evidence: workflow syntax validation.
+- [x] **T066 [P0]** Add Windows and Linux CI matrix with a macOS smoke job where available; evidence: platform matrix documented.
+- [x] **T067 [P0]** Add repository-structure validation script invoked through `uv run python`; evidence: missing required file causes failure.
+- [x] **T068 [P0]** Add source-file code-line counter with 150-line warnings/fail policy; evidence: synthetic oversized fixture detected.
+- [x] **T069 [P0]** Add requirement/task ID validator for docs and tests; evidence: duplicate/missing synthetic IDs detected.
+- [x] **T070 [P0]** Create `README.md` skeleton with install, usage, config, examples, troubleshooting, contribution, credits, and license sections.
+- [x] **T071 [P0]** Add `LICENSE`, `CREDITS.md`, and `CHANGELOG.md` placeholders with reference-code attribution policy.
+- [x] **T072 [P0]** Create package build configuration using `uv_build`; evidence: wheel builds and installs in a clean temporary environment.
+- [x] **T073 [P0]** Add an import-boundary test preventing domain/services imports from CLI, GUI, FastMCP, or Gmail adapters.
 - [ ] **T074 [P0]** Run the foundation command suite from a clean clone; evidence: archived CI-equivalent transcript.
 - [ ] **T075 [P0]** Tag the foundation milestone internally and update readiness status; evidence: M1 exit checklist signed.
 
