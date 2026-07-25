@@ -7,7 +7,7 @@
   "required": ["schema_version", "protocol_version", "game_uid", "group_id", "role", "config_digest", "scent_model_digest", "capabilities", "hardware", "software"],
   "properties": {
     "schema_version": {"const": "0.2.0"},
-    "protocol_version": {"const": "0.5.0"},
+    "protocol_version": {"const": "0.6.0"},
     "game_uid": {"type": "string", "format": "uuid"},
     "group_id": {"type": "string", "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9_-]{0,62}[A-Za-z0-9])?$"},
     "role": {"enum": ["police", "thief"]},

@@ -26,10 +26,12 @@ repos:
         types: [text]
         exclude: >-
           (?x)^(
+            data/conformance/(?:artifacts|crypto)/.*\.json|
             data/conformance/manifest\.json|
             docs/SOURCES\.md|
             docs/PRD\.md|
-            docs/TODO\.md
+            docs/TODO\.md|
+            tests/unit/test_crypto_primitives\.py
           )$
       - id: structure
         name: Required repository structure

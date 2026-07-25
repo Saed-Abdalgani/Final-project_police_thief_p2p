@@ -9,6 +9,7 @@ from police_thief_p2p.domain import (
     transition,
 )
 from police_thief_p2p.services.audit.models import AuditBundle, AuditStep
+from police_thief_p2p.services.belief.scent_field import ScentField
 from police_thief_p2p.services.crypto.capture import (
     CaptureExchange,
     CaptureStatement,
@@ -26,10 +27,7 @@ from police_thief_p2p.services.crypto.payload import (
     CommitmentPayload,
     CommittedAction,
 )
-from police_thief_p2p.services.crypto.scent_evidence import (
-    scent_frame,
-    scent_model_digest,
-)
+from police_thief_p2p.services.crypto.scent_evidence import scent_model_digest
 from police_thief_p2p.services.crypto.state_digest import local_state_digest
 from police_thief_p2p.services.crypto.store import CommitmentIdentity, SealedStepStore
 from police_thief_p2p.services.ports.git_info import GitState
@@ -95,9 +93,23 @@ def build_valid_audit_bundle(config: SharedConfig) -> AuditBundle:
     journal = EventJournal()
     evidence = []
     actor_steps = {Role.POLICE: 0, Role.THIEF: 0}
+    scent_fields = {
+        Role.POLICE: ScentField(config.board_and_agents.grid_size),
+        Role.THIEF: ScentField(config.board_and_agents.grid_size),
+    }
     for sequence, (actor, action) in enumerate(moves, start=1):
         state = states[actor]
         actor_steps[actor] += 1
+        result = transition(state, action)
+        scent_fields[actor] = scent_fields[actor].emit(result.state.position, policy)
+        frame = scent_fields[actor].to_frame(
+            game_uid=GAME_UID,
+            sub_game_number=1,
+            step_number=actor_steps[actor],
+            actor=actor,
+            scent_model_sha256=scent_digest,
+            policy=policy,
+        )
         body = CommitmentBody(
             game_uid=GAME_UID,
             sub_game_number=1,
@@ -113,7 +125,7 @@ def build_valid_audit_bundle(config: SharedConfig) -> AuditBundle:
             config_sha256=config.digest(),
             protocol_version=PROTOCOL_VERSION,
             scent_model_sha256=scent_digest,
-            scent_frame_sha256=scent_frame(state.rules.board.size, state.position, policy).digest(),
+            scent_frame_sha256=frame.frame_sha256,
         )
         nonce = SecretNonce(sequence.to_bytes(32, "big"))
         public = store.seal(CommitmentPayload(body, nonce))
@@ -122,7 +134,11 @@ def build_valid_audit_bundle(config: SharedConfig) -> AuditBundle:
         reveal = store.reveal(identity)
         journal.append("step-reveal", reveal.model_dump(mode="json"))
         evidence.append(AuditStep(sequence, reveal, nonce.reveal_hex()))
-        states[actor] = transition(state, action).state
+        states[actor] = result.state
+        if len(set(actor_steps.values())) == 1:
+            scent_fields = {
+                role: field.decay_after_full_turn(policy) for role, field in scent_fields.items()
+            }
     manifest = store.final_manifest(GAME_UID, 1, ProtocolPhase.AUDITING)
     last = evidence[-1].reveal.commitment_sha256
     capture = CaptureExchange(

@@ -24,6 +24,14 @@ from police_thief_p2p.services.audit import (
     FinalAgreement,
     agree_audits,
 )
+from police_thief_p2p.services.belief import (
+    BeliefDiagnostics,
+    BeliefGrid,
+    BeliefUpdate,
+    HintReliability,
+    LocalView,
+    OpponentScentFrame,
+)
 from police_thief_p2p.services.crypto.declaration import (
     SignedStepZero,
     SigningKey,
@@ -62,6 +70,9 @@ __all__ = [
     "AuditReport",
     "AuditStatus",
     "AuditStep",
+    "BeliefDiagnostics",
+    "BeliefGrid",
+    "BeliefUpdate",
     "CommitmentBody",
     "CommitmentIdentity",
     "CommittedAction",
@@ -69,10 +80,13 @@ __all__ = [
     "ErrorCode",
     "FinalAgreement",
     "FinalRevealManifest",
+    "HintReliability",
     "LiveReveal",
     "LocalGameState",
+    "LocalView",
     "MatchAcceptance",
     "MatchProposal",
+    "OpponentScentFrame",
     "Participant",
     "PlayedCommits",
     "ProtocolEnvelope",

@@ -25,6 +25,8 @@ SCHEMA_NAMES = frozenset(
         "final_reveal.schema.json",
         "capture_statement.schema.json",
         "audit_report.schema.json",
+        "scent_frame.schema.json",
+        "belief_summary.schema.json",
     }
 )
 

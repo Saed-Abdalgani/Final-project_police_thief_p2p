@@ -1,0 +1,12 @@
+{
+  "role": "police",
+  "own_position": [0, 0],
+  "step_number": 1,
+  "public_barriers": [],
+  "belief_heatmap": ["1.000000000000"],
+  "belief_entropy_bits": 0.0,
+  "belief_peak_probability": 1.0,
+  "credible_region": [[3, 3]],
+  "most_likely_cell_diagnostic": [3, 3],
+  "opponent_position": [3, 3]
+}

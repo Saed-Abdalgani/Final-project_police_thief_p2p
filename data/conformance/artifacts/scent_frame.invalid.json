@@ -1,0 +1,15 @@
+{
+  "frame_version": "1.0.0",
+  "game_uid": "87654321-4321-4321-8321-cba987654321",
+  "sub_game_number": 1,
+  "step_number": 1,
+  "actor": "thief",
+  "rows": 7,
+  "cols": 7,
+  "scent_model_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "cells": [
+    {"row": 3, "col": 3, "value": "1.5"}
+  ],
+  "opponent_true_position": [3, 3],
+  "frame_sha256": "debe427324955433c227a4e247c66e278eb06b569d191426095db54098c39125"
+}

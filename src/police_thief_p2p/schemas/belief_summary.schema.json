@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/police-thief/0.2.0/belief_summary.schema.json",
+  "title": "Redacted local belief view",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "role", "own_position", "step_number", "public_barriers", "belief_heatmap",
+    "belief_entropy_bits", "belief_peak_probability", "credible_region",
+    "most_likely_cell_diagnostic"
+  ],
+  "properties": {
+    "role": {"enum": ["police", "thief"]},
+    "own_position": {"$ref": "#/$defs/cell"},
+    "step_number": {"type": "integer", "minimum": 0},
+    "public_barriers": {"type": "array", "items": {"$ref": "#/$defs/cell"}},
+    "belief_heatmap": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1000000,
+      "items": {"type": "string", "pattern": "^(?:0|1)\\.\\d{12}$"}
+    },
+    "belief_entropy_bits": {"type": "number", "minimum": 0},
+    "belief_peak_probability": {"type": "number", "minimum": 0, "maximum": 1},
+    "credible_region": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1000000,
+      "items": {"$ref": "#/$defs/cell"}
+    },
+    "most_likely_cell_diagnostic": {"$ref": "#/$defs/cell"}
+  },
+  "$defs": {
+    "cell": {
+      "type": "array",
+      "prefixItems": [
+        {"type": "integer", "minimum": 0},
+        {"type": "integer", "minimum": 0}
+      ],
+      "items": false
+    }
+  },
+  "not": {
+    "anyOf": [
+      {"required": ["opponent_position"]},
+      {"required": ["opponent_true_position"]},
+      {"required": ["true_position"]}
+    ]
+  }
+}

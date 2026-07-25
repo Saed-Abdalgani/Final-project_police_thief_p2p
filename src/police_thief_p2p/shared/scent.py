@@ -45,14 +45,20 @@ class ScentPolicy:
         return value.quantize(quantum, rounding=ROUND_HALF_EVEN)
 
     def emission(self) -> tuple[tuple[Decimal, ...], ...]:
-        """Return the center-scaled 5x5 emission matrix."""
+        """Return the exact internal-precision center-scaled emission matrix."""
         with localcontext() as context:
             context.prec = 28
             return tuple(
-                tuple(self.quantize(self.center_intensity * Decimal(weight)) for weight in row)
+                tuple(self.center_intensity * Decimal(weight) for weight in row)
                 for row in KERNEL_TEXT
             )
 
     def after_full_turn(self, value: Decimal) -> Decimal:
-        """Apply one full-turn multiplicative decay."""
-        return self.quantize(value * (Decimal(1) - self.decay))
+        """Apply one full-turn decay without boundary quantization."""
+        if not value.is_finite() or value < 0:
+            raise ValueError("scent values must be finite and non-negative")
+        return value * (Decimal(1) - self.decay)
+
+    def serialize(self, value: Decimal) -> str:
+        """Quantize one value only at a wire or audit boundary."""
+        return format(self.quantize(value), "f")

@@ -370,51 +370,51 @@ A checked task has:
 
 **Exit gate:** both peers compute interoperable scent evidence and normalized local beliefs that affect decisions without ever receiving live opponent truth.
 
-- [ ] **T266 [P0]** Finalize `docs/PRD_LANGUAGE_SCENT.md` before implementation; evidence: exact update order, likelihoods, and privacy boundaries approved.
-- [ ] **T267 [P0]** Finalize ADR-014 for float/quantization interoperability; evidence: tolerance and serialization rules fixed.
-- [ ] **T268 [P0]** Implement the exact signed 5x5 radial scent kernel/formula; evidence: center is 0.9 and all golden cells match.
-- [ ] **T269 [P0]** Create center, edge, corner, overlap, repeated-stay, and decay conformance vectors; evidence: both peers pass independently.
-- [ ] **T270 [P0]** Implement scent emission centered on the actor's local true position; evidence: center/shape tests.
-- [ ] **T271 [P0]** Implement board-edge clipping without kernel wraparound; evidence: corner mass fixture.
-- [ ] **T272 [P0]** Implement repeated emission accumulation/clamping exactly as signed; evidence: repeated-stay vector.
-- [ ] **T273 [P0]** Implement 0.10 decay for every cell; evidence: multi-turn numeric vector.
-- [ ] **T274 [P0]** Apply decay only after a complete Police-plus-Thief turn; evidence: ordering integration test.
-- [ ] **T275 [P0]** Implement agreed numeric quantization only at serialization/audit boundaries; evidence: internal precision and cross-platform digest tests.
-- [ ] **T276 [P0]** Define bounded opponent-facing `ScentFrame` DTO with game/step/model linkage.
-- [ ] **T277 [P0]** Bind each scent frame to the step commitment through its digest; evidence: substitution fails audit.
-- [ ] **T278 [P0]** Persist own hidden scent/path history in the secret local store; evidence: unavailable through live SDK view.
-- [ ] **T279 [P0]** Accept only opponent scent frames matching expected game, step, dimensions, range, and digest; evidence: invalid frames rejected.
-- [ ] **T280 [P0]** Prevent manual remote scent injection outside the actor reveal workflow; evidence: no public SDK method can set arbitrary belief evidence.
-- [ ] **T281 [P0]** Recompute scent history from revealed audited paths; evidence: forged frame and wrong-decay tests.
-- [ ] **T282 [P0]** Implement immutable `BeliefGrid` with finite non-negative cell probabilities.
-- [ ] **T283 [P0]** Initialize belief uniformly over legal opponent start/reachable cells; evidence: normalized prior tests.
-- [ ] **T284 [P0]** Mask barriers and provably impossible cells to zero; evidence: topology-change tests.
-- [ ] **T285 [P0]** Implement uniform legal opponent transition kernel as baseline; evidence: row-stochastic property.
-- [ ] **T286 [P1]** Implement mixture transition features for chase/evade, boundary, revisit, and cycle tendencies.
-- [ ] **T287 [P0]** Implement prediction step over board cells and local legal transitions; evidence: mass conservation property.
-- [ ] **T288 [P0]** Implement scent likelihood from frame/history/model with bounded noise floor; evidence: peak and contradictory observations.
-- [ ] **T289 [P0]** Define hint-parser port returning bounded semantic likelihood evidence, never commands.
-- [ ] **T290 [P1]** Implement deterministic template cue parser for direction/region/landmark categories; evidence: locale-safe fixtures.
-- [ ] **T291 [P0]** Treat unparseable or injection-like hints as neutral evidence; evidence: adversarial strings do not alter config/tools.
-- [ ] **T292 [P1]** Implement Beta-prior hint reliability state; evidence: update math vectors.
-- [ ] **T293 [P1]** Track reliability separately by cue category and recency; evidence: category-isolation tests.
-- [ ] **T294 [P0]** Cap hint likelihood ratios so one phrase cannot overwhelm scent; evidence: extreme-input bound test.
-- [ ] **T295 [P0]** Implement Bayesian fusion of prediction, scent, and hint evidence; evidence: hand-calculated posterior fixture.
-- [ ] **T296 [P1]** Use log-space normalization for very small likelihoods; evidence: long-run underflow test.
-- [ ] **T297 [P0]** Implement deterministic reachable-prior recovery for all-zero posterior; evidence: no NaN/empty belief.
-- [ ] **T298 [P0]** Normalize posterior within declared tolerance; evidence: Hypothesis invariant.
-- [ ] **T299 [P1]** Compute belief entropy; evidence: uniform and point-mass limits.
-- [ ] **T300 [P1]** Compute configurable credible region with cumulative probability target; evidence: deterministic ordering.
-- [ ] **T301 [P0]** Expose most-likely cell only as a diagnostic, not the sole advanced-policy input.
-- [ ] **T302 [P1]** Compute calibration metrics from post-audit truth for offline analysis only; evidence: no live feedback path.
-- [ ] **T303 [P0]** Implement one `BeliefService.update` pipeline with injectable motion/hint models.
-- [ ] **T304 [P0]** Add redacted belief summary to `LocalView`; evidence: heatmap/entropy present, opponent truth absent.
-- [ ] **T305 [P0]** Add property tests for normalization, finiteness, masks, determinism, and transition mass.
-- [ ] **T306 [P0]** Add contradictory scent-versus-hint scenarios and assert scent-dominant bounded update.
-- [ ] **T307 [P0]** Add edge/corner/barrier/topology-change belief tests.
-- [ ] **T308 [P0]** Add source/DTO/log scan proving live belief code never accepts opponent true position.
-- [ ] **T309 [P1]** Benchmark 35-step belief updates on minimum and expanded boards; evidence: p95 stored in results.
-- [ ] **T310 [P0]** Complete M6 review against Appendix E rules 8-9 and 23 plus PRD FR-BEL; evidence: signed exit checklist.
+- [x] **T266 [P0]** Finalize `docs/PRD_LANGUAGE_SCENT.md` before implementation; evidence: exact update order, likelihoods, and privacy boundaries approved.
+- [x] **T267 [P0]** Finalize ADR-014 for float/quantization interoperability; evidence: tolerance and serialization rules fixed.
+- [x] **T268 [P0]** Implement the exact signed 5x5 radial scent kernel/formula; evidence: center is 0.9 and all golden cells match.
+- [x] **T269 [P0]** Create center, edge, corner, overlap, repeated-stay, and decay conformance vectors; evidence: both peers pass independently.
+- [x] **T270 [P0]** Implement scent emission centered on the actor's local true position; evidence: center/shape tests.
+- [x] **T271 [P0]** Implement board-edge clipping without kernel wraparound; evidence: corner mass fixture.
+- [x] **T272 [P0]** Implement repeated emission accumulation/clamping exactly as signed; evidence: repeated-stay vector.
+- [x] **T273 [P0]** Implement 0.10 decay for every cell; evidence: multi-turn numeric vector.
+- [x] **T274 [P0]** Apply decay only after a complete Police-plus-Thief turn; evidence: ordering integration test.
+- [x] **T275 [P0]** Implement agreed numeric quantization only at serialization/audit boundaries; evidence: internal precision and cross-platform digest tests.
+- [x] **T276 [P0]** Define bounded opponent-facing `ScentFrame` DTO with game/step/model linkage.
+- [x] **T277 [P0]** Bind each scent frame to the step commitment through its digest; evidence: substitution fails audit.
+- [x] **T278 [P0]** Persist own hidden scent/path history in the secret local store; evidence: unavailable through live SDK view.
+- [x] **T279 [P0]** Accept only opponent scent frames matching expected game, step, dimensions, range, and digest; evidence: invalid frames rejected.
+- [x] **T280 [P0]** Prevent manual remote scent injection outside the actor reveal workflow; evidence: no public SDK method can set arbitrary belief evidence.
+- [x] **T281 [P0]** Recompute scent history from revealed audited paths; evidence: forged frame and wrong-decay tests.
+- [x] **T282 [P0]** Implement immutable `BeliefGrid` with finite non-negative cell probabilities.
+- [x] **T283 [P0]** Initialize belief uniformly over legal opponent start/reachable cells; evidence: normalized prior tests.
+- [x] **T284 [P0]** Mask barriers and provably impossible cells to zero; evidence: topology-change tests.
+- [x] **T285 [P0]** Implement uniform legal opponent transition kernel as baseline; evidence: row-stochastic property.
+- [x] **T286 [P1]** Implement mixture transition features for chase/evade, boundary, revisit, and cycle tendencies.
+- [x] **T287 [P0]** Implement prediction step over board cells and local legal transitions; evidence: mass conservation property.
+- [x] **T288 [P0]** Implement scent likelihood from frame/history/model with bounded noise floor; evidence: peak and contradictory observations.
+- [x] **T289 [P0]** Define hint-parser port returning bounded semantic likelihood evidence, never commands.
+- [x] **T290 [P1]** Implement deterministic template cue parser for direction/region/landmark categories; evidence: locale-safe fixtures.
+- [x] **T291 [P0]** Treat unparseable or injection-like hints as neutral evidence; evidence: adversarial strings do not alter config/tools.
+- [x] **T292 [P1]** Implement Beta-prior hint reliability state; evidence: update math vectors.
+- [x] **T293 [P1]** Track reliability separately by cue category and recency; evidence: category-isolation tests.
+- [x] **T294 [P0]** Cap hint likelihood ratios so one phrase cannot overwhelm scent; evidence: extreme-input bound test.
+- [x] **T295 [P0]** Implement Bayesian fusion of prediction, scent, and hint evidence; evidence: hand-calculated posterior fixture.
+- [x] **T296 [P1]** Use log-space normalization for very small likelihoods; evidence: long-run underflow test.
+- [x] **T297 [P0]** Implement deterministic reachable-prior recovery for all-zero posterior; evidence: no NaN/empty belief.
+- [x] **T298 [P0]** Normalize posterior within declared tolerance; evidence: Hypothesis invariant.
+- [x] **T299 [P1]** Compute belief entropy; evidence: uniform and point-mass limits.
+- [x] **T300 [P1]** Compute configurable credible region with cumulative probability target; evidence: deterministic ordering.
+- [x] **T301 [P0]** Expose most-likely cell only as a diagnostic, not the sole advanced-policy input.
+- [x] **T302 [P1]** Compute calibration metrics from post-audit truth for offline analysis only; evidence: no live feedback path.
+- [x] **T303 [P0]** Implement one `BeliefService.update` pipeline with injectable motion/hint models.
+- [x] **T304 [P0]** Add redacted belief summary to `LocalView`; evidence: heatmap/entropy present, opponent truth absent.
+- [x] **T305 [P0]** Add property tests for normalization, finiteness, masks, determinism, and transition mass.
+- [x] **T306 [P0]** Add contradictory scent-versus-hint scenarios and assert scent-dominant bounded update.
+- [x] **T307 [P0]** Add edge/corner/barrier/topology-change belief tests.
+- [x] **T308 [P0]** Add source/DTO/log scan proving live belief code never accepts opponent true position.
+- [x] **T309 [P1]** Benchmark 35-step belief updates on minimum and expanded boards; evidence: p95 stored in results.
+- [x] **T310 [P0]** Complete M6 review against Appendix E rules 8-9 and 23 plus PRD FR-BEL; evidence: signed exit checklist.
 
 ---
 

@@ -1,0 +1,33 @@
+{
+  "schema_version": "0.6.0",
+  "measured_at": "2026-07-25",
+  "platform": "Windows",
+  "python": "3.13.13",
+  "package_version": "0.6.0",
+  "candidate": "phase-6-working-tree",
+  "method": {
+    "clock": "time.perf_counter",
+    "coverage_enabled": false,
+    "warm_cache": true,
+    "updates_per_sample": 35,
+    "samples": 25,
+    "statistic": "median, nearest-rank p95, and maximum"
+  },
+  "measurements": {
+    "belief_35_steps_7x7": {
+      "median_ms": 83.416,
+      "p95_ms": 146.068,
+      "max_ms": 150.273
+    },
+    "belief_35_steps_15x15": {
+      "median_ms": 344.646,
+      "p95_ms": 503.546,
+      "max_ms": 510.82
+    }
+  },
+  "gates": {
+    "belief_35_steps_7x7_p95_max_ms": 500,
+    "belief_35_steps_15x15_p95_max_ms": 1000,
+    "result": "PASS"
+  }
+}

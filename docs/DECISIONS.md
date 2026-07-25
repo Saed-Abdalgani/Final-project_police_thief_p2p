@@ -14,6 +14,7 @@
 | ADR-005 | At-least-once delivery with exactly-once application effects | Accepted | 2026-07-25 | Protocol, Reliability |
 | ADR-006 | Reject out-of-order requests without buffering | Accepted | 2026-07-25 | Protocol, Security |
 | ADR-007 | HMAC-SHA-256 for course-key Step-0 declarations | Accepted | 2026-07-25 | Security, Protocol |
+| ADR-014 | Exact scent decimals and boundary-only quantization | Accepted | 2026-07-25 | Belief, Protocol |
 
 ## 2. ADR template
 
@@ -265,3 +266,45 @@ match requires new signed declarations.
 Golden HMAC, body/key/signature tamper, missing/short key, environment/file-handle
 loading, serialization absence, repr/log redaction, clean/dirty/unknown Git, and
 two-peer preflight tests.
+
+## ADR-014 - Exact scent decimals and boundary-only quantization
+
+**Status:** Accepted
+**Date:** 2026-07-25
+**Requirements:** FR-BEL-001..015, Appendix E rules 8-9 and 23
+
+### Context
+
+Binary floats and per-operation rounding can make two peers produce different
+scent frames and commitments despite starting with identical moves. Belief
+updates need efficient log-space arithmetic, but their tolerances must not weaken
+the exact evidence contract.
+
+### Decision
+
+- Scent parameters, kernel, accumulation, clamp, and decay use finite base-10
+  `Decimal` arithmetic with context precision 28 or greater.
+- Internal scent values are never rounded. At wire/audit boundaries only, values
+  quantize to six places using `ROUND_HALF_EVEN` and serialize as fixed-point
+  decimal strings.
+- Scent frames use row-major sparse ordering and canonical JSON before SHA-256.
+- Beliefs use finite binary floats, log-sum-exp normalization, and absolute
+  normalization tolerance `1e-12`.
+- Belief diagnostic/audit output quantizes row-major probabilities to 12 fixed
+  decimal places. Quantized values never feed a later live update.
+- NaN, infinity, negatives, exponent-form scent strings, and dimension/range
+  mismatches fail closed.
+
+### Consequences
+
+Scent commitments are byte-stable across platforms. Belief implementations may
+use optimized local floating-point math while sharing an explicit acceptance
+tolerance and deterministic diagnostic digest. Internal exact scent state must be
+persisted as decimal strings, not binary floats.
+
+### Verification
+
+The vector `data/conformance/scent/emission_decay.json` covers center, edge,
+corner, overlap, repeated stay, and full-turn decay. Schema/digest substitution,
+restart restoration, long-run underflow, normalization, and two-independent-peer
+tests verify both numeric profiles.

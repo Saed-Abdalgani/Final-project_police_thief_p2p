@@ -43,7 +43,7 @@
     "model_provider": {"type": "string", "minLength": 1, "maxLength": 100},
     "model_name": {"type": "string", "minLength": 1, "maxLength": 200},
     "config_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
-    "protocol_version": {"const": "0.5.0"},
+    "protocol_version": {"enum": ["0.5.0", "0.6.0"]},
     "scent_model_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
     "scent_frame_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
   }

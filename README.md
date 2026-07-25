@@ -5,9 +5,10 @@ without a central game server or shared live state. Each peer owns only local tr
 uses SHA-256 Commit-Reveal for later audit, and exposes all business capabilities
 through a typed `SimulationSdk`.
 
-Status: cryptographic mutual-audit milestone. Strict configuration, deterministic
-local-only physics, FastMCP negotiation, sealed commit/ack/reveal, signed Step-0,
-hash-chained evidence, and independent fail-closed replay are complete.
+Status: scent and Bayesian-belief milestone. Strict configuration, deterministic
+local-only physics, FastMCP negotiation, sealed mutual audit, exact scent
+evidence, privacy-safe probabilistic tracking, and independent fail-closed replay
+are complete.
 
 ## Requirements
 

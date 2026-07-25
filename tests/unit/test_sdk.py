@@ -30,7 +30,7 @@ def test_sdk_readiness_is_typed_and_serializable() -> None:
         {
             "name": "config.contracts",
             "passed": True,
-            "detail": "Packaged schemas match schema 0.2.0 and protocol 0.5.0.",
+            "detail": "Packaged schemas match schema 0.2.0 and protocol 0.6.0.",
         },
     ]
 
@@ -41,14 +41,14 @@ def test_cli_json_calls_sdk_and_returns_safe_payload(
     assert main(["readiness", "--json"]) == 0
     payload = json.loads(capsys.readouterr().out)
     assert payload["status"] == "READY"
-    assert payload["package_version"] == "0.5.0"
+    assert payload["package_version"] == "0.6.0"
 
 
 def test_cli_human_output_and_parser(capsys: pytest.CaptureFixture[str]) -> None:
     assert build_parser().prog == "police-thief-p2p"
     assert main(["readiness"]) == 0
     output = capsys.readouterr().out
-    assert "READY: package 0.5.0" in output
+    assert "READY: package 0.6.0" in output
     assert "config.contracts: PASS" in output
 
 

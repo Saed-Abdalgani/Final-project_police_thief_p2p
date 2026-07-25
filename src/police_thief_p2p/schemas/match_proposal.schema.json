@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://police-thief-p2p.invalid/schemas/0.2.0/match_proposal.schema.json",
-  "x-protocol-version": "0.5.0",
+  "x-protocol-version": "0.6.0",
   "title": "Fail-Closed Match Proposal",
   "type": "object",
   "additionalProperties": false,

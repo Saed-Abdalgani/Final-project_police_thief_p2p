@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/police-thief/0.2.0/scent_frame.schema.json",
+  "title": "Commitment-linked sparse opponent scent frame",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "frame_version", "game_uid", "sub_game_number", "step_number", "actor",
+    "rows", "cols", "scent_model_sha256", "cells", "frame_sha256"
+  ],
+  "properties": {
+    "frame_version": {"const": "1.0.0"},
+    "game_uid": {"type": "string", "format": "uuid"},
+    "sub_game_number": {"type": "integer", "minimum": 1, "maximum": 6},
+    "step_number": {"type": "integer", "minimum": 1},
+    "actor": {"enum": ["police", "thief"]},
+    "rows": {"type": "integer", "minimum": 1, "maximum": 10000},
+    "cols": {"type": "integer", "minimum": 1, "maximum": 10000},
+    "scent_model_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "cells": {
+      "type": "array",
+      "maxItems": 2048,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["row", "col", "value"],
+        "properties": {
+          "row": {"type": "integer", "minimum": 0},
+          "col": {"type": "integer", "minimum": 0},
+          "value": {
+            "type": "string",
+            "pattern": "^(?:0(?:\\.\\d+)?|1(?:\\.0+)?)$"
+          }
+        }
+      }
+    },
+    "frame_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "not": {
+    "anyOf": [
+      {"required": ["opponent_position"]},
+      {"required": ["opponent_true_position"]},
+      {"required": ["true_position"]}
+    ]
+  }
+}

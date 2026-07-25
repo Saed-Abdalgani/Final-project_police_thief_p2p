@@ -42,10 +42,10 @@ def test_scent_policy_matches_signed_golden_vector() -> None:
         (ROOT / "data/conformance/scent/emission_decay.json").read_text(encoding="utf-8")
     )
     policy = ScentPolicy()
-    actual = [[format(value, "f") for value in row] for row in policy.emission()]
+    actual = [[policy.serialize(value) for value in row] for row in policy.emission()]
     assert actual == vector["expected_emission"]
-    assert format(policy.after_full_turn(Decimal("0.900000")), "f") == "0.810000"
-    assert format(policy.after_full_turn(Decimal("0.056250")), "f") == "0.050625"
+    assert policy.serialize(policy.after_full_turn(Decimal("0.900000"))) == "0.810000"
+    assert policy.serialize(policy.after_full_turn(Decimal("0.056250"))) == "0.050625"
 
 
 @pytest.mark.parametrize(

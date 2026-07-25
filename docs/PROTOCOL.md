@@ -1,9 +1,9 @@
 # Peer Protocol and Interoperability Contract
 
-**Contract version:** `0.5.0`
+**Contract version:** `0.6.0`
 **Schema family:** `0.2.0`
-**Status:** M4 tool inventory frozen; M5 payload semantics frozen
-**Authority:** `docs/PRD.md`, `docs/PRD_MCP_INFRASTRUCTURE.md`, ADR-004/005/006
+**Status:** M4 tool inventory frozen; M5 audit and M6 scent evidence semantics frozen
+**Authority:** `docs/PRD.md`, mechanism PRDs, ADR-004/005/006/014
 
 ## 1. Boundary and ownership
 
@@ -19,8 +19,8 @@ state, or opponent truth.
 
 ## 2. Frozen tool inventory
 
-All tool semantic versions remain `1.0.0` within protocol `0.5.0`; M5 advances
-the payload contract while preserving the M4 tool names and ownership.
+All tool semantic versions remain `1.0.0` within protocol `0.6.0`; M5/M6 advance
+payload contracts while preserving the M4 tool names and ownership.
 
 | Tool | Request owner | Response owner | Mutating | Required phase -> next phase |
 |---|---|---|---|---|
@@ -47,6 +47,9 @@ Commit sends only identity/digest, acknowledgement locks exact bytes, live revea
 conforms to `live_reveal.schema.json` and forbids nonce, final reveal conforms to
 `final_reveal.schema.json`, audit results conform to `audit_report.schema.json`,
 and reporting requires matching audit-manifest and independent-result digests.
+M6 adds `scent_frame.schema.json`: the frame is sparse, bounded, linked to exact
+game/sub-game/step/actor/model identity, and its digest is sealed in the M5
+commitment. It contains evidence cells, never an opponent true position.
 
 ## 3. Common envelope
 
@@ -55,7 +58,7 @@ Every session-bound request validates against
 
 ```json
 {
-  "protocol_version": "0.5.0",
+  "protocol_version": "0.6.0",
   "message_type": "commit_step_v1",
   "message_id": "7aa6fd2e-80b7-4adf-a0c7-533c41b7429c",
   "correlation_id": "2445bb6f-050d-4595-8c3e-cf6028554a69",

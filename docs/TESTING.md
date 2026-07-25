@@ -83,6 +83,24 @@ disagreement. The localhost test transports the complete final-reveal graph
 through two isolated OS processes in both startup orders and requires both audits
 to return `Verified OK`.
 
+## M6 scent and belief campaign
+
+```text
+uv run pytest tests/unit/test_scent_phase6.py -q
+uv run pytest tests/unit/test_belief_grid.py tests/unit/test_hint_belief_service.py -q
+uv run pytest tests/integration/test_belief_interop.py -q
+uv run pytest tests/property/test_belief_properties.py -q
+uv run pytest tests/security/test_belief_privacy.py -q
+uv run pytest tests/performance/test_belief_performance.py -q
+```
+
+The campaign independently reproduces all signed scent cases, validates private
+history across restart, rejects substituted reveal/frame context, proves
+normalization/masks/transition mass with Hypothesis, neutralizes command-like
+hints, and scans live DTOs/SDK signatures for opponent truth. Stored 25-sample
+35-update p95 results for 7x7 and 15x15 boards are in
+`results/benchmarks/m6_belief.json`.
+
 ## Negative gate evidence
 
 Quality tools include synthetic negative tests:

@@ -2,6 +2,30 @@
 
 All notable project changes are documented here. The project follows semantic versioning for documentation, package, protocol, config, and schema contracts, with compatibility recorded separately when those versions diverge.
 
+## Package [0.6.0] - 2026-07-25
+
+### Added
+
+- Exact unrounded Decimal scent fields with signed 5x5 emission, clipping,
+  accumulation/clamp, full Police-plus-Thief turn decay, private restart-safe
+  history, and expanded cross-peer conformance vectors.
+- Commitment-linked bounded `ScentFrame`, reveal-gated validation, and schemas
+  that structurally exclude live opponent truth.
+- Immutable normalized `BeliefGrid`, reachable priors, public topology masks,
+  uniform and behavioral-mixture transition kernels, and log-space scent fusion.
+- Command-free semantic hint parsing, category-isolated recency-aware Beta
+  reliability, likelihood-ratio caps, deterministic degenerate recovery, entropy,
+  credible regions, redacted local views, and post-audit-only calibration.
+- Property, privacy, adversarial, interoperability, persistence, and 35-step
+  minimum/expanded board performance campaigns.
+
+### Changed
+
+- Package and peer payload protocol advance to `0.6.0`; the compatible artifact
+  schema family remains `0.2.0`.
+- Quantization now occurs only at scent wire/audit and belief diagnostic
+  boundaries under accepted ADR-014.
+
 ## Package [0.5.0] - 2026-07-25
 
 ### Added

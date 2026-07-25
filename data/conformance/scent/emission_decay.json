@@ -11,5 +11,49 @@
     ["0.056250", "0.112500", "0.225000", "0.112500", "0.056250"]
   ],
   "center_after_one_full_turn": "0.810000",
-  "corner_after_one_full_turn": "0.050625"
+  "corner_after_one_full_turn": "0.050625",
+  "cases": [
+    {
+      "name": "center",
+      "positions": [[3, 3]],
+      "full_turn_decay": false,
+      "expected_cell_count": 25,
+      "probes": [[1, 1, "0.056250"], [1, 3, "0.225000"], [3, 3, "0.900000"], [3, 4, "0.450000"], [3, 5, "0.225000"], [5, 5, "0.056250"]]
+    },
+    {
+      "name": "edge",
+      "positions": [[0, 3]],
+      "full_turn_decay": false,
+      "expected_cell_count": 15,
+      "probes": [[0, 1, "0.225000"], [0, 3, "0.900000"], [1, 1, "0.112500"], [1, 3, "0.450000"]]
+    },
+    {
+      "name": "corner",
+      "positions": [[0, 0]],
+      "full_turn_decay": false,
+      "expected_cell_count": 9,
+      "probes": [[0, 0, "0.900000"], [0, 1, "0.450000"], [1, 1, "0.225000"]]
+    },
+    {
+      "name": "overlap",
+      "positions": [[3, 3], [3, 4]],
+      "full_turn_decay": false,
+      "expected_cell_count": 30,
+      "probes": [[1, 1, "0.056250"], [1, 3, "0.337500"], [3, 3, "1.000000"], [3, 4, "1.000000"], [3, 5, "0.675000"], [5, 5, "0.168750"]]
+    },
+    {
+      "name": "repeated_stay",
+      "positions": [[3, 3], [3, 3]],
+      "full_turn_decay": false,
+      "expected_cell_count": 25,
+      "probes": [[1, 1, "0.112500"], [1, 3, "0.450000"], [3, 3, "1.000000"], [3, 4, "0.900000"], [3, 5, "0.450000"], [5, 5, "0.112500"]]
+    },
+    {
+      "name": "decay",
+      "positions": [[3, 3]],
+      "full_turn_decay": true,
+      "expected_cell_count": 25,
+      "probes": [[1, 1, "0.050625"], [1, 3, "0.202500"], [3, 3, "0.810000"], [3, 4, "0.405000"], [3, 5, "0.202500"], [5, 5, "0.050625"]]
+    }
+  ]
 }

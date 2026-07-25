@@ -21,6 +21,8 @@
     {"schema": "sub_game_config.schema.json", "valid": "artifacts/sub_game_config.valid.json", "invalid": "artifacts/sub_game_config.invalid.json"},
     {"schema": "log.schema.json", "valid": "artifacts/log.valid.json", "invalid": "artifacts/log.invalid.json"},
     {"schema": "final_result.schema.json", "valid": "artifacts/final_result.valid.json", "invalid": "artifacts/final_result.invalid.json"},
-    {"schema": "protocol_envelope.schema.json", "valid": "artifacts/protocol_envelope.valid.json", "invalid": "artifacts/protocol_envelope.invalid.json"}
+    {"schema": "protocol_envelope.schema.json", "valid": "artifacts/protocol_envelope.valid.json", "invalid": "artifacts/protocol_envelope.invalid.json"},
+    {"schema": "scent_frame.schema.json", "valid": "artifacts/scent_frame.valid.json", "invalid": "artifacts/scent_frame.invalid.json"},
+    {"schema": "belief_summary.schema.json", "valid": "artifacts/belief_summary.valid.json", "invalid": "artifacts/belief_summary.invalid.json"}
   ]
 }

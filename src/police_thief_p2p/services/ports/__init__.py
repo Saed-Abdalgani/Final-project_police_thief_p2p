@@ -3,6 +3,7 @@
 from police_thief_p2p.services.ports.clock import ClockPort
 from police_thief_p2p.services.ports.email import EmailMessage, EmailPort, EmailReceipt
 from police_thief_p2p.services.ports.git_info import GitInfoPort, GitState
+from police_thief_p2p.services.ports.hint_parser import HintParserPort, SemanticHintEvidence
 from police_thief_p2p.services.ports.language import (
     LanguagePort,
     LanguageRequest,
@@ -25,11 +26,13 @@ __all__ = [
     "EntropySource",
     "GitInfoPort",
     "GitState",
+    "HintParserPort",
     "LanguagePort",
     "LanguageRequest",
     "LanguageResponse",
     "RandomSource",
     "RepositoryPort",
+    "SemanticHintEvidence",
     "SystemInfo",
     "SystemInfoPort",
     "TransportPort",
