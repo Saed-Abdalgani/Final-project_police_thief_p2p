@@ -152,51 +152,51 @@ A checked task has:
 
 **Exit gate:** shared/private configuration, identifiers, canonicalization, and all external schemas are strict, versioned, and backed by golden vectors.
 
-- [ ] **T076 [P0]** Write `docs/PRD_BASE_LOGIC.md` configuration assumptions section before config code; evidence: reviewed parameter ownership.
-- [ ] **T077 [P0]** Define typed `GroupId` with exact eight-character submission mode and safe general development mode; evidence: boundary tests.
-- [ ] **T078 [P0]** Define safe `GameId` slug grammar and maximum length; evidence: traversal and Unicode-confusable tests.
-- [ ] **T079 [P0]** Define UUID-backed `GameUid`, `MessageId`, and `CorrelationId`; evidence: parsing and generation tests.
-- [ ] **T080 [P0]** Define typed `SubGameNumber` and `StepNumber` with valid ranges; evidence: zero/negative/overflow rejection tests.
-- [ ] **T081 [P0]** Create JSON Schema for shared `game.json`; evidence: every Appendix F key is required.
-- [ ] **T082 [P0]** Set `additionalProperties: false` outside namespaced extensions; evidence: unknown-key rejection test.
-- [ ] **T083 [P0]** Encode board/coordinate/start fields and constraints in schema; evidence: default 7x7 example validates.
-- [ ] **T084 [P0]** Encode world/map-area/hint-cap fields in schema; evidence: length and word-cap boundaries.
-- [ ] **T085 [P0]** Encode movement/barrier/step/survival fields in schema; evidence: diagonal move-set fixture rejected.
-- [ ] **T086 [P0]** Encode fixed scoring fields in schema; evidence: each one-field mutation rejected by semantic validation.
-- [ ] **T087 [P0]** Encode scent center/decay/window fields in schema; evidence: fixed-value mutations rejected.
-- [ ] **T088 [P0]** Encode league count/diversity/token/max-match fields in schema; evidence: six-game default example.
-- [ ] **T089 [P0]** Encode Gatekeeper rate/concurrency/backoff/retry/queue/timeout fields in schema; evidence: positive-range tests.
-- [ ] **T090 [P0]** Implement typed shared-config models separate from JSON parsing; evidence: model construction tests.
-- [ ] **T091 [P0]** Implement fixed-parameter enforcement table from Appendix F; evidence: table-driven tests cover every fixed key.
-- [ ] **T092 [P0]** Implement minimum-parameter direction rules per key; evidence: below-threshold rejection and stricter-value acceptance.
-- [ ] **T093 [P0]** Implement negotiable defaults exactly as Appendix F; evidence: omitted values resolve to documented defaults.
-- [ ] **T094 [P0]** Implement cross-field validation for starts within board and distinct/legal initial state; evidence: invalid-start matrix.
-- [ ] **T095 [P0]** Implement coordinate-origin and start-index conversion model; evidence: all four origin corners and indexes 0/1 round-trip.
-- [ ] **T096 [P0]** Define the exact signed 5x5 scent kernel/formula representation; evidence: golden numeric example reviewed.
-- [ ] **T097 [P0]** Add shared config field for scent interoperability/rounding policy; evidence: two independent implementations match vectors.
-- [ ] **T098 [P0]** Create private `game.toml` typed model; evidence: example covers identity, network, paths, strategy, language, email, and GUI.
-- [ ] **T099 [P0]** Ensure private model rejects shared game-rule fields in unsafe sections; evidence: weakening attempt fails.
-- [ ] **T100 [P0]** Implement shared JSON loader with duplicate-key, size, depth, NaN, and encoding rejection; evidence: hostile fixture suite.
-- [ ] **T101 [P0]** Implement private TOML loader with source-path-aware errors; evidence: malformed TOML reports safe location.
-- [ ] **T102 [P0]** Implement `EffectiveConfig` merge where shared values always win; evidence: provenance assertions per merged field.
-- [ ] **T103 [P0]** Implement environment-variable resolution for secrets only; evidence: ordinary game rules cannot be overridden by environment.
-- [ ] **T104 [P0]** Implement config error codes and exact JSON/TOML path messages; evidence: snapshot tests contain no secret values.
-- [ ] **T105 [P0]** Specify canonical JSON: UTF-8, sorted keys, fixed separators, finite values, normalized types; evidence: ADR-004 finalized.
-- [ ] **T106 [P0]** Implement canonical JSON serializer; evidence: byte-for-byte golden vectors pass across repeated runs.
-- [ ] **T107 [P0]** Implement config SHA-256 digest helper using canonical bytes; evidence: expected digest vector.
-- [ ] **T108 [P0]** Implement byte-identical raw-file comparison alongside canonical semantic digest; evidence: whitespace-only mismatch behavior documented/tested.
-- [ ] **T109 [P0]** Create `game.example.json` with all binding defaults and six sub-games; evidence: schema and semantic validation pass.
-- [ ] **T110 [P0]** Create `game.example.toml` with safe local defaults and comments; evidence: loader and redacted display pass.
-- [ ] **T111 [P0]** Create `rate_limits.example.json` for per-service Gatekeeper profiles; evidence: no rate is hard-coded in source.
-- [ ] **T112 [P0]** Create declaration JSON Schema draft; evidence: valid/invalid example fixtures.
-- [ ] **T113 [P0]** Create per-sub-game config artifact JSON Schema draft; evidence: config digest and role fields required.
-- [ ] **T114 [P0]** Create log artifact JSON Schema draft; evidence: ordered sealed-step and audit fields required.
-- [ ] **T115 [P0]** Create final result JSON Schema draft; evidence: commits, tokens, scores, links, and agreement required.
-- [ ] **T116 [P0]** Create common protocol-envelope schema; evidence: version, IDs, sender, sequence, and payload enforced.
-- [ ] **T117 [P0]** Create configuration conformance-vector directory with canonical bytes/digests; evidence: manifest lists every vector.
-- [ ] **T118 [P0]** Add property tests for config round-trip and canonicalization idempotence; evidence: Hypothesis campaign passes.
-- [ ] **T119 [P0]** Add config compatibility report to SDK readiness command; evidence: human and JSON outputs.
-- [ ] **T120 [P0]** Complete M2 contract review with Appendix F rendered pages; evidence: independent reviewer signs no omissions.
+- [x] **T076 [P0]** Write `docs/PRD_BASE_LOGIC.md` configuration assumptions section before config code; evidence: reviewed parameter ownership.
+- [x] **T077 [P0]** Define typed `GroupId` with exact eight-character submission mode and safe general development mode; evidence: boundary tests.
+- [x] **T078 [P0]** Define safe `GameId` slug grammar and maximum length; evidence: traversal and Unicode-confusable tests.
+- [x] **T079 [P0]** Define UUID-backed `GameUid`, `MessageId`, and `CorrelationId`; evidence: parsing and generation tests.
+- [x] **T080 [P0]** Define typed `SubGameNumber` and `StepNumber` with valid ranges; evidence: zero/negative/overflow rejection tests.
+- [x] **T081 [P0]** Create JSON Schema for shared `game.json`; evidence: every Appendix F key is required.
+- [x] **T082 [P0]** Set `additionalProperties: false` outside namespaced extensions; evidence: unknown-key rejection test.
+- [x] **T083 [P0]** Encode board/coordinate/start fields and constraints in schema; evidence: default 7x7 example validates.
+- [x] **T084 [P0]** Encode world/map-area/hint-cap fields in schema; evidence: length and word-cap boundaries.
+- [x] **T085 [P0]** Encode movement/barrier/step/survival fields in schema; evidence: diagonal move-set fixture rejected.
+- [x] **T086 [P0]** Encode fixed scoring fields in schema; evidence: each one-field mutation rejected by semantic validation.
+- [x] **T087 [P0]** Encode scent center/decay/window fields in schema; evidence: fixed-value mutations rejected.
+- [x] **T088 [P0]** Encode league count/diversity/token/max-match fields in schema; evidence: six-game default example.
+- [x] **T089 [P0]** Encode Gatekeeper rate/concurrency/backoff/retry/queue/timeout fields in schema; evidence: positive-range tests.
+- [x] **T090 [P0]** Implement typed shared-config models separate from JSON parsing; evidence: model construction tests.
+- [x] **T091 [P0]** Implement fixed-parameter enforcement table from Appendix F; evidence: table-driven tests cover every fixed key.
+- [x] **T092 [P0]** Implement minimum-parameter direction rules per key; evidence: below-threshold rejection and stricter-value acceptance.
+- [x] **T093 [P0]** Implement negotiable defaults exactly as Appendix F; evidence: omitted values resolve to documented defaults.
+- [x] **T094 [P0]** Implement cross-field validation for starts within board and distinct/legal initial state; evidence: invalid-start matrix.
+- [x] **T095 [P0]** Implement coordinate-origin and start-index conversion model; evidence: all four origin corners and indexes 0/1 round-trip.
+- [x] **T096 [P0]** Define the exact signed 5x5 scent kernel/formula representation; evidence: golden numeric example reviewed.
+- [x] **T097 [P0]** Add shared config field for scent interoperability/rounding policy; evidence: two independent implementations match vectors.
+- [x] **T098 [P0]** Create private `game.toml` typed model; evidence: example covers identity, network, paths, strategy, language, email, and GUI.
+- [x] **T099 [P0]** Ensure private model rejects shared game-rule fields in unsafe sections; evidence: weakening attempt fails.
+- [x] **T100 [P0]** Implement shared JSON loader with duplicate-key, size, depth, NaN, and encoding rejection; evidence: hostile fixture suite.
+- [x] **T101 [P0]** Implement private TOML loader with source-path-aware errors; evidence: malformed TOML reports safe location.
+- [x] **T102 [P0]** Implement `EffectiveConfig` merge where shared values always win; evidence: provenance assertions per merged field.
+- [x] **T103 [P0]** Implement environment-variable resolution for secrets only; evidence: ordinary game rules cannot be overridden by environment.
+- [x] **T104 [P0]** Implement config error codes and exact JSON/TOML path messages; evidence: snapshot tests contain no secret values.
+- [x] **T105 [P0]** Specify canonical JSON: UTF-8, sorted keys, fixed separators, finite values, normalized types; evidence: ADR-004 finalized.
+- [x] **T106 [P0]** Implement canonical JSON serializer; evidence: byte-for-byte golden vectors pass across repeated runs.
+- [x] **T107 [P0]** Implement config SHA-256 digest helper using canonical bytes; evidence: expected digest vector.
+- [x] **T108 [P0]** Implement byte-identical raw-file comparison alongside canonical semantic digest; evidence: whitespace-only mismatch behavior documented/tested.
+- [x] **T109 [P0]** Create `game.example.json` with all binding defaults and six sub-games; evidence: schema and semantic validation pass.
+- [x] **T110 [P0]** Create `game.example.toml` with safe local defaults and comments; evidence: loader and redacted display pass.
+- [x] **T111 [P0]** Create `rate_limits.example.json` for per-service Gatekeeper profiles; evidence: no rate is hard-coded in source.
+- [x] **T112 [P0]** Create declaration JSON Schema draft; evidence: valid/invalid example fixtures.
+- [x] **T113 [P0]** Create per-sub-game config artifact JSON Schema draft; evidence: config digest and role fields required.
+- [x] **T114 [P0]** Create log artifact JSON Schema draft; evidence: ordered sealed-step and audit fields required.
+- [x] **T115 [P0]** Create final result JSON Schema draft; evidence: commits, tokens, scores, links, and agreement required.
+- [x] **T116 [P0]** Create common protocol-envelope schema; evidence: version, IDs, sender, sequence, and payload enforced.
+- [x] **T117 [P0]** Create configuration conformance-vector directory with canonical bytes/digests; evidence: manifest lists every vector.
+- [x] **T118 [P0]** Add property tests for config round-trip and canonicalization idempotence; evidence: Hypothesis campaign passes.
+- [x] **T119 [P0]** Add config compatibility report to SDK readiness command; evidence: human and JSON outputs.
+- [x] **T120 [P0]** Complete M2 contract review with Appendix F rendered pages; evidence: independent reviewer signs no omissions.
 
 ---
 

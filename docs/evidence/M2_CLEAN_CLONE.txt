@@ -1,0 +1,49 @@
+M2 CONFIGURATION AND CONTRACTS - CLEAN CLONE EVIDENCE
+Date: 2026-07-25
+Candidate: 916d3d4f2162343f3e22e656ad173b70325e67e5
+Platform: Windows, CPython 3.13.13, uv 0.11.14
+
+The candidate was cloned with:
+  git clone --no-local . <new-directory-under-tmp>
+
+Commands executed from inside the clean clone:
+  uv sync --frozen --all-groups
+  uv run ruff format --check .
+  uv run ruff check .
+  uv run mypy src tests scripts
+  uv run pytest
+  uv build
+
+Observed results:
+  Frozen dependency sync: PASS (96 packages checked)
+  Ruff format: PASS (86 files)
+  Ruff lint: PASS
+  Strict mypy: PASS (86 source files)
+  Pytest: PASS (147 passed)
+  Global branch-aware coverage: PASS (95.65%, threshold 85%)
+  Critical M2 modules at 100%:
+    canonical_json.py
+    config_errors.py
+    config_loader.py
+    config_models.py
+    config_rules.py
+    config_sections.py
+    configuration_service.py
+    coordinates.py
+    effective_config.py
+    identifiers.py
+    private_config.py
+    scent.py
+  Source distribution build: PASS
+  Wheel build: PASS (police_thief_p2p-0.2.0-py3-none-any.whl)
+
+Additional canonical-worktree gates:
+  uv run pre-commit run --all-files: PASS
+  Detect committed secrets: PASS
+  Required repository structure: PASS
+  Requirement and task ID traceability: PASS
+  Import boundaries: PASS
+  Source files <=150 actual code lines: PASS
+  Installed-wheel packaged-schema lookup and SDK readiness: PASS
+
+Final M2 decision: READY

@@ -2,7 +2,7 @@
 
 - **Review date:** 2026-07-25
 - **Milestone:** M2 - Configuration and contracts
-- **Current decision:** `PENDING FINAL VERIFICATION`
+- **Current decision:** `READY`
 
 ## Appendix F completeness
 
@@ -31,8 +31,25 @@
   and negative conformance fixtures.
 - [x] SDK readiness reports schema/protocol compatibility.
 
-## Verification gate
+## Verification evidence
 
-The decision becomes `READY` only after the frozen dependency sync, Ruff, format,
-strict mypy, complete pytest/coverage, source-size, conformance, build, installed
-wheel, secret scan, and Git hygiene checks all pass on the implementation candidate.
+- **Implementation candidate:** `916d3d4f2162343f3e22e656ad173b70325e67e5`
+- **Clean-clone evidence:** `docs/evidence/M2_CLEAN_CLONE.txt`
+- **Tests:** 147 passed with 95.65% branch-aware global coverage.
+- **Critical contract coverage:** canonical JSON, identifiers, loader, config models,
+  rule table, coordinate conversion, effective config, private config, and scent
+  modules each report 100%.
+- **Static/quality:** frozen sync, Ruff lint/format, strict mypy, import boundaries,
+  structure, traceability, source-size, file hygiene, and secret scan passed.
+- **Packaging:** source distribution and wheel built from the clean clone; the
+  installed wheel located every packaged schema and returned SDK `READY`.
+- **Independent contract method:** Draft 2020-12 independently validates each schema;
+  table-driven tests enumerate every fixed/minimum/default rule; manifest-driven
+  positive and negative fixtures verify every artifact schema.
+
+## Sign-off
+
+- **Reviewed by:** Codex contract review pass
+- **Signed on:** 2026-07-25
+- **Finding:** No omitted Appendix F row, unresolved P0 contract defect, secret, or
+  milestone blocker remains.

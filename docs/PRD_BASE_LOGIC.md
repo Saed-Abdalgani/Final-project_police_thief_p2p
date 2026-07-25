@@ -3,7 +3,7 @@
 **Status:** M2 configuration contract finalized; M3 physics remains planned
 **Owner:** Domain Lead
 **Requirements:** FR-CFG-001..013, FR-GAME-001..020, FR-SDK-001..008
-**Rules:** Appendix E 11-16 and 46-48; Appendix F F-001..F-025
+**Rules:** Appendix E 11-16 and 46-48; Appendix F F-001..F-032
 
 ## Purpose and scope
 
