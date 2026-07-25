@@ -2,6 +2,33 @@
 
 All notable project changes are documented here. The project follows semantic versioning for documentation, package, protocol, config, and schema contracts, with compatibility recorded separately when those versions diverge.
 
+## Package [0.7.0] - 2026-07-25
+
+### Added
+
+- Private-only typed Police/Thief strategy selectors and weights, stable
+  `StrategyBrain`/`Decision` contracts, final legality guard, deterministic
+  posterior baselines, and fake-clock deadline fallback.
+- Stratified posterior sampling, bounded iterative risk search and transposition
+  cache, graph-aware Police barriers, Thief survival/mode scoring, and
+  opponent/version-isolated audited adaptation.
+- Zero-token semantic hint templates, Unicode word caps, trust-aware deception,
+  strict Gatekeeper-only optional paraphrasing, and commitment-bound semantic
+  intent.
+- Formal CAS lifecycle phase machine, SDK-owned policy-free Orchestrator,
+  operation deadlines, transport-only retry/backoff, circuit breaker,
+  cancellation, independent Watchdog, and redacted health states.
+- Hash-chained durable orchestration journal, exact mutual checkpoints,
+  persist-before-ack crash hooks, bounded priority queues, tunnel preflight, and
+  ordered cooperative shutdown.
+- Competitive latency/paired-role evidence and a 1,000-sub-game persistence plus
+  Watchdog soak with zero deadlocks.
+
+### Changed
+
+- Package and protocol advance to `0.7.0`; commitment bodies advance to `1.1.0`
+  to bind the semantic hint intent. Artifact schema family remains `0.2.0`.
+
 ## Package [0.6.0] - 2026-07-25
 
 ### Added

@@ -41,11 +41,12 @@ def make_scent_reveal(frame: OpponentScentFrame) -> LiveReveal:
         action=CommittedAction.from_domain(Action.stay()),
         hint="quiet center",
         verdict="truth",
+        hint_semantic_intent="center",
         token_count=0,
         model_provider="template",
         model_name="deterministic",
         config_sha256=DIGEST,
-        protocol_version="0.6.0",
+        protocol_version="0.7.0",
         scent_model_sha256=frame.scent_model_sha256,
         scent_frame_sha256=frame.frame_sha256,
     )

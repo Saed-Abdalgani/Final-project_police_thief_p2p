@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.7.0",
+  "measured_at": "2026-07-25",
+  "platform": "Windows",
+  "python": "3.13.13",
+  "package_version": "0.7.0",
+  "seeded_sub_games": 1000,
+  "persistence_enabled": true,
+  "watchdog_enabled": true,
+  "terminal_counts": {
+    "completed": 1000
+  },
+  "progress_checks": 18000,
+  "journal_records": 17000,
+  "wall_seconds": 2.716,
+  "deadlocks": 0,
+  "unbounded_waits": 0,
+  "result": "PASS"
+}

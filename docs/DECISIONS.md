@@ -308,3 +308,50 @@ The vector `data/conformance/scent/emission_decay.json` covers center, edge,
 corner, overlap, repeated stay, and full-turn decay. Schema/digest substitution,
 restart restoration, long-run underflow, normalization, and two-independent-peer
 tests verify both numeric profiles.
+
+## ADR-015 - Orchestrator as an injected policy-free gateway
+
+**Status:** Accepted
+**Date:** 2026-07-25
+**Requirements:** FR-ORC-001..006, NFR-MNT-001..007
+
+The `PeerOrchestrator` owns phase ordering, deadlines, cancellation, progress, and
+terminal mapping only. Physics, belief, strategy, crypto, parsing, transport,
+persistence codecs, artifacts, and reporting remain behind injected ports and
+the public SDK. This makes the complete lifecycle model-testable without a remote
+peer and prevents a second implementation of business rules.
+
+## ADR-016 - Append-only local orchestration event journal
+
+**Status:** Accepted
+**Date:** 2026-07-25
+**Requirements:** FR-ORC-007..010, NFR-REL-001..004
+
+Mutating inbound events append canonical JSON with monotonic sequence, previous
+hash, and record hash through an atomic byte repository before acknowledgement.
+Restoration validates every link, session, and config binding. Corruption fails
+closed; a derived artifact is never treated as mutable live state.
+
+## ADR-017 - One monotonic deadline policy for every wait
+
+**Status:** Accepted
+**Date:** 2026-07-25
+**Requirements:** FR-ORC-006, FR-ORC-011..013, NFR-PERF-002, NFR-REL-001..002
+
+All waits and expensive operations receive absolute monotonic deadlines from an
+effective config policy. Shared response/watchdog values win; private config owns
+other local limits. Only transport-class failures retry, with identical
+idempotency context, finite attempts, exponential backoff, bounded seeded jitter,
+and circuit breaking. Semantic and integrity failures never retry.
+
+## ADR-018 - Exact mutual checkpoint recovery
+
+**Status:** Accepted
+**Date:** 2026-07-25
+**Requirements:** FR-ORC-009, FR-ORC-011..012, NFR-REL-002..004, NFR-REL-007
+
+Recovery resumes only when both peers present the same canonical digest of a
+session/config-bound, journal-linked, mutually acknowledged checkpoint. There is
+no nearest-state merge, invented acknowledgement, or silent rollback. Disagreement
+terminates safely and preserves the evidence needed to distinguish technical
+failure from tamper.

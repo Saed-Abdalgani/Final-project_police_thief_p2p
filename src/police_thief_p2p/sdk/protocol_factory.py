@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable, Mapping
 from pathlib import Path
 
 from police_thief_p2p.adapters.persistence import AtomicFileRepository
@@ -23,6 +24,7 @@ def create_protocol_runtime(
     counted_opponents: frozenset[str] = frozenset(),
     optional_capabilities: dict[str, object] | None = None,
     limits: ProtocolLimits | None = None,
+    health_provider: Callable[[], Mapping[str, object]] | None = None,
 ) -> ProtocolRuntime:
     """Compose one protocol runtime using only its private durable root."""
     shared = load_shared_bytes(shared_document)
@@ -40,4 +42,5 @@ def create_protocol_runtime(
         sessions=SessionRegistry(local_group, records),
         idempotency=IdempotencyRepository(records),
         limits=limits or ProtocolLimits(),
+        health_provider=health_provider,
     )

@@ -1,0 +1,58 @@
+{
+  "schema_version": "0.7.0",
+  "measured_at": "2026-07-25",
+  "platform": "Windows",
+  "python": "3.13.13",
+  "package_version": "0.7.0",
+  "method": {
+    "latency_samples": 20,
+    "coverage_enabled": false,
+    "paired_holdout_seeds": "1000-1019",
+    "baseline": "reference argmax-Manhattan without graph barriers"
+  },
+  "latency_ms": {
+    "p50": 105.469,
+    "p95": 205.11,
+    "max": 210.516,
+    "fallbacks": 0
+  },
+  "ablations": {
+    "belief": "full posterior vs argmax baseline",
+    "search": "depth-one vs iterative-depth golden scenarios",
+    "opponent_model": "uniform vs learned-mixture deterministic fixtures",
+    "barrier_graph": "graph cut and self-isolation golden scenarios",
+    "deception": "truth-only vs trust-aware semantic hint fixtures",
+    "risk": "mean-only vs CVaR downside-tail fixtures"
+  },
+  "paired_role_matrix": {
+    "police": {
+      "advanced_wins": 6,
+      "ties": 14,
+      "baseline_wins": 0
+    },
+    "thief": {
+      "advanced_wins": 6,
+      "ties": 14,
+      "baseline_wins": 0
+    }
+  },
+  "snapshots": [
+    {
+      "role": "police",
+      "action": "Action(action_type=<ActionType.MOVE: 'MOVE'>, direction=<Direction.SOUTH: 'S'>, target=None)",
+      "reason": "POLICE_RISK_SEARCH"
+    },
+    {
+      "role": "thief",
+      "action": "Action(action_type=<ActionType.MOVE: 'MOVE'>, direction=<Direction.EAST: 'E'>, target=None)",
+      "reason": "THIEF_MOBILITY"
+    }
+  ],
+  "gates": {
+    "legal_outputs": true,
+    "zero_token_default": true,
+    "p95_under_250_ms": true,
+    "no_reference_losses": true,
+    "result": "PASS"
+  }
+}

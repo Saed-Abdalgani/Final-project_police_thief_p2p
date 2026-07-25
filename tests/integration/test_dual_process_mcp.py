@@ -60,7 +60,8 @@ reorder_window = 8
 [paths]
 artifact_root = "{root}"
 [strategy]
-class_name = "conformance"
+police_class = "police_thief_p2p.services.strategy.police.AdvancedPoliceBrain"
+thief_class = "police_thief_p2p.services.strategy.thief.AdvancedThiefBrain"
 profile = "m4"
 [language]
 provider = "template"

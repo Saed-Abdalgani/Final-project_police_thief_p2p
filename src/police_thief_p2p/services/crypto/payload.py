@@ -61,7 +61,7 @@ class PublicEffect(ProtocolModel):
 class CommitmentBody(ProtocolModel):
     """Every public and private outcome-relevant field except the nonce."""
 
-    commitment_version: Literal["1.0.0"] = "1.0.0"
+    commitment_version: Literal["1.1.0"] = "1.1.0"
     game_uid: StrictStr
     sub_game_number: Annotated[StrictInt, Field(ge=1, le=6)]
     step_number: Annotated[StrictInt, Field(ge=1, le=2_147_483_647)]
@@ -70,6 +70,9 @@ class CommitmentBody(ProtocolModel):
     action: CommittedAction
     hint: Annotated[StrictStr, Field(max_length=2_000)]
     verdict: Literal["truth", "lie"]
+    hint_semantic_intent: Literal[
+        "north", "south", "east", "west", "center", "edge", "corner", "neutral"
+    ]
     public_effects: tuple[PublicEffect, ...] = ()
     token_count: Annotated[StrictInt, Field(ge=0)]
     model_provider: Annotated[StrictStr, Field(min_length=1, max_length=100)]

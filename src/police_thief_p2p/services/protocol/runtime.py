@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable, Mapping
+
 from police_thief_p2p.services.protocol.envelope import (
     ProtocolEnvelope,
     ProtocolResponse,
 )
 from police_thief_p2p.services.protocol.errors import ProtocolErrorCode, ProtocolFailure
+from police_thief_p2p.services.protocol.health import health_payload
 from police_thief_p2p.services.protocol.idempotency import (
     IdempotencyKey,
     IdempotencyRepository,
@@ -19,7 +22,6 @@ from police_thief_p2p.services.protocol.phases import require_phase
 from police_thief_p2p.services.protocol.processing import RequestProcessor
 from police_thief_p2p.services.protocol.session import SessionRegistry
 from police_thief_p2p.shared.version import (
-    PACKAGE_VERSION,
     PROTOCOL_VERSION,
     SCHEMA_VERSION,
 )
@@ -28,7 +30,7 @@ from police_thief_p2p.shared.version import (
 class ProtocolRuntime:
     """Execute strict requests with durable exactly-once application effects."""
 
-    __slots__ = ("_idempotency", "_processor", "_sessions", "_trace")
+    __slots__ = ("_health_provider", "_idempotency", "_processor", "_sessions", "_trace")
 
     def __init__(
         self,
@@ -38,11 +40,13 @@ class ProtocolRuntime:
         sessions: SessionRegistry,
         idempotency: IdempotencyRepository,
         limits: ProtocolLimits,
+        health_provider: Callable[[], Mapping[str, object]] | None = None,
     ) -> None:
         """Bind one isolated peer's protocol dependencies."""
         self._sessions = sessions
         self._idempotency = idempotency
         self._processor = RequestProcessor(local_group, negotiation, sessions, limits)
+        self._health_provider = health_provider
         self._trace: tuple[str, ...] = ()
 
     @property
@@ -55,12 +59,7 @@ class ProtocolRuntime:
         return self._ok(
             None,
             "peer is alive",
-            {
-                "status": "alive",
-                "package_version": PACKAGE_VERSION,
-                "protocol_version": PROTOCOL_VERSION,
-                "schema_version": SCHEMA_VERSION,
-            },
+            health_payload(self._health_provider),
         )
 
     def capabilities(self) -> ProtocolResponse:

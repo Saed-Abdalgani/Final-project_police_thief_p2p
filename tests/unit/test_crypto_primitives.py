@@ -31,11 +31,12 @@ def body(**changes: object) -> CommitmentBody:
         "action": CommittedAction.from_domain(Action.stay()),
         "hint": "still",
         "verdict": "truth",
+        "hint_semantic_intent": "neutral",
         "token_count": 0,
         "model_provider": "template",
         "model_name": "fixed",
         "config_sha256": DIGEST,
-        "protocol_version": "0.5.0",
+        "protocol_version": "0.7.0",
         "scent_model_sha256": DIGEST,
         "scent_frame_sha256": DIGEST,
     }
@@ -59,21 +60,22 @@ def test_commitment_has_stable_golden_bytes_and_constant_time_verification() -> 
     payload = CommitmentPayload(body(), SecretNonce(bytes(range(32))))
     expected = (
         b'{"action":{"action_type":"STAY","direction":null,"target":null},'
-        b'"actor":"police","commitment_version":"1.0.0","config_sha256":"'
+        b'"actor":"police","commitment_version":"1.1.0","config_sha256":"'
         + DIGEST.encode()
         + b'","game_uid":"12345678-1234-4234-8234-123456789abc","hint":"still",'
+        b'"hint_semantic_intent":"neutral",'
         b'"model_name":"fixed","model_provider":"template","nonce":"'
         b"000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"
         b'","pre_action_state_digest":"'
         + DIGEST.encode()
-        + b'","protocol_version":"0.5.0","public_effects":[],"scent_frame_sha256":"'
+        + b'","protocol_version":"0.7.0","public_effects":[],"scent_frame_sha256":"'
         + DIGEST.encode()
         + b'","scent_model_sha256":"'
         + DIGEST.encode()
         + b'","step_number":1,"sub_game_number":1,"token_count":0,"verdict":"truth"}'
     )
     assert payload.canonical_bytes() == expected
-    assert payload.digest() == "c66e743102b1644d8d4b1e6a029c7eab8de235965d34e3cc56131d35eec5b716"
+    assert payload.digest() == "496d8de1b8c1fb0def5a781b296932cb46bb17588236e139b7a67bfad25f6e05"
     assert verify_commitment(payload, payload.digest())
     assert "compare_digest" in inspect.getsource(verify_commitment)
 

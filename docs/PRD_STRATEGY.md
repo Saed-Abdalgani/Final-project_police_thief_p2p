@@ -1,6 +1,6 @@
 # Mechanism PRD - Competitive Police and Thief Strategy
 
-**Status:** M0 approved outline; finalize before M7 implementation
+**Status:** M7 implemented and approved
 **Owner:** Strategy Lead
 **Requirements:** FR-STR-001..009, FR-BEL-015, NFR-MNT-007, NFR-PERF-001..002
 **Competitive KPIs:** KPI-S01..S06, KPI-P01..P03
@@ -66,11 +66,44 @@ Out of scope: physics legality, posterior construction, network phases, and natu
 
 ## Finalization checklist
 
-- exact interfaces and feature definitions/scales;
-- deterministic tie-breaking and fallback;
-- search horizon/sample/time budgets;
-- cache invalidation and complexity;
-- opponent-model update policy;
-- hyperparameter schema and safe ranges;
-- baseline and holdout protocol from `docs/EXPERIMENTS.md`.
+- [x] exact interfaces and feature definitions/scales;
+- [x] deterministic tie-breaking and fallback;
+- [x] search horizon/sample/time budgets;
+- [x] cache invalidation and complexity;
+- [x] opponent-model update policy;
+- [x] hyperparameter schema and safe ranges;
+- [x] baseline and holdout protocol from `docs/EXPERIMENTS.md`.
 
+## Final contract
+
+`StrategyBrain.decide(StrategyRequest) -> Decision` is the only plugin interface.
+The request contains own `LocalGameState`, normalized `BeliefGrid`, engine-created
+legal actions, bounded public history, the private strategy section, a normalized
+legally learned opponent summary, injected clock/RNG, absolute deadline, and
+shared map/hint limits. It cannot represent opponent truth, secrets, replay truth,
+transport, or filesystem state.
+
+The final guard accepts only an exact member of `LocalGameState.legal_actions()`;
+Thief barriers are independently rejected. Exceptions, expired deadlines,
+malformed decisions, non-finite scores, and empty search results select the
+posterior-aware deterministic role baseline. The guard cutoff reserves 40 ms for
+commitment/persistence under the default 250 ms decision budget.
+
+Search uses 16 deterministic equal-mass posterior samples, iterative depths 1-3,
+a 512-entry deterministic LRU transposition cache, a 25% downside tail, and the
+private risk weight. Only a fully completed depth can replace the incumbent.
+Thief stochastic tie-breaking is limited to safe actions within 2% of the best
+score and is reproducible from the signed experiment seed.
+
+All weights live under private `[strategy.police]` and `[strategy.thief]`, are
+finite/non-negative and bounded, and carry semantic `profile_version`. Selectors
+are restricted to `police_thief_p2p.services.strategy.<module>.<StrategyBrain>`.
+Cross-sub-game opponent profiles are keyed by exact opponent/version; live
+updates cannot contain hidden path features, while richer path features require a
+completed audit.
+
+Hint intent is selected separately from movement. Deterministic templates are the
+zero-token default, use Unicode-aware word counting, contain no numeric coordinate
+protocol, and bind realized text, semantic region, and truth/lie verdict into
+commitment version `1.1.0`. Optional paraphrasing receives only quoted inert hint
+data through Gatekeeper and must return exact bounded JSON text or fall back.

@@ -2,7 +2,7 @@
   "vector_version": "1.0.0",
   "description": "Cross-repository Police STAY commitment",
   "body": {
-    "commitment_version": "1.0.0",
+    "commitment_version": "1.1.0",
     "game_uid": "12345678-1234-4234-8234-123456789abc",
     "sub_game_number": 1,
     "step_number": 1,
@@ -11,15 +11,16 @@
     "action": {"action_type": "STAY", "direction": null, "target": null},
     "hint": "still",
     "verdict": "truth",
+    "hint_semantic_intent": "neutral",
     "public_effects": [],
     "token_count": 0,
     "model_provider": "template",
     "model_name": "fixed",
     "config_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "protocol_version": "0.5.0",
+    "protocol_version": "0.7.0",
     "scent_model_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "scent_frame_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
   },
   "nonce_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
-  "commitment_sha256": "c66e743102b1644d8d4b1e6a029c7eab8de235965d34e3cc56131d35eec5b716"
+  "commitment_sha256": "496d8de1b8c1fb0def5a781b296932cb46bb17588236e139b7a67bfad25f6e05"
 }

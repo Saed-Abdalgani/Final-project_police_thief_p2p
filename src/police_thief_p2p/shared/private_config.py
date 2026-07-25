@@ -10,6 +10,8 @@ from pydantic import Field, HttpUrl, StrictBool, StrictInt, StrictStr, field_val
 from police_thief_p2p.shared.config_errors import ConfigError, ConfigErrorCode
 from police_thief_p2p.shared.config_sections import FrozenModel
 from police_thief_p2p.shared.identifiers import GroupId
+from police_thief_p2p.shared.reliability_config import ReliabilityConfig
+from police_thief_p2p.shared.strategy_config import StrategyConfig
 
 _ENV_NAME = re.compile(r"^[A-Z][A-Z0-9_]{1,127}$")
 
@@ -46,13 +48,6 @@ class PathsConfig(FrozenModel):
     """Private local artifact location."""
 
     artifact_root: Path
-
-
-class StrategyConfig(FrozenModel):
-    """Private strategy implementation and tuning profile selectors."""
-
-    class_name: StrictStr
-    profile: StrictStr
 
 
 class LanguageConfig(FrozenModel):
@@ -104,6 +99,7 @@ class PrivateConfig(FrozenModel):
     gui: GuiConfig
     tunnel: TunnelConfig
     observability: ObservabilityConfig
+    reliability: ReliabilityConfig = ReliabilityConfig()
 
     def secret_environment_names(self) -> tuple[str, ...]:
         """Return only explicitly allowlisted secret environment references."""

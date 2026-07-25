@@ -12,6 +12,8 @@ from police_thief_p2p.domain.values import Action, Role
 from police_thief_p2p.sdk.belief_facade import BeliefFacade
 from police_thief_p2p.sdk.crypto_facade import CryptoAuditFacade
 from police_thief_p2p.sdk.dto import ReadinessCheck, ReadinessReport, ReadinessStatus
+from police_thief_p2p.sdk.orchestration_facade import OrchestrationFacade
+from police_thief_p2p.sdk.strategy_facade import StrategyFacade
 from police_thief_p2p.services.belief import BeliefService, MixtureMotionModel, OwnScentEngine
 from police_thief_p2p.services.belief.history_store import SecretScentStore
 from police_thief_p2p.services.crypto.store import SealedStepStore
@@ -30,7 +32,7 @@ from police_thief_p2p.shared.version import (
 )
 
 
-class SimulationSdk(BeliefFacade, CryptoAuditFacade):
+class SimulationSdk(BeliefFacade, CryptoAuditFacade, StrategyFacade, OrchestrationFacade):
     """Expose typed product use cases without leaking service implementations."""
 
     __slots__ = ("_belief_service", "_protocol", "_scent_engine", "_sealed_steps")

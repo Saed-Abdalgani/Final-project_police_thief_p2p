@@ -119,6 +119,7 @@ def build_valid_audit_bundle(config: SharedConfig) -> AuditBundle:
             action=CommittedAction.from_domain(action),
             hint=f"deterministic step {sequence}",
             verdict="truth",
+            hint_semantic_intent="neutral",
             token_count=0,
             model_provider="template",
             model_name="deterministic",

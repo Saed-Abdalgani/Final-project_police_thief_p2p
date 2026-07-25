@@ -5,10 +5,11 @@ without a central game server or shared live state. Each peer owns only local tr
 uses SHA-256 Commit-Reveal for later audit, and exposes all business capabilities
 through a typed `SimulationSdk`.
 
-Status: scent and Bayesian-belief milestone. Strict configuration, deterministic
-local-only physics, FastMCP negotiation, sealed mutual audit, exact scent
-evidence, privacy-safe probabilistic tracking, and independent fail-closed replay
-are complete.
+Status: competitive strategy and durable orchestration milestones. Strict
+configuration, local-only physics, FastMCP negotiation, sealed mutual audit,
+exact scent/belief tracking, deadline-safe Police/Thief planning, safe language,
+formal lifecycle orchestration, recovery, Watchdog, and bounded reliability
+controls are complete.
 
 ## Requirements
 
@@ -128,6 +129,12 @@ documented in [`docs/PROTOCOL.md`](docs/PROTOCOL.md).
 Commitment bytes, nonce lifecycle, signed declarations, evidence chaining,
 failure sanctions, replay order, and mutual result agreement are documented in
 [`docs/CRYPTO_AUDIT.md`](docs/CRYPTO_AUDIT.md).
+
+Competitive feature objectives, plugin safety, search, opponent adaptation, hint
+policy, reproducibility, and evidence are documented in
+[`docs/STRATEGY.md`](docs/STRATEGY.md). Startup, deadlines, retries, health,
+recovery, tunnel preflight, backpressure, and shutdown are documented in
+[`docs/OPERATIONS.md`](docs/OPERATIONS.md).
 
 ## Development
 

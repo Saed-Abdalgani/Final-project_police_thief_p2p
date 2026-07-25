@@ -422,76 +422,76 @@ A checked task has:
 
 **Exit gate:** frozen Police and Thief policies are safe, deterministic under seed, deadline-bounded, and materially stronger than the reference greedy strategy on held-out role-swapped fixtures.
 
-- [ ] **T311 [P0]** Finalize `docs/PRD_STRATEGY.md` before advanced strategy code; evidence: interfaces, safety, evaluation, and anti-overfitting gates approved.
-- [ ] **T312 [P0]** Define abstract `StrategyBrain` interface using only legal actions, local state, belief, public history, config, RNG, and deadline.
-- [ ] **T313 [P0]** Define immutable `Decision` contract for action, hint intent, hint, reason code, metrics, and fallback flag.
-- [ ] **T314 [P0]** Implement role-aware strategy resolver behind the SDK; evidence: default and custom profiles load without engine edits.
-- [ ] **T315 [P0]** Parse `police_class` and `thief_class` selectors only from private TOML; evidence: shared/opponent input cannot set a class.
-- [ ] **T316 [P0]** Constrain dynamic imports to validated local package namespaces and `StrategyBrain` subclasses; evidence: arbitrary module/type rejection.
-- [ ] **T317 [P0]** Pass a monotonic hard deadline into every strategy call; evidence: fake-clock expiry test.
-- [ ] **T318 [P0]** Implement deterministic legal fallback policy for exceptions, timeout, invalid score, or empty candidate result.
-- [ ] **T319 [P0]** Inject seeded strategy RNG and record seed/profile version in experiment manifests.
-- [ ] **T320 [P0]** Implement final legality guard that can only return a domain-engine legal action; evidence: malicious strategy output tests.
-- [ ] **T321 [P1]** Implement posterior-expected-distance Police baseline instead of argmax-only Manhattan; evidence: hand-calculated scenario.
-- [ ] **T322 [P1]** Implement lower-quantile threat-distance Thief baseline instead of argmax-only distance; evidence: multimodal-belief scenario.
-- [ ] **T323 [P1]** Add revisit/cycle penalties to both baselines; evidence: scripted loop is broken deterministically.
-- [ ] **T324 [P0]** Emit safe strategy telemetry for latency, candidates, reason code, depth, fallback, and score summary.
-- [ ] **T325 [P1]** Define opponent-feature model for movement direction, boundary use, revisit rate, hint behavior, and barrier timing.
-- [ ] **T326 [P1]** Implement normalized mixture weights for uniform, chase/evade, boundary, revisit, and cycle motion models.
-- [ ] **T327 [P1]** Update opponent mixture weights online from legally observed revealed actions; evidence: convergence fixture.
-- [ ] **T328 [P1]** Add recency/change-point decay so old opponent behavior can be forgotten; evidence: strategy-switch fixture.
-- [ ] **T329 [P1]** Persist opponent profile between audited sub-games with exact opponent/version key; evidence: unrelated opponents remain isolated.
-- [ ] **T330 [P0]** Prevent unaudited hidden truth from updating opponent profiles; evidence: taint/privacy test.
-- [ ] **T331 [P1]** Define compact search state with own state, public topology, posterior summary/particles, role, barrier budget, and horizon.
-- [ ] **T332 [P1]** Define pluggable role evaluation interface and score-breakdown DTO.
-- [ ] **T333 [P1]** Implement iterative-deepening search that always preserves the best completed depth.
-- [ ] **T334 [P0]** Enforce search deadline with guard margin for commitment/persistence; evidence: no overrun in timing tests.
-- [ ] **T335 [P1]** Implement bounded transposition cache keyed by public/search state; evidence: deterministic hit/eviction tests.
-- [ ] **T336 [P1]** Implement stratified posterior/particle sampling with deterministic seed; evidence: distribution and repeatability tests.
-- [ ] **T337 [P1]** Sample opponent actions from the learned mixture while enforcing their legal move model.
-- [ ] **T338 [P1]** Implement depth-limited risk-sensitive expectimax over action/opponent-response samples.
-- [ ] **T339 [P1]** Add downside-tail/CVaR-style risk term to avoid high-variance suicidal choices.
-- [ ] **T340 [P1]** Generate all legal Police movement/stay candidates from the domain engine.
-- [ ] **T341 [P1]** Generate all legal Police barrier candidates from the domain engine.
-- [ ] **T342 [P1]** Prune barrier candidates to credible corridors, articulation candidates, frontier cuts, and immediate capture targets.
-- [ ] **T343 [P1]** Compute expected Thief reachable-region reduction for each Police candidate.
-- [ ] **T344 [P1]** Compute graph cut/corridor value and change in disjoint escape routes for barriers.
-- [ ] **T345 [P0]** Compute and heavily penalize Police self-isolation/loss-of-access risk.
-- [ ] **T346 [P1]** Compute barrier opportunity cost based on remaining quota and expected future closure value.
-- [ ] **T347 [P0]** Give proven immediate barrier/direct capture priority over all non-capture heuristic scores.
-- [ ] **T348 [P1]** Implement configurable Police score from capture, distance, escape, cut, information, self-trap, budget, and risk terms.
-- [ ] **T349 [P1]** Store Police tuning weights only in private strategy config with typed ranges and profile version.
-- [ ] **T350 [P1]** Add Police golden scenarios for interception, multimodal pursuit, corridor closure, self-trap avoidance, and quota conservation.
-- [ ] **T351 [P1]** Generate all legal Thief move/stay candidates from the domain engine.
-- [ ] **T352 [P1]** Compute risk-adjusted distance from the full Police posterior for each candidate.
-- [ ] **T353 [P1]** Compute future reachable-region size over a bounded horizon.
-- [ ] **T354 [P1]** Compute count/quality of disjoint future escape routes.
-- [ ] **T355 [P1]** Estimate likely Police barrier placements and resulting trap probability.
-- [ ] **T356 [P1]** Penalize scent concentration, revisits, and path predictability without attempting illegal scent suppression.
-- [ ] **T357 [P1]** Penalize corners/boundaries when future exits are insufficient rather than treating raw distance as safety.
-- [ ] **T358 [P1]** Reward actions expected to preserve/increase the Police's uncertainty when survival is not reduced.
-- [ ] **T359 [P1]** Add bounded stochastic tie-breaking only among near-equivalent safe actions.
-- [ ] **T360 [P1]** Implement configurable Thief score from survival, risk distance, space, routes, entropy, traps, scent, corner, and cycle terms.
-- [ ] **T361 [P1]** Implement prevalidated Thief behavior modes (mobility, deception, escape, anti-trap) with deterministic switch rules.
-- [ ] **T362 [P1]** Add Thief golden scenarios for open-board mobility, false-far corner, barrier funnel, scent loop, and multimodal threat.
-- [ ] **T363 [P1]** Define hint-intent policy separate from movement and surface realization.
-- [ ] **T364 [P1]** Compute strategic value of an honest hint under current trust/posterior context.
-- [ ] **T365 [P1]** Compute plausible deceptive semantic region that pulls belief away without numeric coordinate encoding.
-- [ ] **T366 [P1]** Implement trust-aware lie scheduling that avoids repetitive impossible deception.
-- [ ] **T367 [P0]** Implement deterministic map-area-aware natural-language templates for each semantic cue.
-- [ ] **T368 [P0]** Enforce negotiated word cap after every template or model output; evidence: punctuation/Unicode tokenization cases documented.
-- [ ] **T369 [P0]** Bind chosen `truth`/`lie` verdict and semantic intent into the commitment.
-- [ ] **T370 [P2]** Implement optional LLM paraphrasing of an already selected intent without movement authority.
-- [ ] **T371 [P0]** Strictly parse optional LLM response into bounded text only; evidence: prose, tool-call, malformed JSON, and oversize outputs fall back.
-- [ ] **T372 [P0]** Quote/sanitize opponent hint data in prompts and block instruction/tool authority; evidence: prompt-injection corpus.
-- [ ] **T373 [P0]** Fall back to deterministic template on LLM timeout, provider error, budget exhaustion, or invalid output.
-- [ ] **T374 [P0]** Ensure each exported role repository includes valid strategies for all negotiated role assignments while defaulting to its named role.
-- [ ] **T375 [P0]** Add deterministic decision snapshot tests for each strategy/profile/seed.
-- [ ] **T376 [P0]** Integrate advanced strategy between belief update and commitment packing through the SDK/Orchestrator.
-- [ ] **T377 [P1]** Run initial paired tournament against reference greedy/random/scripted baselines; evidence: role-swapped result matrix.
-- [ ] **T378 [P0]** Benchmark strategy p50/p95/max latency and fallback rate under minimum hardware profile.
-- [ ] **T379 [P1]** Run ablations for belief, search, opponent model, barrier graph terms, deception, and risk term; evidence: contribution chart.
-- [ ] **T380 [P0]** Complete M7 review against PRD FR-STR and Appendix E rules 25-27; evidence: safe baseline and competitive exit report.
+- [x] **T311 [P0]** Finalize `docs/PRD_STRATEGY.md` before advanced strategy code; evidence: interfaces, safety, evaluation, and anti-overfitting gates approved.
+- [x] **T312 [P0]** Define abstract `StrategyBrain` interface using only legal actions, local state, belief, public history, config, RNG, and deadline.
+- [x] **T313 [P0]** Define immutable `Decision` contract for action, hint intent, hint, reason code, metrics, and fallback flag.
+- [x] **T314 [P0]** Implement role-aware strategy resolver behind the SDK; evidence: default and custom profiles load without engine edits.
+- [x] **T315 [P0]** Parse `police_class` and `thief_class` selectors only from private TOML; evidence: shared/opponent input cannot set a class.
+- [x] **T316 [P0]** Constrain dynamic imports to validated local package namespaces and `StrategyBrain` subclasses; evidence: arbitrary module/type rejection.
+- [x] **T317 [P0]** Pass a monotonic hard deadline into every strategy call; evidence: fake-clock expiry test.
+- [x] **T318 [P0]** Implement deterministic legal fallback policy for exceptions, timeout, invalid score, or empty candidate result.
+- [x] **T319 [P0]** Inject seeded strategy RNG and record seed/profile version in experiment manifests.
+- [x] **T320 [P0]** Implement final legality guard that can only return a domain-engine legal action; evidence: malicious strategy output tests.
+- [x] **T321 [P1]** Implement posterior-expected-distance Police baseline instead of argmax-only Manhattan; evidence: hand-calculated scenario.
+- [x] **T322 [P1]** Implement lower-quantile threat-distance Thief baseline instead of argmax-only distance; evidence: multimodal-belief scenario.
+- [x] **T323 [P1]** Add revisit/cycle penalties to both baselines; evidence: scripted loop is broken deterministically.
+- [x] **T324 [P0]** Emit safe strategy telemetry for latency, candidates, reason code, depth, fallback, and score summary.
+- [x] **T325 [P1]** Define opponent-feature model for movement direction, boundary use, revisit rate, hint behavior, and barrier timing.
+- [x] **T326 [P1]** Implement normalized mixture weights for uniform, chase/evade, boundary, revisit, and cycle motion models.
+- [x] **T327 [P1]** Update opponent mixture weights online from legally observed revealed actions; evidence: convergence fixture.
+- [x] **T328 [P1]** Add recency/change-point decay so old opponent behavior can be forgotten; evidence: strategy-switch fixture.
+- [x] **T329 [P1]** Persist opponent profile between audited sub-games with exact opponent/version key; evidence: unrelated opponents remain isolated.
+- [x] **T330 [P0]** Prevent unaudited hidden truth from updating opponent profiles; evidence: taint/privacy test.
+- [x] **T331 [P1]** Define compact search state with own state, public topology, posterior summary/particles, role, barrier budget, and horizon.
+- [x] **T332 [P1]** Define pluggable role evaluation interface and score-breakdown DTO.
+- [x] **T333 [P1]** Implement iterative-deepening search that always preserves the best completed depth.
+- [x] **T334 [P0]** Enforce search deadline with guard margin for commitment/persistence; evidence: no overrun in timing tests.
+- [x] **T335 [P1]** Implement bounded transposition cache keyed by public/search state; evidence: deterministic hit/eviction tests.
+- [x] **T336 [P1]** Implement stratified posterior/particle sampling with deterministic seed; evidence: distribution and repeatability tests.
+- [x] **T337 [P1]** Sample opponent actions from the learned mixture while enforcing their legal move model.
+- [x] **T338 [P1]** Implement depth-limited risk-sensitive expectimax over action/opponent-response samples.
+- [x] **T339 [P1]** Add downside-tail/CVaR-style risk term to avoid high-variance suicidal choices.
+- [x] **T340 [P1]** Generate all legal Police movement/stay candidates from the domain engine.
+- [x] **T341 [P1]** Generate all legal Police barrier candidates from the domain engine.
+- [x] **T342 [P1]** Prune barrier candidates to credible corridors, articulation candidates, frontier cuts, and immediate capture targets.
+- [x] **T343 [P1]** Compute expected Thief reachable-region reduction for each Police candidate.
+- [x] **T344 [P1]** Compute graph cut/corridor value and change in disjoint escape routes for barriers.
+- [x] **T345 [P0]** Compute and heavily penalize Police self-isolation/loss-of-access risk.
+- [x] **T346 [P1]** Compute barrier opportunity cost based on remaining quota and expected future closure value.
+- [x] **T347 [P0]** Give proven immediate barrier/direct capture priority over all non-capture heuristic scores.
+- [x] **T348 [P1]** Implement configurable Police score from capture, distance, escape, cut, information, self-trap, budget, and risk terms.
+- [x] **T349 [P1]** Store Police tuning weights only in private strategy config with typed ranges and profile version.
+- [x] **T350 [P1]** Add Police golden scenarios for interception, multimodal pursuit, corridor closure, self-trap avoidance, and quota conservation.
+- [x] **T351 [P1]** Generate all legal Thief move/stay candidates from the domain engine.
+- [x] **T352 [P1]** Compute risk-adjusted distance from the full Police posterior for each candidate.
+- [x] **T353 [P1]** Compute future reachable-region size over a bounded horizon.
+- [x] **T354 [P1]** Compute count/quality of disjoint future escape routes.
+- [x] **T355 [P1]** Estimate likely Police barrier placements and resulting trap probability.
+- [x] **T356 [P1]** Penalize scent concentration, revisits, and path predictability without attempting illegal scent suppression.
+- [x] **T357 [P1]** Penalize corners/boundaries when future exits are insufficient rather than treating raw distance as safety.
+- [x] **T358 [P1]** Reward actions expected to preserve/increase the Police's uncertainty when survival is not reduced.
+- [x] **T359 [P1]** Add bounded stochastic tie-breaking only among near-equivalent safe actions.
+- [x] **T360 [P1]** Implement configurable Thief score from survival, risk distance, space, routes, entropy, traps, scent, corner, and cycle terms.
+- [x] **T361 [P1]** Implement prevalidated Thief behavior modes (mobility, deception, escape, anti-trap) with deterministic switch rules.
+- [x] **T362 [P1]** Add Thief golden scenarios for open-board mobility, false-far corner, barrier funnel, scent loop, and multimodal threat.
+- [x] **T363 [P1]** Define hint-intent policy separate from movement and surface realization.
+- [x] **T364 [P1]** Compute strategic value of an honest hint under current trust/posterior context.
+- [x] **T365 [P1]** Compute plausible deceptive semantic region that pulls belief away without numeric coordinate encoding.
+- [x] **T366 [P1]** Implement trust-aware lie scheduling that avoids repetitive impossible deception.
+- [x] **T367 [P0]** Implement deterministic map-area-aware natural-language templates for each semantic cue.
+- [x] **T368 [P0]** Enforce negotiated word cap after every template or model output; evidence: punctuation/Unicode tokenization cases documented.
+- [x] **T369 [P0]** Bind chosen `truth`/`lie` verdict and semantic intent into the commitment.
+- [x] **T370 [P2]** Implement optional LLM paraphrasing of an already selected intent without movement authority.
+- [x] **T371 [P0]** Strictly parse optional LLM response into bounded text only; evidence: prose, tool-call, malformed JSON, and oversize outputs fall back.
+- [x] **T372 [P0]** Quote/sanitize opponent hint data in prompts and block instruction/tool authority; evidence: prompt-injection corpus.
+- [x] **T373 [P0]** Fall back to deterministic template on LLM timeout, provider error, budget exhaustion, or invalid output.
+- [x] **T374 [P0]** Ensure each exported role repository includes valid strategies for all negotiated role assignments while defaulting to its named role.
+- [x] **T375 [P0]** Add deterministic decision snapshot tests for each strategy/profile/seed.
+- [x] **T376 [P0]** Integrate advanced strategy between belief update and commitment packing through the SDK/Orchestrator.
+- [x] **T377 [P1]** Run initial paired tournament against reference greedy/random/scripted baselines; evidence: role-swapped result matrix.
+- [x] **T378 [P0]** Benchmark strategy p50/p95/max latency and fallback rate under minimum hardware profile.
+- [x] **T379 [P1]** Run ablations for belief, search, opponent model, barrier graph terms, deception, and risk term; evidence: contribution chart.
+- [x] **T380 [P0]** Complete M7 review against PRD FR-STR and Appendix E rules 25-27; evidence: safe baseline and competitive exit report.
 
 ---
 
@@ -499,51 +499,51 @@ A checked task has:
 
 **Exit gate:** the Orchestrator drives a formal durable state machine; every wait is bounded; crashes, stalls, and network faults either recover from a mutually acknowledged checkpoint or terminate cleanly without deadlock.
 
-- [ ] **T381 [P0]** Finalize ADRs for Orchestrator gateway, event journal, deadline policy, and mutual-checkpoint recovery.
-- [ ] **T382 [P0]** Define complete `GamePhase` enum for initialization through reporting, completion, refusal, technical loss, and tamper.
-- [ ] **T383 [P0]** Implement explicit transition table with reason-specific allowed targets; evidence: every state has reviewed successors.
-- [ ] **T384 [P0]** Implement compare-and-set phase transition using expected current state; evidence: concurrent transition race test.
-- [ ] **T385 [P0]** Make terminal phases immutable; evidence: every attempted exit from terminal state fails.
-- [ ] **T386 [P0]** Implement `PeerOrchestrator` constructor with injected service ports and no concrete adapters.
-- [ ] **T387 [P0]** Add architecture test proving Orchestrator contains no physics, strategy scoring, hash implementation, or transport parsing.
-- [ ] **T388 [P0]** Implement initialization/readiness lifecycle through the SDK.
-- [ ] **T389 [P0]** Implement negotiation lifecycle coordinating config, Step-0, identities, and agreement.
-- [ ] **T390 [P0]** Implement one sub-game lifecycle coordinating wait, belief, strategy, commit, ack, reveal, verify, and terminal detection.
-- [ ] **T391 [P0]** Implement six-sub-game series lifecycle with role schedule and clean per-sub-game resets.
-- [ ] **T392 [P0]** Implement terminal audit, result agreement, artifact finalization, and report-queue handoff lifecycle.
-- [ ] **T393 [P0]** Implement reusable monotonic `DeadlineTracker` with remaining/expired operations.
-- [ ] **T394 [P0]** Define config-driven deadlines for negotiation, MCP call, acknowledgement, reveal, strategy, LLM, audit, and reporting.
-- [ ] **T395 [P0]** Define retry classification and attempt budget per operation; evidence: semantic errors never retry.
-- [ ] **T396 [P0]** Implement exponential backoff with bounded jitter and fake-clock support.
-- [ ] **T397 [P0]** Apply the binding/default response timeout to every network operation; evidence: missing timeout static test.
-- [ ] **T398 [P0]** Implement independent Watchdog worker that does not share the blocked gameplay execution path.
-- [ ] **T399 [P0]** Emit heartbeat with phase, step, monotonic timestamp, and progress token.
-- [ ] **T400 [P0]** Detect both absent heartbeat and unchanged progress beyond configured threshold.
-- [ ] **T401 [P0]** Persist a redacted recovery snapshot on Watchdog intervention; evidence: no nonce/key leakage.
-- [ ] **T402 [P0]** Implement controlled shutdown ordering for transport, journal, artifact writer, GUI, and worker resources.
-- [ ] **T403 [P0]** Implement cooperative cancellation tokens for strategy, optional LLM, transport, and report dispatch.
-- [ ] **T404 [P0]** Implement journal-based state restoration with chain/config/session validation.
-- [ ] **T405 [P0]** Implement recovery handshake that compares last mutually acknowledged checkpoint before resume.
-- [ ] **T406 [P0]** Terminate safely when peers disagree on recovery checkpoint; evidence: no invented state or silent rollback.
-- [ ] **T407 [P0]** Support either peer starting first with bounded readiness retries and clear timeout outcome.
-- [ ] **T408 [P0]** Expose `alive`, `ready`, `degraded`, and `failed` health states through redacted SDK/MCP views.
-- [ ] **T409 [P0]** Integrate MCP Gatekeeper policy with deadline/retry/idempotency context supplied by Orchestrator.
-- [ ] **T410 [P0]** Implement circuit breaker state machine for repeated transport failures.
-- [ ] **T411 [P0]** Define durable session-state repository port and typed checkpoint record.
-- [ ] **T412 [P0]** Implement append-only JSON event journal with monotonic sequence and local hash chain.
-- [ ] **T413 [P0]** Implement atomic write/replace/flush helper with platform-specific error handling.
-- [ ] **T414 [P0]** Enforce persist-before-acknowledge for every mutating inbound protocol event.
-- [ ] **T415 [P0]** Add crash-injection hooks at every journal/write/ack transition boundary.
-- [ ] **T416 [P0]** Implement bounded internal work queues with config-driven capacities.
-- [ ] **T417 [P0]** Define explicit queue-overflow/backpressure outcomes rather than unbounded memory growth.
-- [ ] **T418 [P0]** Prioritize gameplay/audit work over optional banter and post-game reporting.
-- [ ] **T419 [P0]** Implement public-tunnel preflight checking remote health, capabilities, round trip, payload size, and bidirectionality.
-- [ ] **T420 [P0]** Validate tunnel URLs for allowed schemes, credentials absence, normalization, and competition-mode public reachability.
-- [ ] **T421 [P0]** Run deterministic network-fault tests for latency, timeout, reset, refused connection, 5xx, and malformed response at each phase.
-- [ ] **T422 [P0]** Run 1,000 seeded local sub-games with Watchdog and persistence enabled; evidence: completion/terminal statistics.
-- [ ] **T423 [P0]** Prove no deadlock through state-machine model coverage and soak-test progress assertions.
-- [ ] **T424 [P0]** Document startup, timeout, recovery, tunnel, and controlled-shutdown operations in `docs/OPERATIONS.md`.
-- [ ] **T425 [P0]** Complete M8 review against Appendix E rules 3-7 and PRD FR-ORC/NFR-REL; evidence: signed exit checklist.
+- [x] **T381 [P0]** Finalize ADRs for Orchestrator gateway, event journal, deadline policy, and mutual-checkpoint recovery.
+- [x] **T382 [P0]** Define complete `GamePhase` enum for initialization through reporting, completion, refusal, technical loss, and tamper.
+- [x] **T383 [P0]** Implement explicit transition table with reason-specific allowed targets; evidence: every state has reviewed successors.
+- [x] **T384 [P0]** Implement compare-and-set phase transition using expected current state; evidence: concurrent transition race test.
+- [x] **T385 [P0]** Make terminal phases immutable; evidence: every attempted exit from terminal state fails.
+- [x] **T386 [P0]** Implement `PeerOrchestrator` constructor with injected service ports and no concrete adapters.
+- [x] **T387 [P0]** Add architecture test proving Orchestrator contains no physics, strategy scoring, hash implementation, or transport parsing.
+- [x] **T388 [P0]** Implement initialization/readiness lifecycle through the SDK.
+- [x] **T389 [P0]** Implement negotiation lifecycle coordinating config, Step-0, identities, and agreement.
+- [x] **T390 [P0]** Implement one sub-game lifecycle coordinating wait, belief, strategy, commit, ack, reveal, verify, and terminal detection.
+- [x] **T391 [P0]** Implement six-sub-game series lifecycle with role schedule and clean per-sub-game resets.
+- [x] **T392 [P0]** Implement terminal audit, result agreement, artifact finalization, and report-queue handoff lifecycle.
+- [x] **T393 [P0]** Implement reusable monotonic `DeadlineTracker` with remaining/expired operations.
+- [x] **T394 [P0]** Define config-driven deadlines for negotiation, MCP call, acknowledgement, reveal, strategy, LLM, audit, and reporting.
+- [x] **T395 [P0]** Define retry classification and attempt budget per operation; evidence: semantic errors never retry.
+- [x] **T396 [P0]** Implement exponential backoff with bounded jitter and fake-clock support.
+- [x] **T397 [P0]** Apply the binding/default response timeout to every network operation; evidence: missing timeout static test.
+- [x] **T398 [P0]** Implement independent Watchdog worker that does not share the blocked gameplay execution path.
+- [x] **T399 [P0]** Emit heartbeat with phase, step, monotonic timestamp, and progress token.
+- [x] **T400 [P0]** Detect both absent heartbeat and unchanged progress beyond configured threshold.
+- [x] **T401 [P0]** Persist a redacted recovery snapshot on Watchdog intervention; evidence: no nonce/key leakage.
+- [x] **T402 [P0]** Implement controlled shutdown ordering for transport, journal, artifact writer, GUI, and worker resources.
+- [x] **T403 [P0]** Implement cooperative cancellation tokens for strategy, optional LLM, transport, and report dispatch.
+- [x] **T404 [P0]** Implement journal-based state restoration with chain/config/session validation.
+- [x] **T405 [P0]** Implement recovery handshake that compares last mutually acknowledged checkpoint before resume.
+- [x] **T406 [P0]** Terminate safely when peers disagree on recovery checkpoint; evidence: no invented state or silent rollback.
+- [x] **T407 [P0]** Support either peer starting first with bounded readiness retries and clear timeout outcome.
+- [x] **T408 [P0]** Expose `alive`, `ready`, `degraded`, and `failed` health states through redacted SDK/MCP views.
+- [x] **T409 [P0]** Integrate MCP Gatekeeper policy with deadline/retry/idempotency context supplied by Orchestrator.
+- [x] **T410 [P0]** Implement circuit breaker state machine for repeated transport failures.
+- [x] **T411 [P0]** Define durable session-state repository port and typed checkpoint record.
+- [x] **T412 [P0]** Implement append-only JSON event journal with monotonic sequence and local hash chain.
+- [x] **T413 [P0]** Implement atomic write/replace/flush helper with platform-specific error handling.
+- [x] **T414 [P0]** Enforce persist-before-acknowledge for every mutating inbound protocol event.
+- [x] **T415 [P0]** Add crash-injection hooks at every journal/write/ack transition boundary.
+- [x] **T416 [P0]** Implement bounded internal work queues with config-driven capacities.
+- [x] **T417 [P0]** Define explicit queue-overflow/backpressure outcomes rather than unbounded memory growth.
+- [x] **T418 [P0]** Prioritize gameplay/audit work over optional banter and post-game reporting.
+- [x] **T419 [P0]** Implement public-tunnel preflight checking remote health, capabilities, round trip, payload size, and bidirectionality.
+- [x] **T420 [P0]** Validate tunnel URLs for allowed schemes, credentials absence, normalization, and competition-mode public reachability.
+- [x] **T421 [P0]** Run deterministic network-fault tests for latency, timeout, reset, refused connection, 5xx, and malformed response at each phase.
+- [x] **T422 [P0]** Run 1,000 seeded local sub-games with Watchdog and persistence enabled; evidence: completion/terminal statistics.
+- [x] **T423 [P0]** Prove no deadlock through state-machine model coverage and soak-test progress assertions.
+- [x] **T424 [P0]** Document startup, timeout, recovery, tunnel, and controlled-shutdown operations in `docs/OPERATIONS.md`.
+- [x] **T425 [P0]** Complete M8 review against Appendix E rules 3-7 and PRD FR-ORC/NFR-REL; evidence: signed exit checklist.
 
 ---
 

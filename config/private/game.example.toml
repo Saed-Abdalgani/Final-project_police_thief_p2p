@@ -18,8 +18,41 @@ reorder_window = 8
 artifact_root = "results/local"
 
 [strategy]
-class_name = "police_thief_p2p.strategies.PolicePolicy"
+police_class = "police_thief_p2p.services.strategy.police.AdvancedPoliceBrain"
+thief_class = "police_thief_p2p.services.strategy.thief.AdvancedThiefBrain"
 profile = "balanced"
+profile_version = "1.0.0"
+seed = 7
+decision_budget_ms = 250
+guard_margin_ms = 40
+search_horizon = 3
+posterior_samples = 16
+cache_entries = 512
+near_tie_epsilon = 0.02
+opponent_decay = 0.9
+
+[strategy.police]
+capture = 1000.0
+distance = 5.0
+escape = 2.0
+cut = 8.0
+information = 0.5
+self_trap = 250.0
+budget = 1.5
+risk = 0.25
+cycle = 3.0
+
+[strategy.thief]
+survival = 1000.0
+risk_distance = 8.0
+space = 1.5
+routes = 12.0
+entropy = 0.5
+traps = 100.0
+scent = 3.0
+corner = 8.0
+cycle = 5.0
+risk = 0.35
 
 [language]
 provider = "template"
@@ -42,3 +75,17 @@ health_url = "http://127.0.0.1:8000/health"
 
 [observability]
 level = "INFO"
+
+[reliability]
+negotiation_timeout_sec = 60
+acknowledgement_timeout_sec = 30
+reveal_timeout_sec = 30
+strategy_timeout_sec = 1
+audit_timeout_sec = 120
+reporting_timeout_sec = 120
+max_attempts = 4
+max_backoff_ms = 2000
+gameplay_queue_capacity = 128
+optional_queue_capacity = 32
+circuit_failure_threshold = 3
+circuit_cooldown_sec = 10
