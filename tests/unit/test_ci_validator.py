@@ -9,7 +9,7 @@ def test_real_ci_workflow_has_required_platforms() -> None:
     assert validate_workflow(workflow) == []
 
 
-def test_ci_validator_reports_missing_platforms() -> None:
+def test_ci_validator_rejects_non_windows_quality_platforms() -> None:
     workflow: dict[str, object] = {
         "jobs": {
             "quality": {

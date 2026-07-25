@@ -25,7 +25,7 @@ evidence review pass. M1 is ready to hand off to M2.
 - [x] Every Python source file is within the 150-code-line policy.
 - [x] Source and wheel distributions build; the wheel installs and runs in an
   isolated `uv` environment.
-- [x] CI defines Windows/Linux Python 3.13/3.14 and macOS 3.13 smoke coverage.
+- [x] CI defines Windows Python 3.13/3.14 and macOS 3.13 smoke coverage.
 - [x] The committed candidate passes the frozen suite from a clean clone.
 - [x] T074-T075 are closed and the annotated milestone tag identifies the signed
   evidence commit.

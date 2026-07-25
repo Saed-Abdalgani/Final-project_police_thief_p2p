@@ -33,11 +33,8 @@ def validate_workflow(workflow: Mapping[str, object]) -> list[str]:
     matrix = _mapping(strategy.get("matrix"), "jobs.quality.strategy.matrix")
     operating_systems = matrix.get("os")
     python_versions = matrix.get("python-version")
-    if not isinstance(operating_systems, list) or not {
-        "ubuntu-latest",
-        "windows-latest",
-    }.issubset(operating_systems):
-        errors.append("quality matrix must include ubuntu-latest and windows-latest")
+    if operating_systems != ["windows-latest"]:
+        errors.append("quality matrix must contain only windows-latest")
     if not isinstance(python_versions, list) or "3.13" not in python_versions:
         errors.append("quality matrix must include Python 3.13")
     macos = _mapping(jobs.get("macos-smoke"), "jobs.macos-smoke")
@@ -53,7 +50,7 @@ def main() -> int:
         print(error)
     if errors:
         return 1
-    print("CI workflow OK: Windows/Linux matrix and macOS smoke job are present.")
+    print("CI workflow OK: Windows matrix and macOS smoke job are present.")
     return 0
 
 

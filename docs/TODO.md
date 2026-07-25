@@ -135,7 +135,7 @@ A checked task has:
 - [x] **T063 [P0]** Create `.env-example` with safe placeholders and descriptions; evidence: secret scanner reports no credential-like values.
 - [x] **T064 [P0]** Add pre-commit configuration for Ruff, formatting, secret scan, and basic file hygiene; evidence: hook suite passes.
 - [x] **T065 [P0]** Add CI workflow for frozen `uv` sync, lint, format, types, unit tests, and coverage; evidence: workflow syntax validation.
-- [x] **T066 [P0]** Add Windows and Linux CI matrix with a macOS smoke job where available; evidence: platform matrix documented.
+- [x] **T066 [P0]** Add a Windows CI matrix with a macOS smoke job where available; evidence: platform matrix documented.
 - [x] **T067 [P0]** Add repository-structure validation script invoked through `uv run python`; evidence: missing required file causes failure.
 - [x] **T068 [P0]** Add source-file code-line counter with 150-line warnings/fail policy; evidence: synthetic oversized fixture detected.
 - [x] **T069 [P0]** Add requirement/task ID validator for docs and tests; evidence: duplicate/missing synthetic IDs detected.
@@ -707,7 +707,7 @@ A checked task has:
 - [ ] **T565 [P0]** Run Ruff, strict mypy, import-boundary, file-size, schema, and task/requirement static checks.
 - [ ] **T566 [P1]** Run mutation testing on config rules, scoring, state transitions, crypto verification, and Gatekeeper decisions.
 - [ ] **T567 [P0]** Quarantine/fix all flaky tests and verify deterministic repeated CI runs.
-- [ ] **T568 [P0]** Complete Windows/Linux matrix and macOS smoke, documenting platform-specific limitations.
+- [ ] **T568 [P0]** Complete the Windows matrix and macOS smoke, documenting platform-specific limitations.
 - [ ] **T569 [P0]** Run the full clean-clone quality command suite with global coverage >=85% and Ruff zero violations.
 - [ ] **T570 [P0]** Complete M11 independent QA/security review; evidence: no unresolved P0/P1 defect and signed exit report.
 
