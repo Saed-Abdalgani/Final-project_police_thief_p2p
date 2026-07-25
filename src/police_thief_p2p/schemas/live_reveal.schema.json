@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/police-thief/0.2.0/live_reveal.schema.json",
+  "title": "Live reveal without nonce",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["body", "commitment_sha256"],
+  "properties": {
+    "body": {
+      "type": "object",
+      "not": {"required": ["nonce"]}
+    },
+    "commitment_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "not": {"required": ["nonce"]}
+}

@@ -135,7 +135,7 @@ def test_counted_group_commit_and_url_shapes_are_strict() -> None:
     with pytest.raises(ValidationError, match="credential-free"):
         RepositoryLinks.model_validate(
             {
-                "police": "https://user:pass@example.com/a",
+                "police": "https://user:pass@example.com/a",  # pragma: allowlist secret
                 "thief": "https://example.com/b",
             }
         )

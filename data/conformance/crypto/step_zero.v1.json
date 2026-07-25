@@ -1,0 +1,34 @@
+{
+  "vector_version": "1.0.0",
+  "body": {
+    "declaration_version": "1.0.0",
+    "group_id": "GRP00001",
+    "counted": true,
+    "template_mode": true,
+    "model_provider": "template",
+    "model_name": "deterministic",
+    "estimated_tokens": 0,
+    "system": {
+      "operating_system": "Windows",
+      "platform": "unknown",
+      "python_version": "3.13.13",
+      "cpu_model": "Test CPU",
+      "cpu_cores": 8,
+      "cpu_frequency_mhz": null,
+      "memory_bytes": 16000000000,
+      "gpu_model": null,
+      "vram_bytes": null
+    },
+    "git": {
+      "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "dirty": false
+    },
+    "config_sha256": "e4a0cee44c8fa0e35545d06f7bcbe8dade9ea3318e352de0dee17d680735f4c2",
+    "scent_model_sha256": "783ac5639448e13a1521002e3e668cf5f7b9542bdab561c3cc6edebac6f6b157",
+    "role_schedule_sha256": "7e1cd38d7ebba87f2a6e7df2c2250ac457812eaa31e2e346103e8312e4a692ae",
+    "protocol_version": "0.5.0",
+    "schema_version": "0.2.0"
+  },
+  "canonical_sha256": "33581788aaaad599e4dd653de2a6c7236f14a13e920aaeb77a1b99f13457a1d7",
+  "test_hmac_sha256": "3d86df6f8d11e22a817f9812cd593ca7783c573807c309f734657f6e630712ea"
+}

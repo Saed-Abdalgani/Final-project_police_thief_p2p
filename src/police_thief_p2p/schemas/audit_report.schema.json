@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/police-thief/0.2.0/audit_report.schema.json",
+  "title": "Independent audit report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "status", "verified_steps", "expected_steps", "terminal_reason",
+    "police_points", "thief_points", "findings", "evidence_sha256"
+  ],
+  "properties": {
+    "status": {"enum": ["Verified OK", "TAMPERED"]},
+    "verified_steps": {"type": "integer", "minimum": 0},
+    "expected_steps": {"type": "integer", "minimum": 0},
+    "terminal_reason": {"type": "string"},
+    "police_points": {"type": "integer", "minimum": 0},
+    "thief_points": {"type": "integer", "minimum": 0},
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["order", "code", "evidence", "detail"],
+        "properties": {
+          "order": {"type": "integer", "minimum": 1},
+          "code": {"type": "string"},
+          "evidence": {"type": "string"},
+          "detail": {"type": "string"}
+        }
+      }
+    },
+    "evidence_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

@@ -66,7 +66,7 @@ def _declaration(participant: Participant) -> StepZeroDeclaration:
             timezone="UTC",
         ),
         software=SoftwareDeclaration(
-            code_version="0.4.0",
+            code_version="0.5.0",
             played_commit=participant.commits.police,
             model_provider="template",
             model_name="deterministic-template",

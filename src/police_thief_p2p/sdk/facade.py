@@ -9,7 +9,9 @@ from police_thief_p2p.domain.scoring import (
 )
 from police_thief_p2p.domain.state import LocalGameState, initial_local_state
 from police_thief_p2p.domain.values import Action, Role
+from police_thief_p2p.sdk.crypto_facade import CryptoAuditFacade
 from police_thief_p2p.sdk.dto import ReadinessCheck, ReadinessReport, ReadinessStatus
+from police_thief_p2p.services.crypto.store import SealedStepStore
 from police_thief_p2p.services.protocol.envelope import ProtocolResponse
 from police_thief_p2p.services.protocol.runtime import ProtocolRuntime
 from police_thief_p2p.shared.config_loader import load_private_bytes, load_shared_bytes
@@ -24,14 +26,15 @@ from police_thief_p2p.shared.version import (
 )
 
 
-class SimulationSdk:
+class SimulationSdk(CryptoAuditFacade):
     """Expose typed product use cases without leaking service implementations."""
 
-    __slots__ = ("_protocol",)
+    __slots__ = ("_protocol", "_sealed_steps")
 
     def __init__(self, protocol: ProtocolRuntime | None = None) -> None:
         """Create the facade with an optional isolated peer protocol runtime."""
         self._protocol = protocol
+        self._sealed_steps = SealedStepStore()
 
     def check_readiness(self) -> ReadinessReport:
         """Return foundation and packaged contract compatibility readiness."""

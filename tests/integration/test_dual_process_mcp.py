@@ -13,9 +13,11 @@ import pytest
 from police_thief_p2p.adapters.mcp import FastMcpBackend, McpClientAdapter
 from police_thief_p2p.adapters.system.clocks import SystemClock
 from police_thief_p2p.sdk import ProtocolEnvelope
+from police_thief_p2p.services.audit import AuditBundle, AuditReport, AuditService, agree_audits
 from police_thief_p2p.services.protocol.negotiation_models import MatchProposal
 from police_thief_p2p.shared.config_loader import load_shared_bytes
 from police_thief_p2p.shared.gatekeeper import ExternalCall, InitialGatekeeper
+from tests.helpers.audit import build_valid_audit_bundle
 from tests.helpers.protocol import (
     GROUP_A,
     GROUP_B,
@@ -163,6 +165,8 @@ def _client(endpoint: str) -> McpClientAdapter:
 async def _run_peer_sequence(
     client: McpClientAdapter,
     proposal: MatchProposal,
+    bundle: AuditBundle,
+    report: AuditReport,
     *,
     sender: str,
 ) -> tuple[str, ...]:
@@ -182,16 +186,28 @@ async def _run_peer_sequence(
             sender=sender,
         ),
     ]
+    manifest = {
+        "game_uid": bundle.final_manifest.game_uid,
+        "sub_game_number": bundle.final_manifest.sub_game_number,
+        "entries": [entry.as_dict() for entry in bundle.final_manifest.entries],
+        "manifest_sha256": bundle.final_manifest.manifest_sha256,
+    }
     events: tuple[tuple[str, dict[str, object]], ...] = (
-        ("commit_step_v1", {"commitment": "0" * 64}),
+        (
+            "commit_step_v1",
+            {"commitments": [entry.commitment_sha256 for entry in bundle.final_manifest.entries]},
+        ),
         ("acknowledge_step_v1", {"acknowledged": True}),
         (
             "reveal_step_v1",
-            {"terminal_reason": "barrier_capture", "public_outcome": "police_capture"},
+            {
+                "reveals": [step.reveal.model_dump(mode="json") for step in bundle.steps],
+                "terminal_reason": report.terminal_reason,
+            },
         ),
-        ("final_reveal_v1", {"manifest": "m4"}),
-        ("audit_result_v1", {"audit": "verified"}),
-        ("agree_result_v1", {"result": "police_capture"}),
+        ("final_reveal_v1", {"manifest": manifest}),
+        ("audit_result_v1", {"report": report.as_dict()}),
+        ("agree_result_v1", {"result_agreement_sha256": report.digest()}),
     )
     envelopes.extend(
         make_envelope(proposal, tool, payload, sequence=sequence, sender=sender)
@@ -241,16 +257,38 @@ def test_two_isolated_processes_are_start_order_independent_and_converge(
 
         shared = load_shared_bytes(shared_config_bytes)
         proposal = make_proposal(shared, shared_config_bytes)
+        bundle = build_valid_audit_bundle(shared)
+        left_report = AuditService().verify(bundle)
+        right_report = AuditService().verify(bundle)
+        agreement = agree_audits(
+            bundle.final_manifest.manifest_sha256,
+            bundle.final_manifest.manifest_sha256,
+            left_report,
+            right_report,
+        )
 
         async def scenario() -> tuple[tuple[str, ...], tuple[str, ...]]:
             return await asyncio.gather(
-                _run_peer_sequence(_client(endpoints["a"]), proposal, sender=GROUP_B),
-                _run_peer_sequence(_client(endpoints["b"]), proposal, sender=GROUP_A),
+                _run_peer_sequence(
+                    _client(endpoints["a"]),
+                    proposal,
+                    bundle,
+                    left_report,
+                    sender=GROUP_B,
+                ),
+                _run_peer_sequence(
+                    _client(endpoints["b"]),
+                    proposal,
+                    bundle,
+                    right_report,
+                    sender=GROUP_A,
+                ),
             )
 
         phases_a, phases_b = asyncio.run(scenario())
         assert phases_a == phases_b
         assert phases_a[-1] == "completed"
+        assert agreement.status.value == "Verified OK"
         assert processes["a"].pid != processes["b"].pid
         assert (roots["a"] / "artifacts/protocol").is_dir()
         assert (roots["b"] / "artifacts/protocol").is_dir()

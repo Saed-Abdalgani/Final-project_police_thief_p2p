@@ -64,6 +64,25 @@ schedule/UUID mismatch; counted ledger boundaries; duplicate/conflicting IDs;
 old/gap/future sequence; illegal phases; response-loss recovery; restart repair;
 Gatekeeper timeout/dependency failure; and safe exception mapping.
 
+## M5 cryptography and audit campaign
+
+```text
+uv run pytest tests/contract/test_crypto_contracts.py -q
+uv run pytest tests/unit/test_crypto_primitives.py -q
+uv run pytest tests/unit/test_step_zero_and_evidence.py -q
+uv run pytest tests/unit/test_system_probes.py -q
+uv run pytest tests/integration/test_mutual_audit.py -q
+uv run pytest tests/integration/test_dual_process_mcp.py -q
+```
+
+The campaign freezes exact commitment/Step-0 bytes and digests, mutates every
+commitment field, exercises the illegal lifecycle matrix, rejects nonce reuse,
+forged states/scent/capture/scores, corrupt journals/manifests, foreign/gapped/
+duplicated records, dirty revisions, signature tamper, and independent-result
+disagreement. The localhost test transports the complete final-reveal graph
+through two isolated OS processes in both startup orders and requires both audits
+to return `Verified OK`.
+
 ## Negative gate evidence
 
 Quality tools include synthetic negative tests:

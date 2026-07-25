@@ -20,6 +20,11 @@ SCHEMA_NAMES = frozenset(
         "protocol_envelope.schema.json",
         "match_proposal.schema.json",
         "match_acceptance.schema.json",
+        "commitment_body.schema.json",
+        "live_reveal.schema.json",
+        "final_reveal.schema.json",
+        "capture_statement.schema.json",
+        "audit_report.schema.json",
     }
 )
 
@@ -59,7 +64,7 @@ def validate_schema(instance: object, name: str, *, source: str) -> None:
         )
 
 
-@lru_cache(maxsize=8)
+@lru_cache(maxsize=16)
 def contracts_are_compatible(schema_version: str, protocol_version: str) -> bool:
     """Return whether every packaged schema advertises supported versions."""
     for name in SCHEMA_NAMES:

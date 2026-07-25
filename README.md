@@ -5,9 +5,9 @@ without a central game server or shared live state. Each peer owns only local tr
 uses SHA-256 Commit-Reveal for later audit, and exposes all business capabilities
 through a typed `SimulationSdk`.
 
-Status: peer-protocol milestone. Strict configuration, deterministic local-only
-physics, FastMCP negotiation, persist-before-ack idempotency, Gatekeeper-only
-outbound calls, and isolated localhost interoperability are complete.
+Status: cryptographic mutual-audit milestone. Strict configuration, deterministic
+local-only physics, FastMCP negotiation, sealed commit/ack/reveal, signed Step-0,
+hash-chained evidence, and independent fail-closed replay are complete.
 
 ## Requirements
 
@@ -123,6 +123,10 @@ Domain mechanics, scoring, privacy boundaries, and evidence are documented in
 The exact FastMCP inventory, envelopes, proposal fields, phases, idempotency
 algorithm, error codes, retry policy, examples, and interoperability checklist are
 documented in [`docs/PROTOCOL.md`](docs/PROTOCOL.md).
+
+Commitment bytes, nonce lifecycle, signed declarations, evidence chaining,
+failure sanctions, replay order, and mutual result agreement are documented in
+[`docs/CRYPTO_AUDIT.md`](docs/CRYPTO_AUDIT.md).
 
 ## Development
 

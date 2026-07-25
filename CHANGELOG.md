@@ -2,6 +2,30 @@
 
 All notable project changes are documented here. The project follows semantic versioning for documentation, package, protocol, config, and schema contracts, with compatibility recorded separately when those versions diverge.
 
+## Package [0.5.0] - 2026-07-25
+
+### Added
+
+- Opaque OS-CSPRNG nonces, immutable canonical commitment bodies, constant-time
+  SHA-256 verification, sealed lifecycle storage, and phase-gated nonce manifests.
+- Portable CPU/RAM/optional GPU/runtime and exact Git probes plus canonical
+  HMAC-SHA-256 Step-0 declarations loaded only from secret environment/file handles.
+- Context-bound sealed capture claims/responses and corruption-detecting local
+  event-journal hash chains.
+- Pure audit service that validates constitution/declarations/evidence, recomputes
+  commitments/state/scent, replays domain legality, resolves capture/scoring, and
+  applies an immutable zero-point tamper sanction.
+- Mutual audit-manifest/result agreement, six-game score recomputation, JSON
+  schemas, golden conformance vectors, every-field mutation tests, and full
+  dual-process localhost final-reveal evidence.
+
+### Changed
+
+- Package and peer payload protocol advance to `0.5.0`; the compatible artifact
+  schema family remains `0.2.0`.
+- The dual-process interoperability campaign now carries real M5 commitments,
+  nonce-free live reveals, final nonces, independent reports, and result agreement.
+
 ## Package [0.4.0] - 2026-07-25
 
 ### Added

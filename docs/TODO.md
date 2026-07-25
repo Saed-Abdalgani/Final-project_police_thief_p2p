@@ -313,56 +313,56 @@ A checked task has:
 
 **Exit gate:** negotiation, each step, capture response, configuration, and final result are digest-bound; valid logs verify and every mutation family fails closed.
 
-- [ ] **T216 [P0]** Finalize `docs/PRD_CRYPTO_AUDIT.md` before crypto code; evidence: payloads, nonce lifecycle, audit order, and sanctions approved.
-- [ ] **T217 [P0]** Finalize ADR-004 canonical JSON/hash decision with golden bytes; evidence: no unresolved serialization choice.
-- [ ] **T218 [P0]** Implement production nonce generator using OS CSPRNG through `secrets`; evidence: no use of `random` in crypto modules.
-- [ ] **T219 [P0]** Enforce at least 128 bits of nonce entropy; evidence: length/format tests and static assertion.
-- [ ] **T220 [P0]** Define opaque `SecretNonce` type whose repr/string is redacted; evidence: logging/repr tests.
-- [ ] **T221 [P0]** Add global log filter for nonce and signing-key field names; evidence: nested payload leakage tests.
-- [ ] **T222 [P0]** Define versioned immutable commitment payload model containing every outcome-relevant field.
-- [ ] **T223 [P0]** Implement canonical commitment payload serialization; evidence: field-order and platform-independent vectors.
-- [ ] **T224 [P0]** Implement SHA-256 commitment digest creation; evidence: golden expected hash.
-- [ ] **T225 [P0]** Implement constant-time digest comparison with `secrets.compare_digest`; evidence: code-path assertion.
-- [ ] **T226 [P0]** Publish cross-repository commitment conformance vectors; evidence: both role builds calculate identical digests.
-- [ ] **T227 [P0]** Implement local sealed-step store separating secret payload from public commitment; evidence: access-control tests.
-- [ ] **T228 [P0]** Implement acknowledgement lock that makes committed payload immutable; evidence: post-ack mutation attempt fails.
-- [ ] **T229 [P0]** Implement reveal DTO exposing action/hint/verdict/public effects but not nonce; evidence: schema forbids nonce.
-- [ ] **T230 [P0]** Enforce commit -> acknowledge -> reveal phase order; evidence: full illegal-order matrix.
-- [ ] **T231 [P0]** Implement final-reveal manifest containing each step's nonce and linkage; evidence: only terminal/auditing phase allows creation.
-- [ ] **T232 [P0]** Bind each commitment to a pre-action local-state digest; evidence: replaying a valid move in a different state fails audit.
-- [ ] **T233 [P0]** Bind negotiation to exact shared-config digest and protocol versions; evidence: config substitution test.
-- [ ] **T234 [P0]** Bind negotiation to scent formula, kernel, numeric example, and float policy digest; evidence: one-value mutation test.
-- [ ] **T235 [P0]** Implement system-information probe port and redacted DTO; evidence: unavailable fields degrade to explicit `unknown`.
-- [ ] **T236 [P0]** Implement CPU model/core/frequency collection with platform-safe fallbacks; evidence: Windows/Linux unit fixtures.
-- [ ] **T237 [P0]** Implement RAM collection with unit normalization; evidence: impossible/negative values rejected.
-- [ ] **T238 [P0]** Implement GPU/VRAM optional collection without mandatory vendor SDK; evidence: no-GPU path passes.
-- [ ] **T239 [P0]** Implement OS/platform/runtime version collection; evidence: normalized declaration output.
-- [ ] **T240 [P0]** Include model/provider and negotiated token estimate in Step-0; evidence: template mode declares zero operational tokens.
-- [ ] **T241 [P0]** Resolve and validate exact Git commit/dirty status for Step-0; evidence: counted mode rejects unknown/dirty unless explicitly documented policy permits.
-- [ ] **T242 [P0]** Implement Step-0 declaration model and canonical bytes; evidence: full declaration golden fixture.
-- [ ] **T243 [P0]** Load Step-0 signing material from secret environment/file handle only; evidence: missing key fails safely and key never serializes.
-- [ ] **T244 [P0]** Implement HMAC-SHA-256 or approved keyed signature for Step-0 per course key semantics; evidence: verify/tamper vectors and ADR.
-- [ ] **T245 [P0]** Implement sealed capture-claim message tied to committed action and step; evidence: invalid context rejected.
-- [ ] **T246 [P0]** Implement sealed truthful capture response without premature position disclosure; evidence: true/false cases.
-- [ ] **T247 [P0]** Detect false capture claim or false denial during audit and apply mandatory tamper outcome.
-- [ ] **T248 [P0]** Add local event-journal hash chaining for corruption detection; evidence: removal/reorder/modification test.
-- [ ] **T249 [P0]** Implement `AuditService` as a pure verifier over artifacts/events; evidence: no GUI/network imports.
-- [ ] **T250 [P0]** Verify shared config, Step-0, scent model, and role schedule before step audit; evidence: failure category tests.
-- [ ] **T251 [P0]** Recompute every opponent commitment from final payload and nonce; evidence: first mismatch localized.
-- [ ] **T252 [P0]** Verify unique monotonic step order and complete actor sequences; evidence: duplicate/gap/reorder fixtures.
-- [ ] **T253 [P0]** Replay every physical action through domain legality; evidence: valid hash with illegal action still fails.
-- [ ] **T254 [P0]** Recompute disclosed scent frames from revealed path/model; evidence: forged scent fails audit.
-- [ ] **T255 [P0]** Recompute capture, terminal reason, per-sub-game scores, totals, and tie; evidence: result substitution fails.
-- [ ] **T256 [P0]** Return structured first-failure details plus aggregate findings; evidence: deterministic finding order.
-- [ ] **T257 [P0]** Map any integrity mismatch to immutable `TAMPERED` state and prescribed zero/tamper sanction.
-- [ ] **T258 [P0]** Define serializable audit report with verified counts, digests, findings, and evidence links.
-- [ ] **T259 [P0]** Implement mutual exchange of audit-manifest digests; evidence: peers detect inconsistent audit inputs.
-- [ ] **T260 [P0]** Implement final result agreement digest over both independent audit outcomes; evidence: disagreement blocks reporting.
-- [ ] **T261 [P0]** Generate mutation tests that alter every commitment payload field individually; evidence: 100% detected.
-- [ ] **T262 [P0]** Test missing, duplicate, reordered, truncated, and foreign-game records; evidence: typed audit failures.
-- [ ] **T263 [P0]** Detect nonce reuse within a sub-game and across commitment identities; evidence: reuse security test.
-- [ ] **T264 [P0]** Run a complete valid localhost sub-game through final nonce reveal and mutual audit; evidence: both report `Verified OK`.
-- [ ] **T265 [P0]** Complete M5 review against Appendix E rules 17-24, 36, 46-48, and 53; evidence: signed exit checklist.
+- [x] **T216 [P0]** Finalize `docs/PRD_CRYPTO_AUDIT.md` before crypto code; evidence: payloads, nonce lifecycle, audit order, and sanctions approved.
+- [x] **T217 [P0]** Finalize ADR-004 canonical JSON/hash decision with golden bytes; evidence: no unresolved serialization choice.
+- [x] **T218 [P0]** Implement production nonce generator using OS CSPRNG through `secrets`; evidence: no use of `random` in crypto modules.
+- [x] **T219 [P0]** Enforce at least 128 bits of nonce entropy; evidence: length/format tests and static assertion.
+- [x] **T220 [P0]** Define opaque `SecretNonce` type whose repr/string is redacted; evidence: logging/repr tests.
+- [x] **T221 [P0]** Add global log filter for nonce and signing-key field names; evidence: nested payload leakage tests.
+- [x] **T222 [P0]** Define versioned immutable commitment payload model containing every outcome-relevant field.
+- [x] **T223 [P0]** Implement canonical commitment payload serialization; evidence: field-order and platform-independent vectors.
+- [x] **T224 [P0]** Implement SHA-256 commitment digest creation; evidence: golden expected hash.
+- [x] **T225 [P0]** Implement constant-time digest comparison with `secrets.compare_digest`; evidence: code-path assertion.
+- [x] **T226 [P0]** Publish cross-repository commitment conformance vectors; evidence: both role builds calculate identical digests.
+- [x] **T227 [P0]** Implement local sealed-step store separating secret payload from public commitment; evidence: access-control tests.
+- [x] **T228 [P0]** Implement acknowledgement lock that makes committed payload immutable; evidence: post-ack mutation attempt fails.
+- [x] **T229 [P0]** Implement reveal DTO exposing action/hint/verdict/public effects but not nonce; evidence: schema forbids nonce.
+- [x] **T230 [P0]** Enforce commit -> acknowledge -> reveal phase order; evidence: full illegal-order matrix.
+- [x] **T231 [P0]** Implement final-reveal manifest containing each step's nonce and linkage; evidence: only terminal/auditing phase allows creation.
+- [x] **T232 [P0]** Bind each commitment to a pre-action local-state digest; evidence: replaying a valid move in a different state fails audit.
+- [x] **T233 [P0]** Bind negotiation to exact shared-config digest and protocol versions; evidence: config substitution test.
+- [x] **T234 [P0]** Bind negotiation to scent formula, kernel, numeric example, and float policy digest; evidence: one-value mutation test.
+- [x] **T235 [P0]** Implement system-information probe port and redacted DTO; evidence: unavailable fields degrade to explicit `unknown`.
+- [x] **T236 [P0]** Implement CPU model/core/frequency collection with platform-safe fallbacks; evidence: Windows/Linux unit fixtures.
+- [x] **T237 [P0]** Implement RAM collection with unit normalization; evidence: impossible/negative values rejected.
+- [x] **T238 [P0]** Implement GPU/VRAM optional collection without mandatory vendor SDK; evidence: no-GPU path passes.
+- [x] **T239 [P0]** Implement OS/platform/runtime version collection; evidence: normalized declaration output.
+- [x] **T240 [P0]** Include model/provider and negotiated token estimate in Step-0; evidence: template mode declares zero operational tokens.
+- [x] **T241 [P0]** Resolve and validate exact Git commit/dirty status for Step-0; evidence: counted mode rejects unknown/dirty unless explicitly documented policy permits.
+- [x] **T242 [P0]** Implement Step-0 declaration model and canonical bytes; evidence: full declaration golden fixture.
+- [x] **T243 [P0]** Load Step-0 signing material from secret environment/file handle only; evidence: missing key fails safely and key never serializes.
+- [x] **T244 [P0]** Implement HMAC-SHA-256 or approved keyed signature for Step-0 per course key semantics; evidence: verify/tamper vectors and ADR.
+- [x] **T245 [P0]** Implement sealed capture-claim message tied to committed action and step; evidence: invalid context rejected.
+- [x] **T246 [P0]** Implement sealed truthful capture response without premature position disclosure; evidence: true/false cases.
+- [x] **T247 [P0]** Detect false capture claim or false denial during audit and apply mandatory tamper outcome.
+- [x] **T248 [P0]** Add local event-journal hash chaining for corruption detection; evidence: removal/reorder/modification test.
+- [x] **T249 [P0]** Implement `AuditService` as a pure verifier over artifacts/events; evidence: no GUI/network imports.
+- [x] **T250 [P0]** Verify shared config, Step-0, scent model, and role schedule before step audit; evidence: failure category tests.
+- [x] **T251 [P0]** Recompute every opponent commitment from final payload and nonce; evidence: first mismatch localized.
+- [x] **T252 [P0]** Verify unique monotonic step order and complete actor sequences; evidence: duplicate/gap/reorder fixtures.
+- [x] **T253 [P0]** Replay every physical action through domain legality; evidence: valid hash with illegal action still fails.
+- [x] **T254 [P0]** Recompute disclosed scent frames from revealed path/model; evidence: forged scent fails audit.
+- [x] **T255 [P0]** Recompute capture, terminal reason, per-sub-game scores, totals, and tie; evidence: result substitution fails.
+- [x] **T256 [P0]** Return structured first-failure details plus aggregate findings; evidence: deterministic finding order.
+- [x] **T257 [P0]** Map any integrity mismatch to immutable `TAMPERED` state and prescribed zero/tamper sanction.
+- [x] **T258 [P0]** Define serializable audit report with verified counts, digests, findings, and evidence links.
+- [x] **T259 [P0]** Implement mutual exchange of audit-manifest digests; evidence: peers detect inconsistent audit inputs.
+- [x] **T260 [P0]** Implement final result agreement digest over both independent audit outcomes; evidence: disagreement blocks reporting.
+- [x] **T261 [P0]** Generate mutation tests that alter every commitment payload field individually; evidence: 100% detected.
+- [x] **T262 [P0]** Test missing, duplicate, reordered, truncated, and foreign-game records; evidence: typed audit failures.
+- [x] **T263 [P0]** Detect nonce reuse within a sub-game and across commitment identities; evidence: reuse security test.
+- [x] **T264 [P0]** Run a complete valid localhost sub-game through final nonce reveal and mutual audit; evidence: both report `Verified OK`.
+- [x] **T265 [P0]** Complete M5 review against Appendix E rules 17-24, 36, 46-48, and 53; evidence: signed exit checklist.
 
 ---
 

@@ -122,8 +122,8 @@ def test_rate_limit_profiles_are_schema_driven() -> None:
 
 
 def test_schema_registry_allowlist_and_compatibility() -> None:
-    assert contracts_are_compatible("0.2.0", "0.4.0")
-    assert not contracts_are_compatible("9.9.9", "0.4.0")
+    assert contracts_are_compatible("0.2.0", "0.5.0")
+    assert not contracts_are_compatible("9.9.9", "0.5.0")
     assert not contracts_are_compatible("0.2.0", "9.9.9")
     with pytest.raises(ValueError, match="unknown schema"):
         load_schema("../secret.json")

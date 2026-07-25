@@ -1,6 +1,6 @@
 # Mechanism PRD - Commit-Reveal, Declarations, and Mutual Audit
 
-**Status:** M0 approved outline; finalize before M5 implementation
+**Status:** M5 approved and frozen
 **Owner:** Security Lead
 **Requirements:** FR-CRY-001..015, FR-GAME-013, FR-NEG-007..010
 **Rules:** Appendix E 15-24, 36, 46-48, 53; ADR-004
@@ -30,6 +30,38 @@ Bind every outcome-relevant decision and declaration before the opponent reveals
 ## Canonical byte contract
 
 UTF-8, Unicode NFC, lexicographically sorted object keys, no insignificant whitespace, separators `,`/`:`, schema-defined array order and number representation, finite values only, explicit schema version, and nonce as a payload field. Exact golden bytes/digests are shared by both exports.
+
+The normative commitment body is `commitment_version`, game UUID, sub-game,
+actor-local step, actor, pre-action local-state digest, action, hint, verdict,
+public effects, token count, model/provider, config digest, protocol version,
+scent-model digest, and scent-frame digest. The canonical commitment payload adds
+one lowercase nonce field. `data/conformance/crypto/commitment.v1.json` fixes the
+exact bytes and SHA-256 result.
+
+## Nonce and lifecycle contract
+
+- A nonce is at least 16 bytes and production generation calls
+  `secrets.token_bytes`; reuse is prohibited across the sealed store.
+- `SecretNonce` is opaque and its string/repr are permanently redacted.
+- Commit stores the secret payload locally and sends identity plus digest only.
+- A matching acknowledgement locks the payload. A live reveal then exposes the
+  complete body but no nonce.
+- Only `AUDITING`, `AGREEING_RESULT`, `REPORTING`, or `COMPLETED` can create the
+  final manifest of commitment-linked nonces.
+- All digest and keyed-signature checks use constant-time comparison.
+
+## Step-0 keyed signature
+
+Each peer signs exact canonical Step-0 bytes using HMAC-SHA-256 and the
+course-provided shared secret. The key is loaded from a named secret environment
+entry or an already-open binary file handle, is never accepted as a path/value in
+public configuration, and never serializes. Counted play requires a known clean
+40-character Git commit. Template mode declares zero operational tokens.
+
+Step-0 binds group, counted/template terms, model/provider/tokens, normalized
+OS/platform/runtime, CPU/core/frequency, RAM, optional GPU/VRAM, Git status, exact
+config/scent/schedule digests, and protocol/schema versions. The golden body/HMAC
+is `data/conformance/crypto/step_zero.v1.json`.
 
 ## Invariants
 
@@ -68,13 +100,24 @@ UTF-8, Unicode NFC, lexicographically sorted object keys, no insignificant white
 | CRY-AC-007 | Corrupt/foreign/oversized/path-escaping artifacts fail closed and remain preserved. | security/fault tests |
 | CRY-AC-008 | Audit report localizes first failure and deterministically orders all findings. | snapshot tests |
 
-## Finalization checklist
+## Failure taxonomy and sanction
 
-- exact schemas and canonical number encoding;
-- nonce type/storage/permissions/lifecycle;
-- commitment payload field ownership and phase;
-- Step-0 keyed-signature semantics;
-- journal hash-chain format;
-- audit failure taxonomy and sanctions;
-- artifact/report digest graph and conformance vectors.
+Findings are ordered as constitution/config, scent model, schedule, Step-0,
+journal, final manifest, global/actor sequence, foreign identity, nonce,
+commitment, step binding, pre-state, scent frame, domain legality, public effect,
+post-terminal record, terminal, score, and capture truth. Each finding has an
+order, stable code, evidence link, and safe detail. Unsafe replay stops at the
+first physical mismatch; independent preflight failures are aggregated in stable
+order.
 
+Any integrity mismatch returns immutable `TAMPERED`, terminal reason `tamper`,
+and zero Police/Thief points. A valid digest never legalizes an invalid action.
+Only two byte-identical independent audit reports over one manifest can produce a
+final result-agreement digest and unlock reporting.
+
+## Approval
+
+Approved by the Security Lead role on 2026-07-25. Exact schemas, canonical
+encoding, nonce lifecycle, Step-0 signature, journal chain, failure taxonomy,
+sanction, artifact graph, conformance vectors, and localhost mutual-audit exit
+evidence are frozen for protocol `0.5.0`.

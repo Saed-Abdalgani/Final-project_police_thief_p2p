@@ -14,6 +14,8 @@ _SENSITIVE_KEY_PARTS = (
     "password",
     "private_key",
     "secret",
+    "signing_key",
+    "hmac_key",
     "token",
 )
 _EMAIL_PATTERN = re.compile(r"(?i)\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b")

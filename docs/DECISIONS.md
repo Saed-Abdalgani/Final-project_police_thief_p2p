@@ -12,6 +12,8 @@
 | ADR-003 | Canonical workspace exporting two standalone role repositories | Accepted | 2026-07-25 | Architecture, Release |
 | ADR-004 | Canonical JSON and SHA-256 commitment bytes | Accepted | 2026-07-25 | Protocol, Security |
 | ADR-005 | At-least-once delivery with exactly-once application effects | Accepted | 2026-07-25 | Protocol, Reliability |
+| ADR-006 | Reject out-of-order requests without buffering | Accepted | 2026-07-25 | Protocol, Security |
+| ADR-007 | HMAC-SHA-256 for course-key Step-0 declarations | Accepted | 2026-07-25 | Security, Protocol |
 
 ## 2. ADR template
 
@@ -163,6 +165,12 @@ Golden vectors are mandatory across both repositories. Schema changes require a 
 
 Exact byte fixtures, cross-process/cross-platform vectors, Unicode cases, reordered-key cases, non-finite rejection, mutation tests, and independent replay verification.
 
+The normative M5 vector is
+`data/conformance/crypto/commitment.v1.json`. Its canonical payload SHA-256 is
+`c66e743102b1644d8d4b1e6a029c7eab8de235965d34e3cc56131d35eec5b716`.
+The Step-0 canonical SHA-256 is
+`33581788aaaad599e4dd653de2a6c7236f14a13e920aaeb77a1b99f13457a1d7`.
+
 ## ADR-005 - At-least-once delivery, exactly-once effects
 
 **Status:** Accepted
@@ -225,3 +233,35 @@ within one monotonic Gatekeeper deadline.
 
 Duplicate, old, gap, far-future, delayed, retry-after-response-loss, and restart
 tests plus configured-limit inspection.
+
+## ADR-007 - HMAC-SHA-256 for course-key Step-0 declarations
+
+**Status:** Accepted
+**Date:** 2026-07-25
+**Requirements:** FR-NEG-007..010, FR-CRY-011..015
+
+### Context
+
+The course supplies shared signing semantics rather than a public-key identity
+infrastructure. Step-0 must be authenticated before play without placing the key
+in configuration, artifacts, exceptions, or logs.
+
+### Decision
+
+Each peer computes HMAC-SHA-256 over exact ADR-004 canonical Step-0 bytes. A key
+contains at least 256 bits and is loaded from a named secret environment entry or
+an already-open binary file handle. Public APIs never accept the key value or a
+filesystem path. Verification uses constant-time comparison. Counted Step-0
+requires a known clean exact Git commit.
+
+### Consequences
+
+Possession of the shared course key authenticates a declaration but does not
+provide non-repudiation between key holders. Key rotation is external and a new
+match requires new signed declarations.
+
+### Verification
+
+Golden HMAC, body/key/signature tamper, missing/short key, environment/file-handle
+loading, serialization absence, repr/log redaction, clean/dirty/unknown Git, and
+two-peer preflight tests.

@@ -15,6 +15,27 @@ from police_thief_p2p.sdk.dto import ReadinessReport, ReadinessStatus
 from police_thief_p2p.sdk.errors import ErrorCode, SdkError
 from police_thief_p2p.sdk.facade import SimulationSdk
 from police_thief_p2p.sdk.protocol_factory import create_protocol_runtime
+from police_thief_p2p.services.audit import (
+    AuditBundle,
+    AuditFinding,
+    AuditReport,
+    AuditStatus,
+    AuditStep,
+    FinalAgreement,
+    agree_audits,
+)
+from police_thief_p2p.services.crypto.declaration import (
+    SignedStepZero,
+    SigningKey,
+    StepZeroBody,
+)
+from police_thief_p2p.services.crypto.payload import (
+    CommitmentBody,
+    CommittedAction,
+    LiveReveal,
+    PublicCommitment,
+)
+from police_thief_p2p.services.crypto.store import CommitmentIdentity, FinalRevealManifest
 from police_thief_p2p.services.protocol import (
     ProtocolEnvelope,
     ProtocolErrorCode,
@@ -36,8 +57,19 @@ from police_thief_p2p.services.protocol.negotiation_models import (
 __all__ = [
     "Action",
     "ActionType",
+    "AuditBundle",
+    "AuditFinding",
+    "AuditReport",
+    "AuditStatus",
+    "AuditStep",
+    "CommitmentBody",
+    "CommitmentIdentity",
+    "CommittedAction",
     "CountedLedger",
     "ErrorCode",
+    "FinalAgreement",
+    "FinalRevealManifest",
+    "LiveReveal",
     "LocalGameState",
     "MatchAcceptance",
     "MatchProposal",
@@ -47,6 +79,7 @@ __all__ = [
     "ProtocolErrorCode",
     "ProtocolLimits",
     "ProtocolResponse",
+    "PublicCommitment",
     "ReadinessReport",
     "ReadinessStatus",
     "RepositoryLinks",
@@ -56,10 +89,14 @@ __all__ = [
     "SdkError",
     "SenderIdentity",
     "SeriesScore",
+    "SignedStepZero",
+    "SigningKey",
     "SimulationSdk",
+    "StepZeroBody",
     "SubGameOutcome",
     "TerminalReason",
     "TransitionResult",
+    "agree_audits",
     "create_protocol_runtime",
     "deterministic_game_id",
 ]

@@ -1,8 +1,8 @@
 # Peer Protocol and Interoperability Contract
 
-**Contract version:** `0.4.0`  
-**Schema family:** `0.2.0`  
-**Status:** M4 frozen  
+**Contract version:** `0.5.0`
+**Schema family:** `0.2.0`
+**Status:** M4 tool inventory frozen; M5 payload semantics frozen
 **Authority:** `docs/PRD.md`, `docs/PRD_MCP_INFRASTRUCTURE.md`, ADR-004/005/006
 
 ## 1. Boundary and ownership
@@ -19,7 +19,8 @@ state, or opponent truth.
 
 ## 2. Frozen tool inventory
 
-All tool semantic versions are `1.0.0` within protocol `0.4.0`.
+All tool semantic versions remain `1.0.0` within protocol `0.5.0`; M5 advances
+the payload contract while preserving the M4 tool names and ownership.
 
 | Tool | Request owner | Response owner | Mutating | Required phase -> next phase |
 |---|---|---|---|---|
@@ -41,6 +42,12 @@ M4 freezes framing, negotiation, reliability, and phase ownership. M5 fills the
 commit, capture, reveal, audit, and result payload schemas with cryptographic
 semantics without changing tool names or envelope identity.
 
+The M5 normative payload and sanction rules are in `docs/CRYPTO_AUDIT.md`.
+Commit sends only identity/digest, acknowledgement locks exact bytes, live reveal
+conforms to `live_reveal.schema.json` and forbids nonce, final reveal conforms to
+`final_reveal.schema.json`, audit results conform to `audit_report.schema.json`,
+and reporting requires matching audit-manifest and independent-result digests.
+
 ## 3. Common envelope
 
 Every session-bound request validates against
@@ -48,7 +55,7 @@ Every session-bound request validates against
 
 ```json
 {
-  "protocol_version": "0.4.0",
+  "protocol_version": "0.5.0",
   "message_type": "commit_step_v1",
   "message_id": "7aa6fd2e-80b7-4adf-a0c7-533c41b7429c",
   "correlation_id": "2445bb6f-050d-4595-8c3e-cf6028554a69",
@@ -224,4 +231,3 @@ Interoperability checklist:
   timeouts, and overload fail closed;
 - [x] both process start orders reach `COMPLETED`;
 - [x] peers have no shared writable runtime root or direct IPC.
-
