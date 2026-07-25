@@ -5,9 +5,9 @@ without a central game server or shared live state. Each peer owns only local tr
 uses SHA-256 Commit-Reveal for later audit, and exposes all business capabilities
 through a typed `SimulationSdk`.
 
-Status: deterministic-domain milestone. Strict configuration, canonical contracts,
-local-only board physics, permanent barriers, terminal resolution, fixed scoring,
-and balanced six-game scheduling are complete; peer networking arrives in M4.
+Status: peer-protocol milestone. Strict configuration, deterministic local-only
+physics, FastMCP negotiation, persist-before-ack idempotency, Gatekeeper-only
+outbound calls, and isolated localhost interoperability are complete.
 
 ## Requirements
 
@@ -40,7 +40,7 @@ uv build
 
 ## Usage
 
-The M1 CLI is an adapter over the SDK and currently exposes a readiness command:
+The CLI adapter exposes readiness:
 
 ```text
 uv run police-thief-p2p readiness
@@ -49,6 +49,20 @@ uv run police-thief-p2p readiness --json
 
 Application adapters must call `SimulationSdk`; importing domain or service
 implementations from CLI, GUI, MCP, or Gmail adapters is prohibited.
+
+Run one peer with its private bind/root settings:
+
+```text
+uv run python -m police_thief_p2p.adapters.mcp.peer_process \
+  --shared-config config/shared/game.example.json \
+  --private-config config/private/game.example.toml
+```
+
+Run the two-process A-first/B-first interoperability campaign:
+
+```text
+uv run pytest tests/integration/test_dual_process_mcp.py -q
+```
 
 ## Configuration
 
@@ -106,6 +120,10 @@ print(next_state.step_number)
 Domain mechanics, scoring, privacy boundaries, and evidence are documented in
 [`docs/DOMAIN.md`](docs/DOMAIN.md).
 
+The exact FastMCP inventory, envelopes, proposal fields, phases, idempotency
+algorithm, error codes, retry policy, examples, and interoperability checklist are
+documented in [`docs/PROTOCOL.md`](docs/PROTOCOL.md).
+
 ## Development
 
 Use test-driven changes and keep public behavior linked to requirement IDs:
@@ -128,6 +146,13 @@ The complete test strategy, markers, and clean-clone sequence are in
   `uv lock`, then review the diff.
 - **Readiness command fails:** run `uv run python scripts/validate_structure.py`
   and inspect the returned missing path.
+- **Peer does not become ready:** verify the configured port is free and call
+  `health_v1` at the streamable-HTTP `/mcp` endpoint; startup retries are bounded.
+- **Negotiation is refused:** compare exact shared-file bytes first, then
+  `config_sha256`, scent digest/vector, protocol/schema, group IDs, commits, URLs,
+  counted ledger, game UUID, and role schedule in that order.
+- **Sequence/conflict error:** retry the exact original envelope and message ID;
+  never construct new bytes for an uncertain mutation.
 - **Secret scanner flags a value:** remove/rotate the value. Do not suppress a real
   credential in a baseline.
 - **Tk unavailable:** headless operation remains the required functional path; GUI

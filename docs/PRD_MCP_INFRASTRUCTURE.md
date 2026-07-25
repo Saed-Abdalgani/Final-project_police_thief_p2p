@@ -1,6 +1,6 @@
 # Mechanism PRD - MCP Infrastructure, Negotiation, and Reliability
 
-**Status:** M0 approved outline; finalize before M4/M8 implementation
+**Status:** M4 protocol/negotiation contract approved; M8 reliability expansion pending
 **Owner:** Protocol Lead
 **Requirements:** FR-NEG-001..012, FR-MCP-001..015, FR-ORC-001..013, NFR-REL-001..007
 **Rules:** Appendix E 1-12, 31, 37-38, 52
@@ -31,7 +31,13 @@ Out of scope: strategy scoring, cryptographic payload internals, GUI layout, and
 
 ## Minimum MCP tool families
 
-Health/capabilities, propose/accept negotiation, commit/acknowledge/reveal, capture claim/response, final nonce reveal, audit-manifest agreement, status, and final result agreement. Final tool names, versions, request/response schemas, auth/session preconditions, mutability, idempotency, and phase transitions are frozen in `docs/PROTOCOL.md`.
+The frozen `1.0.0` tools are `health_v1`, `capabilities_v1`,
+`propose_match_v1`, `accept_match_v1`, `commit_step_v1`,
+`acknowledge_step_v1`, `reveal_step_v1`, `capture_claim_v1`,
+`capture_response_v1`, `final_reveal_v1`, `audit_result_v1`,
+`agree_result_v1`, and `peer_status_v1`. Request/response ownership,
+mutability, phase transitions, and M5 payload-extension boundaries are normative
+in `docs/PROTOCOL.md`.
 
 ## Invariants
 
@@ -48,7 +54,11 @@ Health/capabilities, propose/accept negotiation, commit/acknowledge/reveal, capt
 
 ## State outline
 
-`INITIALIZING -> NEGOTIATING -> READY -> WAITING/COMPUTING -> COMMITTING -> AWAITING_ACK -> REVEALING -> VERIFYING -> ... -> AUDITING -> AGREEING_RESULT -> REPORTING -> COMPLETED`
+M4 implements `NEGOTIATING -> READY -> AWAITING_ACK -> REVEALING ->
+WAITING/VERIFYING -> AUDITING -> AGREEING_RESULT -> REPORTING -> COMPLETED`.
+`TECHNICAL`, `TAMPER`, and `STOPPED` are immutable terminal phases. M8 adds
+orchestration-only `INITIALIZING`, `COMPUTING`, and recovery/watchdog states
+without weakening the M4 tool preconditions.
 
 Any state may enter an allowed typed technical/tamper/stopped terminal through explicit transitions. A full event/command transition table, timeout owner, persistence point, and retry rule is required before implementation.
 
@@ -65,14 +75,32 @@ Any state may enter an allowed typed technical/tamper/stopped terminal through e
 | MCP-AC-007 | Two peers have no shared writable state or direct IPC. | isolation audit |
 | MCP-AC-008 | Public endpoint preflight proves bidirectional health/capability reachability. | external confirmation |
 
-## Finalization checklist
+## Approved M4 failure and persistence semantics
 
-- exact tool inventory and schemas;
-- transition table and timeout/deadline ownership;
-- atomic idempotency persistence algorithm;
-- request/body/depth/string/queue/concurrency limits;
-- reconnect and out-of-order policy;
-- error-code catalog;
-- public tunnel authentication/exposure assumptions;
-- recovery snapshot fields and retention.
+- JSON and envelope size/depth/string/collection limits are private typed
+  configuration; inbound concurrency is the signed Gatekeeper ceiling.
+- Inbound order is parse, session, identity, idempotency, phase/sequence,
+  persist intent, SDK mutation, persist effect/response, acknowledge.
+- Idempotency identity is game + sender + message UUID. Same digest replays;
+  another digest conflicts. A durable session receipt repairs a pending record
+  after restart.
+- Out-of-order requests are rejected, never buffered. The configured reorder
+  window distinguishes a normal gap from an abusive far-future sequence.
+- Outbound FastMCP calls use a single monotonic deadline and bounded Gatekeeper
+  retries with identical request bytes.
+- Stable safe errors cover validation, unknown session, identity, phase,
+  sequence, conflict, timeout, overload, and internal failure.
+- Loopback HTTP is development-only. Public deployment requires
+  credential-free HTTPS tunnel URLs and bidirectional preflight.
+- Session and idempotency snapshots live only in the peer's private artifact
+  root and are retained with official match evidence.
 
+The exact field tables, examples, transition matrix, limits, recovery algorithm,
+and interoperability commands are approved in `docs/PROTOCOL.md`.
+
+## M4 approval
+
+Approved by the Protocol Lead role on 2026-07-25 after contract, hostile-input,
+restart, Gatekeeper, in-memory FastMCP, and dual-OS-process integration tests.
+No M4 mechanism remains an outline. Watchdog, circuit breaker, authentication
+hardening, and public-tunnel rehearsal remain explicitly owned by M8/M11/M12.

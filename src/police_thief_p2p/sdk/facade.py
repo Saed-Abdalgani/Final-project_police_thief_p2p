@@ -10,6 +10,8 @@ from police_thief_p2p.domain.scoring import (
 from police_thief_p2p.domain.state import LocalGameState, initial_local_state
 from police_thief_p2p.domain.values import Action, Role
 from police_thief_p2p.sdk.dto import ReadinessCheck, ReadinessReport, ReadinessStatus
+from police_thief_p2p.services.protocol.envelope import ProtocolResponse
+from police_thief_p2p.services.protocol.runtime import ProtocolRuntime
 from police_thief_p2p.shared.config_loader import load_private_bytes, load_shared_bytes
 from police_thief_p2p.shared.config_models import SharedConfig
 from police_thief_p2p.shared.effective_config import EffectiveConfig, merge_effective_config
@@ -25,7 +27,11 @@ from police_thief_p2p.shared.version import (
 class SimulationSdk:
     """Expose typed product use cases without leaking service implementations."""
 
-    __slots__ = ()
+    __slots__ = ("_protocol",)
+
+    def __init__(self, protocol: ProtocolRuntime | None = None) -> None:
+        """Create the facade with an optional isolated peer protocol runtime."""
+        self._protocol = protocol
 
     def check_readiness(self) -> ReadinessReport:
         """Return foundation and packaged contract compatibility readiness."""
@@ -40,7 +46,8 @@ class SimulationSdk:
                 name="config.contracts",
                 passed=contracts_ok,
                 detail=(
-                    f"Packaged schemas match schema/protocol {SCHEMA_VERSION}."
+                    "Packaged schemas match "
+                    f"schema {SCHEMA_VERSION} and protocol {PROTOCOL_VERSION}."
                     if contracts_ok
                     else "Packaged schema compatibility mismatch."
                 ),
@@ -100,3 +107,24 @@ class SimulationSdk:
     ) -> SeriesScore:
         """Aggregate six verified outcomes without losing group identity."""
         return aggregate_series(outcomes, group_a, group_b)
+
+    def protocol_health(self) -> ProtocolResponse:
+        """Return a state-free peer liveness response."""
+        return self._require_protocol().health()
+
+    def protocol_capabilities(self) -> ProtocolResponse:
+        """Return supported protocol, schema, tools, and role versions."""
+        return self._require_protocol().capabilities()
+
+    def receive_protocol_request(self, tool: str, document: bytes) -> ProtocolResponse:
+        """Execute one bounded inbound peer request through the protocol service."""
+        return self._require_protocol().handle(tool, document)
+
+    def protocol_pipeline_trace(self) -> tuple[str, ...]:
+        """Return stage-order evidence for the most recent request."""
+        return self._require_protocol().last_pipeline_trace
+
+    def _require_protocol(self) -> ProtocolRuntime:
+        if self._protocol is None:
+            raise RuntimeError("protocol runtime is not configured")
+        return self._protocol

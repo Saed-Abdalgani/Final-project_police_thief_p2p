@@ -4,10 +4,10 @@
   "title": "Step-0 Peer Declaration",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "protocol_version", "game_uid", "group_id", "role", "config_digest", "scent_model_digest", "capabilities"],
+  "required": ["schema_version", "protocol_version", "game_uid", "group_id", "role", "config_digest", "scent_model_digest", "capabilities", "hardware", "software"],
   "properties": {
     "schema_version": {"const": "0.2.0"},
-    "protocol_version": {"const": "0.2.0"},
+    "protocol_version": {"const": "0.4.0"},
     "game_uid": {"type": "string", "format": "uuid"},
     "group_id": {"type": "string", "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9_-]{0,62}[A-Za-z0-9])?$"},
     "role": {"enum": ["police", "thief"]},
@@ -18,6 +18,34 @@
       "additionalProperties": false,
       "required": ["llm_movement"],
       "properties": {"llm_movement": {"type": "boolean"}}
+    },
+    "hardware": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["operating_system", "cpu_model", "cpu_cores", "cpu_frequency_mhz", "ram_bytes", "gpu_model", "vram_bytes", "timezone"],
+      "properties": {
+        "operating_system": {"type": "string", "minLength": 1},
+        "cpu_model": {"type": "string", "minLength": 1},
+        "cpu_cores": {"type": "integer", "minimum": 1},
+        "cpu_frequency_mhz": {"type": ["integer", "null"], "minimum": 1},
+        "ram_bytes": {"type": "integer", "minimum": 1},
+        "gpu_model": {"type": ["string", "null"]},
+        "vram_bytes": {"type": ["integer", "null"], "minimum": 0},
+        "timezone": {"type": "string", "minLength": 1}
+      }
+    },
+    "software": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code_version", "played_commit", "model_provider", "model_name", "estimated_tokens", "llm_movement_enabled"],
+      "properties": {
+        "code_version": {"type": "string", "minLength": 1},
+        "played_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "model_provider": {"type": "string", "minLength": 1},
+        "model_name": {"type": "string", "minLength": 1},
+        "estimated_tokens": {"type": "integer", "minimum": 0},
+        "llm_movement_enabled": {"type": "boolean"}
+      }
     }
   },
   "$defs": {"digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}

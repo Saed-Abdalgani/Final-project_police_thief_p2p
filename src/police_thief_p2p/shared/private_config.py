@@ -35,6 +35,11 @@ class NetworkConfig(FrozenModel):
     listen_host: StrictStr = "127.0.0.1"
     listen_port: Annotated[StrictInt, Field(ge=1, le=65_535)]
     opponent_public_url: HttpUrl
+    max_request_bytes: Annotated[StrictInt, Field(ge=1_024, le=10_485_760)] = 65_536
+    max_json_depth: Annotated[StrictInt, Field(ge=2, le=64)] = 16
+    max_string_length: Annotated[StrictInt, Field(ge=64, le=1_048_576)] = 4_096
+    max_collection_items: Annotated[StrictInt, Field(ge=8, le=100_000)] = 256
+    reorder_window: Annotated[StrictInt, Field(ge=1, le=1_024)] = 8
 
 
 class PathsConfig(FrozenModel):

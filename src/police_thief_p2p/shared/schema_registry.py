@@ -18,6 +18,8 @@ SCHEMA_NAMES = frozenset(
         "log.schema.json",
         "final_result.schema.json",
         "protocol_envelope.schema.json",
+        "match_proposal.schema.json",
+        "match_acceptance.schema.json",
     }
 )
 
@@ -67,7 +69,11 @@ def contracts_are_compatible(schema_version: str, protocol_version: str) -> bool
             return False
         text = json.dumps(schema, sort_keys=True)
         if (
-            name in {"declaration.schema.json", "protocol_envelope.schema.json"}
+            name
+            in {
+                "declaration.schema.json",
+                "match_proposal.schema.json",
+            }
             and protocol_version not in text
         ):
             return False

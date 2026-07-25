@@ -2,6 +2,29 @@
 
 All notable project changes are documented here. The project follows semantic versioning for documentation, package, protocol, config, and schema contracts, with compatibility recorded separately when those versions diverge.
 
+## Package [0.4.0] - 2026-07-25
+
+### Added
+
+- Immutable bounded protocol envelopes, safe response/error catalog, and frozen
+  FastMCP `*_v1` tool inventory.
+- Full proposal/acceptance and Step-0 contracts for identities, four repositories,
+  commits, MCP URLs, counted ledgers, exact shared bytes/digests, scent vectors,
+  UUID agreement, optional capabilities, and balanced role schedules.
+- Persist-before-ack sessions, atomic file records, restart-safe idempotency,
+  monotonic sequence/phase enforcement, and constant-memory reorder rejection.
+- Thin SDK-only FastMCP server, Gatekeeper-only client, real backend, configured
+  resource ceilings, and isolated peer process entry point.
+- Dual-process A-first/B-first localhost interoperability, crash, duplicate,
+  conflict, hostile-input, mismatch, deadline, and boundary evidence.
+
+### Changed
+
+- Package and peer protocol versions advance to `0.4.0`; the compatible artifact
+  schema family remains `0.2.0`.
+- Private network configuration now owns request byte, depth, string, collection,
+  and reorder ceilings.
+
 ## Package [0.3.0] - 2026-07-25
 
 ### Added

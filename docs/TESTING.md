@@ -41,6 +41,29 @@ M3 overrides the shared Hypothesis profile for its legal-action/state-invariant
 campaign and executes 10,000 deterministic examples. Coordinate metamorphism covers
 all four origins and both 0/1 index conventions.
 
+## M4 protocol campaign
+
+Run the peer contract and independent-process path directly:
+
+```text
+uv run pytest tests/contract/test_protocol_contracts.py -q
+uv run pytest tests/integration/test_protocol_runtime.py -q
+uv run pytest tests/integration/test_dual_process_mcp.py -q
+uv run pytest tests/security/test_mcp_boundaries.py -q
+```
+
+The dual-process test runs twice, once per startup order. Every peer gets a
+different PID and separate config, artifact, cache, and temporary roots. The only
+coordination channel is each peer's loopback streamable-HTTP FastMCP endpoint.
+Both peers validate identical shared bytes, apply the same proposal and terminal
+public event sequence, and independently reach `COMPLETED`.
+
+Protocol hostile/fault coverage includes duplicate keys, invalid UTF-8, size,
+depth, string, collection and finite-number limits; config/scent/version/group/
+schedule/UUID mismatch; counted ledger boundaries; duplicate/conflicting IDs;
+old/gap/future sequence; illegal phases; response-loss recovery; restart repair;
+Gatekeeper timeout/dependency failure; and safe exception mapping.
+
 ## Negative gate evidence
 
 Quality tools include synthetic negative tests:

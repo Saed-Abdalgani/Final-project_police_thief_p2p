@@ -193,3 +193,35 @@ Storage and state transition ordering are part of protocol correctness. Idempote
 
 Loss-after-apply, duplicate, reordering, reconnect, crash-at-boundary, digest-conflict, deadline, and bounded-queue fault tests.
 
+## ADR-006 - Reject out-of-order requests without buffering
+
+**Status:** Accepted
+**Date:** 2026-07-25
+**Requirements:** FR-MCP-008, FR-MCP-010, NFR-SEC-008..009
+
+### Context
+
+At-least-once delivery requires clear gap handling. A receiver-side reorder buffer
+adds memory pressure, expiry state, and another recovery surface before the
+orchestrator has durable checkpoint agreement.
+
+### Decision
+
+M4 buffers zero protocol messages. After exact-idempotency replay is checked, the
+receiver accepts only the next per-sender sequence. Old messages, bounded gaps,
+and far-future messages receive typed sequence errors with no mutation. The
+configured `reorder_window` classifies a normal gap versus an abusive future
+sequence; it never allocates a buffer. The sender retries the missing exact bytes
+within one monotonic Gatekeeper deadline.
+
+### Consequences
+
+- Memory use is constant under reordering and denial attempts.
+- Senders must retain stable request bytes until acknowledgment.
+- M8 may add a durable bounded buffer only through a new accepted ADR and protocol
+  compatibility review.
+
+### Verification
+
+Duplicate, old, gap, far-future, delayed, retry-after-response-loss, and restart
+tests plus configured-limit inspection.

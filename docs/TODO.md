@@ -256,56 +256,56 @@ A checked task has:
 
 **Exit gate:** two independently rooted processes negotiate and complete a basic sub-game over localhost through versioned FastMCP tools, with idempotent effects and no shared state.
 
-- [ ] **T166 [P0]** Finalize `docs/PRD_MCP_INFRASTRUCTURE.md` before protocol code; evidence: tool contracts, phases, idempotency, and failure semantics approved.
-- [ ] **T167 [P0]** Freeze the minimal FastMCP tool inventory and semantic versions; evidence: `docs/PROTOCOL.md` lists request/response ownership.
-- [ ] **T168 [P0]** Implement common immutable protocol envelope DTO; evidence: round-trip tests for all IDs, versions, sender, sub-game, step, and payload.
-- [ ] **T169 [P0]** Implement strict envelope parsing with size, depth, string, collection, and finite-number limits; evidence: hostile payload tests.
-- [ ] **T170 [P0]** Implement the FastMCP server adapter as a thin SDK caller; evidence: import test shows no domain-service access.
-- [ ] **T171 [P0]** Implement the FastMCP client adapter behind the transport port; evidence: fake-transport contract tests.
-- [ ] **T172 [P0]** Implement `health_v1` liveness response; evidence: it exposes no game/private state.
-- [ ] **T173 [P0]** Implement capability/readiness response with protocol, schema, tool, and role versions; evidence: compatibility fixture.
-- [ ] **T174 [P0]** Route every outbound MCP call through an initial Gatekeeper facade; evidence: direct client calls outside Gatekeeper fail boundary test.
-- [ ] **T175 [P0]** Implement inbound handler pipeline for parse, session, identity, idempotency, phase, persist, SDK, and response; evidence: pipeline-order test.
-- [ ] **T176 [P0]** Implement in-memory session registry interface keyed by validated `GameUid`; evidence: unknown-session request fails safely.
-- [ ] **T177 [P0]** Define match-proposal request/response schema; evidence: includes identities, repositories, commits, URLs, counted totals, config/scent digests, and versions.
-- [ ] **T178 [P0]** Implement `propose_match_v1` SDK command and MCP handler; evidence: accepted proposal is durably represented without starting play.
-- [ ] **T179 [P0]** Implement `accept_match_v1` SDK command and MCP handler; evidence: exact proposal digest required.
-- [ ] **T180 [P0]** Validate eight-character league group IDs during counted negotiation; evidence: invalid ID prevents counted mode.
-- [ ] **T181 [P0]** Validate truthful counted-game declaration shape and local-ledger consistency; evidence: mismatch is flagged before play.
-- [ ] **T182 [P0]** Require exact played Git commit hashes for both group artifacts; evidence: missing/dirty/invalid values reject counted proposal.
-- [ ] **T183 [P0]** Validate all four repository URLs required for the two groups; evidence: malformed or incomplete link set rejected.
-- [ ] **T184 [P0]** Validate both public MCP URLs and prohibit credential-bearing URLs; evidence: redaction and scheme tests.
-- [ ] **T185 [P0]** Compare raw shared-config bytes where exchanged; evidence: one-byte mismatch refuses the match.
-- [ ] **T186 [P0]** Compare canonical shared-config digest; evidence: semantic mismatch identifies `config_sha256`.
-- [ ] **T187 [P0]** Compare signed scent-model digest and numeric-vector version; evidence: mismatched kernel refuses play.
-- [ ] **T188 [P0]** Define Step-0 declaration payload contract for later cryptographic sealing; evidence: all PRD FR-NEG-006 fields represented.
-- [ ] **T189 [P0]** Implement deterministic shared `game_id` proposal and UUID `game_uid` agreement; evidence: both peers converge or fail closed.
-- [ ] **T190 [P0]** Negotiate and persist the six-sub-game role schedule; evidence: each group gets three Police and three Thief assignments.
-- [ ] **T191 [P0]** Model warmup versus counted match as an explicit signed term; evidence: warmup cannot update counted ledger.
-- [ ] **T192 [P0]** Reject counted negotiation after ten prior counted opponents; evidence: boundary tests at 9, 10, and 11.
-- [ ] **T193 [P0]** Reject a second counted match against the same group while allowing named warmups; evidence: ledger tests.
-- [ ] **T194 [P0]** Implement protocol-version compatibility negotiation; evidence: compatible minor and incompatible major fixtures.
-- [ ] **T195 [P1]** Implement namespaced optional-capability negotiation without weakening mandatory rules; evidence: unknown optional extension ignored/rejected per version policy.
-- [ ] **T196 [P0]** Define idempotency repository port and record model; evidence: key includes game, sender, and message ID.
-- [ ] **T197 [P0]** Implement durable file-backed idempotency repository; evidence: response survives process restart.
-- [ ] **T198 [P0]** Reject reuse of one message ID with a different request digest; evidence: conflict produces protocol violation without mutation.
-- [ ] **T199 [P0]** Implement monotonic per-sender sequence validation; evidence: duplicate, gap, old, and future sequence cases.
-- [ ] **T200 [P0]** Implement phase/precondition validator callable before every mutating SDK command; evidence: illegal phase matrix.
-- [ ] **T201 [P0]** Persist mutating request intent and result before returning acknowledgement; evidence: crash-boundary integration test.
-- [ ] **T202 [P0]** Configure FastMCP request body and concurrency ceilings from config; evidence: oversize/overload requests reject safely.
-- [ ] **T203 [P0]** Define stable protocol error codes for validation, identity, phase, sequence, conflict, timeout, and internal failure.
-- [ ] **T204 [P0]** Map unexpected exceptions to correlation-safe responses without stack traces or secrets; evidence: redaction snapshot test.
-- [ ] **T205 [P0]** Apply monotonic request deadlines to every outbound MCP call; evidence: fake clock timeout test without sleep.
-- [ ] **T206 [P0]** Ensure mutation retries reuse the same idempotency key and request bytes; evidence: transport retry creates one effect.
-- [ ] **T207 [P0]** Implement bounded handling for out-of-order messages according to documented policy; evidence: no unbounded buffer.
-- [ ] **T208 [P0]** Create a dual-process localhost test runner using separate commands and environments; evidence: OS process IDs differ.
-- [ ] **T209 [P0]** Assign separate config, artifact, cache, and temporary roots to each test peer; evidence: path audit proves isolation.
-- [ ] **T210 [P0]** Make peer startup order independent through bounded health/readiness retries; evidence: A-first and B-first tests.
-- [ ] **T211 [P0]** Run one basic localhost sub-game entirely through MCP/SDK; evidence: both event sequences reach the same public outcome.
-- [ ] **T212 [P0]** Add negotiation mismatch integration tests for config, scent, version, group, role schedule, and game UID.
-- [ ] **T213 [P0]** Add duplicate/reordered/delayed delivery integration tests; evidence: exactly-once effects and correct errors.
-- [ ] **T214 [P0]** Publish protocol examples and interoperability checklist in `docs/PROTOCOL.md`; evidence: examples validate against schemas.
-- [ ] **T215 [P0]** Complete M4 review against Appendix E rules 1-6, 10-12, 31, 37-38, and 52; evidence: signed exit checklist.
+- [x] **T166 [P0]** Finalize `docs/PRD_MCP_INFRASTRUCTURE.md` before protocol code; evidence: tool contracts, phases, idempotency, and failure semantics approved.
+- [x] **T167 [P0]** Freeze the minimal FastMCP tool inventory and semantic versions; evidence: `docs/PROTOCOL.md` lists request/response ownership.
+- [x] **T168 [P0]** Implement common immutable protocol envelope DTO; evidence: round-trip tests for all IDs, versions, sender, sub-game, step, and payload.
+- [x] **T169 [P0]** Implement strict envelope parsing with size, depth, string, collection, and finite-number limits; evidence: hostile payload tests.
+- [x] **T170 [P0]** Implement the FastMCP server adapter as a thin SDK caller; evidence: import test shows no domain-service access.
+- [x] **T171 [P0]** Implement the FastMCP client adapter behind the transport port; evidence: fake-transport contract tests.
+- [x] **T172 [P0]** Implement `health_v1` liveness response; evidence: it exposes no game/private state.
+- [x] **T173 [P0]** Implement capability/readiness response with protocol, schema, tool, and role versions; evidence: compatibility fixture.
+- [x] **T174 [P0]** Route every outbound MCP call through an initial Gatekeeper facade; evidence: direct client calls outside Gatekeeper fail boundary test.
+- [x] **T175 [P0]** Implement inbound handler pipeline for parse, session, identity, idempotency, phase, persist, SDK, and response; evidence: pipeline-order test.
+- [x] **T176 [P0]** Implement in-memory session registry interface keyed by validated `GameUid`; evidence: unknown-session request fails safely.
+- [x] **T177 [P0]** Define match-proposal request/response schema; evidence: includes identities, repositories, commits, URLs, counted totals, config/scent digests, and versions.
+- [x] **T178 [P0]** Implement `propose_match_v1` SDK command and MCP handler; evidence: accepted proposal is durably represented without starting play.
+- [x] **T179 [P0]** Implement `accept_match_v1` SDK command and MCP handler; evidence: exact proposal digest required.
+- [x] **T180 [P0]** Validate eight-character league group IDs during counted negotiation; evidence: invalid ID prevents counted mode.
+- [x] **T181 [P0]** Validate truthful counted-game declaration shape and local-ledger consistency; evidence: mismatch is flagged before play.
+- [x] **T182 [P0]** Require exact played Git commit hashes for both group artifacts; evidence: missing/dirty/invalid values reject counted proposal.
+- [x] **T183 [P0]** Validate all four repository URLs required for the two groups; evidence: malformed or incomplete link set rejected.
+- [x] **T184 [P0]** Validate both public MCP URLs and prohibit credential-bearing URLs; evidence: redaction and scheme tests.
+- [x] **T185 [P0]** Compare raw shared-config bytes where exchanged; evidence: one-byte mismatch refuses the match.
+- [x] **T186 [P0]** Compare canonical shared-config digest; evidence: semantic mismatch identifies `config_sha256`.
+- [x] **T187 [P0]** Compare signed scent-model digest and numeric-vector version; evidence: mismatched kernel refuses play.
+- [x] **T188 [P0]** Define Step-0 declaration payload contract for later cryptographic sealing; evidence: all PRD FR-NEG-006 fields represented.
+- [x] **T189 [P0]** Implement deterministic shared `game_id` proposal and UUID `game_uid` agreement; evidence: both peers converge or fail closed.
+- [x] **T190 [P0]** Negotiate and persist the six-sub-game role schedule; evidence: each group gets three Police and three Thief assignments.
+- [x] **T191 [P0]** Model warmup versus counted match as an explicit signed term; evidence: warmup cannot update counted ledger.
+- [x] **T192 [P0]** Reject counted negotiation after ten prior counted opponents; evidence: boundary tests at 9, 10, and 11.
+- [x] **T193 [P0]** Reject a second counted match against the same group while allowing named warmups; evidence: ledger tests.
+- [x] **T194 [P0]** Implement protocol-version compatibility negotiation; evidence: compatible minor and incompatible major fixtures.
+- [x] **T195 [P1]** Implement namespaced optional-capability negotiation without weakening mandatory rules; evidence: unknown optional extension ignored/rejected per version policy.
+- [x] **T196 [P0]** Define idempotency repository port and record model; evidence: key includes game, sender, and message ID.
+- [x] **T197 [P0]** Implement durable file-backed idempotency repository; evidence: response survives process restart.
+- [x] **T198 [P0]** Reject reuse of one message ID with a different request digest; evidence: conflict produces protocol violation without mutation.
+- [x] **T199 [P0]** Implement monotonic per-sender sequence validation; evidence: duplicate, gap, old, and future sequence cases.
+- [x] **T200 [P0]** Implement phase/precondition validator callable before every mutating SDK command; evidence: illegal phase matrix.
+- [x] **T201 [P0]** Persist mutating request intent and result before returning acknowledgement; evidence: crash-boundary integration test.
+- [x] **T202 [P0]** Configure FastMCP request body and concurrency ceilings from config; evidence: oversize/overload requests reject safely.
+- [x] **T203 [P0]** Define stable protocol error codes for validation, identity, phase, sequence, conflict, timeout, and internal failure.
+- [x] **T204 [P0]** Map unexpected exceptions to correlation-safe responses without stack traces or secrets; evidence: redaction snapshot test.
+- [x] **T205 [P0]** Apply monotonic request deadlines to every outbound MCP call; evidence: fake clock timeout test without sleep.
+- [x] **T206 [P0]** Ensure mutation retries reuse the same idempotency key and request bytes; evidence: transport retry creates one effect.
+- [x] **T207 [P0]** Implement bounded handling for out-of-order messages according to documented policy; evidence: no unbounded buffer.
+- [x] **T208 [P0]** Create a dual-process localhost test runner using separate commands and environments; evidence: OS process IDs differ.
+- [x] **T209 [P0]** Assign separate config, artifact, cache, and temporary roots to each test peer; evidence: path audit proves isolation.
+- [x] **T210 [P0]** Make peer startup order independent through bounded health/readiness retries; evidence: A-first and B-first tests.
+- [x] **T211 [P0]** Run one basic localhost sub-game entirely through MCP/SDK; evidence: both event sequences reach the same public outcome.
+- [x] **T212 [P0]** Add negotiation mismatch integration tests for config, scent, version, group, role schedule, and game UID.
+- [x] **T213 [P0]** Add duplicate/reordered/delayed delivery integration tests; evidence: exactly-once effects and correct errors.
+- [x] **T214 [P0]** Publish protocol examples and interoperability checklist in `docs/PROTOCOL.md`; evidence: examples validate against schemas.
+- [x] **T215 [P0]** Complete M4 review against Appendix E rules 1-6, 10-12, 31, 37-38, and 52; evidence: signed exit checklist.
 
 ---
 

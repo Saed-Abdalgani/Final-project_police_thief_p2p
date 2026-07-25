@@ -6,7 +6,7 @@
   "additionalProperties": false,
   "required": ["protocol_version", "message_type", "message_id", "correlation_id", "game_uid", "sub_game_number", "step_number", "sender", "sequence", "payload"],
   "properties": {
-    "protocol_version": {"const": "0.2.0"},
+    "protocol_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
     "message_type": {"type": "string", "pattern": "^[a-z][a-z0-9_]{0,63}$"},
     "message_id": {"type": "string", "format": "uuid"},
     "correlation_id": {"type": "string", "format": "uuid"},

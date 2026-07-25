@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://police-thief-p2p.invalid/schemas/0.2.0/match_proposal.schema.json",
+  "x-protocol-version": "0.4.0",
+  "title": "Fail-Closed Match Proposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol_version", "schema_version", "game_id", "game_uid", "counted",
+    "warmup_name", "participants", "config_raw_b64", "raw_config_sha256",
+    "config_sha256", "scent_model_sha256", "scent_vector_version",
+    "role_schedule", "declarations", "optional_capabilities"
+  ],
+  "properties": {
+    "protocol_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "schema_version": {"const": "0.2.0"},
+    "game_id": {"type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$"},
+    "game_uid": {"type": "string", "format": "uuid"},
+    "counted": {"type": "boolean"},
+    "warmup_name": {"type": ["string", "null"], "minLength": 1},
+    "participants": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {"$ref": "#/$defs/participant"}
+    },
+    "config_raw_b64": {"type": "string", "minLength": 1},
+    "raw_config_sha256": {"$ref": "#/$defs/digest"},
+    "config_sha256": {"$ref": "#/$defs/digest"},
+    "scent_model_sha256": {"$ref": "#/$defs/digest"},
+    "scent_vector_version": {"const": "scent-5x5-v1"},
+    "role_schedule": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {"$ref": "#/$defs/roleTerm"}
+    },
+    "declarations": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {"type": "object"}
+    },
+    "optional_capabilities": {"type": "object"}
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "participant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["group_name", "group_id", "members", "repositories", "commits", "public_mcp_url", "role_capabilities", "counted_total", "counted_opponents"],
+      "properties": {
+        "group_name": {"type": "string", "minLength": 1},
+        "group_id": {"type": "string", "pattern": "^[A-Za-z0-9]{8}$"},
+        "members": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "repositories": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["police", "thief"],
+          "properties": {"police": {"type": "string", "format": "uri"}, "thief": {"type": "string", "format": "uri"}}
+        },
+        "commits": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["police", "thief"],
+          "properties": {"police": {"$ref": "#/$defs/commit"}, "thief": {"$ref": "#/$defs/commit"}}
+        },
+        "public_mcp_url": {"type": "string", "format": "uri"},
+        "role_capabilities": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"enum": ["police", "thief"]}},
+        "counted_total": {"type": "integer", "minimum": 0, "maximum": 10},
+        "counted_opponents": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+      }
+    },
+    "roleTerm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sub_game_number", "police_group", "thief_group"],
+      "properties": {
+        "sub_game_number": {"type": "integer", "minimum": 1, "maximum": 6},
+        "police_group": {"type": "string"},
+        "thief_group": {"type": "string"}
+      }
+    }
+  }
+}
