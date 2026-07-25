@@ -207,6 +207,7 @@ flowchart LR
 |---|---|---|
 | `SimulationSdk` | Public use cases and typed results | Domain algorithms, direct I/O |
 | `PeerOrchestrator` | Workflow coordination and state transitions | Physics, crypto implementation, transport details |
+| `ConfigurationService` | Strict shared/private parsing, validation, canonicalization, effective configuration | Runtime negotiation or secret persistence |
 | `GameRulesService` | Board legality, barriers, terminal detection, scoring | Network or UI |
 | `ScentService` | Kernel, emission, decay, validation | Strategy |
 | `BeliefService` | Prediction, evidence fusion, normalization, diagnostics | True opponent position |
@@ -218,7 +219,15 @@ flowchart LR
 | `Gatekeeper` | Queue, quota, rate, retries, concurrency, monitoring, backpressure, circuit | Game decisions |
 | `McpTransport` | Typed remote tool calls | State mutation |
 | `Watchdog` | Heartbeat/progress monitoring and recovery trigger | Declaring arbitrary winners |
-| UI adapters | View rendering and operator lifecycle controls | Business logic |
+| `LeagueService` | Eligibility, counted ledger, role schedule, opponent/count rules | Network transport or score invention |
+| `ReportingService` | Result agreement handoff, durable outbox, recipient/attachment policy | Direct Gmail calls or result rewriting |
+| `ObservabilityService` | Structured operational events, metrics, redaction policy | Protocol evidence mutation |
+| `ExperimentRunner` | Seeded tournament manifests, split enforcement, metrics/results | Live opponent truth or holdout leakage |
+| `ReleasePipeline` | Deterministic role exports, compatibility manifests, clean-clone evidence | Runtime linkage between repositories |
+| `CiQualityGates` | Lint, types, tests, coverage, file-size and documentation validation | Product behavior |
+| `ArchitectureDependencyPolicy` | Import/dependency constraints and SDK/port boundary enforcement | Runtime coordination |
+| `LiveUiAdapter` | Local-view rendering and operator lifecycle controls | Business logic or objective live state |
+| `ReplayUiAdapter` | Offline verified replay navigation/rendering | Live state or audit decisions |
 
 ## 6. Public SDK design
 
@@ -370,6 +379,14 @@ project-root/
 |   |-- PRD.md
 |   |-- PLAN.md
 |   |-- TODO.md
+|   |-- SOURCES.md
+|   |-- TRACEABILITY.md
+|   |-- ASSUMPTIONS.md
+|   |-- AMBIGUITIES.md
+|   |-- GOVERNANCE.md
+|   |-- RISKS.md
+|   |-- EVIDENCE.md
+|   |-- EXPERIMENTS.md
 |   |-- PRD_BASE_LOGIC.md
 |   |-- PRD_MCP_INFRASTRUCTURE.md
 |   |-- PRD_STRATEGY.md
@@ -384,6 +401,7 @@ project-root/
 |   |-- OPERATIONS.md
 |   |-- TESTING.md
 |   |-- RESEARCH_REPORT.md
+|   |-- REVIEW_M0.md
 |   `-- DECISIONS.md
 |-- config/
 |   |-- shared/
@@ -1425,7 +1443,7 @@ The following decisions shall be formalized as ADRs:
 
 ## 26. Milestone execution plan
 
-### M0 - Governance and specification
+### M0 - Governance and traceability
 
 Deliver:
 
@@ -1436,9 +1454,12 @@ Deliver:
 
 Exit:
 
-- every mandatory rule and parameter has an owner and verification method.
+- every mandatory rule and parameter has an owner and verification method;
+- all 227 PRD requirement IDs map to one planned component, at least one TODO task, and a primary evidence type;
+- no unresolved P0 specification ambiguity or PRD/PLAN discrepancy remains;
+- the documentation baseline is approved and recorded as `1.0.0`.
 
-### M1 - Foundation and SDK shell
+### M1 - Foundation and tooling
 
 Deliver:
 
@@ -1451,124 +1472,161 @@ Exit:
 
 - clean clone installs and all foundation checks pass.
 
-### M2 - Deterministic local domain
+### M2 - Configuration and contracts
 
 Deliver:
 
-- board/physics/scoring;
-- scent and belief primitives;
-- artifacts value objects;
-- deterministic fallback strategies.
+- strict shared JSON and private TOML;
+- identifiers, schemas, canonicalization and digests;
+- all Appendix F status-aware validation;
+- configuration and artifact conformance vectors.
 
 Exit:
 
-- property tests and a one-process simulation pass.
+- hostile parsing, status semantics, round-trip properties, and independent Appendix F review pass.
 
-### M3 - Two localhost peers
+### M3 - Domain physics and scoring
 
 Deliver:
 
-- FastMCP server/client;
-- envelopes, handler pipeline, idempotency;
-- two-process basic match;
-- state machine and deadlines.
+- deterministic board/coordinate model;
+- movement, barriers and public events;
+- capture, enclosure, survival and ceiling resolution;
+- fixed per-sub-game and series scoring through the SDK.
 
 Exit:
 
-- a complete local sub-game runs with no shared state.
+- property/golden tests and a one-process deterministic simulation pass with no objective live state.
 
-### M4 - Integrity and audit
+### M4 - Peer protocol and negotiation
 
 Deliver:
 
-- negotiation and Step-0;
-- canonical Commit-Reveal;
-- capture protocol;
-- final nonce reveal and audit;
-- four JSON artifact schemas.
+- versioned FastMCP server/client and envelopes;
+- terms/config/scent/version/count/schedule negotiation;
+- durable idempotency and bounded sequence/phase handling;
+- two-process localhost match.
 
 Exit:
 
-- all mutation/tamper scenarios fail closed and valid runs verify.
+- a complete basic localhost sub-game runs between isolated roots with exactly-once effects.
 
-### M5 - Public reliability
+### M5 - Cryptography and mutual audit
 
 Deliver:
 
-- tunnel preflight;
-- Gatekeeper for MCP;
-- Watchdog, circuit, recovery;
-- chaos and soak tests.
+- canonical SHA-256 Commit-Reveal;
+- Step-0 declaration and capture truth protocol;
+- final nonce reveal and pure mutual AuditService;
+- mutation, ordering, physics, scent, and result verification.
 
 Exit:
 
-- remote full sub-game survives the fault matrix within policy.
+- valid evidence returns identical `Verified OK`; every mutation family fails closed.
 
-### M6 - Competitive policy
+### M6 - Scent and Bayesian belief
 
 Deliver:
 
-- advanced belief filter;
-- Police expectimax/graph barrier planner;
-- Thief risk/reachability planner;
-- deception and opponent models;
-- tournament harness and tuning.
+- signed 5x5 scent kernel/emission/decay;
+- motion prediction, likelihood fusion and normalization;
+- hint trust calibration and diagnostics;
+- privacy-preserving local belief API.
 
 Exit:
 
-- frozen policy passes holdout uplift and latency gates.
+- independent scent vectors match and all belief validity/privacy properties pass.
 
-### M7 - Evidence applications
+### M7 - Competitive strategy and language policy
 
 Deliver:
 
-- local-truth GUI;
-- replay verifier/player;
-- deterministic screenshots;
-- observability dashboards/reports.
+- deadline-safe baseline and advanced role strategies;
+- Police posterior/graph barrier search and Thief risk/reachability policy;
+- opponent model, deception and safe language providers;
+- tournament-facing deterministic policy interfaces.
 
 Exit:
 
-- privacy tests pass and replay detects every mutation family.
+- frozen policy passes legality, latency, zero-token default, and held-out uplift gates.
 
-### M8 - Reporting
+### M8 - Orchestration, persistence, and reliability
 
 Deliver:
 
-- result builder;
-- durable outbox;
-- Gmail send-only adapter;
-- Gatekeeper quota/token/DOS controls.
+- complete phase state machine and PeerOrchestrator;
+- event journal, atomic checkpoints and recovery;
+- Watchdog, cancellation and lifecycle controls;
+- unified configurable Gatekeeper and fault telemetry.
 
 Exit:
 
-- safe end-to-end report rehearsal succeeds with no duplicates.
+- the fault/chaos matrix yields recovery or a clean typed terminal without duplicate effects or deadlock.
 
-### M9 - League rehearsal
+### M9 - Artifacts, Gmail reporting, and full Gatekeeper
 
 Deliver:
 
-- full six-game remote series;
-- both role profiles/repositories;
-- independent audits and reports;
-- operations and incident rehearsal.
+- four linked schema-valid artifact families;
+- final result agreement and token accounting;
+- send-only Gmail adapter behind Gatekeeper;
+- durable idempotent report outbox and safe dry run.
 
 Exit:
 
-- no manual intervention after start except approved lifecycle controls.
+- artifact/linkage tests and safe end-to-end report rehearsal succeed with no duplicates.
 
-### M10 - Submission
+### M10 - Live GUI and replay verifier
 
 Deliver:
 
-- academic READMEs and research report;
-- screenshots/charts;
-- clean repositories and tags;
-- forms, links, license, credits, final audit.
+- live local-truth heatmap/status application;
+- SDK-only lifecycle controls and headless parity;
+- offline verified replay navigation;
+- deterministic accessible screenshots.
 
 Exit:
 
-- root readiness checklist returns `READY`.
+- privacy/accessibility tests pass and replay detects every mutation family.
+
+### M11 - QA, security, chaos, and performance
+
+Deliver:
+
+- full unit/integration/contract/property/security/chaos suites;
+- architecture, secret, dependency and hostile-input audits;
+- soak, performance and portability evidence;
+- coverage, Ruff, type and modularity gates.
+
+Exit:
+
+- the release candidate meets every quality/security/reliability target with no unresolved P0/P1 release finding.
+
+### M12 - Experiments, tuning, and league rehearsal
+
+Deliver:
+
+- baselines, adversary pool, split manifests and reproducible tournament runner;
+- tuning, ablations, sensitivity/cost analysis and one-shot holdout;
+- two public tunnels/machines and a complete six-game rehearsal;
+- matching audit/artifact/report evidence.
+
+Exit:
+
+- the frozen policy meets competitive/reliability gates and the remote rehearsal completes without unauthorized intervention.
+
+### M13 - Documentation, two-repository release, and submission
+
+Deliver:
+
+- final academic READMEs, mechanism PRDs, operations/security/research docs;
+- deterministic standalone Police and Thief repositories;
+- independent clean-clone verification, annotated tags, access and cross-links;
+- unchanged-layout Moodle form and per-member submission package.
+
+Exit:
+
+- the root checklist records `READY` only when every mandatory evidence item passes.
 
 ## 27. Schedule and prioritization
 

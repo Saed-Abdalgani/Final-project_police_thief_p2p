@@ -56,7 +56,18 @@ If two non-quantitative instructions conflict:
 
 If a quantitative example conflicts with Appendix F, Appendix F wins without exception.
 
+Examples:
+
+- a board-size, move-count, scoring, rate-limit, or token number shown in explanatory prose is illustrative when it differs from Appendix F;
+- `scoring.technical_loss = 0` is an implementation representation of a mandatory terminal sanction, not an additional Appendix F parameter row;
+- a signed match config may choose another negotiable origin or start, but it cannot change a fixed score or make a minimum threshold/protection weaker;
+- for Gatekeeper rows labeled `Minimum`, the minimum applies to protection: maximum request rate/concurrency may be made more restrictive, while delay/assurance/capacity may be increased.
+
+The source ledger, rendered-page map, and independent transcription review are maintained in `docs/SOURCES.md` and `docs/TRACEABILITY.md`. Architecture/protocol interpretations with cross-cutting consequences are recorded in `docs/DECISIONS.md`.
+
 ### 2.3 Terminology
+
+The controlled definitions and prohibited synonyms in `docs/GOVERNANCE.md` are normative. The concise definitions below are aliases for that glossary.
 
 - **Agent / peer**: One autonomous process representing the current Police or Thief role.
 - **Group**: A student team and its stable league identity.
@@ -333,7 +344,8 @@ The following defaults are binding according to their status. `Minimum` may be c
 | `scoring.survival_cop` | `5` | Fixed |
 | `scoring.survival_thief` | `10` | Fixed |
 | `scoring.tie_score` | `2` | Fixed |
-| `scoring.technical_loss` | `0` | Fixed |
+
+Technical-loss and tamper outcomes remain typed and score zero where mandated by the behavioral rules, but `scoring.technical_loss` is not one of the quantitative parameter rows on Appendix F physical pages 152-155. It shall not be represented as a negotiable/shared Appendix F key unless a later normative source explicitly adds it.
 
 ### 9.6 League
 
@@ -1052,17 +1064,20 @@ Given the frozen candidate strategy and held-out tournament suite, when compared
 
 | Milestone | Outcome | Exit gate |
 |---|---|---|
-| M0 - Governance | Normative docs, traceability, schemas planned | PRD/PLAN/TODO approved |
-| M1 - Foundation | `uv` project, SDK shell, config, CI | Clean install/lint/test |
-| M2 - Local domain | Deterministic board, scoring, scent, belief | Property tests pass |
-| M3 - Local dual peer | Two processes over localhost, basic strategy | End-to-end sub-game |
-| M4 - Integrity | Negotiation, Step-0, Commit-Reveal, audit | Tamper suite passes |
-| M5 - Public reliability | Tunnel play, deadlines, idempotency, Watchdog | Remote fault run passes |
-| M6 - Competitive intelligence | Advanced Police/Thief policies and self-play | Held-out uplift gate |
-| M7 - Evidence shell | GUI, replay, four artifacts | Verified screenshots and schemas |
-| M8 - Reporting | Gmail Gatekeeper and durable outbox | Safe send sandbox passes |
-| M9 - League rehearsal | Six-game remote series, audit, reports | Full dress rehearsal |
-| M10 - Submission | Two repositories, academic READMEs, tag, forms | Final readiness audit |
+| M0 - Governance and traceability | Normative docs, source/rule/parameter/requirement ownership, mechanism outlines | Baseline `1.0.0`; no unresolved P0 specification issue |
+| M1 - Foundation and tooling | `uv` project, SDK shell, ports, logging, CI/quality skeleton | Clean clone installs, lints, types, tests, and builds |
+| M2 - Configuration and contracts | Shared/private config, identifiers, schemas, canonicalization, vectors | Appendix F and hostile config suites pass |
+| M3 - Domain physics and scoring | Deterministic board, barriers, terminal resolution, fixed scoring | Property/golden/SDK-boundary tests pass |
+| M4 - Peer protocol and negotiation | Two isolated localhost FastMCP peers, negotiation, idempotency | Basic end-to-end sub-game completes with no shared state |
+| M5 - Cryptography and mutual audit | Step-0, Commit-Reveal, capture truth, final mutual audit | Valid evidence verifies; every mutation family fails closed |
+| M6 - Scent and Bayesian belief | Interoperable scent and normalized local Bayesian belief | Numeric vectors/calibration/privacy tests pass |
+| M7 - Competitive strategy and language policy | Advanced Police/Thief policies, safe language, opponent model | Holdout uplift, legality, latency, and zero-token-default gates pass |
+| M8 - Orchestration, persistence, and reliability | State machine, journal, deadlines, Watchdog, full Gatekeeper | Faults recover or terminate cleanly with no deadlock/duplicate effect |
+| M9 - Artifacts, Gmail reporting, and full Gatekeeper | Four artifact families, result agreement, Gmail durable outbox | Schema/linkage and safe idempotent reporting rehearsal pass |
+| M10 - Live GUI and replay verifier | Local-truth live UI and verified offline replay | Privacy/accessibility tests and tamper-aware screenshots pass |
+| M11 - QA, security, chaos, and performance | Full adversarial, chaos, portability, coverage, lint/type/performance gates | Release-candidate quality and security audit passes |
+| M12 - Experiments, tuning, and league rehearsal | Frozen policy, untouched holdout, two-machine remote dress rehearsal | Competitive targets and complete six-game public-tunnel rehearsal pass |
+| M13 - Documentation, two-repository release, and submission | Two standalone repositories, academic evidence, tags, forms | Root audit records `READY` only when every gate passes |
 
 ## 20. Risks and mitigations
 
@@ -1091,6 +1106,14 @@ The final project shall include:
 - `docs/PRD.md`
 - `docs/PLAN.md`
 - `docs/TODO.md`
+- `docs/SOURCES.md`
+- `docs/TRACEABILITY.md`
+- `docs/ASSUMPTIONS.md`
+- `docs/AMBIGUITIES.md`
+- `docs/GOVERNANCE.md`
+- `docs/RISKS.md`
+- `docs/EVIDENCE.md`
+- `docs/EXPERIMENTS.md`
 - `docs/PRD_BASE_LOGIC.md`
 - `docs/PRD_MCP_INFRASTRUCTURE.md`
 - `docs/PRD_STRATEGY.md`
@@ -1106,6 +1129,7 @@ The final project shall include:
 - `docs/TESTING.md`
 - `docs/RESEARCH_REPORT.md`
 - `docs/DECISIONS.md`
+- `docs/REVIEW_M0.md`
 - `CHANGELOG.md`
 - `LICENSE`
 - `CREDITS.md`

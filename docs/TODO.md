@@ -63,46 +63,46 @@ A checked task has:
 
 **Exit gate:** all source rules, assumptions, sanctions, requirement IDs, ownership, and evidence methods are reviewable before implementation.
 
-- [ ] **T001 [P0]** Record the SHA-256 checksum, page count, version, and filesystem path of the supplied PDF in `docs/SOURCES.md`; evidence: reproducible checksum command and output.
-- [ ] **T002 [P0]** Record the root `system prompt.txt` as the engineering authority in `docs/SOURCES.md`; evidence: precedence statement matches PRD section 2.
-- [ ] **T003 [P0]** Record reference repository URL, inspected commit `960499fd5e8777b4929625f5d8fdcf2ab4677b54`, and informative-only status; evidence: source ledger entry.
-- [ ] **T004 [P0]** Build a page-to-topic map for all 160 PDF pages; evidence: every page range is assigned to a chapter/appendix.
-- [ ] **T005 [P0]** Transcribe all 55 Appendix E rules into a machine-checkable traceability table; evidence: unique rule numbers 1-55 with no gaps.
-- [ ] **T006 [P0]** Transcribe every Appendix F parameter, default, status, and config key into the traceability table; evidence: peer review against rendered pages 152-155.
-- [ ] **T007 [P0]** Define the normative precedence rule for PDF examples versus Appendix F values; evidence: decision recorded in PRD and ADR register.
-- [ ] **T008 [P0]** Create `docs/ASSUMPTIONS.md` with every implementation assumption from PRD section 8; evidence: owner and validation date per assumption.
-- [ ] **T009 [P0]** Create `docs/AMBIGUITIES.md` and seed barrier/STAY, scent-kernel, role-alternation, recovery, and LLM-move ambiguities; evidence: chosen interpretation and rationale per item.
-- [ ] **T010 [P0]** Define the controlled vocabulary for peer, group, role, series, sub-game, local truth, and objective state; evidence: glossary used consistently across documents.
-- [ ] **T011 [P0]** Assign stable IDs to every functional and non-functional requirement; evidence: duplicate-ID check passes.
-- [ ] **T012 [P0]** Map every PRD requirement to one planned component in PLAN; evidence: no orphan requirement in traceability report.
-- [ ] **T013 [P0]** Map every PRD requirement to at least one TODO task; evidence: automated link report has zero missing requirements.
-- [ ] **T014 [P0]** Define stakeholders and approval roles for architecture, QA, security, strategy, and submission; evidence: RACI table.
-- [ ] **T015 [P0]** Define change-control rules for shared config/protocol/schema changes; evidence: versioning and approval workflow.
-- [ ] **T016 [P0]** Define the violation severity taxonomy: invalid input, technical loss, tamper forfeit, project disqualification; evidence: mapping to Appendix E sanctions.
-- [ ] **T017 [P0]** Define data classifications for public, shared-signed, local-private, secret, and post-audit evidence; evidence: classification matrix.
-- [ ] **T018 [P0]** Define retention rules for operational logs, official artifacts, nonces, OAuth files, and tournament outputs; evidence: lifecycle table.
-- [ ] **T019 [P0]** Define the local-truth invariant in a standalone architecture rule; evidence: forbidden-field examples and enforcement strategy.
-- [ ] **T020 [P0]** Define the "no shared live state" invariant for development and league runs; evidence: permitted/prohibited communication table.
-- [ ] **T021 [P0]** Create the initial threat model with assets, actors, boundaries, threats, and controls; evidence: STRIDE-style coverage of all remote boundaries.
-- [ ] **T022 [P0]** Create the initial risk register with probability, impact, owner, mitigation, trigger, and contingency; evidence: all critical PRD risks included.
-- [ ] **T023 [P0]** Define measurable compliance, reliability, strategy, performance, cost, and quality KPIs; evidence: units and evidence source for each KPI.
-- [ ] **T024 [P0]** Define acceptance evidence types: automated test, artifact, screenshot, benchmark, manual inspection, or external confirmation; evidence: each requirement uses one.
-- [ ] **T025 [P0]** Create `docs/DECISIONS.md` with ADR template and index; evidence: template includes context, options, decision, consequences, status.
-- [ ] **T026 [P0]** Draft ADR-001 for SDK-only business logic access; evidence: accepted boundary and consequences.
-- [ ] **T027 [P0]** Draft ADR-002 for ports-and-adapters architecture; evidence: dependency direction diagram.
-- [ ] **T028 [P0]** Draft ADR-003 for two standalone exported role repositories; evidence: drift and isolation trade-offs documented.
-- [ ] **T029 [P0]** Draft ADR-004 for canonical JSON and SHA-256; evidence: exact byte rules identified.
-- [ ] **T030 [P0]** Draft ADR-005 for at-least-once delivery with exactly-once effects; evidence: idempotency strategy documented.
-- [ ] **T031 [P0]** Create outlines for all seven required mechanism PRDs; evidence: scope, inputs, outputs, invariants, acceptance placeholders.
-- [ ] **T032 [P0]** Create an academic-integrity and reference-code usage policy; evidence: permitted reuse and required attribution documented.
-- [ ] **T033 [P0]** Define the two-repository release and cross-linking policy; evidence: naming, branch, tag, access, and export rules.
-- [ ] **T034 [P0]** Define the counted-match ledger policy, including warmups and one-counted-match-per-opponent; evidence: state model.
-- [ ] **T035 [P0]** Define the exact final readiness decision rubric (`READY`, `CONDITIONALLY READY`, `NOT READY`); evidence: root checklist fields match system prompt.
-- [ ] **T036 [P1]** Define competitive baseline agents and official comparison metrics; evidence: reference, random, scripted, and previous-version baselines listed.
-- [ ] **T037 [P1]** Define train, validation, and holdout fixture separation; evidence: seed/adversary leakage policy.
-- [ ] **T038 [P1]** Define experiment reproducibility metadata; evidence: required commit, config, seed, hardware, runtime, and metrics fields.
-- [ ] **T039 [P0]** Conduct a formal PRD/PLAN consistency review; evidence: closed review checklist with all discrepancies resolved.
-- [ ] **T040 [P0]** Freeze documentation baseline v1.0.0 and record approval; evidence: changelog entry and no unresolved P0 specification issue.
+- [x] **T001 [P0]** Record the SHA-256 checksum, page count, version, and filesystem path of the supplied PDF in `docs/SOURCES.md`; evidence: reproducible checksum command and output.
+- [x] **T002 [P0]** Record the root `system prompt.txt` as the engineering authority in `docs/SOURCES.md`; evidence: precedence statement matches PRD section 2.
+- [x] **T003 [P0]** Record reference repository URL, inspected commit `960499fd5e8777b4929625f5d8fdcf2ab4677b54`, and informative-only status; evidence: source ledger entry.
+- [x] **T004 [P0]** Build a page-to-topic map for all 160 PDF pages; evidence: every page range is assigned to a chapter/appendix.
+- [x] **T005 [P0]** Transcribe all 55 Appendix E rules into a machine-checkable traceability table; evidence: unique rule numbers 1-55 with no gaps.
+- [x] **T006 [P0]** Transcribe every Appendix F parameter, default, status, and config key into the traceability table; evidence: peer review against rendered pages 152-155.
+- [x] **T007 [P0]** Define the normative precedence rule for PDF examples versus Appendix F values; evidence: decision recorded in PRD and ADR register.
+- [x] **T008 [P0]** Create `docs/ASSUMPTIONS.md` with every implementation assumption from PRD section 8; evidence: owner and validation date per assumption.
+- [x] **T009 [P0]** Create `docs/AMBIGUITIES.md` and seed barrier/STAY, scent-kernel, role-alternation, recovery, and LLM-move ambiguities; evidence: chosen interpretation and rationale per item.
+- [x] **T010 [P0]** Define the controlled vocabulary for peer, group, role, series, sub-game, local truth, and objective state; evidence: glossary used consistently across documents.
+- [x] **T011 [P0]** Assign stable IDs to every functional and non-functional requirement; evidence: duplicate-ID check passes.
+- [x] **T012 [P0]** Map every PRD requirement to one planned component in PLAN; evidence: no orphan requirement in traceability report.
+- [x] **T013 [P0]** Map every PRD requirement to at least one TODO task; evidence: automated link report has zero missing requirements.
+- [x] **T014 [P0]** Define stakeholders and approval roles for architecture, QA, security, strategy, and submission; evidence: RACI table.
+- [x] **T015 [P0]** Define change-control rules for shared config/protocol/schema changes; evidence: versioning and approval workflow.
+- [x] **T016 [P0]** Define the violation severity taxonomy: invalid input, technical loss, tamper forfeit, project disqualification; evidence: mapping to Appendix E sanctions.
+- [x] **T017 [P0]** Define data classifications for public, shared-signed, local-private, secret, and post-audit evidence; evidence: classification matrix.
+- [x] **T018 [P0]** Define retention rules for operational logs, official artifacts, nonces, OAuth files, and tournament outputs; evidence: lifecycle table.
+- [x] **T019 [P0]** Define the local-truth invariant in a standalone architecture rule; evidence: forbidden-field examples and enforcement strategy.
+- [x] **T020 [P0]** Define the "no shared live state" invariant for development and league runs; evidence: permitted/prohibited communication table.
+- [x] **T021 [P0]** Create the initial threat model with assets, actors, boundaries, threats, and controls; evidence: STRIDE-style coverage of all remote boundaries.
+- [x] **T022 [P0]** Create the initial risk register with probability, impact, owner, mitigation, trigger, and contingency; evidence: all critical PRD risks included.
+- [x] **T023 [P0]** Define measurable compliance, reliability, strategy, performance, cost, and quality KPIs; evidence: units and evidence source for each KPI.
+- [x] **T024 [P0]** Define acceptance evidence types: automated test, artifact, screenshot, benchmark, manual inspection, or external confirmation; evidence: each requirement uses one.
+- [x] **T025 [P0]** Create `docs/DECISIONS.md` with ADR template and index; evidence: template includes context, options, decision, consequences, status.
+- [x] **T026 [P0]** Draft ADR-001 for SDK-only business logic access; evidence: accepted boundary and consequences.
+- [x] **T027 [P0]** Draft ADR-002 for ports-and-adapters architecture; evidence: dependency direction diagram.
+- [x] **T028 [P0]** Draft ADR-003 for two standalone exported role repositories; evidence: drift and isolation trade-offs documented.
+- [x] **T029 [P0]** Draft ADR-004 for canonical JSON and SHA-256; evidence: exact byte rules identified.
+- [x] **T030 [P0]** Draft ADR-005 for at-least-once delivery with exactly-once effects; evidence: idempotency strategy documented.
+- [x] **T031 [P0]** Create outlines for all seven required mechanism PRDs; evidence: scope, inputs, outputs, invariants, acceptance placeholders.
+- [x] **T032 [P0]** Create an academic-integrity and reference-code usage policy; evidence: permitted reuse and required attribution documented.
+- [x] **T033 [P0]** Define the two-repository release and cross-linking policy; evidence: naming, branch, tag, access, and export rules.
+- [x] **T034 [P0]** Define the counted-match ledger policy, including warmups and one-counted-match-per-opponent; evidence: state model.
+- [x] **T035 [P0]** Define the exact final readiness decision rubric (`READY`, `CONDITIONALLY READY`, `NOT READY`); evidence: root checklist fields match system prompt.
+- [x] **T036 [P1]** Define competitive baseline agents and official comparison metrics; evidence: reference, random, scripted, and previous-version baselines listed.
+- [x] **T037 [P1]** Define train, validation, and holdout fixture separation; evidence: seed/adversary leakage policy.
+- [x] **T038 [P1]** Define experiment reproducibility metadata; evidence: required commit, config, seed, hardware, runtime, and metrics fields.
+- [x] **T039 [P0]** Conduct a formal PRD/PLAN consistency review; evidence: closed review checklist with all discrepancies resolved.
+- [x] **T040 [P0]** Freeze documentation baseline v1.0.0 and record approval; evidence: changelog entry and no unresolved P0 specification issue.
 
 ---
 
@@ -110,7 +110,7 @@ A checked task has:
 
 **Exit gate:** a clean clone uses `uv` to install, lint, type-check, test, and build the SDK shell on supported systems.
 
-- [ ] **T041 [P0]** Initialize Git in the canonical workspace without modifying user-owned external files; evidence: clean repository root and initial status.
+- [x] **T041 [P0]** Initialize Git in the canonical workspace without modifying user-owned external files; evidence: clean repository root and initial status.
 - [ ] **T042 [P0]** Create `.gitignore` before credentials or runtime artifacts exist; evidence: `.env`, `credentials.json`, `token.json`, keys, logs, caches, results, and IDE files covered.
 - [ ] **T043 [P0]** Initialize the Python project with `uv` and package name `police_thief_p2p`; evidence: valid `pyproject.toml`.
 - [ ] **T044 [P0]** Set Python requirement to 3.13+ and document supported interpreters; evidence: `requires-python` and README agree.
