@@ -4,9 +4,9 @@ import re
 from dataclasses import dataclass
 from typing import Final
 
-PACKAGE_VERSION: Final = "0.1.0"
-PROTOCOL_VERSION: Final = "0.1.0"
-SCHEMA_VERSION: Final = "0.1.0"
+PACKAGE_VERSION: Final = "0.2.0"
+PROTOCOL_VERSION: Final = "0.2.0"
+SCHEMA_VERSION: Final = "0.2.0"
 _SEMVER_PATTERN: Final = re.compile(
     r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)"
     r"(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?"

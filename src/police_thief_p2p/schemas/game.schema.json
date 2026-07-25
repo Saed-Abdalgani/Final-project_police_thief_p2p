@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://police-thief-p2p.invalid/schemas/0.2.0/game.schema.json",
+  "title": "Shared Police-Thief Match Constitution",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "agreed_between",
+    "board_and_agents",
+    "world",
+    "movement_and_barriers",
+    "pheromones",
+    "scoring",
+    "network_and_league",
+    "rate_limiter_gatekeeper"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.2.0"},
+    "agreed_between": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9_-]{0,62}[A-Za-z0-9])?$"}
+    },
+    "board_and_agents": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["grid_size", "num_agents", "axis_origin_corner", "axis_start_index", "thief_start", "cop_start"],
+      "properties": {
+        "grid_size": {"type": "integer", "minimum": 7, "maximum": 10000},
+        "num_agents": {"const": 2},
+        "axis_origin_corner": {"enum": ["top-left", "top-right", "bottom-left", "bottom-right"]},
+        "axis_start_index": {"enum": [0, 1]},
+        "thief_start": {"$ref": "#/$defs/coordinate"},
+        "cop_start": {"$ref": "#/$defs/coordinate"}
+      }
+    },
+    "world": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["map_area", "hint_max_words"],
+      "properties": {
+        "map_area": {"type": "string", "maxLength": 200},
+        "hint_max_words": {"type": "integer", "minimum": 1, "maximum": 100}
+      }
+    },
+    "movement_and_barriers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["move_set", "max_barriers", "max_moves", "survival_threshold"],
+      "properties": {
+        "move_set": {"const": ["N", "S", "E", "W", "STAY"]},
+        "max_barriers": {"type": "integer", "minimum": 14, "maximum": 1000000},
+        "max_moves": {"type": "integer", "minimum": 35, "maximum": 2147483647},
+        "survival_threshold": {"type": "integer", "minimum": 35, "maximum": 2147483647}
+      }
+    },
+    "pheromones": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pheromone_center_intensity",
+        "pheromone_decay",
+        "pheromone_grid_size",
+        "kernel",
+        "rounding",
+        "numeric_example"
+      ],
+      "properties": {
+        "pheromone_center_intensity": {"const": "0.9"},
+        "pheromone_decay": {"const": "0.10"},
+        "pheromone_grid_size": {"const": 5},
+        "kernel": {
+          "const": [
+            ["0.0625", "0.125", "0.25", "0.125", "0.0625"],
+            ["0.125", "0.25", "0.5", "0.25", "0.125"],
+            ["0.25", "0.5", "1", "0.5", "0.25"],
+            ["0.125", "0.25", "0.5", "0.25", "0.125"],
+            ["0.0625", "0.125", "0.25", "0.125", "0.0625"]
+          ]
+        },
+        "rounding": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["decimal_places", "mode"],
+          "properties": {
+            "decimal_places": {"const": 6},
+            "mode": {"const": "ROUND_HALF_EVEN"}
+          }
+        },
+        "numeric_example": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["center_emission", "center_after_one_full_turn"],
+          "properties": {
+            "center_emission": {"const": "0.900000"},
+            "center_after_one_full_turn": {"const": "0.810000"}
+          }
+        }
+      }
+    },
+    "scoring": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["capture_cop", "capture_thief", "survival_cop", "survival_thief", "tie_score"],
+      "properties": {
+        "capture_cop": {"const": 20},
+        "capture_thief": {"const": 5},
+        "survival_cop": {"const": 5},
+        "survival_thief": {"const": 10},
+        "tie_score": {"const": 2}
+      }
+    },
+    "network_and_league": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "num_games",
+        "diversity_reward",
+        "min_games_to_pass",
+        "token_budget_per_series",
+        "max_games_per_team",
+        "response_timeout_sec",
+        "watchdog_timeout_sec"
+      ],
+      "properties": {
+        "num_games": {"const": 6},
+        "diversity_reward": {"const": 10},
+        "min_games_to_pass": {"const": 2},
+        "token_budget_per_series": {"type": "integer", "minimum": 1},
+        "max_games_per_team": {"const": 10},
+        "response_timeout_sec": {"type": "integer", "minimum": 1, "maximum": 86400},
+        "watchdog_timeout_sec": {"type": "integer", "minimum": 1, "maximum": 86400}
+      }
+    },
+    "rate_limiter_gatekeeper": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requests_per_minute", "concurrent_requests", "retry_backoff_sec", "max_retries", "queue_depth"],
+      "properties": {
+        "requests_per_minute": {"type": "integer", "minimum": 1, "maximum": 30},
+        "concurrent_requests": {"type": "integer", "minimum": 1, "maximum": 2},
+        "retry_backoff_sec": {"type": "integer", "minimum": 5, "maximum": 86400},
+        "max_retries": {"type": "integer", "minimum": 3, "maximum": 100},
+        "queue_depth": {"type": "integer", "minimum": 100, "maximum": 1000000}
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "propertyNames": {"pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)+$"}
+    }
+  },
+  "$defs": {
+    "coordinate": {
+      "type": "array",
+      "prefixItems": [{"type": "integer"}, {"type": "integer"}],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    }
+  }
+}

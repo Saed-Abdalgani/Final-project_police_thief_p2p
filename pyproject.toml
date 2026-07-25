@@ -1,6 +1,6 @@
 [project]
 name = "police-thief-p2p"
-version = "0.1.0"
+version = "0.2.0"
 description = "Distributed, auditable Cops-and-Robbers peers over FastMCP."
 readme = "README.md"
 requires-python = ">=3.13"
@@ -49,6 +49,8 @@ module-root = "src"
 source-include = [
     ".env-example",
     ".pre-commit-config.yaml",
+    "config/**",
+    "data/conformance/**",
     "docs/**",
     "scripts/**",
     "tests/**",
@@ -161,5 +163,6 @@ dev = [
     "pytest-cov>=6.2,<8",
     "pyyaml>=6.0,<7",
     "ruff>=0.14,<0.15",
+    "types-jsonschema>=4.25,<5",
     "types-pyyaml>=6.0,<7",
 ]

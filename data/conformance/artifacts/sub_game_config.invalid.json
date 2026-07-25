@@ -1,0 +1,7 @@
+{
+  "schema_version": "0.2.0",
+  "game_uid": "12345678-1234-4234-8234-123456789abc",
+  "sub_game_number": 0,
+  "role": "observer",
+  "shared_config": {}
+}

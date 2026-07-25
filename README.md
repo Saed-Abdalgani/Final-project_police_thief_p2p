@@ -5,8 +5,9 @@ without a central game server or shared live state. Each peer owns only local tr
 uses SHA-256 Commit-Reveal for later audit, and exposes all business capabilities
 through a typed `SimulationSdk`.
 
-Status: foundation milestone. The SDK shell and engineering controls exist; gameplay
-and network behavior are implemented in later milestones.
+Status: configuration-and-contract milestone. Strict shared/private configuration,
+canonical JSON, identifiers, schema resources, and conformance vectors are complete;
+gameplay and network behavior are implemented in later milestones.
 
 ## Requirements
 
@@ -52,13 +53,17 @@ implementations from CLI, GUI, MCP, or Gmail adapters is prohibited.
 ## Configuration
 
 - `.env-example` documents local environment names without real secrets.
-- Future shared match rules live in signed `config/shared/game.json`.
-- Future private peer settings live in local TOML and environment variables.
+- Shared match rules use `config/shared/game.example.json` as the signed contract.
+- Private peer settings use `config/private/game.example.toml`.
+- Per-service external-call limits use `config/rate_limits.example.json`.
+- Only declared secret references are resolved from environment variables; shared
+  rules cannot be overridden by environment or private TOML.
 - `.env`, OAuth files, tokens, keys, runtime logs, generated results, and temporary
   files are ignored by Git.
 
-Appendix F values and status semantics remain governed by
-[`docs/TRACEABILITY.md`](docs/TRACEABILITY.md).
+Appendix F status semantics, parser limits, canonicalization, provenance, schemas,
+and examples are documented in [`docs/CONFIGURATION.md`](docs/CONFIGURATION.md) and
+remain traceable through [`docs/TRACEABILITY.md`](docs/TRACEABILITY.md).
 
 ## Examples
 
@@ -72,6 +77,21 @@ print(report.status.value)
 ```
 
 No adapter may call an internal service directly.
+
+Validate and merge configuration through the SDK:
+
+```python
+from pathlib import Path
+
+from police_thief_p2p import SimulationSdk
+
+effective = SimulationSdk().load_configuration(
+    Path("config/shared/game.example.json").read_bytes(),
+    Path("config/private/game.example.toml").read_bytes(),
+    submission_mode=True,
+)
+print(effective.shared.digest())
+```
 
 ## Development
 

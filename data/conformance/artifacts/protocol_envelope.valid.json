@@ -1,0 +1,12 @@
+{
+  "protocol_version": "0.2.0",
+  "message_type": "commit_step",
+  "message_id": "12345678-1234-4234-8234-123456789abc",
+  "correlation_id": "22345678-1234-4234-8234-123456789abc",
+  "game_uid": "32345678-1234-4234-8234-123456789abc",
+  "sub_game_number": 1,
+  "step_number": 1,
+  "sender": {"group_id": "GRP00001", "role": "police"},
+  "sequence": 1,
+  "payload": {"commit_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+}

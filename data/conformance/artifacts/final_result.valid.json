@@ -1,0 +1,22 @@
+{
+  "schema_version": "0.2.0",
+  "game_uid": "12345678-1234-4234-8234-123456789abc",
+  "groups": ["GRP00001", "GRP00002"],
+  "final_commits": {
+    "GRP00001": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "GRP00002": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "tokens": {"GRP00001": 0, "GRP00002": 0},
+  "scores": {"GRP00001": 40, "GRP00002": 25},
+  "artifact_links": [
+    "https://example.invalid/declaration.json",
+    "https://example.invalid/config.json",
+    "https://example.invalid/log.json",
+    "https://example.invalid/result.json"
+  ],
+  "agreement": {
+    "status": "agreed",
+    "agreed_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "signers": ["GRP00001", "GRP00002"]
+  }
+}

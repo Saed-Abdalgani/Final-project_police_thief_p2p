@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://police-thief-p2p.invalid/schemas/0.2.0/log.schema.json",
+  "title": "Sealed Ordered Sub-Game Log Artifact",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "game_uid", "sub_game_number", "events", "audit"],
+  "properties": {
+    "schema_version": {"const": "0.2.0"},
+    "game_uid": {"type": "string", "format": "uuid"},
+    "sub_game_number": {"type": "integer", "minimum": 1, "maximum": 6},
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["sequence", "step_number", "phase", "actor", "commit_digest", "sealed"],
+        "properties": {
+          "sequence": {"type": "integer", "minimum": 1},
+          "step_number": {"type": "integer", "minimum": 1},
+          "phase": {"enum": ["commit", "reveal", "acknowledge"]},
+          "actor": {"enum": ["police", "thief"]},
+          "commit_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "sealed": {"const": true}
+        }
+      }
+    },
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "verified_through_sequence"],
+      "properties": {
+        "status": {"enum": ["pending", "verified", "failed"]},
+        "verified_through_sequence": {"type": "integer", "minimum": 0}
+      }
+    }
+  }
+}

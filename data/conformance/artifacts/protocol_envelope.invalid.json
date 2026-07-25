@@ -1,0 +1,13 @@
+{
+  "protocol_version": "0.2.0",
+  "message_type": "../commit",
+  "message_id": "same",
+  "correlation_id": "same",
+  "game_uid": "same",
+  "sub_game_number": 0,
+  "step_number": 0,
+  "sender": {"group_id": "../escape", "role": "observer"},
+  "sequence": 0,
+  "payload": {},
+  "unexpected": true
+}

@@ -1,0 +1,39 @@
+# Private peer settings. Never copy shared game rules into this file.
+[identity]
+group_id = "GRP00001"
+role = "police"
+member_names = ["Example Member"]
+
+[network]
+listen_host = "127.0.0.1"
+listen_port = 8000
+opponent_public_url = "http://127.0.0.1:8001"
+
+[paths]
+artifact_root = "results/local"
+
+[strategy]
+class_name = "police_thief_p2p.strategies.PolicePolicy"
+profile = "balanced"
+
+[language]
+provider = "template"
+model = "deterministic-template"
+deadline_sec = 10
+# api_key_env = "POLICE_THIEF_LANGUAGE_API_KEY"
+
+[email]
+credential_path = "credentials.json"
+recipient_allowlist = ["lecturer@example.invalid"]
+# oauth_client_secret_env = "POLICE_THIEF_GMAIL_CLIENT_SECRET"
+
+[gui]
+enabled = true
+theme = "system"
+
+[tunnel]
+provider = "local"
+health_url = "http://127.0.0.1:8000/health"
+
+[observability]
+level = "INFO"

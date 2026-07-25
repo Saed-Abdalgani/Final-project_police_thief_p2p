@@ -1,6 +1,6 @@
 # Mechanism PRD - Base Logic, Configuration, Physics, and Scoring
 
-**Status:** M0 approved outline; must be finalized before M2/M3 implementation
+**Status:** M2 configuration contract finalized; M3 physics remains planned
 **Owner:** Domain Lead
 **Requirements:** FR-CFG-001..013, FR-GAME-001..020, FR-SDK-001..008
 **Rules:** Appendix E 11-16 and 46-48; Appendix F F-001..F-025
@@ -10,6 +10,44 @@
 Define the deterministic, network-free core that parses the shared constitution, normalizes coordinates, enumerates legal actions, applies own-state transitions, maintains public barriers, detects terminal conditions, and scores a six-sub-game series. It also defines the typed SDK-facing contracts that prevent adapters from accessing services directly.
 
 Out of scope: MCP transport, commitment construction, opponent belief, competitive action ranking, GUI rendering, Gmail, and objective live state.
+
+## Configuration assumptions and ownership
+
+This section is the reviewed implementation contract for M2. It closes the
+configuration placeholders from the M0 outline without weakening Appendix F.
+
+| Concern | Authority | Implemented decision |
+|---|---|---|
+| Fixed/minimum/negotiable status | Appendix F through `docs/TRACEABILITY.md` | Fixed values are exact; ordinary minimums may increase; request-rate and concurrency safety maxima may only decrease; negotiable omissions use Appendix F defaults in typed model construction. |
+| Shared terms | Mutually agreed `game.json` | Every Appendix F key is required on the signed wire document. Unknown fields fail except keys inside `extensions`, whose keys must be explicit lowercase namespaces. |
+| Private terms | Per-peer `game.toml` | Only identity, network, paths, strategy, language, email, GUI, tunnel, and observability sections exist. Shared rule section names fail closed. |
+| Merge authority | Shared constitution | Shared and private fields retain immutable provenance. Private configuration cannot override a shared rule because it cannot represent one. |
+| Secret resolution | Private environment references | TOML stores allowlisted environment-variable names only. Environment lookup resolves only those secret references; game rules never read environment overrides. |
+| Identifier mode | Runtime mode | Development IDs use bounded ASCII syntax. Submission mode requires exactly eight ASCII alphanumeric characters for both agreed peers and the local identity. |
+| Coordinate representation | Signed board convention | External starts use the signed origin corner and 0/1 start index; the engine normalizes to zero-based top-left positions and validates both starts as on-board and distinct. |
+| Decimal representation | ADR-004 | Non-integer values are plain decimal strings. Canonical JSON never serializes binary floats or non-finite numbers. |
+| Scent interoperability | Signed constitution | The exact center-normalized symmetric 5x5 kernel, six-place `ROUND_HALF_EVEN` policy, and `0.900000 -> 0.810000` example are mandatory. |
+| Resource limits | Local parser boundary | Shared JSON is capped at 262,144 bytes and depth 32; private TOML is capped at 131,072 bytes. UTF-8, duplicate keys, NaN/infinity, malformed input, and schema/model violations fail with stable safe codes. |
+| Raw versus semantic equality | Negotiation/audit | SHA-256 of exact raw bytes and SHA-256 of canonical semantics are separate evidence. Semantic equality never substitutes for the byte-identical match requirement. |
+
+### Validation sequence
+
+1. Enforce byte limit and strict UTF-8.
+2. Parse while rejecting duplicate JSON keys and non-finite numbers.
+3. Enforce maximum JSON nesting depth.
+4. Validate Draft 2020-12 schema with unknown-key rejection.
+5. Construct immutable typed models.
+6. Enforce fixed values, minimum direction, start legality, deadlines, namespaces,
+   schema/protocol compatibility, and optional submission IDs.
+7. Serialize NFC canonical JSON and calculate lowercase SHA-256.
+
+### Reviewed scent formula
+
+The signed kernel contains a unit center and symmetric attenuation weights. Emitted
+cell intensity is `quantize(center_intensity * kernel_weight)`. One full turn of
+decay is `quantize(value * (1 - decay))`. Quantization uses six decimal places and
+round-half-even. The complete matrix and expected outputs are immutable vectors in
+`data/conformance/scent/emission_decay.json`.
 
 ## Inputs
 
@@ -69,11 +107,14 @@ Out of scope: MCP transport, commitment construction, opponent belief, competiti
 
 ## Finalization checklist
 
-- exact JSON/TOML schemas and duplicate-key/depth/size rules;
-- coordinate and terminal evaluation order;
-- state/event DTO field list;
-- complete scoring truth table including technical/tamper distinction;
-- source-to-test links for F-001..F-025;
-- complexity and benchmark budgets;
-- reviewed examples for barrier-on-self and enclosure.
-
+- [x] exact JSON/TOML contracts and duplicate-key/depth/size rules;
+- [x] coordinate convention and start validation order;
+- [x] Appendix F fixed/minimum/default source-to-test mapping;
+- [x] canonical serialization and digest vectors;
+- [x] scent kernel, rounding policy, and signed numeric example;
+- [x] declaration, sub-game config, log, result, and envelope schemas;
+- [ ] terminal evaluation order for M3 physics;
+- [ ] state/event DTO field list;
+- [ ] complete scoring truth table including technical/tamper distinction;
+- [ ] complexity and benchmark budgets;
+- [ ] reviewed examples for barrier-on-self and enclosure.

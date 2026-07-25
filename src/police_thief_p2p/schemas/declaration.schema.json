@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://police-thief-p2p.invalid/schemas/0.2.0/declaration.schema.json",
+  "title": "Step-0 Peer Declaration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "protocol_version", "game_uid", "group_id", "role", "config_digest", "scent_model_digest", "capabilities"],
+  "properties": {
+    "schema_version": {"const": "0.2.0"},
+    "protocol_version": {"const": "0.2.0"},
+    "game_uid": {"type": "string", "format": "uuid"},
+    "group_id": {"type": "string", "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9_-]{0,62}[A-Za-z0-9])?$"},
+    "role": {"enum": ["police", "thief"]},
+    "config_digest": {"$ref": "#/$defs/digest"},
+    "scent_model_digest": {"$ref": "#/$defs/digest"},
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["llm_movement"],
+      "properties": {"llm_movement": {"type": "boolean"}}
+    }
+  },
+  "$defs": {"digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}
+}

@@ -1,0 +1,6 @@
+{
+  "z": [3, 2, 1],
+  "text": "Cafe\u0301",
+  "nested": {"beta": true, "alpha": null},
+  "a": 7
+}

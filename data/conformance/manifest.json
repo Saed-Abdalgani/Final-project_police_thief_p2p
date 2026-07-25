@@ -1,0 +1,23 @@
+{
+  "schema_version": "0.2.0",
+  "canonical_json": {
+    "input": "canonical/input.json",
+    "expected_base64": "canonical/expected.base64",
+    "sha256": "ea97646ae78ce800d05ee63cf1fd9f27df58cf7ebee8cf8825a9bd9d2e187d6b"
+  },
+  "shared_config": {
+    "input": "../../config/shared/game.example.json",
+    "canonical_sha256": "e4a0cee44c8fa0e35545d06f7bcbe8dade9ea3318e352de0dee17d680735f4c2",
+    "raw_comparison_policy": "Raw bytes must match separately; semantic digest equality is insufficient."
+  },
+  "scent": {
+    "vector": "scent/emission_decay.json"
+  },
+  "artifact_schemas": [
+    {"schema": "declaration.schema.json", "valid": "artifacts/declaration.valid.json", "invalid": "artifacts/declaration.invalid.json"},
+    {"schema": "sub_game_config.schema.json", "valid": "artifacts/sub_game_config.valid.json", "invalid": "artifacts/sub_game_config.invalid.json"},
+    {"schema": "log.schema.json", "valid": "artifacts/log.valid.json", "invalid": "artifacts/log.invalid.json"},
+    {"schema": "final_result.schema.json", "valid": "artifacts/final_result.valid.json", "invalid": "artifacts/final_result.invalid.json"},
+    {"schema": "protocol_envelope.schema.json", "valid": "artifacts/protocol_envelope.valid.json", "invalid": "artifacts/protocol_envelope.invalid.json"}
+  ]
+}

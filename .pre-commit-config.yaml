@@ -26,6 +26,7 @@ repos:
         types: [text]
         exclude: >-
           (?x)^(
+            data/conformance/manifest\.json|
             docs/SOURCES\.md|
             docs/PRD\.md|
             docs/TODO\.md

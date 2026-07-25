@@ -1,5 +1,8 @@
 """Deterministic shared pytest and Hypothesis configuration."""
 
+from pathlib import Path
+
+import pytest
 from hypothesis import HealthCheck, settings
 
 settings.register_profile(
@@ -10,3 +13,17 @@ settings.register_profile(
     suppress_health_check=[HealthCheck.function_scoped_fixture],
 )
 settings.load_profile("ci")
+
+PROJECT_ROOT = Path(__file__).parents[1]
+
+
+@pytest.fixture
+def shared_config_bytes() -> bytes:
+    """Return the complete binding shared configuration example."""
+    return (PROJECT_ROOT / "config/shared/game.example.json").read_bytes()
+
+
+@pytest.fixture
+def private_config_bytes() -> bytes:
+    """Return the complete safe private configuration example."""
+    return (PROJECT_ROOT / "config/private/game.example.toml").read_bytes()

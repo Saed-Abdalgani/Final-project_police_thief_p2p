@@ -2,6 +2,25 @@
 
 All notable project changes are documented here. The project follows semantic versioning for documentation, package, protocol, config, and schema contracts, with compatibility recorded separately when those versions diverge.
 
+## Package [0.2.0] - 2026-07-25
+
+### Added
+
+- Immutable shared JSON and private TOML configuration models with Appendix F
+  fixed/minimum/default enforcement and field provenance.
+- Resource-bounded hostile JSON/TOML loaders with stable safe error codes.
+- Typed identifiers, four-corner coordinate normalization, exact decimal scent
+  kernel, canonical JSON, SHA-256, and raw/semantic comparison primitives.
+- Packaged Draft 2020-12 schemas for shared config, Gatekeeper profiles,
+  declarations, per-sub-game config, sealed logs, final results, and envelopes.
+- Positive/negative artifact fixtures plus canonical, digest, and scent conformance
+  vectors.
+- SDK configuration loading and schema/protocol compatibility readiness reporting.
+
+### Changed
+
+- Package, protocol, and schema compatibility versions advance to `0.2.0`.
+
 ## Package [0.1.0] - 2026-07-25
 
 ### Added

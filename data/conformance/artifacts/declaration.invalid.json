@@ -1,0 +1,10 @@
+{
+  "schema_version": "0.2.0",
+  "protocol_version": "0.2.0",
+  "game_uid": "not-a-uuid",
+  "group_id": "../escape",
+  "role": "observer",
+  "config_digest": "short",
+  "scent_model_digest": "short",
+  "capabilities": {"llm_movement": false}
+}

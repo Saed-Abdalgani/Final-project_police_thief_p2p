@@ -1,0 +1,7 @@
+{
+  "schema_version": "0.2.0",
+  "game_uid": "12345678-1234-4234-8234-123456789abc",
+  "sub_game_number": 1,
+  "events": [{"sequence": 0, "sealed": false}],
+  "audit": {"status": "trusted", "verified_through_sequence": -1}
+}

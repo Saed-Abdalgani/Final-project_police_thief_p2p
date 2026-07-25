@@ -1,0 +1,10 @@
+{
+  "schema_version": "0.2.0",
+  "game_uid": "not-a-uuid",
+  "groups": ["GRP00001"],
+  "final_commits": {},
+  "tokens": {},
+  "scores": {},
+  "artifact_links": [],
+  "agreement": {"status": "pending", "agreed_digest": "short", "signers": []}
+}

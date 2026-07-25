@@ -1,0 +1,9 @@
+{
+  "schema_version": "0.2.0",
+  "game_uid": "12345678-1234-4234-8234-123456789abc",
+  "sub_game_number": 1,
+  "role": "police",
+  "config_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "raw_config_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "shared_config": {"schema_version": "0.2.0"}
+}

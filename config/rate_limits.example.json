@@ -1,0 +1,29 @@
+{
+  "schema_version": "0.2.0",
+  "services": {
+    "mcp": {
+      "requests_per_minute": 30,
+      "concurrent_requests": 2,
+      "retry_backoff_sec": 5,
+      "max_retries": 3,
+      "queue_depth": 100,
+      "timeout_sec": 30
+    },
+    "gmail": {
+      "requests_per_minute": 10,
+      "concurrent_requests": 1,
+      "retry_backoff_sec": 10,
+      "max_retries": 3,
+      "queue_depth": 100,
+      "timeout_sec": 30
+    },
+    "remote_llm": {
+      "requests_per_minute": 20,
+      "concurrent_requests": 1,
+      "retry_backoff_sec": 5,
+      "max_retries": 3,
+      "queue_depth": 100,
+      "timeout_sec": 30
+    }
+  }
+}

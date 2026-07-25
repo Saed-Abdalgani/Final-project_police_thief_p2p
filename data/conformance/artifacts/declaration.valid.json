@@ -1,0 +1,10 @@
+{
+  "schema_version": "0.2.0",
+  "protocol_version": "0.2.0",
+  "game_uid": "12345678-1234-4234-8234-123456789abc",
+  "group_id": "GRP00001",
+  "role": "police",
+  "config_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "scent_model_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "capabilities": {"llm_movement": false}
+}

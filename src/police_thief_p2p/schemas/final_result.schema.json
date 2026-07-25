@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://police-thief-p2p.invalid/schemas/0.2.0/final_result.schema.json",
+  "title": "Agreed Final Series Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "game_uid", "groups", "final_commits", "tokens", "scores", "artifact_links", "agreement"],
+  "properties": {
+    "schema_version": {"const": "0.2.0"},
+    "game_uid": {"type": "string", "format": "uuid"},
+    "groups": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"type": "string"}},
+    "final_commits": {"$ref": "#/$defs/by_group_digest"},
+    "tokens": {"$ref": "#/$defs/by_group_nonnegative"},
+    "scores": {"$ref": "#/$defs/by_group_nonnegative"},
+    "artifact_links": {
+      "type": "array",
+      "minItems": 4,
+      "items": {"type": "string", "format": "uri"}
+    },
+    "agreement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "agreed_digest", "signers"],
+      "properties": {
+        "status": {"const": "agreed"},
+        "agreed_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "signers": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"type": "string"}}
+      }
+    }
+  },
+  "$defs": {
+    "by_group_digest": {"type": "object", "minProperties": 2, "maxProperties": 2, "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+    "by_group_nonnegative": {"type": "object", "minProperties": 2, "maxProperties": 2, "additionalProperties": {"type": "integer", "minimum": 0}}
+  }
+}
