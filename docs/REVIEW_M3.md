@@ -2,7 +2,7 @@
 
 - **Review date:** 2026-07-25
 - **Milestone:** M3 - Domain physics and scoring
-- **Current decision:** `PENDING FINAL VERIFICATION`
+- **Current decision:** `READY`
 
 ## Rule review
 
@@ -31,8 +31,23 @@
 - [x] Hypothesis executes at least 10,000 legal transition examples.
 - [x] Minimum and expanded-board performance budgets pass.
 
-## Verification gate
+## Verification evidence
 
-The decision becomes `READY` only after frozen sync, static gates, all tests and
-coverage, pre-commit/secret scan, package build/installed-wheel smoke, benchmark
-evidence, and an exact-candidate clean-clone run pass.
+- **Implementation candidate:** `191a4c5bc88d61c667672ccd64446853e25b98d8`
+- **Clean-clone evidence:** `docs/evidence/M3_CLEAN_CLONE.txt`
+- **Tests:** 218 passed with 97.14% branch-aware global coverage.
+- **Critical domain coverage:** every module in `police_thief_p2p.domain` reached
+  100% branch coverage.
+- **Property campaign:** 10,000 generated legal-transition examples passed, plus
+  coordinate-origin/index metamorphism.
+- **Static/quality:** frozen sync, Ruff lint/format, strict mypy, source-size,
+  structure, traceability, import boundary, file hygiene, and secret scan passed.
+- **Packaging:** source distribution and wheel built in the clean clone; the
+  isolated installed-wheel SDK/domain smoke passed.
+- **Performance:** uninstrumented minimum and expanded-board benchmarks passed;
+  measurements are committed in `results/benchmarks/m3_domain.json`.
+
+## Sign-off
+
+Engineering review sign-off: Codex, 2026-07-25, against candidate
+`191a4c5bc88d61c667672ccd64446853e25b98d8`. All M3 exit criteria are satisfied.

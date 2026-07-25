@@ -204,51 +204,51 @@ A checked task has:
 
 **Exit gate:** the deterministic, network-free domain engine enforces all board, barrier, capture, survival, and scoring rules through the SDK.
 
-- [ ] **T121 [P0]** Finalize `docs/PRD_BASE_LOGIC.md` before domain implementation; evidence: accepted inputs, outputs, invariants, and acceptance cases.
-- [ ] **T122 [P0]** Define immutable `Position` value object with row/column semantics; evidence: equality, hashing, and bounds-independent tests.
-- [ ] **T123 [P0]** Define `Direction` enum containing only N, S, E, W; evidence: diagonal/unknown parsing fails.
-- [ ] **T124 [P0]** Define `ActionType` and immutable `Action` for MOVE, STAY, and BARRIER; evidence: invalid field combinations rejected.
-- [ ] **T125 [P0]** Define `Role` enum and opponent-role helper; evidence: symmetry tests.
-- [ ] **T126 [P0]** Implement board coordinate normalization for negotiated origin/index; evidence: conversion golden matrix.
-- [ ] **T127 [P0]** Implement board bounds and cell iteration; evidence: property count equals `grid_size^2`.
-- [ ] **T128 [P0]** Implement orthogonal neighbor generation; evidence: corner/edge/interior cardinalities.
-- [ ] **T129 [P0]** Implement public immutable barrier set; evidence: duplicate insertion is idempotent and removal unavailable.
-- [ ] **T130 [P0]** Implement legal movement generation including STAY; evidence: barriers and edges filter moves correctly.
-- [ ] **T131 [P0]** Reject diagonal, multi-cell, out-of-bounds, and barrier-crossing actions; evidence: table-driven invalid-action tests.
-- [ ] **T132 [P0]** Implement shortest-path distance over current public barriers; evidence: BFS golden boards.
-- [ ] **T133 [P1]** Implement connected-component and reachable-region helpers; evidence: graph fixtures.
-- [ ] **T134 [P1]** Implement articulation-point detection for board graph; evidence: known graph cases.
-- [ ] **T135 [P1]** Implement vertex-disjoint escape-route approximation; evidence: corridor and open-board fixtures.
-- [ ] **T136 [P0]** Define immutable local game-state model with no opponent true-position field; evidence: type/API privacy inspection.
-- [ ] **T137 [P0]** Implement initial local state for Police profile; evidence: negotiated start and zero barriers used.
-- [ ] **T138 [P0]** Implement initial local state for Thief profile; evidence: negotiated start and no barrier capability.
-- [ ] **T139 [P0]** Implement deterministic movement transition for own state; evidence: pre/post invariants.
-- [ ] **T140 [P0]** Implement Police barrier candidate generation for current/adjacent cells; evidence: exact legal target sets.
-- [ ] **T141 [P0]** Enforce "barrier instead of movement" as one action; evidence: combined action rejected.
-- [ ] **T142 [P0]** Enforce configured Police barrier quota; evidence: quota boundary and over-quota rejection.
-- [ ] **T143 [P0]** Enforce barrier permanence and universal impassability; evidence: both roles' move generation respects barrier.
-- [ ] **T144 [P0]** Implement public barrier event carrying exact target; evidence: event serialization test.
-- [ ] **T145 [P0]** Implement direct landing capture predicate; evidence: equal/different position cases.
-- [ ] **T146 [P0]** Implement barrier-on-Thief-cell capture predicate for audit/offline resolution; evidence: Appendix E rule 46 test.
-- [ ] **T147 [P0]** Implement enclosure capture using spatial escape actions excluding STAY; evidence: Appendix E rule 47 edge/corner/corridor tests.
-- [ ] **T148 [P0]** Implement survival-threshold terminal predicate; evidence: threshold-1, threshold, threshold+1 cases.
-- [ ] **T149 [P0]** Implement maximum-step terminal predicate; evidence: exact configured ceiling behavior.
-- [ ] **T150 [P0]** Define typed terminal reasons: capture, barrier capture, enclosure, survival, step ceiling, technical, tamper, stopped.
-- [ ] **T151 [P0]** Implement fixed capture scoring 20/5; evidence: immutable table tests.
-- [ ] **T152 [P0]** Implement fixed survival scoring 5/10; evidence: immutable table tests.
-- [ ] **T153 [P0]** Implement technical/tamper zero-score mapping without conflating reasons; evidence: outcome tests.
-- [ ] **T154 [P0]** Implement fixed series tie score 2/2; evidence: equal/non-equal totals.
-- [ ] **T155 [P0]** Implement per-group score aggregation across six sub-games; evidence: role alternation does not swap group totals.
-- [ ] **T156 [P0]** Implement role assignment schedule for balanced six-sub-game series; evidence: each group receives three games per role.
-- [ ] **T157 [P0]** Implement one deterministic domain transition API returning state plus public events; evidence: no adapter imports.
-- [ ] **T158 [P0]** Expose domain simulation use cases only through `SimulationSdk`; evidence: boundary test blocks direct adapter access.
-- [ ] **T159 [P0]** Add unit tests for every public domain function and method; evidence: public-API inventory reaches 100%.
-- [ ] **T160 [P0]** Add Hypothesis properties for legal action closure and state invariants; evidence: >=10,000 generated examples.
-- [ ] **T161 [P0]** Add metamorphic tests for coordinate-origin/index transformations; evidence: equivalent games produce equivalent normalized transitions.
-- [ ] **T162 [P0]** Add deterministic one-process sub-game simulator for tests only; evidence: same seed/config produces byte-identical event sequence.
-- [ ] **T163 [P0]** Add golden scenarios for direct capture, barrier capture, enclosure, survival, technical loss, and tie.
-- [ ] **T164 [P0]** Benchmark board transitions and path helpers on legal minimum/expanded boards; evidence: results under `results/benchmarks/`.
-- [ ] **T165 [P0]** Complete M3 domain review against Appendix E rules 11-16 and 46-48; evidence: signed exit checklist.
+- [x] **T121 [P0]** Finalize `docs/PRD_BASE_LOGIC.md` before domain implementation; evidence: accepted inputs, outputs, invariants, and acceptance cases.
+- [x] **T122 [P0]** Define immutable `Position` value object with row/column semantics; evidence: equality, hashing, and bounds-independent tests.
+- [x] **T123 [P0]** Define `Direction` enum containing only N, S, E, W; evidence: diagonal/unknown parsing fails.
+- [x] **T124 [P0]** Define `ActionType` and immutable `Action` for MOVE, STAY, and BARRIER; evidence: invalid field combinations rejected.
+- [x] **T125 [P0]** Define `Role` enum and opponent-role helper; evidence: symmetry tests.
+- [x] **T126 [P0]** Implement board coordinate normalization for negotiated origin/index; evidence: conversion golden matrix.
+- [x] **T127 [P0]** Implement board bounds and cell iteration; evidence: property count equals `grid_size^2`.
+- [x] **T128 [P0]** Implement orthogonal neighbor generation; evidence: corner/edge/interior cardinalities.
+- [x] **T129 [P0]** Implement public immutable barrier set; evidence: duplicate insertion is idempotent and removal unavailable.
+- [x] **T130 [P0]** Implement legal movement generation including STAY; evidence: barriers and edges filter moves correctly.
+- [x] **T131 [P0]** Reject diagonal, multi-cell, out-of-bounds, and barrier-crossing actions; evidence: table-driven invalid-action tests.
+- [x] **T132 [P0]** Implement shortest-path distance over current public barriers; evidence: BFS golden boards.
+- [x] **T133 [P1]** Implement connected-component and reachable-region helpers; evidence: graph fixtures.
+- [x] **T134 [P1]** Implement articulation-point detection for board graph; evidence: known graph cases.
+- [x] **T135 [P1]** Implement vertex-disjoint escape-route approximation; evidence: corridor and open-board fixtures.
+- [x] **T136 [P0]** Define immutable local game-state model with no opponent true-position field; evidence: type/API privacy inspection.
+- [x] **T137 [P0]** Implement initial local state for Police profile; evidence: negotiated start and zero barriers used.
+- [x] **T138 [P0]** Implement initial local state for Thief profile; evidence: negotiated start and no barrier capability.
+- [x] **T139 [P0]** Implement deterministic movement transition for own state; evidence: pre/post invariants.
+- [x] **T140 [P0]** Implement Police barrier candidate generation for current/adjacent cells; evidence: exact legal target sets.
+- [x] **T141 [P0]** Enforce "barrier instead of movement" as one action; evidence: combined action rejected.
+- [x] **T142 [P0]** Enforce configured Police barrier quota; evidence: quota boundary and over-quota rejection.
+- [x] **T143 [P0]** Enforce barrier permanence and universal impassability; evidence: both roles' move generation respects barrier.
+- [x] **T144 [P0]** Implement public barrier event carrying exact target; evidence: event serialization test.
+- [x] **T145 [P0]** Implement direct landing capture predicate; evidence: equal/different position cases.
+- [x] **T146 [P0]** Implement barrier-on-Thief-cell capture predicate for audit/offline resolution; evidence: Appendix E rule 46 test.
+- [x] **T147 [P0]** Implement enclosure capture using spatial escape actions excluding STAY; evidence: Appendix E rule 47 edge/corner/corridor tests.
+- [x] **T148 [P0]** Implement survival-threshold terminal predicate; evidence: threshold-1, threshold, threshold+1 cases.
+- [x] **T149 [P0]** Implement maximum-step terminal predicate; evidence: exact configured ceiling behavior.
+- [x] **T150 [P0]** Define typed terminal reasons: capture, barrier capture, enclosure, survival, step ceiling, technical, tamper, stopped.
+- [x] **T151 [P0]** Implement fixed capture scoring 20/5; evidence: immutable table tests.
+- [x] **T152 [P0]** Implement fixed survival scoring 5/10; evidence: immutable table tests.
+- [x] **T153 [P0]** Implement technical/tamper zero-score mapping without conflating reasons; evidence: outcome tests.
+- [x] **T154 [P0]** Implement fixed series tie score 2/2; evidence: equal/non-equal totals.
+- [x] **T155 [P0]** Implement per-group score aggregation across six sub-games; evidence: role alternation does not swap group totals.
+- [x] **T156 [P0]** Implement role assignment schedule for balanced six-sub-game series; evidence: each group receives three games per role.
+- [x] **T157 [P0]** Implement one deterministic domain transition API returning state plus public events; evidence: no adapter imports.
+- [x] **T158 [P0]** Expose domain simulation use cases only through `SimulationSdk`; evidence: boundary test blocks direct adapter access.
+- [x] **T159 [P0]** Add unit tests for every public domain function and method; evidence: public-API inventory reaches 100%.
+- [x] **T160 [P0]** Add Hypothesis properties for legal action closure and state invariants; evidence: >=10,000 generated examples.
+- [x] **T161 [P0]** Add metamorphic tests for coordinate-origin/index transformations; evidence: equivalent games produce equivalent normalized transitions.
+- [x] **T162 [P0]** Add deterministic one-process sub-game simulator for tests only; evidence: same seed/config produces byte-identical event sequence.
+- [x] **T163 [P0]** Add golden scenarios for direct capture, barrier capture, enclosure, survival, technical loss, and tie.
+- [x] **T164 [P0]** Benchmark board transitions and path helpers on legal minimum/expanded boards; evidence: results under `results/benchmarks/`.
+- [x] **T165 [P0]** Complete M3 domain review against Appendix E rules 11-16 and 46-48; evidence: signed exit checklist.
 
 ---
 

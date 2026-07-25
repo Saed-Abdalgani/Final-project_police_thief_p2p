@@ -1,0 +1,53 @@
+M3 DOMAIN PHYSICS AND SCORING - CLEAN CLONE EVIDENCE
+Date: 2026-07-25
+Candidate: 191a4c5bc88d61c667672ccd64446853e25b98d8
+Platform: Windows, CPython 3.13.13
+
+The exact candidate was cloned with:
+  git clone --no-local . <new-directory-under-tmp>
+
+Commands executed from inside the clean clone:
+  uv sync --frozen --all-groups
+  uv run ruff format --check .
+  uv run ruff check .
+  uv run mypy --strict src tests
+  uv run pytest -q
+  uv run python scripts/check_file_sizes.py src
+  uv run python scripts/validate_structure.py
+  uv run python scripts/validate_traceability.py
+  uv run pre-commit run --all-files
+  uv build
+  uv run --isolated --no-project --with <wheel> python <installed-wheel-smoke>
+
+Observed results:
+  Frozen dependency sync: PASS (96 packages installed)
+  Ruff format: PASS (108 files)
+  Ruff lint: PASS
+  Strict mypy: PASS (101 source files)
+  Pytest: PASS (218 passed)
+  Global branch-aware coverage: PASS (97.14%, threshold 85%)
+  Critical M3 domain branch coverage: PASS (100% for every module)
+    domain/board.py
+    domain/engine.py
+    domain/events.py
+    domain/graph.py
+    domain/schedule.py
+    domain/scoring.py
+    domain/state.py
+    domain/terminal.py
+    domain/values.py
+  Hypothesis legal-transition campaign: PASS (10,000 generated examples)
+  Source files <=150 actual code lines: PASS
+  Required repository structure: PASS (47 paths)
+  Requirement/task traceability: PASS
+  Pre-commit hooks and committed-secret scan: PASS
+  Source distribution build: PASS
+  Wheel build: PASS (police_thief_p2p-0.3.0-py3-none-any.whl)
+  Installed-wheel SDK/domain smoke: PASS
+  Clean-clone Git status after gates: clean
+
+Uninstrumented benchmark evidence:
+  results/benchmarks/m3_domain.json
+  Transition, minimum/expanded BFS, and articulation budgets: PASS
+
+Final M3 decision: READY

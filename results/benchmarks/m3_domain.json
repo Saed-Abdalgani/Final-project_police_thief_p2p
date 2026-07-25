@@ -4,7 +4,7 @@
   "platform": "Windows",
   "python": "3.13.13",
   "package_version": "0.3.0",
-  "candidate": "M3 pre-commit verified worktree",
+  "candidate": "191a4c5",
   "method": {
     "clock": "time.perf_counter",
     "coverage_enabled": false,
