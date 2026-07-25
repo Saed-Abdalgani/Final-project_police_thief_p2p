@@ -1,6 +1,6 @@
 [project]
 name = "police-thief-p2p"
-version = "0.2.0"
+version = "0.3.0"
 description = "Distributed, auditable Cops-and-Robbers peers over FastMCP."
 readme = "README.md"
 requires-python = ">=3.13"
@@ -52,6 +52,7 @@ source-include = [
     "config/**",
     "data/conformance/**",
     "docs/**",
+    "results/benchmarks/**",
     "scripts/**",
     "tests/**",
 ]

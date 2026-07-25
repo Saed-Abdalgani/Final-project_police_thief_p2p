@@ -1,0 +1,58 @@
+{
+  "schema_version": "0.3.0",
+  "scenarios": [
+    {
+      "name": "direct-capture",
+      "police_position": [2, 2],
+      "thief_position": [2, 2],
+      "barriers": [],
+      "completed_steps": 4,
+      "expected_reason": "capture",
+      "expected_points": {"police": 20, "thief": 5}
+    },
+    {
+      "name": "barrier-capture",
+      "police_position": [0, 0],
+      "thief_position": [1, 0],
+      "placed_barrier": [1, 0],
+      "barriers": [[1, 0]],
+      "completed_steps": 4,
+      "expected_reason": "barrier_capture",
+      "expected_points": {"police": 20, "thief": 5}
+    },
+    {
+      "name": "corner-enclosure",
+      "police_position": [2, 2],
+      "thief_position": [0, 0],
+      "barriers": [[0, 1], [1, 0]],
+      "completed_steps": 4,
+      "expected_reason": "enclosure",
+      "expected_points": {"police": 20, "thief": 5}
+    },
+    {
+      "name": "survival-threshold",
+      "police_position": [2, 2],
+      "thief_position": [1, 1],
+      "barriers": [],
+      "completed_steps": 35,
+      "expected_reason": "survival",
+      "expected_points": {"police": 5, "thief": 10}
+    },
+    {
+      "name": "technical-loss",
+      "police_position": [2, 2],
+      "thief_position": [1, 1],
+      "barriers": [],
+      "completed_steps": 4,
+      "technical": true,
+      "expected_reason": "technical",
+      "expected_points": {"police": 0, "thief": 0}
+    }
+  ],
+  "series_tie": {
+    "total_a": 75,
+    "total_b": 75,
+    "tie_score": 2,
+    "expected_awards": [2, 2]
+  }
+}

@@ -5,9 +5,9 @@ without a central game server or shared live state. Each peer owns only local tr
 uses SHA-256 Commit-Reveal for later audit, and exposes all business capabilities
 through a typed `SimulationSdk`.
 
-Status: configuration-and-contract milestone. Strict shared/private configuration,
-canonical JSON, identifiers, schema resources, and conformance vectors are complete;
-gameplay and network behavior are implemented in later milestones.
+Status: deterministic-domain milestone. Strict configuration, canonical contracts,
+local-only board physics, permanent barriers, terminal resolution, fixed scoring,
+and balanced six-game scheduling are complete; peer networking arrives in M4.
 
 ## Requirements
 
@@ -92,6 +92,19 @@ effective = SimulationSdk().load_configuration(
 )
 print(effective.shared.digest())
 ```
+
+Create and transition local game state through the SDK:
+
+```python
+from police_thief_p2p.sdk import Action, Role
+
+state = SimulationSdk().create_local_game(effective.shared, Role.POLICE)
+next_state = SimulationSdk().apply_action(state, Action.stay()).state
+print(next_state.step_number)
+```
+
+Domain mechanics, scoring, privacy boundaries, and evidence are documented in
+[`docs/DOMAIN.md`](docs/DOMAIN.md).
 
 ## Development
 

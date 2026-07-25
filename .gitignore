@@ -32,6 +32,8 @@ results/**
 !results/.gitkeep
 !results/evidence/
 !results/evidence/.gitkeep
+!results/benchmarks/
+!results/benchmarks/*.json
 
 # Local configuration and credentials
 .env

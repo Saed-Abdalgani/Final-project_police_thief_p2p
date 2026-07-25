@@ -20,6 +20,13 @@ class Position:
     row: int
     col: int
 
+    def __post_init__(self) -> None:
+        """Require integer semantics while leaving board bounds contextual."""
+        if any(
+            isinstance(value, bool) or not isinstance(value, int) for value in (self.row, self.col)
+        ):
+            raise TypeError("position row and column must be integers")
+
 
 @dataclass(frozen=True, slots=True)
 class CoordinateTransform:

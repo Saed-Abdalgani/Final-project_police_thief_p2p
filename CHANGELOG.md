@@ -2,6 +2,29 @@
 
 All notable project changes are documented here. The project follows semantic versioning for documentation, package, protocol, config, and schema contracts, with compatibility recorded separately when those versions diverge.
 
+## Package [0.3.0] - 2026-07-25
+
+### Added
+
+- Immutable Position, Role, Direction, Action, barrier, local-state, event, terminal,
+  scoring, outcome, and role-schedule domain contracts.
+- Deterministic legal movement/barrier transitions with quota, permanence, local
+  truth, survival, and step-ceiling enforcement.
+- BFS distance/components, articulation points, and vertex-disjoint escape-route
+  approximation over public barriers.
+- Offline verified direct, barrier, and enclosure capture resolution with explicit
+  terminal ordering and fixed Appendix F scoring.
+- Group-identity six-game aggregation and balanced P,T,P,T,P,T schedule.
+- SDK-only domain initialization, legality, transition, schedule, and aggregation
+  entry points.
+- 10,000-case property campaign, golden terminal/scoring scenarios, deterministic
+  simulator, public API inventory, and committed performance evidence.
+
+### Changed
+
+- Package version advances to `0.3.0`; protocol and schema remain compatible at
+  `0.2.0`.
+
 ## Package [0.2.0] - 2026-07-25
 
 ### Added

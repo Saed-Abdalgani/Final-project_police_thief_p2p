@@ -1,6 +1,6 @@
 # Mechanism PRD - Base Logic, Configuration, Physics, and Scoring
 
-**Status:** M2 configuration contract finalized; M3 physics remains planned
+**Status:** M3 deterministic physics and scoring contract finalized
 **Owner:** Domain Lead
 **Requirements:** FR-CFG-001..013, FR-GAME-001..020, FR-SDK-001..008
 **Rules:** Appendix E 11-16 and 46-48; Appendix F F-001..F-032
@@ -69,6 +69,69 @@ round-half-even. The complete matrix and expected outputs are immutable vectors 
 - six-game schedule and group-level aggregate;
 - deterministic SDK DTOs and errors.
 
+## Accepted M3 domain contracts
+
+| Use case | Input | Deterministic output | Rejection |
+|---|---|---|---|
+| Initialize local state | validated `SharedConfig`, own `Role` | immutable own start/rules/empty barriers/visited set | invalid role/config is unrepresentable or rejected upstream |
+| Enumerate actions | `LocalGameState` | ordered MOVE actions, STAY, then Police barrier actions | terminal state returns no actions |
+| Transition | local state and one validated `Action` | immutable next state plus exact public barrier events | terminal, illegal, blocked, out-of-bounds, wrong-role, duplicate, or over-quota action |
+| Graph query | board, public barriers, public/local cell(s) | BFS distance, components, cuts, escape routes | out-of-board endpoint |
+| Verified terminal | offline/audit positions and public facts | one typed terminal reason or `None` | invalid counters/cells |
+| Score sub-game | typed terminal reason, fixed `ScoringConfig` | Police/Thief role points | fixed config already enforced by M2 |
+| Aggregate series | six uniquely numbered balanced outcomes, two group IDs | group totals, tie awards, winner | missing/duplicate/unbalanced/foreign-group outcome |
+
+`LocalGameState` contains own role and position, rules, public barriers, own barrier
+count, public step number, own visited cells, and optional terminal reason. It has
+no opponent position, objective world, or field whose name can carry opponent
+truth. Offline terminal functions accept verified positions as transient arguments;
+they never construct or retain a live two-position state.
+
+`BarrierPlaced` contains `event_type`, Police actor, positive step number, and exact
+row/column target. MOVE and STAY produce no public M3 event; later protocol phases
+seal them before disclosure.
+
+## Terminal evaluation order
+
+1. Tamper sanction.
+2. Technical failure.
+3. Newly placed barrier on verified Thief cell.
+4. Direct Police landing on verified Thief cell.
+5. No passable N/S/E/W Thief escape (`STAY` deliberately excluded).
+6. Survival threshold reached.
+7. Maximum step ceiling reached.
+8. Explicit operator stop.
+
+Capture always precedes survival/ceiling at the same completed step. A Police
+barrier on its own current cell is legal, public, and leaves Police able to move
+out; no role may move into any barrier. A Thief can never occupy a public barrier.
+
+## Fixed scoring truth table
+
+| Terminal reason | Police | Thief |
+|---|---:|---:|
+| Capture, barrier capture, enclosure | 20 | 5 |
+| Survival, step ceiling without capture | 5 | 10 |
+| Technical, tamper, stopped | 0 | 0 |
+
+Raw points follow group identity through role alternation. Equal six-game raw totals
+receive the fixed 2/2 series tie award. The default signed schedule is P,T,P,T,P,T
+for the initiating group and the complement for its opponent.
+
+## Complexity and deterministic ordering
+
+- cell iteration: `O(V)` row-major;
+- neighbors/legal movement: `O(1)` in N,S,E,W order, with STAY last;
+- shortest path and connected component: `O(V+E)` BFS;
+- all components: `O(V+E)`;
+- articulation points: deterministic removal analysis `O(V(V+E))`, intentionally
+  simple and measured below 0.5 seconds on an open 15x15 board;
+- escape routes: deterministic greedy internally vertex-disjoint approximation
+  using cardinal-start BFS passes;
+- local transition: `O(1)` aside from immutable visited/barrier set copy.
+
+Recorded measurements and methodology are in `results/benchmarks/m3_domain.json`.
+
 ## Invariants
 
 1. Shared terms always override duplicate private settings.
@@ -113,8 +176,8 @@ round-half-even. The complete matrix and expected outputs are immutable vectors 
 - [x] canonical serialization and digest vectors;
 - [x] scent kernel, rounding policy, and signed numeric example;
 - [x] declaration, sub-game config, log, result, and envelope schemas;
-- [ ] terminal evaluation order for M3 physics;
-- [ ] state/event DTO field list;
-- [ ] complete scoring truth table including technical/tamper distinction;
-- [ ] complexity and benchmark budgets;
-- [ ] reviewed examples for barrier-on-self and enclosure.
+- [x] terminal evaluation order for M3 physics;
+- [x] state/event DTO field list;
+- [x] complete scoring truth table including technical/tamper distinction;
+- [x] complexity and benchmark budgets;
+- [x] reviewed examples for barrier-on-self and enclosure.

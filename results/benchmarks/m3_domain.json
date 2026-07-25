@@ -1,0 +1,46 @@
+{
+  "schema_version": "0.3.0",
+  "measured_at": "2026-07-25",
+  "platform": "Windows",
+  "python": "3.13.13",
+  "package_version": "0.3.0",
+  "candidate": "M3 pre-commit verified worktree",
+  "method": {
+    "clock": "time.perf_counter",
+    "coverage_enabled": false,
+    "warm_cache": true,
+    "statistic": "median with maximum retained"
+  },
+  "measurements": {
+    "transition_10000": {
+      "median_ms": 238.305,
+      "max_ms": 244.375,
+      "samples": 7
+    },
+    "bfs_7x7_1000": {
+      "median_ms": 354.384,
+      "max_ms": 358.355,
+      "samples": 7
+    },
+    "bfs_15x15_1000": {
+      "median_ms": 1628.878,
+      "max_ms": 1666.68,
+      "samples": 7
+    },
+    "articulation_7x7": {
+      "median_ms": 19.732,
+      "max_ms": 22.755,
+      "samples": 7
+    },
+    "articulation_15x15": {
+      "median_ms": 410.369,
+      "max_ms": 412.483,
+      "samples": 3
+    }
+  },
+  "gates": {
+    "transition_10000_max_ms": 3500,
+    "expanded_path_and_cut_max_ms": 5000,
+    "result": "PASS"
+  }
+}

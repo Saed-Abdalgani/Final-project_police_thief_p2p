@@ -17,9 +17,9 @@ uv run python scripts/validate_ci.py
 uv build
 ```
 
-The global coverage threshold is 85%. Public M1 APIs require tests. Critical
-configuration, crypto, and protocol modules introduced later target full practical
-branch coverage.
+The global coverage threshold is 85%. Public APIs require tests. Critical
+configuration and domain modules target 100% practical branch coverage; crypto and
+protocol modules introduced later inherit that standard.
 
 ## Suites and markers
 
@@ -36,6 +36,10 @@ branch coverage.
 
 Hypothesis uses a deterministic CI profile with no wall-clock deadline. Tests must
 not sleep for deadline behavior; they inject `FakeClock`.
+
+M3 overrides the shared Hypothesis profile for its legal-action/state-invariant
+campaign and executes 10,000 deterministic examples. Coordinate metamorphism covers
+all four origins and both 0/1 index conventions.
 
 ## Negative gate evidence
 

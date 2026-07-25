@@ -13,6 +13,9 @@
   "scent": {
     "vector": "scent/emission_decay.json"
   },
+  "domain": {
+    "golden_scenarios": "domain/golden_scenarios.json"
+  },
   "artifact_schemas": [
     {"schema": "declaration.schema.json", "valid": "artifacts/declaration.valid.json", "invalid": "artifacts/declaration.invalid.json"},
     {"schema": "sub_game_config.schema.json", "valid": "artifacts/sub_game_config.valid.json", "invalid": "artifacts/sub_game_config.invalid.json"},
