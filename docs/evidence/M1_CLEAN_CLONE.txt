@@ -1,0 +1,93 @@
+M1 CLEAN-CLONE CI-EQUIVALENT TRANSCRIPT
+=======================================
+Date: 2026-07-25
+Host: Windows
+uv: 0.11.14
+Python: CPython 3.13.13
+Candidate: 91364067957b0cad82c1fccf730a1aeeb732c825
+
+$ git clone --no-local --branch codex/m1-foundation . foundation-clean-clone
+Cloning into 'foundation-clean-clone'...
+
+$ git rev-parse HEAD
+91364067957b0cad82c1fccf730a1aeeb732c825
+
+$ uv sync --frozen --all-groups
+Using CPython 3.13.13
+Created .venv and installed the 95 locked project packages.
+EXIT 0
+
+$ uv run python scripts/validate_structure.py
+Structure OK: 43 required paths present.
+EXIT 0
+
+$ uv run python scripts/check_file_hygiene.py
+File hygiene OK: 113 candidate files checked.
+EXIT 0
+
+$ uv run python scripts/check_file_sizes.py src scripts
+Source sizes OK: no file exceeds 150 code lines.
+EXIT 0
+
+$ uv run python scripts/validate_traceability.py
+Traceability OK: requirement/task IDs and mappings are complete.
+EXIT 0
+
+$ uv run python scripts/validate_imports.py
+Import boundaries OK: protected adapters use no domain/service imports.
+EXIT 0
+
+$ uv run python scripts/validate_ci.py
+CI workflow OK: Windows/Linux matrix and macOS smoke job are present.
+EXIT 0
+
+$ uv run ruff check .
+All checks passed!
+EXIT 0
+
+$ uv run ruff format --check .
+65 files already formatted
+EXIT 0
+
+$ uv run mypy src tests scripts
+Success: no issues found in 65 source files
+EXIT 0
+
+$ uv run pytest
+collected 56 items
+56 passed in 9.27s
+Required test coverage of 85% reached.
+Total coverage: 91.57%
+EXIT 0
+
+$ uv build
+Successfully built dist/police_thief_p2p-0.1.0.tar.gz
+Successfully built dist/police_thief_p2p-0.1.0-py3-none-any.whl
+EXIT 0
+
+$ uv run pre-commit run --all-files --hook-stage pre-push
+Ruff lint........................................................Passed
+Ruff format check................................................Passed
+Text file hygiene................................................Passed
+Detect committed secrets.........................................Passed
+Required repository structure....................................Passed
+Requirement and task IDs.........................................Passed
+Strict mypy.......................................................Passed
+Full pytest and coverage..........................................Passed
+EXIT 0
+
+$ uv run --isolated --no-project --python 3.13 --with <wheel> python <smoke>
+wheel-ok version=0.1.0 status=READY
+EXIT 0
+
+$ Get-FileHash dist/* -Algorithm SHA256
+a7188a229f543f4eb09565a2c05a9cb33938f85c4c1c4a1abed52e132a4c89a8  police_thief_p2p-0.1.0-py3-none-any.whl
+d954a41073b3bc99febbed3355f8e7e392948760991873c1d26d4545cc399aed  police_thief_p2p-0.1.0.tar.gz
+
+$ git diff --exit-code
+EXIT 0
+
+$ git status --short
+<no output>
+
+CLEAN CLONE VERIFIED

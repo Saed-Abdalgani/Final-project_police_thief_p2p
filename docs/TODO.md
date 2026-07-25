@@ -143,8 +143,8 @@ A checked task has:
 - [x] **T071 [P0]** Add `LICENSE`, `CREDITS.md`, and `CHANGELOG.md` placeholders with reference-code attribution policy.
 - [x] **T072 [P0]** Create package build configuration using `uv_build`; evidence: wheel builds and installs in a clean temporary environment.
 - [x] **T073 [P0]** Add an import-boundary test preventing domain/services imports from CLI, GUI, FastMCP, or Gmail adapters.
-- [ ] **T074 [P0]** Run the foundation command suite from a clean clone; evidence: archived CI-equivalent transcript.
-- [ ] **T075 [P0]** Tag the foundation milestone internally and update readiness status; evidence: M1 exit checklist signed.
+- [x] **T074 [P0]** Run the foundation command suite from a clean clone; evidence: archived CI-equivalent transcript.
+- [x] **T075 [P0]** Tag the foundation milestone internally and update readiness status; evidence: M1 exit checklist signed.
 
 ---
 

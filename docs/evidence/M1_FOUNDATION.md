@@ -4,7 +4,7 @@
 - **Package:** `police-thief-p2p` `0.1.0`
 - **Date:** 2026-07-25
 - **Branch:** `codex/m1-foundation`
-- **Status:** candidate checks passed; clean-clone proof pending
+- **Status:** `READY` for M2 entry
 
 ## Environment
 
@@ -20,7 +20,7 @@
 |---|---|
 | Frozen lock/sync | Pass |
 | Required structure | Pass: 43 paths |
-| File hygiene | Pass: 111 tracked candidate files |
+| File hygiene | Pass: 113 tracked files in the clean clone |
 | Source size | Pass: no Python source over 150 code lines |
 | Requirement/task traceability | Pass |
 | Adapter import boundaries | Pass |
@@ -35,6 +35,7 @@
 | Full pre-push hook suite | Pass |
 | Source and wheel build | Pass |
 | Isolated wheel import/readiness | Pass: `0.1.0`, `READY` |
+| Clean-clone suite | Pass at candidate `91364067957b0cad82c1fccf730a1aeeb732c825` |
 
 ## Architecture and safety evidence
 
@@ -58,8 +59,19 @@ tracks them, and `.gitignore` protects them from recommit:
 - `tmp/reference/Game-P2P-Cop-Chase`: retained locally at
   `960499fd5e8777b4929625f5d8fdcf2ab4677b54`.
 
-## Remaining closure action
+## Clean-clone proof
 
-Commit the candidate, clone that exact commit into a new directory, execute the
-CI-equivalent frozen command suite, archive the transcript, complete T074-T075,
-and create the annotated local milestone tag.
+Candidate commit `91364067957b0cad82c1fccf730a1aeeb732c825` was cloned with
+`--no-local` into a new directory. Frozen sync, all validators, Ruff, formatting,
+strict mypy, 56 tests, 91.57% coverage, build, the full pre-push hooks, and an
+isolated wheel smoke test passed. The clone remained Git-clean.
+
+Artifact SHA-256 values:
+
+- Wheel:
+  `a7188a229f543f4eb09565a2c05a9cb33938f85c4c1c4a1abed52e132a4c89a8`
+- Source distribution:
+  `d954a41073b3bc99febbed3355f8e7e392948760991873c1d26d4545cc399aed`
+
+The command transcript is archived in `docs/evidence/M1_CLEAN_CLONE.txt`. The
+annotated local tag `m1-foundation-v0.1.0` identifies the signed evidence commit.

@@ -2,11 +2,10 @@
 
 - **Review date:** 2026-07-25
 - **Milestone:** M1 - Foundation and tooling
-- **Current decision:** `CONDITIONALLY READY`
+- **Current decision:** `READY`
 
-The implementation and in-place quality gates pass. The only open M1 exit
-condition is the clean-clone execution required by T074; the milestone tag and
-final sign-off follow that proof.
+The implementation, in-place gates, clean-clone suite, packaging proof, and
+evidence review pass. M1 is ready to hand off to M2.
 
 ## Exit checklist
 
@@ -27,9 +26,17 @@ final sign-off follow that proof.
 - [x] Source and wheel distributions build; the wheel installs and runs in an
   isolated `uv` environment.
 - [x] CI defines Windows/Linux Python 3.13/3.14 and macOS 3.13 smoke coverage.
-- [ ] The committed candidate passes the frozen suite from a clean clone.
-- [ ] T074-T075 are closed and the annotated milestone tag identifies the signed
+- [x] The committed candidate passes the frozen suite from a clean clone.
+- [x] T074-T075 are closed and the annotated milestone tag identifies the signed
   evidence commit.
+
+## Sign-off
+
+- **Evidence candidate:** `91364067957b0cad82c1fccf730a1aeeb732c825`
+- **Evidence transcript:** `docs/evidence/M1_CLEAN_CLONE.txt`
+- **Milestone tag:** `m1-foundation-v0.1.0`
+- **Signed by:** Codex implementation and quality review
+- **Signed on:** 2026-07-25
 
 ## Scope statement
 
