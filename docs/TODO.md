@@ -551,51 +551,51 @@ A checked task has:
 
 **Exit gate:** every series emits schema-valid linked artifacts and independently queues/sends exactly one safe JSON report through a durable Gatekeeper-protected outbox.
 
-- [ ] **T426 [P0]** Finalize `docs/PRD_REPORTING_UI_REPLAY.md` artifact/reporting sections before implementation.
-- [ ] **T427 [P0]** Implement Appendix F filename builder for declaration, config, log, and result artifacts.
-- [ ] **T428 [P0]** Resolve every artifact path under a configured root and reject traversal, reserved names, and unsafe lengths.
-- [ ] **T429 [P0]** Define `ArtifactManifest` with file digests, schemas, game UID, config, commit, journal, and audit linkage.
-- [ ] **T430 [P0]** Implement declaration artifact model from negotiated identities, repos, URLs, Step-0, tokens, timing, and digests.
-- [ ] **T431 [P0]** Implement per-sub-game config artifact containing exact played shared config, roles, agreement, and `config_sha256`.
-- [ ] **T432 [P0]** Implement sealed log-entry model containing sequence, commitment, reveal, public effects, metrics, and audit status.
-- [ ] **T433 [P0]** Derive finalized per-sub-game log from append-only events without mutating source evidence.
-- [ ] **T434 [P0]** Implement final result artifact with all sub-games, group scores, wins, ties, tokens, commits, links, audits, and agreement.
-- [ ] **T435 [P0]** Enforce semantic schema versions and compatibility rules on every artifact.
-- [ ] **T436 [P0]** Implement atomic artifact writer using temporary file, validation, flush, and replace.
-- [ ] **T437 [P0]** Apply restrictive permissions to pre-audit secret stores and best-effort documented permissions to finalized artifacts.
-- [ ] **T438 [P0]** Validate every artifact against JSON Schema before it is accepted, replayed, committed, or attached.
-- [ ] **T439 [P0]** Verify `game_uid`, game ID, sub-game, role, config, commit, and log linkage across the full artifact set.
-- [ ] **T440 [P0]** Implement exact per-step, per-sub-game, and per-series token accounting by group.
-- [ ] **T441 [P0]** Compute and persist SHA-256 digest for every finalized artifact in the manifest.
-- [ ] **T442 [P0]** Separate official immutable artifacts from rotating operational diagnostics in storage and APIs.
-- [ ] **T443 [P1]** Implement per-game artifact archive/export without credentials, private TOML, or unrevealed secrets.
-- [ ] **T444 [P0]** Implement final report builder from verified artifact manifest only.
-- [ ] **T445 [P0]** Require mutual result digest confirmation before a report can enter the production outbox.
-- [ ] **T446 [P0]** Define durable outbox item with logical report ID, attachment digest, recipient, state, attempts, and provider ID.
-- [ ] **T447 [P0]** Implement outbox transitions `PENDING`, `VALIDATED`, `SENDING`, `RETRY_WAIT`, `SENT`, and `FAILED_PERMANENT`.
-- [ ] **T448 [P0]** Implement atomic file-backed outbox repository resilient to restart during any transition.
-- [ ] **T449 [P0]** Enforce logical-report idempotency so a completed series cannot be sent twice accidentally.
-- [ ] **T450 [P0]** Build MIME email with final JSON as attachment and concise non-authoritative body.
-- [ ] **T451 [P0]** Enforce competition recipient allowlist defaulting to `rmisegal+uoh26finalgame@gmail.com`.
-- [ ] **T452 [P0]** Assert OAuth scopes equal send-only Gmail scope and reject read/modify/full-mail scopes.
-- [ ] **T453 [P0]** Load `credentials.json` and `token.json` only from private configured paths outside artifacts.
-- [ ] **T454 [P0]** Implement first-run OAuth authorization/refresh workflow without logging tokens.
-- [ ] **T455 [P0]** Implement Gmail sender adapter behind the email port; evidence: it has no result-building logic.
-- [ ] **T456 [P0]** Complete central Gatekeeper abstraction for MCP, Gmail, and optional external LLM profiles.
-- [ ] **T457 [P0]** Implement config-driven continuous token-bucket limiter with monotonic clock.
-- [ ] **T458 [P0]** Implement daily/session quota manager with durable counters and reset semantics.
-- [ ] **T459 [P0]** Implement per-service concurrency semaphores using configured limits.
-- [ ] **T460 [P0]** Implement bounded priority queues with explicit rejection/backpressure results.
-- [ ] **T461 [P0]** Implement retry/backoff/jitter using service-specific retry classification and attempt caps.
-- [ ] **T462 [P0]** Handle HTTP 429 by honoring retry guidance and forbidding immediate retry loops.
-- [ ] **T463 [P0]** Implement DOS/anomaly detector for burst, loop, repeated identical send, and sustained error patterns.
-- [ ] **T464 [P0]** Implement circuit breaker open, half-open probe, recovery, and manual-safe reset.
-- [ ] **T465 [P0]** Emit redacted Gatekeeper metrics for quota, tokens, queue, concurrency, retries, rejections, and circuit state.
-- [ ] **T466 [P0]** Implement outbox dispatcher through Gatekeeper with durable success/failure recording.
-- [ ] **T467 [P0]** Add fake Gmail tests for success, auth error, timeout, 429, 5xx, malformed response, and duplicate dispatch.
-- [ ] **T468 [P0]** Add `validate` dry-run mode that builds and validates report/MIME without external state change.
+- [x] **T426 [P0]** Finalize `docs/PRD_REPORTING_UI_REPLAY.md` artifact/reporting sections before implementation.
+- [x] **T427 [P0]** Implement Appendix F filename builder for declaration, config, log, and result artifacts.
+- [x] **T428 [P0]** Resolve every artifact path under a configured root and reject traversal, reserved names, and unsafe lengths.
+- [x] **T429 [P0]** Define `ArtifactManifest` with file digests, schemas, game UID, config, commit, journal, and audit linkage.
+- [x] **T430 [P0]** Implement declaration artifact model from negotiated identities, repos, URLs, Step-0, tokens, timing, and digests.
+- [x] **T431 [P0]** Implement per-sub-game config artifact containing exact played shared config, roles, agreement, and `config_sha256`.
+- [x] **T432 [P0]** Implement sealed log-entry model containing sequence, commitment, reveal, public effects, metrics, and audit status.
+- [x] **T433 [P0]** Derive finalized per-sub-game log from append-only events without mutating source evidence.
+- [x] **T434 [P0]** Implement final result artifact with all sub-games, group scores, wins, ties, tokens, commits, links, audits, and agreement.
+- [x] **T435 [P0]** Enforce semantic schema versions and compatibility rules on every artifact.
+- [x] **T436 [P0]** Implement atomic artifact writer using temporary file, validation, flush, and replace.
+- [x] **T437 [P0]** Apply restrictive permissions to pre-audit secret stores and best-effort documented permissions to finalized artifacts.
+- [x] **T438 [P0]** Validate every artifact against JSON Schema before it is accepted, replayed, committed, or attached.
+- [x] **T439 [P0]** Verify `game_uid`, game ID, sub-game, role, config, commit, and log linkage across the full artifact set.
+- [x] **T440 [P0]** Implement exact per-step, per-sub-game, and per-series token accounting by group.
+- [x] **T441 [P0]** Compute and persist SHA-256 digest for every finalized artifact in the manifest.
+- [x] **T442 [P0]** Separate official immutable artifacts from rotating operational diagnostics in storage and APIs.
+- [x] **T443 [P1]** Implement per-game artifact archive/export without credentials, private TOML, or unrevealed secrets.
+- [x] **T444 [P0]** Implement final report builder from verified artifact manifest only.
+- [x] **T445 [P0]** Require mutual result digest confirmation before a report can enter the production outbox.
+- [x] **T446 [P0]** Define durable outbox item with logical report ID, attachment digest, recipient, state, attempts, and provider ID.
+- [x] **T447 [P0]** Implement outbox transitions `PENDING`, `VALIDATED`, `SENDING`, `RETRY_WAIT`, `SENT`, and `FAILED_PERMANENT`.
+- [x] **T448 [P0]** Implement atomic file-backed outbox repository resilient to restart during any transition.
+- [x] **T449 [P0]** Enforce logical-report idempotency so a completed series cannot be sent twice accidentally.
+- [x] **T450 [P0]** Build MIME email with final JSON as attachment and concise non-authoritative body.
+- [x] **T451 [P0]** Enforce competition recipient allowlist defaulting to `rmisegal+uoh26finalgame@gmail.com`.
+- [x] **T452 [P0]** Assert OAuth scopes equal send-only Gmail scope and reject read/modify/full-mail scopes.
+- [x] **T453 [P0]** Load `credentials.json` and `token.json` only from private configured paths outside artifacts.
+- [x] **T454 [P0]** Implement first-run OAuth authorization/refresh workflow without logging tokens.
+- [x] **T455 [P0]** Implement Gmail sender adapter behind the email port; evidence: it has no result-building logic.
+- [x] **T456 [P0]** Complete central Gatekeeper abstraction for MCP, Gmail, and optional external LLM profiles.
+- [x] **T457 [P0]** Implement config-driven continuous token-bucket limiter with monotonic clock.
+- [x] **T458 [P0]** Implement daily/session quota manager with durable counters and reset semantics.
+- [x] **T459 [P0]** Implement per-service concurrency semaphores using configured limits.
+- [x] **T460 [P0]** Implement bounded priority queues with explicit rejection/backpressure results.
+- [x] **T461 [P0]** Implement retry/backoff/jitter using service-specific retry classification and attempt caps.
+- [x] **T462 [P0]** Handle HTTP 429 by honoring retry guidance and forbidding immediate retry loops.
+- [x] **T463 [P0]** Implement DOS/anomaly detector for burst, loop, repeated identical send, and sustained error patterns.
+- [x] **T464 [P0]** Implement circuit breaker open, half-open probe, recovery, and manual-safe reset.
+- [x] **T465 [P0]** Emit redacted Gatekeeper metrics for quota, tokens, queue, concurrency, retries, rejections, and circuit state.
+- [x] **T466 [P0]** Implement outbox dispatcher through Gatekeeper with durable success/failure recording.
+- [x] **T467 [P0]** Add fake Gmail tests for success, auth error, timeout, 429, 5xx, malformed response, and duplicate dispatch.
+- [x] **T468 [P0]** Add `validate` dry-run mode that builds and validates report/MIME without external state change.
 - [ ] **T469 [P0]** Run a controlled real OAuth/send rehearsal to a safe test recipient, never the lecturer during routine testing; evidence: redacted receipt.
-- [ ] **T470 [P0]** Complete M9 review against Appendix E rules 28-35, 39-40, 51, and 54; evidence: signed exit checklist.
+- [x] **T470 [P0]** Complete M9 review against Appendix E rules 28-35, 39-40, 51, and 54; evidence: signed exit checklist.
 
 ---
 

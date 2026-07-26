@@ -62,7 +62,9 @@ deadline_sec = 10
 
 [email]
 credential_path = "credentials.json"
-recipient_allowlist = ["lecturer@example.invalid"]
+token_path = "token.json"
+sender = "your-account@gmail.com"
+recipient_allowlist = ["rmisegal+uoh26finalgame@gmail.com"]
 # oauth_client_secret_env = "POLICE_THIEF_GMAIL_CLIENT_SECRET"
 
 [gui]

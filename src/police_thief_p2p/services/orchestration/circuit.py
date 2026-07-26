@@ -16,7 +16,15 @@ class CircuitState(StrEnum):
 class CircuitBreaker:
     """Open after a threshold and admit one probe after cooldown."""
 
-    __slots__ = ("_clock", "_failures", "_opened_at", "_state", "cooldown", "threshold")
+    __slots__ = (
+        "_clock",
+        "_failures",
+        "_opened_at",
+        "_probe_active",
+        "_state",
+        "cooldown",
+        "threshold",
+    )
 
     def __init__(self, clock: ClockPort, *, threshold: int, cooldown: float) -> None:
         """Create a breaker with positive threshold and cooldown."""
@@ -27,6 +35,7 @@ class CircuitBreaker:
         self.cooldown = cooldown
         self._failures = 0
         self._opened_at: float | None = None
+        self._probe_active = False
         self._state = CircuitState.CLOSED
 
     @property
@@ -42,13 +51,21 @@ class CircuitBreaker:
 
     def allow(self) -> bool:
         """Return whether one transport attempt may proceed."""
-        return self.state is not CircuitState.OPEN
+        state = self.state
+        if state is CircuitState.OPEN:
+            return False
+        if state is CircuitState.HALF_OPEN:
+            if self._probe_active:
+                return False
+            self._probe_active = True
+        return True
 
     def success(self) -> None:
         """Close and reset after a successful request/probe."""
         self._state = CircuitState.CLOSED
         self._failures = 0
         self._opened_at = None
+        self._probe_active = False
 
     def failure(self) -> None:
         """Record a failure and open at the configured threshold."""
@@ -56,3 +73,10 @@ class CircuitBreaker:
         if self._state is CircuitState.HALF_OPEN or self._failures >= self.threshold:
             self._state = CircuitState.OPEN
             self._opened_at = self._clock.monotonic()
+            self._probe_active = False
+
+    def reset(self, *, confirmed: bool) -> None:
+        """Perform an explicit operator-confirmed safe reset."""
+        if not confirmed:
+            raise ValueError("circuit reset requires operator confirmation")
+        self.success()

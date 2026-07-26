@@ -101,6 +101,33 @@ hints, and scans live DTOs/SDK signatures for opponent truth. Stored 25-sample
 35-update p95 results for 7x7 and 15x15 boards are in
 `results/benchmarks/m6_belief.json`.
 
+## M9 artifact and reporting campaign
+
+```text
+uv run pytest tests/unit/test_m9_artifacts_reporting.py -q
+uv run pytest tests/unit/test_m9_gatekeeper.py -q
+uv run pytest tests/integration/test_m9_outbox_gmail.py -q
+uv run police-thief-p2p report validate \
+  --manifest <artifact-root>/official/manifest_<game-id>.json \
+  --artifact-root <artifact-root> \
+  --sender <account@example.com>
+```
+
+The campaign builds one complete 14-document series graph, validates and exports
+it, then detects byte tamper, path traversal, unsafe identity, bad linkage,
+agreement and token-total corruption. Reporting tests parse deterministic MIME,
+recover an interrupted atomic outbox, prove one provider call across duplicate
+dispatch, and classify auth, timeout, 429, 5xx, and malformed Gmail responses.
+OAuth tests exercise first-run authorization exchange and refresh using a fake
+HTTP boundary while asserting exact send-only scope and redacted representation.
+Gatekeeper tests cover continuous refill, durable day/session quotas, priority
+and backpressure, provider retry guidance, redacted metrics, anomaly thresholds,
+open circuit, and confirmed reset.
+
+The real Gmail rehearsal is deliberately not part of automated tests. It requires
+interactive team OAuth, a team-controlled safe recipient, and an external
+redacted receipt; routine tests must never contact the lecturer address.
+
 ## Negative gate evidence
 
 Quality tools include synthetic negative tests:

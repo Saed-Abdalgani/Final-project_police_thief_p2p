@@ -2,6 +2,37 @@
 
 All notable project changes are documented here. The project follows semantic versioning for documentation, package, protocol, config, and schema contracts, with compatibility recorded separately when those versions diverge.
 
+## Package [0.8.0] - 2026-07-26
+
+### Added
+
+- Appendix F artifact filename/path confinement, classified official/private/
+  diagnostic storage, immutable atomic JSON writes, and restrictive permission
+  handling.
+- Series declaration, exact played-config, sealed finalized-log, final-result,
+  and artifact-manifest models with JSON Schemas and full digest/linkage
+  verification.
+- Exact per-step, per-sub-game, and per-series group token accounting plus
+  independently recomputed score, win, tie, and winner totals.
+- Verified-manifest-only standard JSON report construction, deterministic MIME,
+  recipient allowlisting, mutual digest confirmation, credential-free archive,
+  and SDK/CLI dry-run validation.
+- Atomic restart-safe outbox with six explicit states, logical-report
+  idempotency, interrupted-send recovery, and durable provider outcome recording.
+- Installed-app PKCE authorization and refresh with exact Gmail send-only scope,
+  private atomic token storage, and a result-agnostic Gmail provider adapter.
+- Config-driven provider profiles, continuous monotonic token buckets, durable
+  daily/session quotas, priority/concurrency admission, exponential jitter,
+  Retry-After handling, anomaly detection, circuit recovery/manual reset, and
+  redacted metrics for MCP, Gmail, and optional external LLM calls.
+- M9 artifact, fake-Gmail, OAuth, restart, duplicate, 429, 5xx, malformed,
+  backpressure, quota, anomaly, circuit, and dry-run test coverage.
+
+### Changed
+
+- Package advances to `0.8.0`. Protocol remains `0.7.0` and the compatible
+  artifact/config schema family remains `0.2.0`.
+
 ## Package [0.7.0] - 2026-07-25
 
 ### Added

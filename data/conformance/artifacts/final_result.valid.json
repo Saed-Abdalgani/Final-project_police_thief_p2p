@@ -1,22 +1,138 @@
 {
   "schema_version": "0.2.0",
+  "game_id": "series-2026",
   "game_uid": "12345678-1234-4234-8234-123456789abc",
-  "groups": ["GRP00001", "GRP00002"],
-  "final_commits": {
-    "GRP00001": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "GRP00002": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-  },
-  "tokens": {"GRP00001": 0, "GRP00002": 0},
-  "scores": {"GRP00001": 40, "GRP00002": 25},
-  "artifact_links": [
-    "https://example.invalid/declaration.json",
-    "https://example.invalid/config.json",
-    "https://example.invalid/log.json",
-    "https://example.invalid/result.json"
+  "sender_group_id": "GRP00001",
+  "sub_games": [
+    {
+      "sub_game_number": 1,
+      "role_assignment": {"police": "GRP00001", "thief": "GRP00002"},
+      "terminal_reason": "survival",
+      "winner": "GRP00002",
+      "tie": false,
+      "scores": {"GRP00001": 5, "GRP00002": 10},
+      "tokens": {"GRP00001": {"input_tokens": 0, "output_tokens": 0}, "GRP00002": {"input_tokens": 0, "output_tokens": 0}},
+      "config_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "log_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "audit_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "commits": {"GRP00001": "1111111111111111111111111111111111111111", "GRP00002": "2222222222222222222222222222222222222222"},
+      "config_file": "config_series-2026_g01.json",
+      "log_file": "log_series-2026_g01.json",
+      "audit_status": "verified"
+    },
+    {
+      "sub_game_number": 2,
+      "role_assignment": {"police": "GRP00002", "thief": "GRP00001"},
+      "terminal_reason": "survival",
+      "winner": "GRP00001",
+      "tie": false,
+      "scores": {"GRP00001": 10, "GRP00002": 5},
+      "tokens": {"GRP00001": {"input_tokens": 0, "output_tokens": 0}, "GRP00002": {"input_tokens": 0, "output_tokens": 0}},
+      "config_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "log_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "audit_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "commits": {"GRP00001": "1111111111111111111111111111111111111111", "GRP00002": "2222222222222222222222222222222222222222"},
+      "config_file": "config_series-2026_g02.json",
+      "log_file": "log_series-2026_g02.json",
+      "audit_status": "verified"
+    },
+    {
+      "sub_game_number": 3,
+      "role_assignment": {"police": "GRP00001", "thief": "GRP00002"},
+      "terminal_reason": "survival",
+      "winner": "GRP00002",
+      "tie": false,
+      "scores": {"GRP00001": 5, "GRP00002": 10},
+      "tokens": {"GRP00001": {"input_tokens": 0, "output_tokens": 0}, "GRP00002": {"input_tokens": 0, "output_tokens": 0}},
+      "config_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "log_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "audit_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "commits": {"GRP00001": "1111111111111111111111111111111111111111", "GRP00002": "2222222222222222222222222222222222222222"},
+      "config_file": "config_series-2026_g03.json",
+      "log_file": "log_series-2026_g03.json",
+      "audit_status": "verified"
+    },
+    {
+      "sub_game_number": 4,
+      "role_assignment": {"police": "GRP00002", "thief": "GRP00001"},
+      "terminal_reason": "survival",
+      "winner": "GRP00001",
+      "tie": false,
+      "scores": {"GRP00001": 10, "GRP00002": 5},
+      "tokens": {"GRP00001": {"input_tokens": 0, "output_tokens": 0}, "GRP00002": {"input_tokens": 0, "output_tokens": 0}},
+      "config_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "log_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "audit_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "commits": {"GRP00001": "1111111111111111111111111111111111111111", "GRP00002": "2222222222222222222222222222222222222222"},
+      "config_file": "config_series-2026_g04.json",
+      "log_file": "log_series-2026_g04.json",
+      "audit_status": "verified"
+    },
+    {
+      "sub_game_number": 5,
+      "role_assignment": {"police": "GRP00001", "thief": "GRP00002"},
+      "terminal_reason": "survival",
+      "winner": "GRP00002",
+      "tie": false,
+      "scores": {"GRP00001": 5, "GRP00002": 10},
+      "tokens": {"GRP00001": {"input_tokens": 0, "output_tokens": 0}, "GRP00002": {"input_tokens": 0, "output_tokens": 0}},
+      "config_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "log_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "audit_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "commits": {"GRP00001": "1111111111111111111111111111111111111111", "GRP00002": "2222222222222222222222222222222222222222"},
+      "config_file": "config_series-2026_g05.json",
+      "log_file": "log_series-2026_g05.json",
+      "audit_status": "verified"
+    },
+    {
+      "sub_game_number": 6,
+      "role_assignment": {"police": "GRP00002", "thief": "GRP00001"},
+      "terminal_reason": "survival",
+      "winner": "GRP00001",
+      "tie": false,
+      "scores": {"GRP00001": 10, "GRP00002": 5},
+      "tokens": {"GRP00001": {"input_tokens": 0, "output_tokens": 0}, "GRP00002": {"input_tokens": 0, "output_tokens": 0}},
+      "config_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "log_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "audit_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "commits": {"GRP00001": "1111111111111111111111111111111111111111", "GRP00002": "2222222222222222222222222222222222222222"},
+      "config_file": "config_series-2026_g06.json",
+      "log_file": "log_series-2026_g06.json",
+      "audit_status": "verified"
+    }
   ],
+  "groups": [
+    {
+      "group_id": "GRP00001",
+      "score": 45,
+      "wins": 3,
+      "ties": 0,
+      "tokens": {"input_tokens": 0, "output_tokens": 0},
+      "police_repository": "https://example.invalid/a-police",
+      "thief_repository": "https://example.invalid/a-thief",
+      "police_commit": "1111111111111111111111111111111111111111",
+      "thief_commit": "1111111111111111111111111111111111111111"
+    },
+    {
+      "group_id": "GRP00002",
+      "score": 45,
+      "wins": 3,
+      "ties": 0,
+      "tokens": {"input_tokens": 0, "output_tokens": 0},
+      "police_repository": "https://example.invalid/b-police",
+      "thief_repository": "https://example.invalid/b-thief",
+      "police_commit": "2222222222222222222222222222222222222222",
+      "thief_commit": "2222222222222222222222222222222222222222"
+    }
+  ],
+  "series_winner": null,
+  "series_tie": true,
+  "declaration_file": "declaration_series-2026.json",
+  "declaration_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
   "agreement": {
     "status": "agreed",
-    "agreed_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
-    "signers": ["GRP00001", "GRP00002"]
+    "agreed_digest": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "signers": ["GRP00001", "GRP00002"],
+    "audit_manifest_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
   }
 }

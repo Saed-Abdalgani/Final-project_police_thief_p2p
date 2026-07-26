@@ -1,6 +1,6 @@
 # Mechanism PRD - Artifacts, Reporting, Live UI, and Replay
 
-**Status:** M0 approved outline; finalize before M9/M10 implementation
+**Status:** M9 artifact/reporting contract finalized 2026-07-26; M10 UI/replay contract pending
 **Owners:** Artifact Lead, Reporting Lead, UX Lead
 **Requirements:** FR-ART-001..013, FR-RPT-001..013, FR-UI-001..015
 **Rules:** Appendix E 8-9, 20, 28-35, 39-44, 49-51, 54-55
@@ -36,6 +36,88 @@ Define four linked artifact families, atomic event evidence, mutually agreed Gma
 | Sub-game log | one per sub-game/group | ordered commitments/reveals/events/nonces-after-audit/findings |
 | Final result | one per series/group | six outcomes/scores/tokens, totals, winner/tie, audit and agreement digests, report metadata |
 
+## M9 frozen artifact contract
+
+Official filenames are exactly:
+
+- `declaration_<game_id>.json`;
+- `config_<game_id>_g<NN>.json`;
+- `log_<game_id>_g<NN>.json`;
+- `result_<game_id>.json`;
+- `manifest_<game_id>.json`.
+
+`game_id` is a lowercase ASCII slug of at most 64 characters and `NN` is the
+one-based two-digit sub-game number. A resolved path must be a direct child of
+`<artifact_root>/official`; traversal, nested paths, Windows reserved names, and
+names longer than 180 UTF-8 bytes fail closed. `<artifact_root>/private` contains
+owner-only pre-audit evidence. `<artifact_root>/diagnostics` contains rotating,
+non-authoritative operational data. Neither may substitute for an official file.
+
+All official documents use schema family `0.2.0`, canonical NFC UTF-8 JSON, and
+SHA-256. An exact supported schema version is required; a later version needs an
+explicit reader/migration rule before acceptance. Writes validate the model and
+JSON Schema before a sibling exclusive temporary file is flushed, fsynced,
+atomically replaced, and made best-effort read-only. Rewriting an existing
+official filename with different bytes is prohibited.
+
+The manifest contains every official artifact filename, schema, exact byte size
+and digest plus series config, played commits, journal head, and audit-manifest
+links. Acceptance recomputes every digest and validates game ID/UID, sub-game,
+role assignment, config, commit, declaration, log, journal, audit, and result
+edges. A series requires one declaration, six config/log pairs, and one result.
+Archive export includes only the verified graph and rejects credential, OAuth,
+API-key, private-TOML, and token fields.
+
+Live evidence remains append-only. Final log derivation copies contiguous event
+records and enriches them only after terminal audit with commitment/reveal,
+public effects, exact per-group input/output tokens, metrics, and audit status.
+Source journal records are never mutated. Result acceptance independently
+recomputes all six score/win/tie totals, series winner/tie, and per-sub-game plus
+series token totals.
+
+## M9 frozen reporting contract
+
+Only a verified manifest may enter report construction. The authoritative
+attachment is the canonical final-result JSON; the MIME body explicitly states
+that it is informational. The attachment digest and logical report ID
+(`game_uid` plus sender group) are fixed before outbox admission.
+
+The result contains a mutual agreement over the result payload excluding only
+the self-referential `agreed_digest` field. Both participant IDs must sign it.
+Any disagreement blocks the production outbox.
+
+The atomic outbox persists the entire collection as one bounded record. Its only
+states and legal forward transitions are:
+
+`PENDING -> VALIDATED -> SENDING -> SENT`
+
+`SENDING -> RETRY_WAIT -> VALIDATED`
+
+`SENDING -> FAILED_PERMANENT`
+
+On restart, `SENDING` becomes `RETRY_WAIT` with a redacted interruption code.
+`SENT` and `FAILED_PERMANENT` are terminal. Re-enqueueing identical bytes returns
+the existing item; conflicting bytes under a logical ID fail closed.
+
+Competition reporting permits only the configured allowlist, which must contain
+`rmisegal+uoh26finalgame@gmail.com`. OAuth authority must equal only
+`https://www.googleapis.com/auth/gmail.send`. Credential and token JSON are
+separate private paths outside artifact storage. First run uses installed-app
+PKCE with a loopback callback; refresh and token persistence never log secret
+paths, codes, or values.
+
+Every Gmail API call passes through the same provider-neutral Gatekeeper used for
+MCP and optional remote LLM calls. Per-service JSON profiles own continuous
+monotonic token buckets, durable UTC-day and named-session quotas, concurrency,
+bounded priority queues, timeout, exponential jittered retry, HTTP 429 guidance,
+burst/repetition/error anomaly limits, and closed/open/half-open circuit state.
+Metrics expose only service, quota/tokens, queue/concurrency, retry/rejection
+counts, and numeric circuit state.
+
+`police-thief-p2p report validate` verifies the complete graph, result agreement,
+token/score totals, attachment, and deterministic MIME without creating an
+outbox item or contacting Gmail.
+
 ## Invariants
 
 1. Artifact IDs/filenames are sanitized, unique, and confined under the configured root.
@@ -54,22 +136,23 @@ Define four linked artifact families, atomic event evidence, mutually agreed Gma
 
 | ID | Scenario | Planned evidence |
 |---|---|---|
-| RUR-AC-001 | Crash during each write leaves prior valid artifact or recoverable temp, never partial accepted JSON. | fault tests |
-| RUR-AC-002 | Traversal, collision, wrong UID/digest/version, corrupt/truncated/oversized artifacts fail closed. | security corpus |
+| RUR-AC-001 | Crash during each write leaves prior valid artifact or recoverable temp, never partial accepted JSON. | M9 atomic/outbox recovery tests |
+| RUR-AC-002 | Traversal, collision, wrong UID/digest/version, corrupt/truncated/oversized artifacts fail closed. | M9 artifact security tests |
 | RUR-AC-003 | Live GUI/log/prompt/screenshot contains no opponent truth or pre-audit nonce. | privacy tests |
 | RUR-AC-004 | Headless and GUI runs produce the same domain/protocol evidence for same inputs. | differential test |
 | RUR-AC-005 | Replay navigation never bypasses verification and clearly reports tamper. | UI/integration test |
-| RUR-AC-006 | Gmail scope/destination/attachment are exact; free-text substitute and arbitrary recipient fail. | contract tests |
-| RUR-AC-007 | Restart/429/timeout/retry preserves one logical report with visible pending/failed state. | outbox fault tests |
+| RUR-AC-006 | Gmail scope/destination/attachment are exact; free-text substitute and arbitrary recipient fail. | M9 Gmail/report contract tests |
+| RUR-AC-007 | Restart/429/timeout/retry preserves one logical report with visible pending/failed state. | M9 fake-Gmail/outbox fault tests |
 | RUR-AC-008 | Keyboard, contrast, scaling, text alternatives, status, errors, confirmation and recovery pass review. | SCREENSHOT/MANUAL |
 
 ## Finalization checklist
 
-- four JSON schemas, filenames, atomicity and digest graph;
-- journal/finalization permissions and retention;
+- [x] four JSON schemas, filenames, atomicity and digest graph;
+- [x] journal/finalization permissions and retention;
+- [x] OAuth/outbox/idempotency/allowlist contract;
+- [x] Gatekeeper profiles, retry classification, quotas, anomaly and telemetry;
+- [x] standard report JSON, exact token accounting, MIME, and dry run;
 - live-view DTO and complete forbidden-field list;
 - GUI screens, states, threading, error/recovery and accessibility specification;
 - replay verification/navigation state machine;
-- OAuth/outbox/idempotency/allowlist contract;
 - screenshot and deterministic sample-run procedure.
-

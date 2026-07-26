@@ -3,27 +3,48 @@
   "services": {
     "mcp": {
       "requests_per_minute": 30,
+      "burst_capacity": 5,
       "concurrent_requests": 2,
       "retry_backoff_sec": 5,
       "max_retries": 3,
       "queue_depth": 100,
-      "timeout_sec": 30
+      "timeout_sec": 30,
+      "daily_quota": 10000,
+      "session_quota": 1000,
+      "circuit_failure_threshold": 3,
+      "circuit_cooldown_sec": 30,
+      "repeated_call_limit": 20,
+      "sustained_error_limit": 10
     },
     "gmail": {
       "requests_per_minute": 10,
+      "burst_capacity": 2,
       "concurrent_requests": 1,
       "retry_backoff_sec": 10,
       "max_retries": 3,
       "queue_depth": 100,
-      "timeout_sec": 30
+      "timeout_sec": 30,
+      "daily_quota": 100,
+      "session_quota": 20,
+      "circuit_failure_threshold": 3,
+      "circuit_cooldown_sec": 300,
+      "repeated_call_limit": 2,
+      "sustained_error_limit": 5
     },
     "remote_llm": {
       "requests_per_minute": 20,
+      "burst_capacity": 3,
       "concurrent_requests": 1,
       "retry_backoff_sec": 5,
       "max_retries": 3,
       "queue_depth": 100,
-      "timeout_sec": 30
+      "timeout_sec": 30,
+      "daily_quota": 1000,
+      "session_quota": 200,
+      "circuit_failure_threshold": 3,
+      "circuit_cooldown_sec": 60,
+      "repeated_call_limit": 10,
+      "sustained_error_limit": 10
     }
   }
 }

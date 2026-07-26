@@ -1,18 +1,45 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://police-thief-p2p.invalid/schemas/0.2.0/sub_game_config.schema.json",
-  "title": "Per-Sub-Game Configuration Artifact",
+  "title": "Exact Played Per-Sub-Game Configuration",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "game_uid", "sub_game_number", "role", "config_digest", "raw_config_digest", "shared_config"],
+  "required": ["schema_version", "game_id", "game_uid", "sub_game_number", "role_assignment", "config_sha256", "raw_config_sha256", "played_commits", "agreement", "shared_config"],
   "properties": {
     "schema_version": {"const": "0.2.0"},
+    "game_id": {"$ref": "#/$defs/game_id"},
     "game_uid": {"type": "string", "format": "uuid"},
     "sub_game_number": {"type": "integer", "minimum": 1, "maximum": 6},
-    "role": {"enum": ["police", "thief"]},
-    "config_digest": {"$ref": "#/$defs/digest"},
-    "raw_config_digest": {"$ref": "#/$defs/digest"},
+    "role_assignment": {"$ref": "#/$defs/roles"},
+    "config_sha256": {"$ref": "#/$defs/digest"},
+    "raw_config_sha256": {"$ref": "#/$defs/digest"},
+    "played_commits": {"$ref": "#/$defs/commits"},
+    "agreement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["signers", "agreed_at", "agreement_sha256"],
+      "properties": {
+        "signers": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"type": "string"}},
+        "agreed_at": {"type": "string", "format": "date-time"},
+        "agreement_sha256": {"$ref": "#/$defs/digest"}
+      }
+    },
     "shared_config": {"type": "object"}
   },
-  "$defs": {"digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "game_id": {"type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$"},
+    "roles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["police", "thief"],
+      "properties": {"police": {"type": "string"}, "thief": {"type": "string"}}
+    },
+    "commits": {
+      "type": "object",
+      "minProperties": 2,
+      "maxProperties": 2,
+      "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{40}$"}
+    }
+  }
 }

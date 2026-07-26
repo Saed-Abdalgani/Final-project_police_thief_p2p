@@ -137,7 +137,11 @@ def test_cancellation_and_tunnel_validation_preflight() -> None:
     assert validate_tunnel_url("http://LOCALHOST:8000/", competition_mode=False) == (
         "http://localhost:8000/mcp"
     )
-    for url in ("ftp://example.com", "https://user:pass@example.com", "http://127.0.0.1"):
+    for url in (
+        "ftp://example.com",
+        "https://user:pass@example.com",  # pragma: allowlist secret
+        "http://127.0.0.1",
+    ):
         with pytest.raises(ValueError, match="tunnel"):
             validate_tunnel_url(url, competition_mode=True)
 

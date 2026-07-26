@@ -1,9 +1,19 @@
 {
   "schema_version": "0.2.0",
+  "game_id": "series-2026",
   "game_uid": "12345678-1234-4234-8234-123456789abc",
   "sub_game_number": 1,
-  "role": "police",
-  "config_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-  "raw_config_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "role_assignment": {"police": "GRP00001", "thief": "GRP00002"},
+  "config_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "raw_config_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "played_commits": {
+    "GRP00001": "1111111111111111111111111111111111111111",
+    "GRP00002": "2222222222222222222222222222222222222222"
+  },
+  "agreement": {
+    "signers": ["GRP00001", "GRP00002"],
+    "agreed_at": "2026-07-26T10:00:00Z",
+    "agreement_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+  },
   "shared_config": {"schema_version": "0.2.0"}
 }

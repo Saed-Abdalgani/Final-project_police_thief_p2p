@@ -23,6 +23,7 @@ REQUIRED_PATHS: tuple[str, ...] = (
     "docs/CRYPTO_AUDIT.md",
     "docs/DOMAIN.md",
     "docs/evidence/M7_M8_EXIT.md",
+    "docs/evidence/M9_EXIT.md",
     "docs/OPERATIONS.md",
     "docs/PLAN.md",
     "docs/PROTOCOL.md",

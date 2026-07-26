@@ -5,11 +5,14 @@ without a central game server or shared live state. Each peer owns only local tr
 uses SHA-256 Commit-Reveal for later audit, and exposes all business capabilities
 through a typed `SimulationSdk`.
 
-Status: competitive strategy and durable orchestration milestones. Strict
+Status: artifact, reporting, competitive strategy, and durable orchestration milestones. Strict
 configuration, local-only physics, FastMCP negotiation, sealed mutual audit,
 exact scent/belief tracking, deadline-safe Police/Thief planning, safe language,
 formal lifecycle orchestration, recovery, Watchdog, and bounded reliability
-controls are complete.
+controls are complete. Linked immutable artifacts, exact score/token reporting,
+durable idempotent Gmail outbox, send-only OAuth, and the full per-service
+Gatekeeper are implemented; the controlled real Gmail rehearsal remains an
+operator-owned release action.
 
 ## Requirements
 
@@ -42,11 +45,15 @@ uv build
 
 ## Usage
 
-The CLI adapter exposes readiness:
+The CLI adapter exposes readiness and a reporting dry run:
 
 ```text
 uv run police-thief-p2p readiness
 uv run police-thief-p2p readiness --json
+uv run police-thief-p2p report validate \
+  --manifest <artifact-root>/official/manifest_<game-id>.json \
+  --artifact-root <artifact-root> \
+  --sender <account@example.com>
 ```
 
 Application adapters must call `SimulationSdk`; importing domain or service
@@ -135,6 +142,11 @@ policy, reproducibility, and evidence are documented in
 [`docs/STRATEGY.md`](docs/STRATEGY.md). Startup, deadlines, retries, health,
 recovery, tunnel preflight, backpressure, and shutdown are documented in
 [`docs/OPERATIONS.md`](docs/OPERATIONS.md).
+
+Artifact filenames, immutable digest graph, exact score/token accounting,
+verified-only report construction, OAuth/outbox transitions, and Gatekeeper
+controls are frozen in
+[`docs/PRD_REPORTING_UI_REPLAY.md`](docs/PRD_REPORTING_UI_REPLAY.md).
 
 ## Development
 

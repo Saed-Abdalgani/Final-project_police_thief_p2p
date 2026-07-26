@@ -59,3 +59,59 @@ order: transport, journal, artifact writer, GUI, workers. Terminal phases
 
 The 1,000-sub-game deterministic persistence/Watchdog soak and fault matrix are
 recorded in `results/benchmarks/m8_reliability.json`.
+
+## Official artifacts
+
+Set `paths.artifact_root` to a local data directory. Official evidence is written
+under `official/`, pre-audit sealed evidence under `private/`, and rotating
+diagnostics under `diagnostics/`. Do not manually edit an official artifact.
+Existing filenames are immutable; a conflicting rewrite indicates an integrity
+failure.
+
+Before replay, export, or reporting, load `manifest_<game_id>.json` through
+`SimulationSdk.load_artifact_manifest` and verify it against the same artifact
+root. Verification recomputes every byte digest and every identity/config/commit/
+journal/audit/result edge. Preserve corrupt files for diagnosis; never repair
+them in place.
+
+Run a side-effect-free reporting check with:
+
+```text
+uv run police-thief-p2p report validate --manifest <manifest.json> --artifact-root <root> --sender <account@example.com>
+```
+
+`VALID` means the manifest, six config/log pairs, final result, mutual agreement,
+score/token totals, JSON attachment, and MIME all passed. It does not create an
+outbox item, open a browser, refresh OAuth, or contact Gmail.
+
+## Gmail authorization and delivery
+
+Keep `credentials.json` and `token.json` in configured private paths outside the
+artifact root. Both filenames and common key/certificate formats are ignored by
+Git. Gmail authorization requests exactly the `gmail.send` scope. First use opens
+the installed-app PKCE authorization page and accepts one loopback callback;
+subsequent use refreshes the owner-only token file. Never paste tokens into TOML,
+commands, evidence, logs, issues, or chat.
+
+Production flow is: verify manifest, build report, atomically enqueue, dispatch
+through the Gmail Gatekeeper profile, and persist the provider result. A restart
+while `SENDING` recovers to `RETRY_WAIT`. `SENT` is idempotent and never sends
+again. Authentication errors become visible permanent failures; timeout, 429,
+5xx, quota, queue, anomaly, and open-circuit states remain visible and
+recoverable without rewriting the result.
+
+For the mandatory real rehearsal, use a safe address controlled by the team and
+never the lecturer address. Confirm the recipient out of band, run exactly one
+send, preserve only the logical report ID, attachment digest, timestamp, terminal
+outbox state, and a hash/redaction of the provider ID. Delete no token/outbox
+state afterward. A lecturer send is permitted only for the actual agreed
+competition report.
+
+## Gatekeeper recovery
+
+Limits are loaded from `config/rate_limits.example.json` or its reviewed private
+equivalent; never patch limits in code. A 429 wait is at least the configured
+backoff and provider `Retry-After`. Circuits move from open to one half-open probe
+after cooldown. Manual circuit/anomaly or session-quota reset requires explicit
+operator confirmation. Inspect only redacted metrics: tokens, quotas, queue
+depth, concurrency, retries, rejections, and circuit state.

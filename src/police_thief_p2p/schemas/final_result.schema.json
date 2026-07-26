@@ -1,35 +1,88 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://police-thief-p2p.invalid/schemas/0.2.0/final_result.schema.json",
-  "title": "Agreed Final Series Result",
+  "title": "Agreed Standard JSON Final Series Result",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "game_uid", "groups", "final_commits", "tokens", "scores", "artifact_links", "agreement"],
+  "required": ["schema_version", "game_id", "game_uid", "sender_group_id", "sub_games", "groups", "series_winner", "series_tie", "declaration_file", "declaration_sha256", "agreement"],
   "properties": {
     "schema_version": {"const": "0.2.0"},
+    "game_id": {"$ref": "#/$defs/game_id"},
     "game_uid": {"type": "string", "format": "uuid"},
-    "groups": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"type": "string"}},
-    "final_commits": {"$ref": "#/$defs/by_group_digest"},
-    "tokens": {"$ref": "#/$defs/by_group_nonnegative"},
-    "scores": {"$ref": "#/$defs/by_group_nonnegative"},
-    "artifact_links": {
-      "type": "array",
-      "minItems": 4,
-      "items": {"type": "string", "format": "uri"}
-    },
+    "sender_group_id": {"type": "string"},
+    "sub_games": {"type": "array", "minItems": 6, "maxItems": 6, "items": {"$ref": "#/$defs/sub_game"}},
+    "groups": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"$ref": "#/$defs/group"}},
+    "series_winner": {"type": ["string", "null"]},
+    "series_tie": {"type": "boolean"},
+    "declaration_file": {"type": "string", "pattern": "^declaration_[a-z0-9-]+\\.json$"},
+    "declaration_sha256": {"$ref": "#/$defs/digest"},
     "agreement": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["status", "agreed_digest", "signers"],
+      "required": ["status", "agreed_digest", "signers", "audit_manifest_sha256"],
       "properties": {
         "status": {"const": "agreed"},
-        "agreed_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
-        "signers": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"type": "string"}}
+        "agreed_digest": {"$ref": "#/$defs/digest"},
+        "signers": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"type": "string"}},
+        "audit_manifest_sha256": {"$ref": "#/$defs/digest"}
       }
     }
   },
   "$defs": {
-    "by_group_digest": {"type": "object", "minProperties": 2, "maxProperties": 2, "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
-    "by_group_nonnegative": {"type": "object", "minProperties": 2, "maxProperties": 2, "additionalProperties": {"type": "integer", "minimum": 0}}
+    "digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "game_id": {"type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$"},
+    "usage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["input_tokens", "output_tokens"],
+      "properties": {
+        "input_tokens": {"type": "integer", "minimum": 0},
+        "output_tokens": {"type": "integer", "minimum": 0}
+      }
+    },
+    "roles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["police", "thief"],
+      "properties": {"police": {"type": "string"}, "thief": {"type": "string"}}
+    },
+    "sub_game": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sub_game_number", "role_assignment", "terminal_reason", "winner", "tie", "scores", "tokens", "config_sha256", "log_sha256", "audit_sha256", "commits", "config_file", "log_file", "audit_status"],
+      "properties": {
+        "sub_game_number": {"type": "integer", "minimum": 1, "maximum": 6},
+        "role_assignment": {"$ref": "#/$defs/roles"},
+        "terminal_reason": {"type": "string"},
+        "winner": {"type": ["string", "null"]},
+        "tie": {"type": "boolean"},
+        "scores": {"type": "object", "minProperties": 2, "maxProperties": 2, "additionalProperties": {"type": "integer", "minimum": 0}},
+        "tokens": {"type": "object", "minProperties": 2, "maxProperties": 2, "additionalProperties": {"$ref": "#/$defs/usage"}},
+        "config_sha256": {"$ref": "#/$defs/digest"},
+        "log_sha256": {"$ref": "#/$defs/digest"},
+        "audit_sha256": {"$ref": "#/$defs/digest"},
+        "commits": {"type": "object", "minProperties": 2, "maxProperties": 2, "additionalProperties": {"$ref": "#/$defs/commit"}},
+        "config_file": {"type": "string"},
+        "log_file": {"type": "string"},
+        "audit_status": {"enum": ["verified", "failed"]}
+      }
+    },
+    "group": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["group_id", "score", "wins", "ties", "tokens", "police_repository", "thief_repository", "police_commit", "thief_commit"],
+      "properties": {
+        "group_id": {"type": "string"},
+        "score": {"type": "integer", "minimum": 0},
+        "wins": {"type": "integer", "minimum": 0, "maximum": 6},
+        "ties": {"type": "integer", "minimum": 0, "maximum": 6},
+        "tokens": {"$ref": "#/$defs/usage"},
+        "police_repository": {"type": "string", "format": "uri"},
+        "thief_repository": {"type": "string", "format": "uri"},
+        "police_commit": {"$ref": "#/$defs/commit"},
+        "thief_commit": {"$ref": "#/$defs/commit"}
+      }
+    }
   }
 }

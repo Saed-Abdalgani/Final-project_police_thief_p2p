@@ -63,6 +63,8 @@ class EmailConfig(FrozenModel):
     """Private Gmail credential path, recipient policy, and secret reference."""
 
     credential_path: Path
+    token_path: Path = Path("token.json")
+    sender: StrictStr = "local-sender@example.invalid"
     recipient_allowlist: tuple[StrictStr, ...]
     oauth_client_secret_env: StrictStr | None = None
 

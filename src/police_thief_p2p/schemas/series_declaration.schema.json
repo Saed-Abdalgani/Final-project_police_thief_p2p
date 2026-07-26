@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://police-thief-p2p.invalid/schemas/0.2.0/series_declaration.schema.json",
+  "title": "Mutually Acknowledged Series Declaration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "game_id", "game_uid", "protocol_version", "timezone", "counted", "mode", "groups", "series_size", "planned_start", "planned_end", "config_sha256", "scent_model_sha256", "schedule_sha256", "acknowledgment_sha256"],
+  "properties": {
+    "schema_version": {"const": "0.2.0"},
+    "game_id": {"$ref": "#/$defs/game_id"},
+    "game_uid": {"type": "string", "format": "uuid"},
+    "protocol_version": {"const": "0.7.0"},
+    "timezone": {"type": "string", "minLength": 1, "maxLength": 100},
+    "counted": {"type": "boolean"},
+    "mode": {"enum": ["counted", "warmup"]},
+    "groups": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"$ref": "#/$defs/group"}},
+    "series_size": {"const": 6},
+    "planned_start": {"type": "string", "format": "date-time"},
+    "planned_end": {"type": "string", "format": "date-time"},
+    "config_sha256": {"$ref": "#/$defs/digest"},
+    "scent_model_sha256": {"$ref": "#/$defs/digest"},
+    "schedule_sha256": {"$ref": "#/$defs/digest"},
+    "acknowledgment_sha256": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "game_id": {"type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$"},
+    "url": {"type": "string", "format": "uri"},
+    "group": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["group_id", "group_name", "members", "public_mcp_url", "police_repository", "thief_repository", "police_commit", "thief_commit", "step_zero_sha256", "hardware_sha256", "model_provider", "model_name", "token_budget", "counted_total"],
+      "properties": {
+        "group_id": {"type": "string"},
+        "group_name": {"type": "string", "minLength": 1, "maxLength": 100},
+        "members": {"type": "array", "minItems": 1, "maxItems": 32, "items": {"type": "string"}},
+        "public_mcp_url": {"$ref": "#/$defs/url"},
+        "police_repository": {"$ref": "#/$defs/url"},
+        "thief_repository": {"$ref": "#/$defs/url"},
+        "police_commit": {"$ref": "#/$defs/commit"},
+        "thief_commit": {"$ref": "#/$defs/commit"},
+        "step_zero_sha256": {"$ref": "#/$defs/digest"},
+        "hardware_sha256": {"$ref": "#/$defs/digest"},
+        "model_provider": {"type": "string", "minLength": 1},
+        "model_name": {"type": "string", "minLength": 1},
+        "token_budget": {"type": "integer", "minimum": 0},
+        "counted_total": {"type": "integer", "minimum": 0}
+      }
+    }
+  }
+}

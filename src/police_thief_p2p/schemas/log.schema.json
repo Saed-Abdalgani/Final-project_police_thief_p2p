@@ -1,37 +1,63 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://police-thief-p2p.invalid/schemas/0.2.0/log.schema.json",
-  "title": "Sealed Ordered Sub-Game Log Artifact",
+  "title": "Sealed Finalized Sub-Game Log",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "game_uid", "sub_game_number", "events", "audit"],
+  "required": ["schema_version", "game_id", "game_uid", "sub_game_number", "role_assignment", "config_sha256", "played_commits", "journal_sha256", "entries", "terminal_reason", "audit_status", "audit_sha256"],
   "properties": {
     "schema_version": {"const": "0.2.0"},
+    "game_id": {"$ref": "#/$defs/game_id"},
     "game_uid": {"type": "string", "format": "uuid"},
     "sub_game_number": {"type": "integer", "minimum": 1, "maximum": 6},
-    "events": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": ["sequence", "step_number", "phase", "actor", "commit_digest", "sealed"],
-        "properties": {
-          "sequence": {"type": "integer", "minimum": 1},
-          "step_number": {"type": "integer", "minimum": 1},
-          "phase": {"enum": ["commit", "reveal", "acknowledge"]},
-          "actor": {"enum": ["police", "thief"]},
-          "commit_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
-          "sealed": {"const": true}
-        }
-      }
-    },
-    "audit": {
+    "role_assignment": {"$ref": "#/$defs/roles"},
+    "config_sha256": {"$ref": "#/$defs/digest"},
+    "played_commits": {"$ref": "#/$defs/commits"},
+    "journal_sha256": {"$ref": "#/$defs/digest"},
+    "entries": {"type": "array", "items": {"$ref": "#/$defs/entry"}},
+    "terminal_reason": {"type": "string", "minLength": 1},
+    "audit_status": {"enum": ["verified", "failed"]},
+    "audit_sha256": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "game_id": {"type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$"},
+    "roles": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["status", "verified_through_sequence"],
+      "required": ["police", "thief"],
+      "properties": {"police": {"type": "string"}, "thief": {"type": "string"}}
+    },
+    "commits": {
+      "type": "object",
+      "minProperties": 2,
+      "maxProperties": 2,
+      "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{40}$"}
+    },
+    "usage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["input_tokens", "output_tokens"],
       "properties": {
-        "status": {"enum": ["pending", "verified", "failed"]},
-        "verified_through_sequence": {"type": "integer", "minimum": 0}
+        "input_tokens": {"type": "integer", "minimum": 0},
+        "output_tokens": {"type": "integer", "minimum": 0}
+      }
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sequence", "step_number", "phase", "actor", "timestamp", "commitment_sha256", "reveal", "public_effects", "metrics", "audit_status"],
+      "properties": {
+        "sequence": {"type": "integer", "minimum": 1},
+        "step_number": {"type": "integer", "minimum": 1},
+        "phase": {"enum": ["commit", "acknowledge", "reveal", "terminal", "audit"]},
+        "actor": {"enum": ["police", "thief", "system"]},
+        "timestamp": {"type": "string", "format": "date-time"},
+        "commitment_sha256": {"anyOf": [{"$ref": "#/$defs/digest"}, {"type": "null"}]},
+        "reveal": {"type": ["object", "null"]},
+        "public_effects": {"type": "object"},
+        "metrics": {"type": "object", "additionalProperties": {"$ref": "#/$defs/usage"}},
+        "audit_status": {"enum": ["pending", "verified", "failed"]}
       }
     }
   }

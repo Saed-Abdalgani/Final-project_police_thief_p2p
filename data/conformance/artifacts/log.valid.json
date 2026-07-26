@@ -1,16 +1,30 @@
 {
   "schema_version": "0.2.0",
+  "game_id": "series-2026",
   "game_uid": "12345678-1234-4234-8234-123456789abc",
   "sub_game_number": 1,
-  "events": [
+  "role_assignment": {"police": "GRP00001", "thief": "GRP00002"},
+  "config_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "played_commits": {
+    "GRP00001": "1111111111111111111111111111111111111111",
+    "GRP00002": "2222222222222222222222222222222222222222"
+  },
+  "journal_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "entries": [
     {
       "sequence": 1,
       "step_number": 1,
       "phase": "commit",
       "actor": "police",
-      "commit_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-      "sealed": true
+      "timestamp": "2026-07-26T10:00:00Z",
+      "commitment_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "reveal": null,
+      "public_effects": {},
+      "metrics": {"GRP00001": {"input_tokens": 0, "output_tokens": 0}},
+      "audit_status": "verified"
     }
   ],
-  "audit": {"status": "pending", "verified_through_sequence": 0}
+  "terminal_reason": "survival",
+  "audit_status": "verified",
+  "audit_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
 }

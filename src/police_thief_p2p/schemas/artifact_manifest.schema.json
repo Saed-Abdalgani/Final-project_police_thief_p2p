@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://police-thief-p2p.invalid/schemas/0.2.0/artifact_manifest.schema.json",
+  "title": "Official Artifact Digest and Linkage Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "game_id", "game_uid", "config_sha256", "played_commits", "journal_sha256", "audit_manifest_sha256", "entries"],
+  "properties": {
+    "schema_version": {"const": "0.2.0"},
+    "game_id": {"type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$"},
+    "game_uid": {"type": "string", "format": "uuid"},
+    "config_sha256": {"$ref": "#/$defs/digest"},
+    "played_commits": {"type": "object", "minProperties": 2, "maxProperties": 2, "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{40}$"}},
+    "journal_sha256": {"$ref": "#/$defs/digest"},
+    "audit_manifest_sha256": {"$ref": "#/$defs/digest"},
+    "entries": {"type": "array", "minItems": 4, "items": {"$ref": "#/$defs/reference"}}
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "filename", "schema_name", "sha256", "size_bytes", "sub_game_number", "role", "config_sha256", "journal_sha256", "audit_sha256"],
+      "properties": {
+        "kind": {"enum": ["declaration", "config", "log", "result", "manifest"]},
+        "filename": {"type": "string", "pattern": "^[a-z0-9_-]+\\.json$"},
+        "schema_name": {"type": "string", "pattern": "^[a-z_]+\\.schema\\.json$"},
+        "sha256": {"$ref": "#/$defs/digest"},
+        "size_bytes": {"type": "integer", "minimum": 1, "maximum": 16777216},
+        "sub_game_number": {"type": ["integer", "null"], "minimum": 1, "maximum": 6},
+        "role": {"type": ["string", "null"]},
+        "config_sha256": {"anyOf": [{"$ref": "#/$defs/digest"}, {"type": "null"}]},
+        "journal_sha256": {"anyOf": [{"$ref": "#/$defs/digest"}, {"type": "null"}]},
+        "audit_sha256": {"anyOf": [{"$ref": "#/$defs/digest"}, {"type": "null"}]}
+      }
+    }
+  }
+}

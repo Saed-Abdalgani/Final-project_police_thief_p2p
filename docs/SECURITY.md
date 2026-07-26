@@ -89,7 +89,12 @@ All remote boundaries have Spoofing, Tampering, Repudiation, Information Disclos
 6. Patch canonical source, add a regression test, update threat/risk/ADR/changelog, regenerate both releases.
 7. Resume counted play only after Security and QA close the gate.
 
-## 7. Initial review status
+## 7. Review status
 
-Threat coverage is complete enough to begin M1 design/implementation. Controls remain unverified until their milestone tests pass. No security statement in this document is evidence of implementation.
-
+M9 verifies the artifact path/digest boundary and Gmail controls with automated
+traversal, corruption, scope, recipient, OAuth, fake-provider, quota, queue,
+retry, anomaly, circuit, restart, and duplicate-dispatch tests. OAuth files
+remain local-only and are never test fixtures. The controlled real-provider
+rehearsal is external evidence and must be completed with a team-controlled safe
+recipient before final M9 approval. No documentation statement substitutes for
+that receipt.
