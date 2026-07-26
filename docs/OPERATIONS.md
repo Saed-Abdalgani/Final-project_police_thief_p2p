@@ -107,6 +107,35 @@ outbox state, and a hash/redaction of the provider ID. Delete no token/outbox
 state afterward. A lecturer send is permitted only for the actual agreed
 competition report.
 
+## Live GUI operations
+
+Construct `LiveApp` with a configured `SimulationSdk` and an SDK-created
+`SnapshotChannel`. Start the gameplay producer with
+`SimulationSdk.run_live_async`; never run transitions or network waits in a Tk
+callback. Only `LocalView` may enter the channel. Start, Pause, Resume, Stop,
+Restart, and Quit call the SDK lifecycle port. Stop/restart/quit require operator
+confirmation in the GUI.
+
+If rendering falls behind, intermediate visuals coalesce. The newest final,
+terminal, or error snapshot is retained, while official protocol events remain
+in their authoritative journal and never enter the visual queue. Closing the
+window requests cooperative SDK shutdown; headless gameplay remains fully
+functional when Tk is absent.
+
+## Replay operations
+
+Run `police-thief-p2p replay verify` against the official series manifest and
+artifact root. Admission verifies the full 14-document digest/link graph before
+selecting a sub-game. Do not open individual files in the GUI or combine logs
+outside the SDK.
+
+`Verified OK` permits navigation and report export. `TAMPERED` stops normal
+verification at the first invalid step, assigns no points in the replay report,
+and preserves its typed finding. Keep the source artifacts unchanged. Objective
+dual-track replay is post-audit only; single-log mode shows local track plus
+belief and labels the missing sibling. Unequal linked tracks freeze the shorter
+track explicitly rather than inventing positions.
+
 ## Gatekeeper recovery
 
 Limits are loaded from `config/rate_limits.example.json` or its reviewed private

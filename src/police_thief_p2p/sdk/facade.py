@@ -12,7 +12,10 @@ from police_thief_p2p.domain.values import Action, Role
 from police_thief_p2p.sdk.belief_facade import BeliefFacade
 from police_thief_p2p.sdk.crypto_facade import CryptoAuditFacade
 from police_thief_p2p.sdk.dto import ReadinessCheck, ReadinessReport, ReadinessStatus
+from police_thief_p2p.sdk.live_facade import LiveViewFacade
+from police_thief_p2p.sdk.live_runtime import LifecyclePort
 from police_thief_p2p.sdk.orchestration_facade import OrchestrationFacade
+from police_thief_p2p.sdk.replay_facade import ReplayFacade
 from police_thief_p2p.sdk.reporting_facade import ArtifactReportingFacade
 from police_thief_p2p.sdk.strategy_facade import StrategyFacade
 from police_thief_p2p.services.belief import BeliefService, MixtureMotionModel, OwnScentEngine
@@ -39,18 +42,22 @@ class SimulationSdk(
     StrategyFacade,
     OrchestrationFacade,
     ArtifactReportingFacade,
+    LiveViewFacade,
+    ReplayFacade,
 ):
     """Expose typed product use cases without leaking service implementations."""
 
-    __slots__ = ("_belief_service", "_protocol", "_scent_engine", "_sealed_steps")
+    __slots__ = ("_belief_service", "_lifecycle", "_protocol", "_scent_engine", "_sealed_steps")
 
     def __init__(
         self,
         protocol: ProtocolRuntime | None = None,
         scent_history_repository: RepositoryPort | None = None,
+        lifecycle: LifecyclePort | None = None,
     ) -> None:
         """Create the facade with an optional isolated peer protocol runtime."""
         self._protocol = protocol
+        self._lifecycle = lifecycle
         self._sealed_steps = SealedStepStore()
         scent_store = (
             None if scent_history_repository is None else SecretScentStore(scent_history_repository)

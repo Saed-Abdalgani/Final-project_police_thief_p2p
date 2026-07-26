@@ -128,6 +128,30 @@ The real Gmail rehearsal is deliberately not part of automated tests. It require
 interactive team OAuth, a team-controlled safe recipient, and an external
 redacted receipt; routine tests must never contact the lecturer address.
 
+## M10 live GUI and replay campaign
+
+```text
+uv run pytest tests/unit/test_m10_live_view.py -q
+uv run pytest tests/unit/test_m10_replay.py -q
+uv run pytest tests/integration/test_m10_replay_gui.py -q
+uv run pytest tests/security/test_m10_gui_replay_security.py -q
+uv run python scripts/generate_m10_screenshots.py
+```
+
+The focused campaign proves immutable local-view privacy, all eight accessible
+states, SDK-only GUI actions, background snapshot delivery, terminal retention,
+headless parity, fixed contrast/heat scale, safe errors, and deterministic SVG
+bytes. Replay validates bounded UTF-8/schema input and the full manifest graph,
+recomputes every commitment field, nonce, state, scent, public effect, terminal,
+and score, stops on first invalid evidence, gates objective tracks on dual final
+audit, navigates all required commands/sub-games, and validates canonical JSON
+plus escaped standalone HTML exports.
+
+`docs/screenshots/m10_live_local_view.svg`,
+`m10_replay_verified.svg`, and `m10_replay_tampered.svg` are regenerated from
+code, byte-stable, and scanned for opponent truth, nonce, credential, and token
+field names.
+
 ## Negative gate evidence
 
 Quality tools include synthetic negative tests:

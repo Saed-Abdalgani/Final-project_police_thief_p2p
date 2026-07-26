@@ -1,6 +1,6 @@
 # Mechanism PRD - Artifacts, Reporting, Live UI, and Replay
 
-**Status:** M9 artifact/reporting contract finalized 2026-07-26; M10 UI/replay contract pending
+**Status:** M9 artifact/reporting and M10 UI/replay contracts finalized 2026-07-26
 **Owners:** Artifact Lead, Reporting Lead, UX Lead
 **Requirements:** FR-ART-001..013, FR-RPT-001..013, FR-UI-001..015
 **Rules:** Appendix E 8-9, 20, 28-35, 39-44, 49-51, 54-55
@@ -118,6 +118,59 @@ counts, and numeric circuit state.
 token/score totals, attachment, and deterministic MIME without creating an
 outbox item or contacting Gmail.
 
+## M10 frozen live-view contract
+
+The live adapter receives only an immutable SDK `LocalView`. Its explicit
+allowlist is: own role/position/visited cells, public board geometry and
+barriers, normalized opponent belief, credible region and uncertainty
+diagnostics, natural-language hints, own verdict, sub-game/series progress,
+barrier usage, latency/token/fallback metrics, audit text, and one typed status.
+It cannot represent opponent true position, opponent track, nonce, objective
+board, sibling private log, future reveal, credential, or replay-derived truth.
+Construction rejects mismatched board/belief sizes, non-normalized belief,
+out-of-bounds cells, unsafe status text, and forbidden serialized keys.
+
+The Tk adapter owns layout only. Every lifecycle action calls the injected
+`SimulationSdk`; the adapter imports no domain or service module. Gameplay and
+snapshot production run outside the Tk event loop. A bounded, thread-safe
+channel stores only immutable `LocalView` snapshots. Under backpressure it
+coalesces intermediate visuals while retaining the newest final, terminal, or
+error snapshot; protocol evidence never enters this channel.
+
+The resizable board uses the signed origin corner and start index for row/column
+labels. It renders own role/position, public barriers, own trail, a fixed
+zero-to-one belief scale, numeric legend, peak/entropy/credible-region summary,
+and no opponent marker. Ready, thinking, waiting, locked, paused, degraded,
+terminal, and error states each have text, an icon token, and a contrast-checked
+color. Controls have keyboard equivalents, deterministic focus order, scalable
+text, a minimum usable size, safe confirmation for stop/restart/quit, and
+redacted correlation-ID errors with no traceback.
+
+## M10 frozen replay contract
+
+Replay input is bounded NFC UTF-8 JSON. Model and JSON Schema validation,
+identifier checks, exact byte digest, and manifest/config/log/commit/journal/
+audit linkage happen before a frame is exposed. `SimulationSdk.verify_log` is
+the only adapter entry point. The verifier recomputes every revealed
+commitment, nonce uniqueness, actor sequence, pre-state digest, action,
+barrier/public effect, scent frame, capture/terminal result, and fixed score.
+Normal verification stops at the first invalid step and returns a deterministic
+ordered finding without rendering later evidence.
+
+Single-log mode exposes the selected local track plus belief and explicitly
+marks a missing/frozen sibling track. Objective dual-log mode is unavailable
+until both logs are final-reveal complete, audited `Verified OK`, and linked to
+the same game, configuration, commits, journal, and audit graph. Unequal valid
+tracks retain their last known frame with a text banner rather than inventing
+movement.
+
+Replay navigation is immutable and supports play, pause, previous, next,
+restart, go-to-step, and selection across sub-games 1-6. Integrity is always
+shown as `✓ Verified OK` or `⚠ TAMPERED` using text, icon, color, and an
+accessible description. Export produces canonical machine-readable JSON and a
+standalone escaped UTF-8 HTML report. Deterministic SVG screenshots are derived
+from reviewed fixtures and scanned for forbidden live fields and secrets.
+
 ## Invariants
 
 1. Artifact IDs/filenames are sanitized, unique, and confined under the configured root.
@@ -152,7 +205,7 @@ outbox item or contacting Gmail.
 - [x] OAuth/outbox/idempotency/allowlist contract;
 - [x] Gatekeeper profiles, retry classification, quotas, anomaly and telemetry;
 - [x] standard report JSON, exact token accounting, MIME, and dry run;
-- live-view DTO and complete forbidden-field list;
-- GUI screens, states, threading, error/recovery and accessibility specification;
-- replay verification/navigation state machine;
-- screenshot and deterministic sample-run procedure.
+- [x] live-view DTO and complete forbidden-field list;
+- [x] GUI screens, states, threading, error/recovery and accessibility specification;
+- [x] replay verification/navigation state machine;
+- [x] screenshot and deterministic sample-run procedure.

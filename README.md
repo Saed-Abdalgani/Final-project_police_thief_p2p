@@ -148,6 +148,44 @@ verified-only report construction, OAuth/outbox transitions, and Gatekeeper
 controls are frozen in
 [`docs/PRD_REPORTING_UI_REPLAY.md`](docs/PRD_REPORTING_UI_REPLAY.md).
 
+## Live local-truth GUI and replay
+
+The optional Tk live application consumes only immutable `LocalView` snapshots.
+It shows own truth, public barriers/trail, normalized opponent belief and
+uncertainty, hints, lifecycle state, and safe metrics. Opponent true position,
+opponent track, nonces, credentials, and replay-derived truth cannot be
+represented by the DTO. Gameplay remains in a background worker; the Tk event
+loop receives only bounded, coalescible visual snapshots.
+
+Verify one manifest-linked finalized sub-game and export both audit formats:
+
+```text
+uv run police-thief-p2p replay verify \
+  --manifest <artifact-root>/official/manifest_<game-id>.json \
+  --artifact-root <artifact-root> \
+  --group GRP00001 \
+  --sub-game 1 \
+  --json-report replay-audit.json \
+  --html-report replay-audit.html
+```
+
+Exit `0` means `Verified OK`, exit `3` means `TAMPERED`, and exit `2` means the
+input failed schema/linkage admission. Single-log replay shows the selected
+local track and belief. Objective Police-and-Thief tracks unlock only through
+the SDK dual-log method after both final logs pass audit and linkage.
+
+Reproduce the deterministic submission evidence with:
+
+```text
+uv run python scripts/generate_m10_screenshots.py
+```
+
+![Deterministic local-truth belief heatmap](docs/screenshots/m10_live_local_view.svg)
+
+![Deterministic verified replay](docs/screenshots/m10_replay_verified.svg)
+
+![Deterministic tampered replay](docs/screenshots/m10_replay_tampered.svg)
+
 ## Development
 
 Use test-driven changes and keep public behavior linked to requirement IDs:
@@ -179,8 +217,10 @@ The complete test strategy, markers, and clean-clone sequence are in
   never construct new bytes for an uncertain mutation.
 - **Secret scanner flags a value:** remove/rotate the value. Do not suppress a real
   credential in a baseline.
-- **Tk unavailable:** headless operation remains the required functional path; GUI
-  support is implemented and tested in M10.
+- **Tk unavailable:** headless operation remains the required functional path.
+  Use the replay CLI and SVG generator for deterministic headless evidence.
+- **Replay says `TAMPERED`:** inspect the first finding and preserve the original
+  files. Never edit/reseal official evidence to make replay pass.
 
 ## Contribution Rules
 

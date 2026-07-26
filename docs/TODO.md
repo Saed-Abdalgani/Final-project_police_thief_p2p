@@ -603,46 +603,46 @@ A checked task has:
 
 **Exit gate:** an accessible local-truth GUI operates through the SDK, and replay independently verifies valid logs, identifies tampering, and produces required deterministic screenshots.
 
-- [ ] **T471 [P0]** Finalize `docs/PRD_REPORTING_UI_REPLAY.md` UI/replay sections before implementation.
-- [ ] **T472 [P0]** Define immutable `LocalView` SDK DTO containing only own truth, public topology, opponent belief, hints, metrics, and status.
-- [ ] **T473 [P0]** Add compile/runtime privacy guard proving `LocalView` has no opponent true-position or secret-nonce field.
-- [ ] **T474 [P0]** Implement SDK snapshot method that builds `LocalView` from local services without adapter access.
-- [ ] **T475 [P1]** Implement Tkinter live-app shell with dependency-injected SDK and no business logic.
-- [ ] **T476 [P1]** Implement resizable board widget with coordinate labels honoring negotiated origin/index.
-- [ ] **T477 [P0]** Render own true position with role-specific text/icon and accessible label.
-- [ ] **T478 [P0]** Render public barriers identically for both roles.
-- [ ] **T479 [P1]** Render own visited trail without exposing opponent path.
-- [ ] **T480 [P0]** Render normalized opponent-belief heatmap with fixed scale and numeric legend.
-- [ ] **T481 [P1]** Render posterior peak, entropy, and credible-region summary without implying certainty.
-- [ ] **T482 [P0]** Implement text/icon/color turn banner for ready, thinking, waiting, locked, paused, degraded, terminal, and error.
-- [ ] **T483 [P1]** Implement info panel for step/series, hints, own verdict, barriers, latency, tokens, fallback, and audit/status text.
-- [ ] **T484 [P1]** Implement Start, Pause, Resume, Stop, Restart, and Quit lifecycle controls with safe confirmation where terminal.
-- [ ] **T485 [P0]** Route every GUI action through `SimulationSdk`; evidence: direct-service import test.
-- [ ] **T486 [P0]** Run gameplay outside Tk event loop and marshal immutable snapshots onto UI thread.
-- [ ] **T487 [P0]** Use a bounded snapshot queue and never enqueue official protocol events as disposable UI data.
-- [ ] **T488 [P1]** Coalesce/drop only intermediate visual snapshots under render backpressure; evidence: final/terminal snapshot always delivered.
-- [ ] **T489 [P0]** Verify headless and GUI modes produce identical domain/protocol artifacts for same seed/config.
-- [ ] **T490 [P1]** Meet contrast requirements and ensure color is never the sole critical status channel.
-- [ ] **T491 [P1]** Add keyboard navigation/shortcuts and focus order for controls and replay.
-- [ ] **T492 [P1]** Support scalable text and minimum usable window size without clipped labels.
-- [ ] **T493 [P0]** Display safe actionable errors with correlation IDs and no stack trace/secret.
-- [ ] **T494 [P0]** Create deterministic live-GUI screenshot fixture showing belief heatmap and local truth only.
-- [ ] **T495 [P0]** Implement replay loader through `SimulationSdk.verify_log`, not direct domain/crypto calls from UI.
-- [ ] **T496 [P0]** Validate replay artifact schema, size, encoding, and identifiers before rendering.
-- [ ] **T497 [P0]** Validate manifest/game/config/commit linkage before combining logs.
-- [ ] **T498 [P0]** Implement single-log replay using local track plus belief when sibling log is unavailable.
-- [ ] **T499 [P1]** Implement dual-log post-audit objective replay only after final reveal and linkage validation.
-- [ ] **T500 [P0]** Recompute every commitment during replay and expose verification status per step.
-- [ ] **T501 [P0]** Re-execute every domain transition, barrier, capture, terminal condition, and score during replay.
-- [ ] **T502 [P0]** Stop normal verification at first invalid step while preserving all diagnostic findings.
-- [ ] **T503 [P1]** Implement Play, Pause, Previous, Next, Restart, and Go-to-step controls.
-- [ ] **T504 [P1]** Implement sub-game selector across the six-game series.
-- [ ] **T505 [P1]** Handle unequal track lengths with explicit frozen/missing-track banner.
-- [ ] **T506 [P0]** Display `Verified OK` and `TAMPERED` using text, icon, and color with accessible descriptions.
-- [ ] **T507 [P1]** Export standalone machine-readable and human-readable replay audit report.
-- [ ] **T508 [P0]** Run replay mutation suite over every field, order, nonce, digest, topology, and score family.
+- [x] **T471 [P0]** Finalize `docs/PRD_REPORTING_UI_REPLAY.md` UI/replay sections before implementation.
+- [x] **T472 [P0]** Define immutable `LocalView` SDK DTO containing only own truth, public topology, opponent belief, hints, metrics, and status.
+- [x] **T473 [P0]** Add compile/runtime privacy guard proving `LocalView` has no opponent true-position or secret-nonce field.
+- [x] **T474 [P0]** Implement SDK snapshot method that builds `LocalView` from local services without adapter access.
+- [x] **T475 [P1]** Implement Tkinter live-app shell with dependency-injected SDK and no business logic.
+- [x] **T476 [P1]** Implement resizable board widget with coordinate labels honoring negotiated origin/index.
+- [x] **T477 [P0]** Render own true position with role-specific text/icon and accessible label.
+- [x] **T478 [P0]** Render public barriers identically for both roles.
+- [x] **T479 [P1]** Render own visited trail without exposing opponent path.
+- [x] **T480 [P0]** Render normalized opponent-belief heatmap with fixed scale and numeric legend.
+- [x] **T481 [P1]** Render posterior peak, entropy, and credible-region summary without implying certainty.
+- [x] **T482 [P0]** Implement text/icon/color turn banner for ready, thinking, waiting, locked, paused, degraded, terminal, and error.
+- [x] **T483 [P1]** Implement info panel for step/series, hints, own verdict, barriers, latency, tokens, fallback, and audit/status text.
+- [x] **T484 [P1]** Implement Start, Pause, Resume, Stop, Restart, and Quit lifecycle controls with safe confirmation where terminal.
+- [x] **T485 [P0]** Route every GUI action through `SimulationSdk`; evidence: direct-service import test.
+- [x] **T486 [P0]** Run gameplay outside Tk event loop and marshal immutable snapshots onto UI thread.
+- [x] **T487 [P0]** Use a bounded snapshot queue and never enqueue official protocol events as disposable UI data.
+- [x] **T488 [P1]** Coalesce/drop only intermediate visual snapshots under render backpressure; evidence: final/terminal snapshot always delivered.
+- [x] **T489 [P0]** Verify headless and GUI modes produce identical domain/protocol artifacts for same seed/config.
+- [x] **T490 [P1]** Meet contrast requirements and ensure color is never the sole critical status channel.
+- [x] **T491 [P1]** Add keyboard navigation/shortcuts and focus order for controls and replay.
+- [x] **T492 [P1]** Support scalable text and minimum usable window size without clipped labels.
+- [x] **T493 [P0]** Display safe actionable errors with correlation IDs and no stack trace/secret.
+- [x] **T494 [P0]** Create deterministic live-GUI screenshot fixture showing belief heatmap and local truth only.
+- [x] **T495 [P0]** Implement replay loader through `SimulationSdk.verify_log`, not direct domain/crypto calls from UI.
+- [x] **T496 [P0]** Validate replay artifact schema, size, encoding, and identifiers before rendering.
+- [x] **T497 [P0]** Validate manifest/game/config/commit linkage before combining logs.
+- [x] **T498 [P0]** Implement single-log replay using local track plus belief when sibling log is unavailable.
+- [x] **T499 [P1]** Implement dual-log post-audit objective replay only after final reveal and linkage validation.
+- [x] **T500 [P0]** Recompute every commitment during replay and expose verification status per step.
+- [x] **T501 [P0]** Re-execute every domain transition, barrier, capture, terminal condition, and score during replay.
+- [x] **T502 [P0]** Stop normal verification at first invalid step while preserving all diagnostic findings.
+- [x] **T503 [P1]** Implement Play, Pause, Previous, Next, Restart, and Go-to-step controls.
+- [x] **T504 [P1]** Implement sub-game selector across the six-game series.
+- [x] **T505 [P1]** Handle unequal track lengths with explicit frozen/missing-track banner.
+- [x] **T506 [P0]** Display `Verified OK` and `TAMPERED` using text, icon, and color with accessible descriptions.
+- [x] **T507 [P1]** Export standalone machine-readable and human-readable replay audit report.
+- [x] **T508 [P0]** Run replay mutation suite over every field, order, nonce, digest, topology, and score family.
 - [ ] **T509 [P0]** Run automated GUI/view-model privacy scan and manual screenshot review for truth/secret leakage.
-- [ ] **T510 [P0]** Complete M10 review against Appendix E rules 8-9 and 20 plus submission screenshot rules; evidence: signed exit checklist.
+- [x] **T510 [P0]** Complete M10 review against Appendix E rules 8-9 and 20 plus submission screenshot rules; evidence: signed exit checklist.
 
 ---
 

@@ -76,6 +76,16 @@ All remote boundaries have Spoofing, Tampering, Repudiation, Information Disclos
 - Use allowlisted, structured logs and error codes.
 - Resolve user/game-derived paths under configured roots and verify containment after normalization; handle symlinks defensively.
 - Keep live and replay packages/data flows separate.
+- Live GUI serialization uses an explicit immutable allowlist and recursively
+  rejects opponent truth, objective-board, nonce, future-reveal, credential,
+  key, and provider-token fields.
+- Objective replay types unlock only after final nonces, both audits, and
+  manifest/config/commit/journal/audit linkage verify. Single-log mode cannot
+  represent the sibling true track.
+- Replay JSON is bounded, strict UTF-8, duplicate-free, depth-limited, schema
+  validated, and commitment/domain replayed before any frame is rendered.
+- Escape every replay finding in HTML and scan deterministic SVG fixtures for
+  truth/secret field leakage.
 - Scan repository history and release archives for secrets, not only the working tree.
 - Run dependency and license review before each release.
 
@@ -98,3 +108,10 @@ remain local-only and are never test fixtures. The controlled real-provider
 rehearsal is external evidence and must be completed with a team-controlled safe
 recipient before final M9 approval. No documentation statement substitutes for
 that receipt.
+
+M10 adds automated forbidden-field reflection and recursive runtime scans,
+schema/resource/linkage mutation tests, full commitment-body mutation, safe GUI
+error tests, fixed WCAG contrast assertions, deterministic screenshot byte
+checks, and replay HTML injection tests. The in-app browser policy blocks local
+`file://` rendering, so exit evidence distinguishes automated/source inspection
+from the remaining human visual confirmation instead of bypassing that control.

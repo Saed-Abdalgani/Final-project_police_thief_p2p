@@ -2,6 +2,33 @@
 
 All notable project changes are documented here. The project follows semantic versioning for documentation, package, protocol, config, and schema contracts, with compatibility recorded separately when those versions diverge.
 
+## Package [0.9.0] - 2026-07-26
+
+### Added
+
+- Immutable comprehensive SDK `LocalView` with own truth, public topology,
+  normalized belief, uncertainty, hints, lifecycle status, metrics, and
+  recursive forbidden-field privacy enforcement.
+- Dependency-injected Tk live/replay shells with resizable coordinate-aware
+  boards, fixed-scale heatmaps, role/trail/barrier rendering, complete
+  text/icon/color states, keyboard operation, scalable text, safe confirmations,
+  and correlation-ID error boundaries.
+- Bounded thread-safe snapshot channel with intermediate coalescing, essential
+  final/terminal preservation, and background gameplay worker support.
+- Schema-first `SimulationSdk.verify_log` and full-manifest replay selection,
+  per-step nonce/commitment/state/scent/effect/terminal/score verification,
+  single-log belief mode, and final-audit-gated objective dual-log mode.
+- Immutable replay navigation, six-game selection support, explicit
+  missing/frozen-track banners, canonical JSON and standalone escaped HTML audit
+  exports, and prominent accessible `Verified OK`/`TAMPERED` presentation.
+- Deterministic live, verified replay, and tampered replay SVG fixtures with
+  mutation, privacy, accessibility, linkage, resource-bound, and CLI tests.
+
+### Changed
+
+- Package advances to `0.9.0`. Protocol remains `0.7.0`; artifact/config and
+  replay-report schemas remain in the compatible `0.2.0` family.
+
 ## Package [0.8.0] - 2026-07-26
 
 ### Added
