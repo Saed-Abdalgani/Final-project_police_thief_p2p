@@ -24,11 +24,30 @@ def validate_tunnel_url(url: str, *, competition_mode: bool) -> str:
         parsed.scheme != "https"
         or host == "localhost"
         or (address is not None and not address.is_global)
+        or bool(parsed.query)
     ):
         raise ValueError("competition tunnel must be a public HTTPS endpoint")
     netloc = host if parsed.port is None else f"{host}:{parsed.port}"
     path = parsed.path.rstrip("/") or "/mcp"
     return urlunsplit((parsed.scheme, netloc, path, parsed.query, ""))
+
+
+def validate_tunnel_redirect(
+    origin: str,
+    target: str,
+    *,
+    competition_mode: bool,
+) -> str:
+    """Allow only a validated same-origin redirect target."""
+    safe_origin = urlsplit(validate_tunnel_url(origin, competition_mode=competition_mode))
+    safe_target = validate_tunnel_url(target, competition_mode=competition_mode)
+    parsed_target = urlsplit(safe_target)
+    if (safe_origin.scheme, safe_origin.netloc) != (
+        parsed_target.scheme,
+        parsed_target.netloc,
+    ):
+        raise ValueError("tunnel redirect must remain on the validated origin")
+    return safe_target
 
 
 class TunnelProbePort(Protocol):

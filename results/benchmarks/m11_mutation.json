@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "measured_at": "2026-07-26",
+  "package_version": "0.10.0",
+  "method": "deterministic semantic mutants and boundary replacements",
+  "families": {
+    "config_rules": "tests/unit/test_config_models.py",
+    "scoring": "tests/unit/test_domain_schedule_scoring.py",
+    "state_transitions": "tests/unit/test_domain_state_engine.py",
+    "crypto_verification": "tests/unit/test_crypto_primitives.py",
+    "gatekeeper_decisions": "tests/unit/test_m9_gatekeeper.py",
+    "replay_context": "tests/unit/test_m10_replay.py"
+  },
+  "operators": [
+    "fixed/minimum numeric replacement",
+    "terminal/scoring outcome replacement",
+    "illegal transition and source/target replacement",
+    "canonical byte, nonce, digest, field, and order mutation",
+    "quota/admission/retry/circuit decision mutation",
+    "replay identity/topology/context mutation"
+  ],
+  "transcript_tail": [
+    "........................................................................ [ 69%]",
+    "................................                                         [100%]",
+    "104 passed in 2.17s"
+  ],
+  "result": "PASS"
+}

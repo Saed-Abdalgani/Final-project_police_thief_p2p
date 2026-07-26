@@ -1,20 +1,16 @@
 """SDK composition boundary for orchestration and redacted health."""
 
-from police_thief_p2p.adapters.system.clocks import SystemClock
-from police_thief_p2p.services.orchestration.cancellation import CancellationToken
-from police_thief_p2p.services.orchestration.deadlines import DeadlinePolicy
-from police_thief_p2p.services.orchestration.orchestrator import (
-    OrchestrationResult,
-    PeerOrchestrator,
-)
-from police_thief_p2p.services.orchestration.ports import PeerWorkflowPort
-from police_thief_p2p.services.orchestration.watchdog import (
-    HealthView,
-    Heartbeat,
-    health_view,
-)
-from police_thief_p2p.services.ports.clock import ClockPort
-from police_thief_p2p.shared.effective_config import EffectiveConfig
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from police_thief_p2p.services.orchestration.cancellation import CancellationToken
+    from police_thief_p2p.services.orchestration.orchestrator import OrchestrationResult
+    from police_thief_p2p.services.orchestration.ports import PeerWorkflowPort
+    from police_thief_p2p.services.orchestration.watchdog import HealthView, Heartbeat
+    from police_thief_p2p.services.ports.clock import ClockPort
+    from police_thief_p2p.shared.effective_config import EffectiveConfig
 
 
 class OrchestrationFacade:
@@ -31,6 +27,10 @@ class OrchestrationFacade:
         cancellation: CancellationToken | None = None,
     ) -> OrchestrationResult:
         """Run the negotiated series using config-derived bounds."""
+        from police_thief_p2p.adapters.system.clocks import SystemClock
+        from police_thief_p2p.services.orchestration.deadlines import DeadlinePolicy
+        from police_thief_p2p.services.orchestration.orchestrator import PeerOrchestrator
+
         selected_clock = SystemClock() if clock is None else clock
         orchestrator = PeerOrchestrator(
             workflow,
@@ -53,6 +53,8 @@ class OrchestrationFacade:
         degraded: bool = False,
     ) -> HealthView:
         """Return an alive/ready/degraded/failed local-truth-safe view."""
+        from police_thief_p2p.services.orchestration.watchdog import health_view
+
         return health_view(
             heartbeat,
             ready=ready,

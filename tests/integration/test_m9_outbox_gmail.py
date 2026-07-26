@@ -92,6 +92,34 @@ def test_outbox_recovers_interrupted_send_and_records_failures(tmp_path: Path) -
     assert failed.error_code == "GMAIL_AUTH_ERROR"
 
 
+def test_retry_deadline_is_canonical_and_survives_restart(tmp_path: Path) -> None:
+    report = _prepared(tmp_path)
+    repository = AtomicFileRepository(tmp_path / "outbox", max_bytes=4_000_000)
+    clock = FakeClock()
+    gatekeeper = FakeGatekeeper(
+        ExternalResult("retryable", {"code": "GMAIL_503", "retry_after_sec": 2.5})
+    )
+    dispatcher = OutboxDispatcher(
+        DurableOutbox(repository),
+        gatekeeper,
+        clock,
+        sender="team@example.com",
+    )
+    item = dispatcher.enqueue(report)
+    waiting = asyncio.run(dispatcher.dispatch(item.logical_report_id))
+    assert waiting.outcome is DispatchOutcome.RETRY_WAIT
+    assert str(DurableOutbox(repository).get(item.logical_report_id).retry_not_before) == "2.5"
+    assert asyncio.run(dispatcher.dispatch(item.logical_report_id)).outcome is (
+        DispatchOutcome.RETRY_WAIT
+    )
+    assert len(gatekeeper.calls) == 1
+    clock.advance(2.5)
+    gatekeeper.result = ExternalResult("success", {"provider_id": "gmail-recovered"})
+    sent = asyncio.run(dispatcher.dispatch(item.logical_report_id))
+    assert sent.outcome is DispatchOutcome.SENT
+    assert sent.attempts == 2
+
+
 class Token:
     def access_token(self) -> str:
         return "private-token"

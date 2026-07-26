@@ -1,6 +1,6 @@
 # Security and Privacy Plan
 
-**Baseline:** `1.0.0`
+**Baseline:** `0.10.0`
 **Scope:** initial threat model for live peers, public MCP, tunnels, configuration, artifacts, Commit-Reveal, GUI/replay, optional LLMs, Gmail, repository, and release pipeline.
 
 ## 1. Assets and security objectives
@@ -99,6 +99,32 @@ All remote boundaries have Spoofing, Tampering, Repudiation, Information Disclos
 6. Patch canonical source, add a regression test, update threat/risk/ADR/changelog, regenerate both releases.
 7. Resume counted play only after Security and QA close the gate.
 
+## 6.1 Secret rotation
+
+Treat any credential-pattern finding, unredacted provider response, accidental
+OAuth-file inclusion, or suspicious account activity as exposure. Stop outbound
+calls, preserve only redacted evidence, revoke the Gmail token in the provider
+console, rotate the OAuth client secret/tunnel token as applicable, delete local
+cached credentials after evidence capture, re-authorize with exactly
+`gmail.send`, and rerun working-tree, all-ref history, artifact, and built-archive
+scans. Never rewrite shared Git history without coordinated repository-owner
+approval; revoke first because history rewriting cannot un-expose a secret.
+
+## 6.2 Residual risks
+
+- Windows without Developer Mode may not permit unprivileged symlink creation;
+  containment logic remains active and the CI macOS job exercises the supported
+  filesystem path.
+- Public tunnels, Gmail, and optional model providers remain external
+  availability dependencies. Failures are bounded, typed, durable, and do not
+  authorize fabricated progress.
+- SHA-256 commitments provide integrity/concealment through random nonces, not
+  encryption or peer identity certificates. The signed Step-0 identity and final
+  mutual audit remain mandatory.
+- The current unified repository is the canonical source for both M13 role
+  exports. Export drift remains a final-release gate until those repositories
+  are generated and cross-compared.
+
 ## 7. Review status
 
 M9 verifies the artifact path/digest boundary and Gmail controls with automated
@@ -115,3 +141,13 @@ error tests, fixed WCAG contrast assertions, deterministic screenshot byte
 checks, and replay HTML injection tests. The in-app browser policy blocks local
 `file://` rendering, so exit evidence distinguishes automated/source inspection
 from the remaining human visual confirmation instead of bypassing that control.
+
+M11 adds the complete transition/tool phase matrices, every outbound-tool
+response-loss retry, every persistence/ack crash boundary, worker-family
+watchdog freezes, bounded session/signature stores, hostile Unicode/bidi/null/
+separator inputs, log/prompt injection, path/symlink/archive escape, tunnel and
+dynamic-import restrictions, and a full working-tree/all-ref/archive secret
+audit. The frozen dependency audit reports zero known vulnerabilities; all 98
+locked package licenses are compatible after explicit primary-source review of
+platform-only metadata. The cryptographic design review records no open P0/P1
+finding.

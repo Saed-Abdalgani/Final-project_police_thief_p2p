@@ -1,22 +1,15 @@
 """SDK-only entry points for verified offline replay."""
 
-from pathlib import Path
+from __future__ import annotations
 
-from police_thief_p2p.services.artifacts import ArtifactKind, ArtifactManifest, ArtifactPaths
-from police_thief_p2p.services.artifacts.linkage import verify_manifest
-from police_thief_p2p.services.artifacts.loader import load_artifact_json
-from police_thief_p2p.services.artifacts.manifest import ArtifactReference
-from police_thief_p2p.services.replay import (
-    ReplayMode,
-    ReplayVerification,
-    replay_html,
-    replay_json,
-    verify_dual_logs,
-    verify_replay_log,
-)
-from police_thief_p2p.services.replay.loader import load_replay_documents
-from police_thief_p2p.services.replay.models import ReplayCursor
-from police_thief_p2p.shared.schema_registry import validate_schema
+from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from police_thief_p2p.services.artifacts import ArtifactKind, ArtifactManifest
+    from police_thief_p2p.services.artifacts.manifest import ArtifactReference
+    from police_thief_p2p.services.replay import ReplayVerification
+    from police_thief_p2p.services.replay.models import ReplayCursor
 
 
 class ReplayFacade:
@@ -33,6 +26,9 @@ class ReplayFacade:
         objective: bool = False,
     ) -> ReplayVerification:
         """Verify one bounded finalized log before any rendering."""
+        from police_thief_p2p.services.replay import ReplayMode, verify_replay_log
+        from police_thief_p2p.services.replay.loader import load_replay_documents
+
         if objective:
             raise ValueError("objective replay requires dual-log verification")
         log, config = load_replay_documents(log_document, config_document)
@@ -53,6 +49,9 @@ class ReplayFacade:
         viewer_group: str,
     ) -> ReplayVerification:
         """Verify and link both final logs before objective truth is available."""
+        from police_thief_p2p.services.replay import verify_dual_logs
+        from police_thief_p2p.services.replay.loader import load_replay_documents
+
         left_log, left_config = load_replay_documents(primary_log, primary_config)
         right_log, right_config = load_replay_documents(sibling_log, sibling_config)
         return verify_dual_logs(
@@ -72,6 +71,9 @@ class ReplayFacade:
         viewer_group: str,
     ) -> ReplayVerification:
         """Verify the complete series graph before selecting one replay log."""
+        from police_thief_p2p.services.artifacts import ArtifactKind, ArtifactPaths
+        from police_thief_p2p.services.artifacts.linkage import verify_manifest
+
         manifest = _load_manifest(manifest_document)
         paths = ArtifactPaths(artifact_root)
         verified = verify_manifest(manifest, paths)
@@ -103,6 +105,8 @@ class ReplayFacade:
 
     def replay_cursor(self, result: ReplayVerification) -> ReplayCursor:
         """Create immutable navigation state for one verified result."""
+        from police_thief_p2p.services.replay.models import ReplayCursor
+
         return ReplayCursor(result)
 
     def navigate_replay(
@@ -117,6 +121,10 @@ class ReplayFacade:
 
     def export_replay(self, result: ReplayVerification) -> tuple[bytes, bytes]:
         """Return canonical JSON and standalone accessible HTML."""
+        from police_thief_p2p.services.artifacts.loader import load_artifact_json
+        from police_thief_p2p.services.replay import replay_html, replay_json
+        from police_thief_p2p.shared.schema_registry import validate_schema
+
         document = replay_json(result)
         validate_schema(
             load_artifact_json(document, max_bytes=16_777_216),
@@ -127,6 +135,10 @@ class ReplayFacade:
 
 
 def _load_manifest(document: bytes) -> ArtifactManifest:
+    from police_thief_p2p.services.artifacts import ArtifactManifest
+    from police_thief_p2p.services.artifacts.loader import load_artifact_json
+    from police_thief_p2p.shared.schema_registry import validate_schema
+
     if len(document) > 1_048_576:
         raise ValueError("artifact manifest exceeds size limit")
     value = load_artifact_json(document, max_bytes=1_048_576)

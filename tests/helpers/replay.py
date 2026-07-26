@@ -45,14 +45,18 @@ class ReplayFixture:
         return canonical_json_bytes(self.config.model_dump(mode="json"))
 
 
-def build_replay_fixture(config: SharedConfig) -> ReplayFixture:
-    bundle = build_valid_audit_bundle(config)
-    roles = RoleAssignmentRecord(police=GROUPS[0], thief=GROUPS[1])
+def build_replay_fixture(
+    config: SharedConfig,
+    sub_game_number: int = 1,
+    roles: RoleAssignmentRecord | None = None,
+) -> ReplayFixture:
+    bundle = build_valid_audit_bundle(config, sub_game_number)
+    selected_roles = roles or RoleAssignmentRecord(police=GROUPS[0], thief=GROUPS[1])
     played = PlayedConfigArtifact(
         game_id="m9-series",
         game_uid=bundle.game_uid,
         sub_game_number=bundle.sub_game_number,
-        role_assignment=roles,
+        role_assignment=selected_roles,
         config_sha256=config.digest(),
         raw_config_sha256="e" * 64,
         played_commits=COMMITS,
@@ -87,7 +91,7 @@ def build_replay_fixture(config: SharedConfig) -> ReplayFixture:
         game_id="m9-series",
         game_uid=bundle.game_uid,
         sub_game_number=bundle.sub_game_number,
-        role_assignment=roles,
+        role_assignment=selected_roles,
         config_sha256=config.digest(),
         played_commits=COMMITS,
         journal_sha256="b" * 64,
@@ -108,16 +112,15 @@ def build_replay_manifest(root: Path, config: SharedConfig) -> ArtifactManifest:
     base = build_replay_fixture(config)
     for number in range(1, 7):
         roles = _roles(number)
-        played = base.config.model_copy(
-            update={"sub_game_number": number, "role_assignment": roles}
-        )
+        fixture = build_replay_fixture(config, number, roles)
+        played = fixture.config
         config_ref = writer.write(
             ArtifactKind.CONFIG,
             played,
             sub_game_number=number,
             config_sha256=config.digest(),
         )
-        log = base.log.model_copy(update={"sub_game_number": number, "role_assignment": roles})
+        log = fixture.log
         log_ref = writer.write(
             ArtifactKind.LOG,
             log,
@@ -127,13 +130,13 @@ def build_replay_manifest(root: Path, config: SharedConfig) -> ArtifactManifest:
             audit_sha256=AUDIT,
         )
         references.extend((config_ref, log_ref))
-        scores = {GROUPS[0]: 5 if number % 2 else 10, GROUPS[1]: 10 if number % 2 else 5}
+        scores = {roles.police: 20, roles.thief: 5}
         results.append(
             SubGameResult(
                 sub_game_number=number,
                 role_assignment=roles,
-                terminal_reason="survival",
-                winner=GROUPS[1] if number % 2 else GROUPS[0],
+                terminal_reason="capture",
+                winner=roles.police,
                 tie=False,
                 scores=scores,
                 tokens={

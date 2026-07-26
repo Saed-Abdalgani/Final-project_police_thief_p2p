@@ -1,39 +1,36 @@
 """Versioned application facade; the only business entry point for adapters."""
 
-from police_thief_p2p.domain.engine import TransitionResult, transition
-from police_thief_p2p.domain.schedule import RoleAssignment, balanced_schedule
-from police_thief_p2p.domain.scoring import (
-    SeriesScore,
-    SubGameOutcome,
-    aggregate_series,
-)
-from police_thief_p2p.domain.state import LocalGameState, initial_local_state
-from police_thief_p2p.domain.values import Action, Role
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from police_thief_p2p.sdk.belief_facade import BeliefFacade
 from police_thief_p2p.sdk.crypto_facade import CryptoAuditFacade
 from police_thief_p2p.sdk.dto import ReadinessCheck, ReadinessReport, ReadinessStatus
 from police_thief_p2p.sdk.live_facade import LiveViewFacade
-from police_thief_p2p.sdk.live_runtime import LifecyclePort
 from police_thief_p2p.sdk.orchestration_facade import OrchestrationFacade
 from police_thief_p2p.sdk.replay_facade import ReplayFacade
 from police_thief_p2p.sdk.reporting_facade import ArtifactReportingFacade
 from police_thief_p2p.sdk.strategy_facade import StrategyFacade
-from police_thief_p2p.services.belief import BeliefService, MixtureMotionModel, OwnScentEngine
-from police_thief_p2p.services.belief.history_store import SecretScentStore
-from police_thief_p2p.services.crypto.store import SealedStepStore
-from police_thief_p2p.services.ports.repository import RepositoryPort
-from police_thief_p2p.services.protocol.envelope import ProtocolResponse
-from police_thief_p2p.services.protocol.runtime import ProtocolRuntime
-from police_thief_p2p.shared.config_loader import load_private_bytes, load_shared_bytes
-from police_thief_p2p.shared.config_models import SharedConfig
-from police_thief_p2p.shared.effective_config import EffectiveConfig, merge_effective_config
-from police_thief_p2p.shared.identifiers import GroupId
-from police_thief_p2p.shared.schema_registry import contracts_are_compatible
+from police_thief_p2p.shared.schema_catalog import contracts_are_compatible
 from police_thief_p2p.shared.version import (
     PROTOCOL_VERSION,
     SCHEMA_VERSION,
     current_versions,
 )
+
+if TYPE_CHECKING:
+    from police_thief_p2p.domain.engine import TransitionResult
+    from police_thief_p2p.domain.schedule import RoleAssignment
+    from police_thief_p2p.domain.scoring import SeriesScore, SubGameOutcome
+    from police_thief_p2p.domain.state import LocalGameState
+    from police_thief_p2p.domain.values import Action, Role
+    from police_thief_p2p.sdk.live_runtime import LifecyclePort
+    from police_thief_p2p.services.ports.repository import RepositoryPort
+    from police_thief_p2p.services.protocol.envelope import ProtocolResponse
+    from police_thief_p2p.services.protocol.runtime import ProtocolRuntime
+    from police_thief_p2p.shared.config_models import SharedConfig
+    from police_thief_p2p.shared.effective_config import EffectiveConfig
 
 
 class SimulationSdk(
@@ -47,7 +44,10 @@ class SimulationSdk(
 ):
     """Expose typed product use cases without leaking service implementations."""
 
-    __slots__ = ("_belief_service", "_lifecycle", "_protocol", "_scent_engine", "_sealed_steps")
+    __slots__ = tuple(
+        "_belief_service _lifecycle _protocol _scent_engine "  # noqa: SIM905
+        "_scent_history_repository _sealed_steps".split()
+    )
 
     def __init__(
         self,
@@ -58,12 +58,10 @@ class SimulationSdk(
         """Create the facade with an optional isolated peer protocol runtime."""
         self._protocol = protocol
         self._lifecycle = lifecycle
-        self._sealed_steps = SealedStepStore()
-        scent_store = (
-            None if scent_history_repository is None else SecretScentStore(scent_history_repository)
-        )
-        self._scent_engine = OwnScentEngine(store=scent_store)
-        self._belief_service = BeliefService(motion_model=MixtureMotionModel())
+        self._sealed_steps = None
+        self._scent_history_repository = scent_history_repository
+        self._scent_engine = None
+        self._belief_service = None
 
     def check_readiness(self) -> ReadinessReport:
         """Return foundation and packaged contract compatibility readiness."""
@@ -101,6 +99,10 @@ class SimulationSdk(
         submission_mode: bool = False,
     ) -> EffectiveConfig:
         """Validate and merge shared JSON and private TOML input."""
+        from police_thief_p2p.shared.config_loader import load_private_bytes, load_shared_bytes
+        from police_thief_p2p.shared.effective_config import merge_effective_config
+        from police_thief_p2p.shared.identifiers import GroupId
+
         shared = load_shared_bytes(
             shared_document,
             source=shared_source,
@@ -113,6 +115,8 @@ class SimulationSdk(
 
     def create_local_game(self, config: SharedConfig, role: Role) -> LocalGameState:
         """Create a role-specific local state without opponent truth."""
+        from police_thief_p2p.domain.state import initial_local_state
+
         return initial_local_state(config, role)
 
     def legal_actions(self, state: LocalGameState) -> tuple[Action, ...]:
@@ -121,6 +125,8 @@ class SimulationSdk(
 
     def apply_action(self, state: LocalGameState, action: Action) -> TransitionResult:
         """Apply one deterministic domain transition."""
+        from police_thief_p2p.domain.engine import transition
+
         return transition(state, action)
 
     def create_role_schedule(
@@ -129,6 +135,8 @@ class SimulationSdk(
         opponent_group: str,
     ) -> tuple[RoleAssignment, ...]:
         """Return the balanced signed default six-game schedule."""
+        from police_thief_p2p.domain.schedule import balanced_schedule
+
         return balanced_schedule(initiating_group, opponent_group)
 
     def aggregate_series_score(
@@ -138,6 +146,8 @@ class SimulationSdk(
         group_b: str,
     ) -> SeriesScore:
         """Aggregate six verified outcomes without losing group identity."""
+        from police_thief_p2p.domain.scoring import aggregate_series
+
         return aggregate_series(outcomes, group_a, group_b)
 
     def protocol_health(self) -> ProtocolResponse:

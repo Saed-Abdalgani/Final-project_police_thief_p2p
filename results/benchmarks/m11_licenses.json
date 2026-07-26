@@ -1,0 +1,604 @@
+{
+  "schema_version": "1.0.0",
+  "measured_at": "2026-07-26",
+  "package_version": "0.10.0",
+  "locked_packages": 98,
+  "audited_locked_packages": 98,
+  "platform_absent_reviewed": [
+    "jeepney",
+    "secretstorage"
+  ],
+  "review_required": [],
+  "policy": "MIT/BSD/Apache/ISC/PSF/MPL and compatible permissive licenses accepted",
+  "dependencies": [
+    {
+      "name": "aiofile",
+      "version": "3.11.1",
+      "license": "Apache-2.0",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "annotated-types",
+      "version": "0.8.0",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "anyio",
+      "version": "4.14.2",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "attrs",
+      "version": "26.1.0",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "Authlib",
+      "version": "1.7.2",
+      "license": "BSD License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "beartype",
+      "version": "0.22.9",
+      "license": "MIT License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "cachetools",
+      "version": "7.1.6",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "caio",
+      "version": "0.9.25",
+      "license": "Apache-2.0",
+      "license_source": "https://github.com/mosquito/caio/blob/0.9.25/COPYING"
+    },
+    {
+      "name": "certifi",
+      "version": "2026.7.22",
+      "license": "Mozilla Public License 2.0 (MPL 2.0)",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "cffi",
+      "version": "2.1.0",
+      "license": "MIT-0",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "cfgv",
+      "version": "3.5.0",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "charset-normalizer",
+      "version": "3.4.9",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "click",
+      "version": "8.4.2",
+      "license": "BSD-3-Clause",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "colorama",
+      "version": "0.4.6",
+      "license": "BSD License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "coverage",
+      "version": "7.15.2",
+      "license": "Apache-2.0",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "cryptography",
+      "version": "49.0.0",
+      "license": "Apache-2.0 OR BSD-3-Clause",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "cyclopts",
+      "version": "4.22.2",
+      "license": "Apache-2.0",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "detect-secrets",
+      "version": "1.5.0",
+      "license": "Apache Software License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "distlib",
+      "version": "0.4.3",
+      "license": "Python Software Foundation License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "dnspython",
+      "version": "2.8.0",
+      "license": "ISC License (ISCL)",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "docstring_parser",
+      "version": "0.18.0",
+      "license": "MIT License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "email-validator",
+      "version": "2.3.0",
+      "license": "The Unlicense (Unlicense)",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "exceptiongroup",
+      "version": "1.3.1",
+      "license": "MIT License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "fastmcp",
+      "version": "3.4.4",
+      "license": "Apache-2.0",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "fastmcp-slim",
+      "version": "3.4.4",
+      "license": "Apache-2.0",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "filelock",
+      "version": "3.32.0",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "griffelib",
+      "version": "2.1.0",
+      "license": "ISC",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "h11",
+      "version": "0.16.0",
+      "license": "MIT License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "httpcore",
+      "version": "1.0.9",
+      "license": "BSD-3-Clause",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "httpx",
+      "version": "0.28.1",
+      "license": "BSD License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "httpx-sse",
+      "version": "0.4.3",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "hypothesis",
+      "version": "6.161.4",
+      "license": "MPL-2.0",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "identify",
+      "version": "2.6.19",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "idna",
+      "version": "3.18",
+      "license": "BSD-3-Clause",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "iniconfig",
+      "version": "2.3.0",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "jaraco.classes",
+      "version": "3.4.0",
+      "license": "MIT License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "jaraco.context",
+      "version": "6.1.2",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "jaraco.functools",
+      "version": "4.6.0",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "jeepney",
+      "version": "0.9.0",
+      "license": "MIT",
+      "license_source": "https://pypi.org/pypi/jeepney/0.9.0/json"
+    },
+    {
+      "name": "joserfc",
+      "version": "1.7.4",
+      "license": "BSD License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "jsonref",
+      "version": "1.1.0",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "jsonschema",
+      "version": "4.26.0",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "jsonschema-path",
+      "version": "0.5.0",
+      "license": "Apache Software License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "jsonschema-specifications",
+      "version": "2025.9.1",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "keyring",
+      "version": "25.7.0",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "librt",
+      "version": "0.13.0",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "markdown-it-py",
+      "version": "4.2.0",
+      "license": "MIT License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "mcp",
+      "version": "1.28.1",
+      "license": "MIT License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "mdurl",
+      "version": "0.1.2",
+      "license": "MIT License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "more-itertools",
+      "version": "11.1.0",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "mypy",
+      "version": "1.20.2",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "mypy_extensions",
+      "version": "1.1.0",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "nodeenv",
+      "version": "1.10.0",
+      "license": "BSD License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "openapi-pydantic",
+      "version": "0.5.1",
+      "license": "MIT License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "opentelemetry-api",
+      "version": "1.44.0",
+      "license": "Apache-2.0",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "packaging",
+      "version": "26.2",
+      "license": "Apache-2.0 OR BSD-2-Clause",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "pathable",
+      "version": "0.6.0",
+      "license": "Apache Software License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "pathspec",
+      "version": "1.1.1",
+      "license": "Mozilla Public License 2.0 (MPL 2.0)",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "platformdirs",
+      "version": "4.11.0",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "pluggy",
+      "version": "1.6.0",
+      "license": "MIT License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "police-thief-p2p",
+      "version": "0.10.0",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "pre_commit",
+      "version": "4.6.1",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "py-key-value-aio",
+      "version": "0.4.5",
+      "license": "Apache-2.0",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "pycparser",
+      "version": "3.0",
+      "license": "BSD-3-Clause",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "pydantic",
+      "version": "2.13.4",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "pydantic_core",
+      "version": "2.46.4",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "pydantic-settings",
+      "version": "2.14.2",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "Pygments",
+      "version": "2.20.0",
+      "license": "BSD-2-Clause",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "PyJWT",
+      "version": "2.13.0",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "pyperclip",
+      "version": "1.11.0",
+      "license": "BSD License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "pytest",
+      "version": "9.1.1",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "pytest-cov",
+      "version": "7.1.0",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "python-discovery",
+      "version": "1.5.0",
+      "license": "MIT License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "python-dotenv",
+      "version": "1.2.2",
+      "license": "BSD-3-Clause",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "python-multipart",
+      "version": "0.0.32",
+      "license": "Apache-2.0",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "pywin32",
+      "version": "312",
+      "license": "Python Software Foundation License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "pywin32-ctypes",
+      "version": "0.2.3",
+      "license": "BSD-3-Clause",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "PyYAML",
+      "version": "6.0.3",
+      "license": "MIT License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "referencing",
+      "version": "0.37.0",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "requests",
+      "version": "2.34.2",
+      "license": "Apache Software License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "rich",
+      "version": "15.0.0",
+      "license": "MIT License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "rich-rst",
+      "version": "2.1.0",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "rpds-py",
+      "version": "2026.6.3",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "ruff",
+      "version": "0.14.14",
+      "license": "MIT License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "secretstorage",
+      "version": "3.5.0",
+      "license": "BSD-3-Clause",
+      "license_source": "https://pypi.org/pypi/SecretStorage/3.5.0/json"
+    },
+    {
+      "name": "sortedcontainers",
+      "version": "2.4.0",
+      "license": "Apache Software License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "sse-starlette",
+      "version": "3.4.6",
+      "license": "BSD-3-Clause",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "starlette",
+      "version": "1.3.1",
+      "license": "BSD-3-Clause",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "types-jsonschema",
+      "version": "4.26.0.20260518",
+      "license": "Apache-2.0",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "types-PyYAML",
+      "version": "6.0.12.20260724",
+      "license": "Apache-2.0",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "typing_extensions",
+      "version": "4.16.0",
+      "license": "PSF-2.0",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "typing-inspection",
+      "version": "0.4.2",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "uncalled-for",
+      "version": "0.3.2",
+      "license": "MIT License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "urllib3",
+      "version": "2.7.0",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "uvicorn",
+      "version": "0.51.0",
+      "license": "BSD-3-Clause",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "virtualenv",
+      "version": "21.7.0",
+      "license": "MIT",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "watchfiles",
+      "version": "1.2.0",
+      "license": "MIT License",
+      "license_source": "installed package metadata"
+    },
+    {
+      "name": "websockets",
+      "version": "16.1.1",
+      "license": "BSD-3-Clause",
+      "license_source": "installed package metadata"
+    }
+  ],
+  "result": "PASS"
+}

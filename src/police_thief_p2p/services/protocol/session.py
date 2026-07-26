@@ -66,12 +66,20 @@ class ProtocolSession:
 class SessionRegistry:
     """In-memory registry backed by isolated durable snapshots."""
 
-    __slots__ = ("_local_group", "_records", "_sessions")
+    __slots__ = ("_local_group", "_max_cached_sessions", "_records", "_sessions")
 
-    def __init__(self, local_group: str, records: RepositoryPort) -> None:
+    def __init__(
+        self,
+        local_group: str,
+        records: RepositoryPort,
+        max_cached_sessions: int = 32,
+    ) -> None:
         """Bind one local identity and private record repository."""
+        if type(max_cached_sessions) is not int or max_cached_sessions < 1:
+            raise ValueError("session cache limit must be a positive integer")
         self._local_group = local_group
         self._records = records
+        self._max_cached_sessions = max_cached_sessions
         self._sessions: dict[str, ProtocolSession] = {}
 
     def create(self, proposal: MatchProposal, remote_group: str) -> ProtocolSession:
@@ -103,10 +111,23 @@ class SessionRegistry:
         if data is None:
             return None
         session = ProtocolSession.from_bytes(data)
-        self._sessions[game_uid] = session
+        self._cache(session)
         return session
 
     def persist(self, session: ProtocolSession) -> None:
         """Persist before publishing the updated in-memory view."""
         self._records.save(f"session-{session.game_uid}", session.to_bytes())
+        self._cache(session)
+
+    @property
+    def cached_session_count(self) -> int:
+        """Return bounded in-memory session retention for diagnostics."""
+        return len(self._sessions)
+
+    def _cache(self, session: ProtocolSession) -> None:
+        if (
+            session.game_uid not in self._sessions
+            and len(self._sessions) >= self._max_cached_sessions
+        ):
+            self._sessions.pop(next(iter(self._sessions)))
         self._sessions[session.game_uid] = session

@@ -1,0 +1,128 @@
+{
+  "schema_version": "1.0.0",
+  "measured_at": "2026-07-26",
+  "package_version": "0.10.0",
+  "method": {
+    "clock": "time.perf_counter",
+    "warmups": "1-2",
+    "samples": "10-20",
+    "statistic": "nearest-rank p50/p95 and maximum",
+    "coverage_enabled": false
+  },
+  "hardware": {
+    "operating_system": "Windows",
+    "python_version": "3.13.13",
+    "cpu_model": "Intel64 Family 6 Model 126 Stepping 5, GenuineIntel",
+    "cpu_cores": 4,
+    "memory_bytes": 8319787008,
+    "cpu_frequency_mhz": null,
+    "gpu_model": null,
+    "vram_bytes": null,
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "measurements": {
+    "sdk_cold_readiness": {
+      "samples": 10,
+      "p50_ms": 650.929,
+      "p95_ms": 703.219,
+      "max_ms": 703.219
+    },
+    "domain_15x15_transition_graph": {
+      "samples": 20,
+      "p50_ms": 26.154,
+      "p95_ms": 34.326,
+      "max_ms": 34.839
+    },
+    "six_log_replay": {
+      "samples": 10,
+      "p50_ms": 1415.717,
+      "p95_ms": 1767.37,
+      "max_ms": 1767.37
+    },
+    "artifact_digest_atomic_write": {
+      "samples": 20,
+      "p50_ms": 6.974,
+      "p95_ms": 8.816,
+      "max_ms": 8.877
+    },
+    "mcp_completed_series": {
+      "workload": "six sub-games, one step, every mutating MCP tool",
+      "request_count": 60,
+      "request_bytes": 21759,
+      "retry_count_baseline": 0,
+      "response_loss_campaign_retries": 60,
+      "encoding_latency": {
+        "samples": 20,
+        "p50_ms": 7.053,
+        "p95_ms": 11.042,
+        "max_ms": 17.413
+      }
+    },
+    "outbox_outage_recovery": {
+      "simulated_outage_seconds": 30,
+      "outbox_age_seconds": 30.0,
+      "dispatch_attempts": 2,
+      "maximum_queue_depth": 1,
+      "recovered_queue_depth": 1,
+      "final_state": "SENT"
+    }
+  },
+  "profile_hotspots": [
+    {
+      "function": "C:\\Users\\saedn\\Desktop\\AI Agents orchestration\\Final project_police_thief_p2p\\scripts\\run_m11_benchmarks.py:68:<lambda>",
+      "calls": 1,
+      "cumulative_seconds": 3.794252
+    },
+    {
+      "function": "C:\\Users\\saedn\\Desktop\\AI Agents orchestration\\Final project_police_thief_p2p\\src\\police_thief_p2p\\sdk\\replay_facade.py:88:verify_series_replay",
+      "calls": 1,
+      "cumulative_seconds": 3.794107
+    },
+    {
+      "function": "C:\\Users\\saedn\\Desktop\\AI Agents orchestration\\Final project_police_thief_p2p\\src\\police_thief_p2p\\sdk\\replay_facade.py:96:<genexpr>",
+      "calls": 7,
+      "cumulative_seconds": 3.794044
+    },
+    {
+      "function": "C:\\Users\\saedn\\Desktop\\AI Agents orchestration\\Final project_police_thief_p2p\\src\\police_thief_p2p\\sdk\\replay_facade.py:65:verify_manifest_log",
+      "calls": 6,
+      "cumulative_seconds": 3.791266
+    },
+    {
+      "function": "C:\\Users\\saedn\\Desktop\\AI Agents orchestration\\Final project_police_thief_p2p\\src\\police_thief_p2p\\services\\artifacts\\linkage.py:33:verify_manifest",
+      "calls": 6,
+      "cumulative_seconds": 2.341082
+    },
+    {
+      "function": "C:\\Users\\saedn\\Desktop\\AI Agents orchestration\\Final project_police_thief_p2p\\src\\police_thief_p2p\\shared\\schema_registry.py:23:validate_schema",
+      "calls": 102,
+      "cumulative_seconds": 2.085706
+    },
+    {
+      "function": "~:0:<built-in method builtins.sorted>",
+      "calls": 474,
+      "cumulative_seconds": 1.88354
+    },
+    {
+      "function": "C:\\Users\\saedn\\Desktop\\AI Agents orchestration\\Final project_police_thief_p2p\\.venv\\Lib\\site-packages\\jsonschema\\validators.py:349:iter_errors",
+      "calls": 102,
+      "cumulative_seconds": 1.87379
+    }
+  ],
+  "inherited_evidence": {
+    "belief": "results/benchmarks/m6_belief.json",
+    "strategy": "results/benchmarks/m7_strategy.json"
+  },
+  "gates": {
+    "sdk_cold_p95_under_3000_ms": true,
+    "domain_p95_under_250_ms": true,
+    "replay_p95_under_2000_ms": true,
+    "artifact_p95_under_100_ms": true,
+    "belief_campaign_pass": true,
+    "strategy_campaign_pass": true,
+    "template_tokens_exactly_zero": true,
+    "mcp_series_observed": true,
+    "outbox_recovery_observed": true,
+    "result": "PASS"
+  }
+}

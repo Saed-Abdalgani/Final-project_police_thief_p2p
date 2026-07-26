@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "measured_at": "2026-07-26",
+  "package_version": "0.10.0",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.13.13",
+  "method": {
+    "seed_range": [
+      0,
+      999
+    ],
+    "sub_games_per_series": 6,
+    "steps_per_sub_game": 1,
+    "continuous_process": true,
+    "coverage_enabled": false,
+    "allocation_trace_sample_series": 10,
+    "object_sample_interval_series": 25
+  },
+  "completed_series": 1000,
+  "completed_sub_games": 6000,
+  "typed_terminal_rate": 1.0,
+  "progress_checks": 63000,
+  "max_journal_records_per_series": 62,
+  "deadlocks": 0,
+  "unbounded_waits": 0,
+  "peak_traced_sample_bytes": 115489,
+  "peak_tracked_objects": 30688,
+  "retained_object_delta": 0,
+  "wall_seconds": 25.283,
+  "result": "PASS"
+}

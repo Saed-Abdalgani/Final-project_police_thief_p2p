@@ -37,3 +37,17 @@
 - Owners update probability, impact, mitigation effectiveness, residual risk, and evidence link.
 - Risks are never closed because implementation began; closure requires objective evidence or removal of exposure.
 
+## M11 disposition
+
+The M11 adversarial, chaos, soak, dependency, license, history/archive-secret,
+mutation, performance, and full regression campaigns found no unresolved P0/P1
+defect. RSK-003, RSK-005, RSK-008, RSK-009, RSK-010, RSK-012, RSK-015,
+RSK-016, RSK-017, RSK-018, RSK-019, RSK-020, RSK-021, RSK-022, and RSK-023
+have exercised controls with passing M11 evidence.
+
+The register intentionally stays open for future exposure. RSK-004, RSK-010,
+and RSK-013 block counted play until the M12 external rehearsal/schedule gates;
+RSK-011 and RSK-014 block release until the M12/M13 export and experiment gates;
+RSK-001, RSK-002, RSK-006, RSK-007, RSK-022, RSK-023, and RSK-024 block any
+candidate whose future inputs trigger them. None was triggered by the M11
+candidate, and none is silently accepted.

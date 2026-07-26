@@ -2,6 +2,31 @@
 
 All notable project changes are documented here. The project follows semantic versioning for documentation, package, protocol, config, and schema contracts, with compatibility recorded separately when those versions diverge.
 
+## Package [0.10.0] - 2026-07-26
+
+### Added
+
+- Exhaustive source-module/public-API and FR/NFR/Appendix E/F executable-test
+  inventories with machine-checked exact-set coverage.
+- Deterministic adversarial suites for Unicode, paths, symlinks, redirects,
+  prompt/log injection, every protocol phase/tool, every lifecycle transition,
+  crash boundaries, worker freezes, and collection/resource limits.
+- Repeatable 1,000-series/6,000-sub-game soak, percentile/hardware/profile
+  benchmark, history/archive secret audit, dependency/license audit, and
+  semantic mutation campaigns with committed evidence.
+- Full six-game local audit, artifact, replay, and report-validation exercise
+  plus clean-clone and cross-platform CI release procedures.
+
+### Changed
+
+- Protocol session caches and anomaly-signature retention now have explicit
+  configurable bounds, preserving durable recovery while preventing unbounded
+  long-running process growth.
+- Competition tunnel URLs reject query-bearing endpoints and redirect targets
+  must remain on the already validated origin.
+- Package advances to `0.10.0`; protocol remains `0.7.0` and schemas remain
+  `0.2.0`.
+
 ## Package [0.9.0] - 2026-07-26
 
 ### Added

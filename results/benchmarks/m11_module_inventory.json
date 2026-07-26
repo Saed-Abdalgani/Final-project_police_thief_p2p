@@ -1,0 +1,2853 @@
+{
+  "schema_version": "1.0.0",
+  "package_version": "0.10.0",
+  "summary": {
+    "source_modules": 213,
+    "mapped_modules": 213,
+    "public_callables": 851,
+    "undocumented_public_callables": 0,
+    "result": "PASS"
+  },
+  "undocumented": [],
+  "unmapped": [],
+  "modules": [
+    {
+      "module": "police_thief_p2p.__init__",
+      "source": "src/police_thief_p2p/__init__.py",
+      "direct_tests": [
+        "tests/integration/test_sdk_readiness.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.adapters.__init__",
+      "source": "src/police_thief_p2p/adapters/__init__.py",
+      "direct_tests": [
+        "tests/security/test_import_boundaries.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.adapters.cli.__init__",
+      "source": "src/police_thief_p2p/adapters/cli/__init__.py",
+      "direct_tests": [
+        "tests/unit/test_sdk.py",
+        "tests/integration/test_m10_replay_gui.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.adapters.cli.app",
+      "source": "src/police_thief_p2p/adapters/cli/app.py",
+      "direct_tests": [
+        "tests/unit/test_sdk.py",
+        "tests/integration/test_m10_replay_gui.py"
+      ],
+      "public_symbols": [
+        "build_parser",
+        "main"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.email.__init__",
+      "source": "src/police_thief_p2p/adapters/email/__init__.py",
+      "direct_tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.adapters.email.gmail",
+      "source": "src/police_thief_p2p/adapters/email/gmail.py",
+      "direct_tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ],
+      "public_symbols": [
+        "AccessTokenProvider",
+        "AccessTokenProvider.access_token",
+        "GmailSender",
+        "GmailSender.send",
+        "GmailSender.execute"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.email.http",
+      "source": "src/police_thief_p2p/adapters/email/http.py",
+      "direct_tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ],
+      "public_symbols": [
+        "HttpResponse",
+        "post",
+        "parse_object"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.email.oauth",
+      "source": "src/police_thief_p2p/adapters/email/oauth.py",
+      "direct_tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ],
+      "public_symbols": [
+        "GmailOAuth",
+        "GmailOAuth.access_token"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.email.oauth_callback",
+      "source": "src/police_thief_p2p/adapters/email/oauth_callback.py",
+      "direct_tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ],
+      "public_symbols": [
+        "AuthorizationCode",
+        "receive_code"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.email.oauth_store",
+      "source": "src/police_thief_p2p/adapters/email/oauth_store.py",
+      "direct_tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ],
+      "public_symbols": [
+        "TokenRecord",
+        "load_client",
+        "load_token",
+        "write_token"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.gui.__init__",
+      "source": "src/police_thief_p2p/adapters/gui/__init__.py",
+      "direct_tests": [
+        "tests/integration/test_m10_replay_gui.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.adapters.gui.board",
+      "source": "src/police_thief_p2p/adapters/gui/board.py",
+      "direct_tests": [
+        "tests/integration/test_m10_replay_gui.py"
+      ],
+      "public_symbols": [
+        "BoardCanvas",
+        "BoardCanvas.render"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.gui.live_app",
+      "source": "src/police_thief_p2p/adapters/gui/live_app.py",
+      "direct_tests": [
+        "tests/integration/test_m10_replay_gui.py"
+      ],
+      "public_symbols": [
+        "LiveApp",
+        "LiveApp.run"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.gui.palette",
+      "source": "src/police_thief_p2p/adapters/gui/palette.py",
+      "direct_tests": [
+        "tests/integration/test_m10_replay_gui.py"
+      ],
+      "public_symbols": [
+        "StatusStyle",
+        "heat_color",
+        "contrast_ratio"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.gui.replay_app",
+      "source": "src/police_thief_p2p/adapters/gui/replay_app.py",
+      "direct_tests": [
+        "tests/integration/test_m10_replay_gui.py"
+      ],
+      "public_symbols": [
+        "ReplayApp",
+        "ReplayApp.run"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.gui.replay_board",
+      "source": "src/police_thief_p2p/adapters/gui/replay_board.py",
+      "direct_tests": [
+        "tests/integration/test_m10_replay_gui.py"
+      ],
+      "public_symbols": [
+        "ReplayBoard",
+        "ReplayBoard.render"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.gui.snapshot_svg",
+      "source": "src/police_thief_p2p/adapters/gui/snapshot_svg.py",
+      "direct_tests": [
+        "tests/integration/test_m10_replay_gui.py"
+      ],
+      "public_symbols": [
+        "live_view_svg",
+        "replay_svg"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.gui.view_model",
+      "source": "src/police_thief_p2p/adapters/gui/view_model.py",
+      "direct_tests": [
+        "tests/integration/test_m10_replay_gui.py"
+      ],
+      "public_symbols": [
+        "SafeUiError",
+        "LiveViewModel",
+        "LiveViewModel.from_view",
+        "safe_ui_error"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.mcp.__init__",
+      "source": "src/police_thief_p2p/adapters/mcp/__init__.py",
+      "direct_tests": [
+        "tests/integration/test_dual_process_mcp.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.adapters.mcp.backend",
+      "source": "src/police_thief_p2p/adapters/mcp/backend.py",
+      "direct_tests": [
+        "tests/integration/test_dual_process_mcp.py"
+      ],
+      "public_symbols": [
+        "FastMcpBackend",
+        "FastMcpBackend.execute_once"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.mcp.client",
+      "source": "src/police_thief_p2p/adapters/mcp/client.py",
+      "direct_tests": [
+        "tests/integration/test_dual_process_mcp.py"
+      ],
+      "public_symbols": [
+        "McpClientAdapter",
+        "McpClientAdapter.send"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.mcp.peer_process",
+      "source": "src/police_thief_p2p/adapters/mcp/peer_process.py",
+      "direct_tests": [
+        "tests/integration/test_dual_process_mcp.py"
+      ],
+      "public_symbols": [
+        "build_parser",
+        "main"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.mcp.server",
+      "source": "src/police_thief_p2p/adapters/mcp/server.py",
+      "direct_tests": [
+        "tests/integration/test_dual_process_mcp.py"
+      ],
+      "public_symbols": [
+        "build_mcp_server"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.persistence.__init__",
+      "source": "src/police_thief_p2p/adapters/persistence/__init__.py",
+      "direct_tests": [
+        "tests/unit/test_atomic_repository.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.adapters.persistence.atomic_files",
+      "source": "src/police_thief_p2p/adapters/persistence/atomic_files.py",
+      "direct_tests": [
+        "tests/unit/test_atomic_repository.py"
+      ],
+      "public_symbols": [
+        "AtomicFileRepository",
+        "AtomicFileRepository.root",
+        "AtomicFileRepository.load",
+        "AtomicFileRepository.save"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.system.__init__",
+      "source": "src/police_thief_p2p/adapters/system/__init__.py",
+      "direct_tests": [
+        "tests/unit/test_system_probes.py",
+        "tests/unit/test_clocks.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.adapters.system.clocks",
+      "source": "src/police_thief_p2p/adapters/system/clocks.py",
+      "direct_tests": [
+        "tests/unit/test_system_probes.py",
+        "tests/unit/test_clocks.py"
+      ],
+      "public_symbols": [
+        "SystemClock",
+        "SystemClock.monotonic",
+        "SystemClock.utc_now",
+        "FakeClock",
+        "FakeClock.monotonic",
+        "FakeClock.utc_now",
+        "FakeClock.advance"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.system.deterministic_random",
+      "source": "src/police_thief_p2p/adapters/system/deterministic_random.py",
+      "direct_tests": [
+        "tests/unit/test_system_probes.py",
+        "tests/unit/test_clocks.py"
+      ],
+      "public_symbols": [
+        "DeterministicRandomSource",
+        "DeterministicRandomSource.random",
+        "DeterministicRandomSource.randbelow"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.system.git_info",
+      "source": "src/police_thief_p2p/adapters/system/git_info.py",
+      "direct_tests": [
+        "tests/unit/test_system_probes.py",
+        "tests/unit/test_clocks.py"
+      ],
+      "public_symbols": [
+        "SubprocessGitInfoProbe",
+        "SubprocessGitInfoProbe.collect"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.system.secure_random",
+      "source": "src/police_thief_p2p/adapters/system/secure_random.py",
+      "direct_tests": [
+        "tests/unit/test_system_probes.py",
+        "tests/unit/test_clocks.py"
+      ],
+      "public_symbols": [
+        "CryptographicRandomSource",
+        "CryptographicRandomSource.token_bytes",
+        "CryptographicRandomSource.random",
+        "CryptographicRandomSource.randbelow"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.adapters.system.system_info",
+      "source": "src/police_thief_p2p/adapters/system/system_info.py",
+      "direct_tests": [
+        "tests/unit/test_system_probes.py",
+        "tests/unit/test_clocks.py"
+      ],
+      "public_symbols": [
+        "PlatformSystemInfoProbe",
+        "PlatformSystemInfoProbe.collect"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.constants",
+      "source": "src/police_thief_p2p/constants.py",
+      "direct_tests": [
+        "tests/unit/test_constants.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.domain.__init__",
+      "source": "src/police_thief_p2p/domain/__init__.py",
+      "direct_tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.domain.board",
+      "source": "src/police_thief_p2p/domain/board.py",
+      "direct_tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ],
+      "public_symbols": [
+        "BarrierSet",
+        "BarrierSet.add",
+        "Board",
+        "Board.contains",
+        "Board.cells",
+        "Board.target",
+        "Board.move",
+        "Board.neighbors",
+        "Board.legal_movement_actions",
+        "Board.action_between",
+        "Board.barrier_candidates"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.domain.engine",
+      "source": "src/police_thief_p2p/domain/engine.py",
+      "direct_tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ],
+      "public_symbols": [
+        "TransitionResult",
+        "transition"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.domain.events",
+      "source": "src/police_thief_p2p/domain/events.py",
+      "direct_tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ],
+      "public_symbols": [
+        "BarrierPlacedDict",
+        "BarrierPlaced",
+        "BarrierPlaced.as_dict"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.domain.graph",
+      "source": "src/police_thief_p2p/domain/graph.py",
+      "direct_tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ],
+      "public_symbols": [
+        "connected_component",
+        "reachable_region",
+        "connected_components",
+        "shortest_path_length",
+        "articulation_points",
+        "vertex_disjoint_escape_routes"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.domain.schedule",
+      "source": "src/police_thief_p2p/domain/schedule.py",
+      "direct_tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ],
+      "public_symbols": [
+        "RoleAssignment",
+        "RoleAssignment.role_for",
+        "balanced_schedule"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.domain.scoring",
+      "source": "src/police_thief_p2p/domain/scoring.py",
+      "direct_tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ],
+      "public_symbols": [
+        "RolePoints",
+        "RolePoints.for_role",
+        "score_terminal",
+        "series_tie_awards",
+        "SubGameOutcome",
+        "SubGameOutcome.from_terminal",
+        "GroupTotal",
+        "SeriesScore",
+        "SeriesScore.total_for",
+        "SeriesScore.tie_award_for",
+        "aggregate_series"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.domain.state",
+      "source": "src/police_thief_p2p/domain/state.py",
+      "direct_tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ],
+      "public_symbols": [
+        "GameRules",
+        "GameRules.from_shared",
+        "LocalGameState",
+        "LocalGameState.legal_actions",
+        "initial_local_state"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.domain.terminal",
+      "source": "src/police_thief_p2p/domain/terminal.py",
+      "direct_tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ],
+      "public_symbols": [
+        "direct_capture",
+        "barrier_capture",
+        "enclosure_capture",
+        "survival_reached",
+        "maximum_step_reached",
+        "resolve_verified_terminal"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.domain.values",
+      "source": "src/police_thief_p2p/domain/values.py",
+      "direct_tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ],
+      "public_symbols": [
+        "Direction",
+        "ActionType",
+        "Role",
+        "Role.opponent",
+        "TerminalReason",
+        "Action",
+        "Action.move",
+        "Action.stay",
+        "Action.barrier"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.schemas.__init__",
+      "source": "src/police_thief_p2p/schemas/__init__.py",
+      "direct_tests": [
+        "tests/contract/test_configuration_schemas.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.sdk.__init__",
+      "source": "src/police_thief_p2p/sdk/__init__.py",
+      "direct_tests": [
+        "tests/unit/test_sdk.py",
+        "tests/integration/test_sdk_readiness.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.sdk._exports",
+      "source": "src/police_thief_p2p/sdk/_exports.py",
+      "direct_tests": [
+        "tests/unit/test_sdk.py",
+        "tests/integration/test_sdk_readiness.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.sdk.belief_facade",
+      "source": "src/police_thief_p2p/sdk/belief_facade.py",
+      "direct_tests": [
+        "tests/unit/test_sdk.py",
+        "tests/integration/test_sdk_readiness.py"
+      ],
+      "public_symbols": [
+        "BeliefFacade",
+        "BeliefFacade.initialize_belief",
+        "BeliefFacade.emit_scent_frame",
+        "BeliefFacade.complete_scent_turn",
+        "BeliefFacade.update_belief_from_reveal",
+        "BeliefFacade.create_local_view"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.sdk.crypto_facade",
+      "source": "src/police_thief_p2p/sdk/crypto_facade.py",
+      "direct_tests": [
+        "tests/unit/test_sdk.py",
+        "tests/integration/test_sdk_readiness.py"
+      ],
+      "public_symbols": [
+        "CryptoAuditFacade",
+        "CryptoAuditFacade.seal_step",
+        "CryptoAuditFacade.acknowledge_step",
+        "CryptoAuditFacade.reveal_step",
+        "CryptoAuditFacade.final_reveal",
+        "CryptoAuditFacade.sign_step_zero",
+        "CryptoAuditFacade.audit_sub_game"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.sdk.dto",
+      "source": "src/police_thief_p2p/sdk/dto.py",
+      "direct_tests": [
+        "tests/unit/test_sdk.py",
+        "tests/integration/test_sdk_readiness.py"
+      ],
+      "public_symbols": [
+        "ReadinessStatus",
+        "ReadinessCheckDict",
+        "ReadinessReportDict",
+        "ReadinessCheck",
+        "ReadinessCheck.as_dict",
+        "ReadinessReport",
+        "ReadinessReport.is_ready",
+        "ReadinessReport.as_dict"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.sdk.email",
+      "source": "src/police_thief_p2p/sdk/email.py",
+      "direct_tests": [
+        "tests/unit/test_sdk.py",
+        "tests/integration/test_sdk_readiness.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.sdk.errors",
+      "source": "src/police_thief_p2p/sdk/errors.py",
+      "direct_tests": [
+        "tests/unit/test_sdk.py",
+        "tests/integration/test_sdk_readiness.py"
+      ],
+      "public_symbols": [
+        "ErrorCode",
+        "ErrorPayload",
+        "SdkError",
+        "SdkError.as_dict",
+        "InvalidInputError",
+        "DependencyUnavailableError"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.sdk.facade",
+      "source": "src/police_thief_p2p/sdk/facade.py",
+      "direct_tests": [
+        "tests/unit/test_sdk.py",
+        "tests/integration/test_sdk_readiness.py"
+      ],
+      "public_symbols": [
+        "SimulationSdk",
+        "SimulationSdk.check_readiness",
+        "SimulationSdk.load_configuration",
+        "SimulationSdk.create_local_game",
+        "SimulationSdk.legal_actions",
+        "SimulationSdk.apply_action",
+        "SimulationSdk.create_role_schedule",
+        "SimulationSdk.aggregate_series_score",
+        "SimulationSdk.protocol_health",
+        "SimulationSdk.protocol_capabilities",
+        "SimulationSdk.receive_protocol_request",
+        "SimulationSdk.protocol_pipeline_trace"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.sdk.live_facade",
+      "source": "src/police_thief_p2p/sdk/live_facade.py",
+      "direct_tests": [
+        "tests/unit/test_sdk.py",
+        "tests/integration/test_sdk_readiness.py"
+      ],
+      "public_symbols": [
+        "LiveViewFacade",
+        "LiveViewFacade.snapshot_local_view",
+        "LiveViewFacade.lifecycle",
+        "LiveViewFacade.new_snapshot_channel",
+        "LiveViewFacade.run_live_async"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.sdk.live_runtime",
+      "source": "src/police_thief_p2p/sdk/live_runtime.py",
+      "direct_tests": [
+        "tests/unit/test_sdk.py",
+        "tests/integration/test_sdk_readiness.py"
+      ],
+      "public_symbols": [
+        "LifecycleCommand",
+        "LifecyclePort",
+        "LifecyclePort.execute",
+        "SnapshotChannel",
+        "SnapshotChannel.publish",
+        "SnapshotChannel.drain_latest",
+        "SnapshotChannel.pending",
+        "LiveWorker",
+        "LiveWorker.stop",
+        "LiveWorker.join",
+        "start_live_worker"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.sdk.live_view",
+      "source": "src/police_thief_p2p/sdk/live_view.py",
+      "direct_tests": [
+        "tests/unit/test_sdk.py",
+        "tests/integration/test_sdk_readiness.py"
+      ],
+      "public_symbols": [
+        "ViewStatus",
+        "ViewMetrics",
+        "SnapshotContext",
+        "LocalView",
+        "LocalView.as_dict",
+        "build_local_view",
+        "assert_private_document"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.sdk.orchestration_facade",
+      "source": "src/police_thief_p2p/sdk/orchestration_facade.py",
+      "direct_tests": [
+        "tests/unit/test_sdk.py",
+        "tests/integration/test_sdk_readiness.py"
+      ],
+      "public_symbols": [
+        "OrchestrationFacade",
+        "OrchestrationFacade.run_peer_lifecycle",
+        "OrchestrationFacade.redacted_peer_health"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.sdk.protocol_factory",
+      "source": "src/police_thief_p2p/sdk/protocol_factory.py",
+      "direct_tests": [
+        "tests/unit/test_sdk.py",
+        "tests/integration/test_sdk_readiness.py"
+      ],
+      "public_symbols": [
+        "create_protocol_runtime"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.sdk.replay_facade",
+      "source": "src/police_thief_p2p/sdk/replay_facade.py",
+      "direct_tests": [
+        "tests/unit/test_sdk.py",
+        "tests/integration/test_sdk_readiness.py"
+      ],
+      "public_symbols": [
+        "ReplayFacade",
+        "ReplayFacade.verify_log",
+        "ReplayFacade.verify_dual_log",
+        "ReplayFacade.verify_manifest_log",
+        "ReplayFacade.verify_series_replay",
+        "ReplayFacade.replay_cursor",
+        "ReplayFacade.navigate_replay",
+        "ReplayFacade.export_replay"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.sdk.reporting_facade",
+      "source": "src/police_thief_p2p/sdk/reporting_facade.py",
+      "direct_tests": [
+        "tests/unit/test_sdk.py",
+        "tests/integration/test_sdk_readiness.py"
+      ],
+      "public_symbols": [
+        "ArtifactReportingFacade",
+        "ArtifactReportingFacade.artifact_writer",
+        "ArtifactReportingFacade.load_artifact_manifest",
+        "ArtifactReportingFacade.prepare_report",
+        "ArtifactReportingFacade.validate_report_mime"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.sdk.strategy_facade",
+      "source": "src/police_thief_p2p/sdk/strategy_facade.py",
+      "direct_tests": [
+        "tests/unit/test_sdk.py",
+        "tests/integration/test_sdk_readiness.py"
+      ],
+      "public_symbols": [
+        "StrategyFacade",
+        "StrategyFacade.choose_strategy_action",
+        "StrategyFacade.strategy_commitment_fields"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.__init__",
+      "source": "src/police_thief_p2p/services/__init__.py",
+      "direct_tests": [
+        "tests/unit/test_sdk.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.services.artifacts.__init__",
+      "source": "src/police_thief_p2p/services/artifacts/__init__.py",
+      "direct_tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.services.artifacts.accounting",
+      "source": "src/police_thief_p2p/services/artifacts/accounting.py",
+      "direct_tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ],
+      "public_symbols": [
+        "verify_token_accounting",
+        "verify_result_totals"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.artifacts.archive",
+      "source": "src/police_thief_p2p/services/artifacts/archive.py",
+      "direct_tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ],
+      "public_symbols": [
+        "export_artifacts"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.artifacts.common",
+      "source": "src/police_thief_p2p/services/artifacts/common.py",
+      "direct_tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ],
+      "public_symbols": [
+        "ArtifactModel",
+        "ArtifactModel.supported_version",
+        "ArtifactModel.valid_game_id",
+        "ArtifactModel.valid_game_uid",
+        "TokenUsage",
+        "TokenUsage.total_tokens",
+        "GroupIdentity",
+        "GroupIdentity.valid_group",
+        "validate_timestamp"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.artifacts.declaration",
+      "source": "src/police_thief_p2p/services/artifacts/declaration.py",
+      "direct_tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ],
+      "public_symbols": [
+        "DeclarationGroup",
+        "DeclarationGroup.valid_group",
+        "SeriesDeclaration",
+        "SeriesDeclaration.timestamp",
+        "SeriesDeclaration.distinct_groups",
+        "SeriesDeclaration.coherent_mode"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.artifacts.finalize",
+      "source": "src/police_thief_p2p/services/artifacts/finalize.py",
+      "direct_tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ],
+      "public_symbols": [
+        "finalize_log"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.artifacts.linkage",
+      "source": "src/police_thief_p2p/services/artifacts/linkage.py",
+      "direct_tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ],
+      "public_symbols": [
+        "VerifiedManifest",
+        "VerifiedManifest.result_document",
+        "verify_manifest"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.artifacts.loader",
+      "source": "src/police_thief_p2p/services/artifacts/loader.py",
+      "direct_tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ],
+      "public_symbols": [
+        "load_artifact_json"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.artifacts.manifest",
+      "source": "src/police_thief_p2p/services/artifacts/manifest.py",
+      "direct_tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ],
+      "public_symbols": [
+        "ArtifactReference",
+        "ArtifactReference.plain_json_name",
+        "ArtifactManifest",
+        "ArtifactManifest.safe_groups",
+        "ArtifactManifest.unique_files"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.artifacts.naming",
+      "source": "src/police_thief_p2p/services/artifacts/naming.py",
+      "direct_tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ],
+      "public_symbols": [
+        "ArtifactKind",
+        "artifact_filename",
+        "ArtifactPaths",
+        "ArtifactPaths.resolve_official",
+        "ArtifactPaths.apply_permissions"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.artifacts.records",
+      "source": "src/police_thief_p2p/services/artifacts/records.py",
+      "direct_tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ],
+      "public_symbols": [
+        "RoleAssignmentRecord",
+        "RoleAssignmentRecord.valid_group",
+        "AgreementRecord",
+        "AgreementRecord.timestamp",
+        "PlayedConfigArtifact",
+        "SealedLogEntry",
+        "SealedLogEntry.valid_time",
+        "SubGameLogArtifact"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.artifacts.result",
+      "source": "src/police_thief_p2p/services/artifacts/result.py",
+      "direct_tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ],
+      "public_symbols": [
+        "SubGameResult",
+        "GroupResult",
+        "GroupResult.valid_group",
+        "ResultAgreement",
+        "FinalResultArtifact",
+        "FinalResultArtifact.valid_sender"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.artifacts.writer",
+      "source": "src/police_thief_p2p/services/artifacts/writer.py",
+      "direct_tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ],
+      "public_symbols": [
+        "ArtifactWriter",
+        "ArtifactWriter.paths",
+        "ArtifactWriter.write",
+        "ArtifactWriter.write_private_evidence"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.audit.__init__",
+      "source": "src/police_thief_p2p/services/audit/__init__.py",
+      "direct_tests": [
+        "tests/integration/test_mutual_audit.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.services.audit.agreement",
+      "source": "src/police_thief_p2p/services/audit/agreement.py",
+      "direct_tests": [
+        "tests/integration/test_mutual_audit.py"
+      ],
+      "public_symbols": [
+        "FinalAgreement",
+        "agree_audits",
+        "recompute_series"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.audit.models",
+      "source": "src/police_thief_p2p/services/audit/models.py",
+      "direct_tests": [
+        "tests/integration/test_mutual_audit.py"
+      ],
+      "public_symbols": [
+        "AuditStatus",
+        "AuditStep",
+        "AuditFinding",
+        "AuditFinding.as_dict",
+        "AuditBundle",
+        "AuditReport",
+        "AuditReport.first_failure",
+        "AuditReport.as_dict",
+        "AuditReport.digest"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.audit.preflight",
+      "source": "src/police_thief_p2p/services/audit/preflight.py",
+      "direct_tests": [
+        "tests/integration/test_mutual_audit.py"
+      ],
+      "public_symbols": [
+        "preflight_findings"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.audit.replay",
+      "source": "src/police_thief_p2p/services/audit/replay.py",
+      "direct_tests": [
+        "tests/integration/test_mutual_audit.py"
+      ],
+      "public_symbols": [
+        "replay"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.audit.replay_support",
+      "source": "src/police_thief_p2p/services/audit/replay_support.py",
+      "direct_tests": [
+        "tests/integration/test_mutual_audit.py"
+      ],
+      "public_symbols": [
+        "ReplayResult",
+        "identity_failure",
+        "verify_sealed_step",
+        "domain_action",
+        "resolved_terminal",
+        "failed_replay"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.audit.service",
+      "source": "src/police_thief_p2p/services/audit/service.py",
+      "direct_tests": [
+        "tests/integration/test_mutual_audit.py"
+      ],
+      "public_symbols": [
+        "AuditService",
+        "AuditService.verify"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.belief.__init__",
+      "source": "src/police_thief_p2p/services/belief/__init__.py",
+      "direct_tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.services.belief.evidence",
+      "source": "src/police_thief_p2p/services/belief/evidence.py",
+      "direct_tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ],
+      "public_symbols": [
+        "verify_scent_reveal"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.belief.grid",
+      "source": "src/police_thief_p2p/services/belief/grid.py",
+      "direct_tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ],
+      "public_symbols": [
+        "BeliefGrid",
+        "BeliefGrid.from_weights",
+        "BeliefGrid.uniform",
+        "BeliefGrid.probability",
+        "BeliefGrid.items",
+        "BeliefGrid.remask",
+        "BeliefGrid.entropy_bits",
+        "BeliefGrid.most_likely",
+        "BeliefGrid.credible_region",
+        "BeliefGrid.serialized",
+        "BeliefGrid.digest",
+        "reachable_cells"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.belief.hint",
+      "source": "src/police_thief_p2p/services/belief/hint.py",
+      "direct_tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ],
+      "public_symbols": [
+        "CueCategory",
+        "TemplateCueParser",
+        "TemplateCueParser.parse"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.belief.history_store",
+      "source": "src/police_thief_p2p/services/belief/history_store.py",
+      "direct_tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ],
+      "public_symbols": [
+        "ScentHistorySnapshot",
+        "SecretScentStore",
+        "SecretScentStore.load",
+        "SecretScentStore.save"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.belief.models",
+      "source": "src/police_thief_p2p/services/belief/models.py",
+      "direct_tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ],
+      "public_symbols": [
+        "ScentCell",
+        "ScentCell.decimal_value",
+        "OpponentScentFrame",
+        "OpponentScentFrame.validate_frame",
+        "OpponentScentFrame.digest_document",
+        "OpponentScentFrame.create",
+        "VerifiedScentEvidence",
+        "BeliefDiagnostics",
+        "BeliefUpdate"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.belief.motion",
+      "source": "src/police_thief_p2p/services/belief/motion.py",
+      "direct_tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ],
+      "public_symbols": [
+        "MotionContext",
+        "MotionModel",
+        "MotionModel.transition",
+        "UniformMotionModel",
+        "UniformMotionModel.transition",
+        "MixtureMotionModel",
+        "MixtureMotionModel.transition"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.belief.offline",
+      "source": "src/police_thief_p2p/services/belief/offline.py",
+      "direct_tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ],
+      "public_symbols": [
+        "CalibrationMetrics",
+        "calibration_metrics"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.belief.reliability",
+      "source": "src/police_thief_p2p/services/belief/reliability.py",
+      "direct_tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ],
+      "public_symbols": [
+        "ReliabilityEntry",
+        "HintReliability",
+        "HintReliability.mean",
+        "HintReliability.update"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.belief.scent_engine",
+      "source": "src/police_thief_p2p/services/belief/scent_engine.py",
+      "direct_tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ],
+      "public_symbols": [
+        "HiddenScentRecord",
+        "OwnScentEngine",
+        "OwnScentEngine.emit_after_action",
+        "OwnScentEngine.complete_turn",
+        "OwnScentEngine.offline_history",
+        "recompute_scent_history"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.belief.scent_field",
+      "source": "src/police_thief_p2p/services/belief/scent_field.py",
+      "direct_tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ],
+      "public_symbols": [
+        "ScentField",
+        "ScentField.value_at",
+        "ScentField.emit",
+        "ScentField.decay_after_full_turn",
+        "ScentField.to_frame"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.belief.service",
+      "source": "src/police_thief_p2p/services/belief/service.py",
+      "direct_tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ],
+      "public_symbols": [
+        "BeliefService",
+        "BeliefService.update",
+        "normalize_log_weights"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.belief.view",
+      "source": "src/police_thief_p2p/services/belief/view.py",
+      "direct_tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ],
+      "public_symbols": [
+        "LocalView",
+        "create_local_view"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.crypto.__init__",
+      "source": "src/police_thief_p2p/services/crypto/__init__.py",
+      "direct_tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.services.crypto.capture",
+      "source": "src/police_thief_p2p/services/crypto/capture.py",
+      "direct_tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ],
+      "public_symbols": [
+        "CaptureStatement",
+        "CaptureStatement.valid_kind",
+        "SealedCapture",
+        "SealedCapture.digest",
+        "SealedCapture.verify",
+        "CaptureExchange",
+        "CaptureExchange.commitments_are_valid"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.crypto.declaration",
+      "source": "src/police_thief_p2p/services/crypto/declaration.py",
+      "direct_tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ],
+      "public_symbols": [
+        "SigningKey",
+        "SigningKey.sign",
+        "load_signing_key",
+        "SystemDeclaration",
+        "GitDeclaration",
+        "StepZeroBody",
+        "StepZeroBody.validate_binding",
+        "StepZeroBody.canonical_bytes",
+        "StepZeroBody.compose",
+        "SignedStepZero",
+        "SignedStepZero.create",
+        "SignedStepZero.verify"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.crypto.journal",
+      "source": "src/police_thief_p2p/services/crypto/journal.py",
+      "direct_tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ],
+      "public_symbols": [
+        "JournalEntry",
+        "JournalEntry.create",
+        "EventJournal",
+        "EventJournal.append",
+        "EventJournal.entries",
+        "verify_journal"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.crypto.nonce",
+      "source": "src/police_thief_p2p/services/crypto/nonce.py",
+      "direct_tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ],
+      "public_symbols": [
+        "SecretNonce",
+        "SecretNonce.generate",
+        "SecretNonce.from_hex",
+        "SecretNonce.reveal_hex",
+        "SecretNonce.fingerprint"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.crypto.payload",
+      "source": "src/police_thief_p2p/services/crypto/payload.py",
+      "direct_tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ],
+      "public_symbols": [
+        "CommittedAction",
+        "CommittedAction.valid_shape",
+        "CommittedAction.from_domain",
+        "PublicEffect",
+        "CommitmentBody",
+        "CommitmentBody.valid_identity_and_digests",
+        "CommitmentPayload",
+        "CommitmentPayload.canonical_bytes",
+        "CommitmentPayload.digest",
+        "PublicCommitment",
+        "LiveReveal",
+        "verify_commitment"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.crypto.scent_evidence",
+      "source": "src/police_thief_p2p/services/crypto/scent_evidence.py",
+      "direct_tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ],
+      "public_symbols": [
+        "scent_model_digest"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.crypto.state_digest",
+      "source": "src/police_thief_p2p/services/crypto/state_digest.py",
+      "direct_tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ],
+      "public_symbols": [
+        "local_state_digest"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.crypto.store",
+      "source": "src/police_thief_p2p/services/crypto/store.py",
+      "direct_tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ],
+      "public_symbols": [
+        "SealedStepStore",
+        "SealedStepStore.seal",
+        "SealedStepStore.replace_before_ack",
+        "SealedStepStore.acknowledge",
+        "SealedStepStore.reveal",
+        "SealedStepStore.final_manifest",
+        "SealedStepStore.offline_payload"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.crypto.store_models",
+      "source": "src/police_thief_p2p/services/crypto/store_models.py",
+      "direct_tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ],
+      "public_symbols": [
+        "CommitmentIdentity",
+        "SealedStep",
+        "FinalRevealEntry",
+        "FinalRevealEntry.as_dict",
+        "FinalRevealManifest"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.gatekeeper.__init__",
+      "source": "src/police_thief_p2p/services/gatekeeper/__init__.py",
+      "direct_tests": [
+        "tests/unit/test_m9_gatekeeper.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.services.gatekeeper.anomaly",
+      "source": "src/police_thief_p2p/services/gatekeeper/anomaly.py",
+      "direct_tests": [
+        "tests/unit/test_m9_gatekeeper.py"
+      ],
+      "public_symbols": [
+        "AnomalyDetector",
+        "AnomalyDetector.admit",
+        "AnomalyDetector.signature_count",
+        "AnomalyDetector.record_error",
+        "AnomalyDetector.reset"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.gatekeeper.core",
+      "source": "src/police_thief_p2p/services/gatekeeper/core.py",
+      "direct_tests": [
+        "tests/unit/test_m9_gatekeeper.py"
+      ],
+      "public_symbols": [
+        "FullGatekeeper",
+        "FullGatekeeper.execute",
+        "FullGatekeeper.metrics",
+        "FullGatekeeper.manual_reset"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.gatekeeper.execution",
+      "source": "src/police_thief_p2p/services/gatekeeper/execution.py",
+      "direct_tests": [
+        "tests/unit/test_m9_gatekeeper.py"
+      ],
+      "public_symbols": [
+        "ServiceControls",
+        "ProtectedExecutor",
+        "ProtectedExecutor.run",
+        "retry_delay"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.gatekeeper.limiter",
+      "source": "src/police_thief_p2p/services/gatekeeper/limiter.py",
+      "direct_tests": [
+        "tests/unit/test_m9_gatekeeper.py"
+      ],
+      "public_symbols": [
+        "ContinuousTokenBucket",
+        "ContinuousTokenBucket.available",
+        "ContinuousTokenBucket.consume_delay",
+        "ContinuousTokenBucket.consume_after_wait"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.gatekeeper.metrics",
+      "source": "src/police_thief_p2p/services/gatekeeper/metrics.py",
+      "direct_tests": [
+        "tests/unit/test_m9_gatekeeper.py"
+      ],
+      "public_symbols": [
+        "GatekeeperMetrics",
+        "GatekeeperMetrics.increment",
+        "GatekeeperMetrics.gauge",
+        "GatekeeperMetrics.snapshot"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.gatekeeper.priority",
+      "source": "src/police_thief_p2p/services/gatekeeper/priority.py",
+      "direct_tests": [
+        "tests/unit/test_m9_gatekeeper.py"
+      ],
+      "public_symbols": [
+        "AdmissionOutcome",
+        "PrioritySemaphore",
+        "PrioritySemaphore.active",
+        "PrioritySemaphore.queued",
+        "PrioritySemaphore.acquire",
+        "PrioritySemaphore.release"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.gatekeeper.profile",
+      "source": "src/police_thief_p2p/services/gatekeeper/profile.py",
+      "direct_tests": [
+        "tests/unit/test_m9_gatekeeper.py"
+      ],
+      "public_symbols": [
+        "GatekeeperProfile",
+        "GatekeeperProfiles",
+        "GatekeeperProfiles.model_post_init",
+        "load_profiles"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.gatekeeper.quota",
+      "source": "src/police_thief_p2p/services/gatekeeper/quota.py",
+      "direct_tests": [
+        "tests/unit/test_m9_gatekeeper.py"
+      ],
+      "public_symbols": [
+        "DurableQuotaManager",
+        "DurableQuotaManager.consume",
+        "DurableQuotaManager.reset_session",
+        "DurableQuotaManager.usage"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.orchestration.__init__",
+      "source": "src/police_thief_p2p/services/orchestration/__init__.py",
+      "direct_tests": [
+        "tests/chaos/test_orchestration_faults.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.services.orchestration.cancellation",
+      "source": "src/police_thief_p2p/services/orchestration/cancellation.py",
+      "direct_tests": [
+        "tests/chaos/test_orchestration_faults.py"
+      ],
+      "public_symbols": [
+        "CancellationToken",
+        "CancellationToken.cancel",
+        "CancellationToken.cancelled",
+        "CancellationToken.raise_if_cancelled"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.orchestration.checkpoint",
+      "source": "src/police_thief_p2p/services/orchestration/checkpoint.py",
+      "direct_tests": [
+        "tests/chaos/test_orchestration_faults.py"
+      ],
+      "public_symbols": [
+        "SessionCheckpoint",
+        "SessionCheckpoint.document",
+        "SessionCheckpoint.digest",
+        "SessionStateRepositoryPort",
+        "SessionStateRepositoryPort.load_checkpoint",
+        "SessionStateRepositoryPort.save_checkpoint",
+        "ByteSessionRepository",
+        "ByteSessionRepository.load_checkpoint",
+        "ByteSessionRepository.save_checkpoint",
+        "agree_recovery"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.orchestration.circuit",
+      "source": "src/police_thief_p2p/services/orchestration/circuit.py",
+      "direct_tests": [
+        "tests/chaos/test_orchestration_faults.py"
+      ],
+      "public_symbols": [
+        "CircuitState",
+        "CircuitBreaker",
+        "CircuitBreaker.state",
+        "CircuitBreaker.allow",
+        "CircuitBreaker.success",
+        "CircuitBreaker.failure",
+        "CircuitBreaker.reset"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.orchestration.deadlines",
+      "source": "src/police_thief_p2p/services/orchestration/deadlines.py",
+      "direct_tests": [
+        "tests/chaos/test_orchestration_faults.py"
+      ],
+      "public_symbols": [
+        "Operation",
+        "DeadlineTracker",
+        "DeadlineTracker.after",
+        "DeadlineTracker.remaining",
+        "DeadlineTracker.expired",
+        "DeadlinePolicy",
+        "DeadlinePolicy.from_effective",
+        "DeadlinePolicy.tracker"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.orchestration.gateway",
+      "source": "src/police_thief_p2p/services/orchestration/gateway.py",
+      "direct_tests": [
+        "tests/chaos/test_orchestration_faults.py"
+      ],
+      "public_symbols": [
+        "OrchestratedGateway",
+        "OrchestratedGateway.execute"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.orchestration.journal",
+      "source": "src/police_thief_p2p/services/orchestration/journal.py",
+      "direct_tests": [
+        "tests/chaos/test_orchestration_faults.py"
+      ],
+      "public_symbols": [
+        "JournalRecord",
+        "JournalRecord.unsigned",
+        "JournalRecord.document",
+        "OrchestrationJournal",
+        "OrchestrationJournal.records",
+        "OrchestrationJournal.head_sha256",
+        "OrchestrationJournal.append"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.orchestration.orchestrator",
+      "source": "src/police_thief_p2p/services/orchestration/orchestrator.py",
+      "direct_tests": [
+        "tests/chaos/test_orchestration_faults.py"
+      ],
+      "public_symbols": [
+        "OrchestrationResult",
+        "PeerOrchestrator",
+        "PeerOrchestrator.run_series"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.orchestration.persistence",
+      "source": "src/police_thief_p2p/services/orchestration/persistence.py",
+      "direct_tests": [
+        "tests/chaos/test_orchestration_faults.py"
+      ],
+      "public_symbols": [
+        "CrashPoint",
+        "persist_before_ack"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.orchestration.phases",
+      "source": "src/police_thief_p2p/services/orchestration/phases.py",
+      "direct_tests": [
+        "tests/chaos/test_orchestration_faults.py"
+      ],
+      "public_symbols": [
+        "GamePhase",
+        "TransitionReason",
+        "PhaseSnapshot",
+        "PhaseMachine",
+        "PhaseMachine.snapshot",
+        "PhaseMachine.transition"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.orchestration.ports",
+      "source": "src/police_thief_p2p/services/orchestration/ports.py",
+      "direct_tests": [
+        "tests/chaos/test_orchestration_faults.py"
+      ],
+      "public_symbols": [
+        "PeerWorkflowPort",
+        "PeerWorkflowPort.execute",
+        "PeerWorkflowPort.reset_sub_game",
+        "PeerWorkflowPort.sub_game_terminal",
+        "RefusalError",
+        "IntegrityError"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.orchestration.retry",
+      "source": "src/police_thief_p2p/services/orchestration/retry.py",
+      "direct_tests": [
+        "tests/chaos/test_orchestration_faults.py"
+      ],
+      "public_symbols": [
+        "RetryClass",
+        "classify_failure",
+        "BackoffPolicy",
+        "BackoffPolicy.delay_seconds"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.orchestration.shutdown",
+      "source": "src/police_thief_p2p/services/orchestration/shutdown.py",
+      "direct_tests": [
+        "tests/chaos/test_orchestration_faults.py"
+      ],
+      "public_symbols": [
+        "ShutdownResource",
+        "ShutdownResource.close",
+        "ShutdownResources",
+        "controlled_shutdown"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.orchestration.tunnel",
+      "source": "src/police_thief_p2p/services/orchestration/tunnel.py",
+      "direct_tests": [
+        "tests/chaos/test_orchestration_faults.py"
+      ],
+      "public_symbols": [
+        "validate_tunnel_url",
+        "validate_tunnel_redirect",
+        "TunnelProbePort",
+        "TunnelProbePort.health",
+        "TunnelProbePort.capabilities",
+        "TunnelProbePort.round_trip",
+        "TunnelProbePort.payload_limit",
+        "TunnelProbePort.bidirectional",
+        "TunnelPreflight",
+        "TunnelPreflight.run"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.orchestration.watchdog",
+      "source": "src/police_thief_p2p/services/orchestration/watchdog.py",
+      "direct_tests": [
+        "tests/chaos/test_orchestration_faults.py"
+      ],
+      "public_symbols": [
+        "HealthState",
+        "Heartbeat",
+        "HealthView",
+        "HealthView.as_dict",
+        "RecoverySnapshot",
+        "RecoverySnapshot.document",
+        "Watchdog",
+        "Watchdog.check",
+        "Watchdog.start",
+        "health_view"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.orchestration.work_queue",
+      "source": "src/police_thief_p2p/services/orchestration/work_queue.py",
+      "direct_tests": [
+        "tests/chaos/test_orchestration_faults.py"
+      ],
+      "public_symbols": [
+        "WorkPriority",
+        "EnqueueOutcome",
+        "WorkItem",
+        "BoundedWorkQueue",
+        "BoundedWorkQueue.enqueue",
+        "BoundedWorkQueue.dequeue"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.ports.__init__",
+      "source": "src/police_thief_p2p/services/ports/__init__.py",
+      "direct_tests": [
+        "tests/contract/test_ports.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.services.ports.clock",
+      "source": "src/police_thief_p2p/services/ports/clock.py",
+      "direct_tests": [
+        "tests/contract/test_ports.py"
+      ],
+      "public_symbols": [
+        "ClockPort",
+        "ClockPort.monotonic",
+        "ClockPort.utc_now"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.ports.email",
+      "source": "src/police_thief_p2p/services/ports/email.py",
+      "direct_tests": [
+        "tests/contract/test_ports.py"
+      ],
+      "public_symbols": [
+        "EmailMessage",
+        "EmailReceipt",
+        "EmailPort",
+        "EmailPort.send"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.ports.git_info",
+      "source": "src/police_thief_p2p/services/ports/git_info.py",
+      "direct_tests": [
+        "tests/contract/test_ports.py"
+      ],
+      "public_symbols": [
+        "GitState",
+        "GitInfoPort",
+        "GitInfoPort.collect"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.ports.hint_parser",
+      "source": "src/police_thief_p2p/services/ports/hint_parser.py",
+      "direct_tests": [
+        "tests/contract/test_ports.py"
+      ],
+      "public_symbols": [
+        "SemanticHintEvidence",
+        "HintParserPort",
+        "HintParserPort.parse"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.ports.language",
+      "source": "src/police_thief_p2p/services/ports/language.py",
+      "direct_tests": [
+        "tests/contract/test_ports.py"
+      ],
+      "public_symbols": [
+        "LanguageRequest",
+        "LanguageResponse",
+        "LanguagePort",
+        "LanguagePort.generate"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.ports.random_source",
+      "source": "src/police_thief_p2p/services/ports/random_source.py",
+      "direct_tests": [
+        "tests/contract/test_ports.py"
+      ],
+      "public_symbols": [
+        "EntropySource",
+        "EntropySource.token_bytes",
+        "RandomSource",
+        "RandomSource.random",
+        "RandomSource.randbelow"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.ports.repository",
+      "source": "src/police_thief_p2p/services/ports/repository.py",
+      "direct_tests": [
+        "tests/contract/test_ports.py"
+      ],
+      "public_symbols": [
+        "RepositoryPort",
+        "RepositoryPort.load",
+        "RepositoryPort.save"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.ports.system_info",
+      "source": "src/police_thief_p2p/services/ports/system_info.py",
+      "direct_tests": [
+        "tests/contract/test_ports.py"
+      ],
+      "public_symbols": [
+        "SystemInfo",
+        "SystemInfoPort",
+        "SystemInfoPort.collect"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.ports.transport",
+      "source": "src/police_thief_p2p/services/ports/transport.py",
+      "direct_tests": [
+        "tests/contract/test_ports.py"
+      ],
+      "public_symbols": [
+        "TransportRequest",
+        "TransportResponse",
+        "TransportPort",
+        "TransportPort.request"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.protocol.__init__",
+      "source": "src/police_thief_p2p/services/protocol/__init__.py",
+      "direct_tests": [
+        "tests/integration/test_protocol_runtime.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.services.protocol.compatibility",
+      "source": "src/police_thief_p2p/services/protocol/compatibility.py",
+      "direct_tests": [
+        "tests/integration/test_protocol_runtime.py"
+      ],
+      "public_symbols": [
+        "protocol_is_compatible",
+        "negotiate_extensions"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.protocol.declaration",
+      "source": "src/police_thief_p2p/services/protocol/declaration.py",
+      "direct_tests": [
+        "tests/integration/test_protocol_runtime.py"
+      ],
+      "public_symbols": [
+        "HardwareDeclaration",
+        "SoftwareDeclaration",
+        "StepZeroDeclaration"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.protocol.envelope",
+      "source": "src/police_thief_p2p/services/protocol/envelope.py",
+      "direct_tests": [
+        "tests/integration/test_protocol_runtime.py"
+      ],
+      "public_symbols": [
+        "ProtocolModel",
+        "SenderIdentity",
+        "SenderIdentity.valid_group",
+        "ProtocolEnvelope",
+        "ProtocolEnvelope.semantic_protocol",
+        "ProtocolEnvelope.safe_message_type",
+        "ProtocolEnvelope.valid_message_id",
+        "ProtocolEnvelope.valid_correlation_id",
+        "ProtocolEnvelope.valid_game_uid",
+        "ProtocolEnvelope.canonical_bytes",
+        "ProtocolEnvelope.digest",
+        "ProtocolResponse",
+        "ProtocolResponse.canonical_bytes"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.protocol.errors",
+      "source": "src/police_thief_p2p/services/protocol/errors.py",
+      "direct_tests": [
+        "tests/integration/test_protocol_runtime.py"
+      ],
+      "public_symbols": [
+        "ProtocolErrorCode",
+        "ProtocolFailure"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.protocol.health",
+      "source": "src/police_thief_p2p/services/protocol/health.py",
+      "direct_tests": [
+        "tests/integration/test_protocol_runtime.py"
+      ],
+      "public_symbols": [
+        "health_payload"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.protocol.idempotency",
+      "source": "src/police_thief_p2p/services/protocol/idempotency.py",
+      "direct_tests": [
+        "tests/integration/test_protocol_runtime.py"
+      ],
+      "public_symbols": [
+        "RecordState",
+        "IdempotencyKey",
+        "IdempotencyKey.storage_key",
+        "IdempotencyRecord",
+        "IdempotencyRecord.to_bytes",
+        "IdempotencyRecord.from_bytes",
+        "IdempotencyRepository",
+        "IdempotencyRepository.inspect",
+        "IdempotencyRepository.persist_intent",
+        "IdempotencyRepository.persist_result"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.protocol.inventory",
+      "source": "src/police_thief_p2p/services/protocol/inventory.py",
+      "direct_tests": [
+        "tests/integration/test_protocol_runtime.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.services.protocol.limits",
+      "source": "src/police_thief_p2p/services/protocol/limits.py",
+      "direct_tests": [
+        "tests/integration/test_protocol_runtime.py"
+      ],
+      "public_symbols": [
+        "ProtocolLimits",
+        "parse_envelope"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.protocol.negotiation",
+      "source": "src/police_thief_p2p/services/protocol/negotiation.py",
+      "direct_tests": [
+        "tests/integration/test_protocol_runtime.py"
+      ],
+      "public_symbols": [
+        "NegotiationService",
+        "NegotiationService.validate_proposal",
+        "NegotiationService.validate_acceptance"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.protocol.negotiation_context",
+      "source": "src/police_thief_p2p/services/protocol/negotiation_context.py",
+      "direct_tests": [
+        "tests/integration/test_protocol_runtime.py"
+      ],
+      "public_symbols": [
+        "deterministic_game_id",
+        "NegotiationContext",
+        "NegotiationContext.scent_digest"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.protocol.negotiation_models",
+      "source": "src/police_thief_p2p/services/protocol/negotiation_models.py",
+      "direct_tests": [
+        "tests/integration/test_protocol_runtime.py"
+      ],
+      "public_symbols": [
+        "RepositoryLinks",
+        "RepositoryLinks.safe_https",
+        "PlayedCommits",
+        "PlayedCommits.exact_sha",
+        "Participant",
+        "Participant.valid_identity_and_links",
+        "RoleTerm",
+        "MatchProposal",
+        "MatchProposal.valid_game_id",
+        "MatchProposal.valid_uid",
+        "MatchProposal.digest_shape",
+        "MatchProposal.coherent_terms",
+        "MatchProposal.digest",
+        "MatchProposal.canonical_bytes",
+        "MatchAcceptance",
+        "CountedLedger",
+        "CountedLedger.total"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.protocol.phases",
+      "source": "src/police_thief_p2p/services/protocol/phases.py",
+      "direct_tests": [
+        "tests/integration/test_protocol_runtime.py"
+      ],
+      "public_symbols": [
+        "ProtocolPhase",
+        "ProtocolPhase.terminal",
+        "require_phase",
+        "next_phase"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.protocol.processing",
+      "source": "src/police_thief_p2p/services/protocol/processing.py",
+      "direct_tests": [
+        "tests/integration/test_protocol_runtime.py"
+      ],
+      "public_symbols": [
+        "RequestProcessor",
+        "RequestProcessor.parse",
+        "RequestProcessor.resolve_session",
+        "RequestProcessor.validate_identity",
+        "RequestProcessor.validate_sequence",
+        "RequestProcessor.apply",
+        "RequestProcessor.status",
+        "RequestProcessor.proposal"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.protocol.runtime",
+      "source": "src/police_thief_p2p/services/protocol/runtime.py",
+      "direct_tests": [
+        "tests/integration/test_protocol_runtime.py"
+      ],
+      "public_symbols": [
+        "ProtocolRuntime",
+        "ProtocolRuntime.last_pipeline_trace",
+        "ProtocolRuntime.health",
+        "ProtocolRuntime.capabilities",
+        "ProtocolRuntime.handle"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.protocol.session",
+      "source": "src/police_thief_p2p/services/protocol/session.py",
+      "direct_tests": [
+        "tests/integration/test_protocol_runtime.py"
+      ],
+      "public_symbols": [
+        "ProtocolSession",
+        "ProtocolSession.to_bytes",
+        "ProtocolSession.from_bytes",
+        "SessionRegistry",
+        "SessionRegistry.create",
+        "SessionRegistry.get",
+        "SessionRegistry.get_optional",
+        "SessionRegistry.persist",
+        "SessionRegistry.cached_session_count"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.replay.__init__",
+      "source": "src/police_thief_p2p/services/replay/__init__.py",
+      "direct_tests": [
+        "tests/unit/test_m10_replay.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.services.replay.dual",
+      "source": "src/police_thief_p2p/services/replay/dual.py",
+      "direct_tests": [
+        "tests/unit/test_m10_replay.py"
+      ],
+      "public_symbols": [
+        "verify_dual_logs"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.replay.export",
+      "source": "src/police_thief_p2p/services/replay/export.py",
+      "direct_tests": [
+        "tests/unit/test_m10_replay.py"
+      ],
+      "public_symbols": [
+        "replay_json",
+        "replay_html"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.replay.loader",
+      "source": "src/police_thief_p2p/services/replay/loader.py",
+      "direct_tests": [
+        "tests/unit/test_m10_replay.py"
+      ],
+      "public_symbols": [
+        "load_replay_documents"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.replay.models",
+      "source": "src/police_thief_p2p/services/replay/models.py",
+      "direct_tests": [
+        "tests/unit/test_m10_replay.py"
+      ],
+      "public_symbols": [
+        "ReplayIntegrity",
+        "ReplayMode",
+        "ReplayFinding",
+        "ReplayFinding.as_dict",
+        "ReplayFrame",
+        "ReplayFrame.as_dict",
+        "ReplayVerification",
+        "ReplayVerification.first_failure",
+        "ReplayVerification.accessible_status",
+        "ReplayVerification.as_dict",
+        "ReplayCursor",
+        "ReplayCursor.frame",
+        "ReplayCursor.move"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.replay.outcome",
+      "source": "src/police_thief_p2p/services/replay/outcome.py",
+      "direct_tests": [
+        "tests/unit/test_m10_replay.py"
+      ],
+      "public_symbols": [
+        "finalize_result",
+        "failed_result",
+        "scent_policy",
+        "evidence_digest"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.replay.presentation",
+      "source": "src/police_thief_p2p/services/replay/presentation.py",
+      "direct_tests": [
+        "tests/unit/test_m10_replay.py"
+      ],
+      "public_symbols": [
+        "validate_heatmap",
+        "build_frame"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.replay.reveal",
+      "source": "src/police_thief_p2p/services/replay/reveal.py",
+      "direct_tests": [
+        "tests/unit/test_m10_replay.py"
+      ],
+      "public_symbols": [
+        "ReplayReveal"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.replay.steps",
+      "source": "src/police_thief_p2p/services/replay/steps.py",
+      "direct_tests": [
+        "tests/unit/test_m10_replay.py"
+      ],
+      "public_symbols": [
+        "ReplayMachine",
+        "ReplayMachine.verify_step"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.replay.verifier",
+      "source": "src/police_thief_p2p/services/replay/verifier.py",
+      "direct_tests": [
+        "tests/unit/test_m10_replay.py"
+      ],
+      "public_symbols": [
+        "verify_replay_log"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.reporting.__init__",
+      "source": "src/police_thief_p2p/services/reporting/__init__.py",
+      "direct_tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.services.reporting.dispatcher",
+      "source": "src/police_thief_p2p/services/reporting/dispatcher.py",
+      "direct_tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ],
+      "public_symbols": [
+        "DispatchOutcome",
+        "DispatchReceipt",
+        "OutboxDispatcher",
+        "OutboxDispatcher.enqueue",
+        "OutboxDispatcher.validate",
+        "OutboxDispatcher.dispatch"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.reporting.mime",
+      "source": "src/police_thief_p2p/services/reporting/mime.py",
+      "direct_tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ],
+      "public_symbols": [
+        "build_report_mime"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.reporting.models",
+      "source": "src/police_thief_p2p/services/reporting/models.py",
+      "direct_tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ],
+      "public_symbols": [
+        "OutboxState",
+        "OutboxItem",
+        "OutboxItem.transitioned"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.reporting.outbox",
+      "source": "src/police_thief_p2p/services/reporting/outbox.py",
+      "direct_tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ],
+      "public_symbols": [
+        "DurableOutbox",
+        "DurableOutbox.enqueue",
+        "DurableOutbox.get",
+        "DurableOutbox.transition",
+        "DurableOutbox.items"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.reporting.policy",
+      "source": "src/police_thief_p2p/services/reporting/policy.py",
+      "direct_tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ],
+      "public_symbols": [
+        "ReportingPolicy",
+        "ReportingPolicy.validate_recipient",
+        "ReportingPolicy.validate_scopes",
+        "ReportingPolicy.validate_private_paths"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.reporting.report",
+      "source": "src/police_thief_p2p/services/reporting/report.py",
+      "direct_tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ],
+      "public_symbols": [
+        "PreparedReport",
+        "result_payload_digest",
+        "build_report"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.strategy.__init__",
+      "source": "src/police_thief_p2p/services/strategy/__init__.py",
+      "direct_tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.services.strategy.baseline",
+      "source": "src/police_thief_p2p/services/strategy/baseline.py",
+      "direct_tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ],
+      "public_symbols": [
+        "PoliceBaselineBrain",
+        "PoliceBaselineBrain.decide",
+        "ThiefBaselineBrain",
+        "ThiefBaselineBrain.decide",
+        "fallback_decision"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.strategy.brain",
+      "source": "src/police_thief_p2p/services/strategy/brain.py",
+      "direct_tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ],
+      "public_symbols": [
+        "StrategyBrain",
+        "StrategyBrain.decide"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.strategy.commitment",
+      "source": "src/police_thief_p2p/services/strategy/commitment.py",
+      "direct_tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ],
+      "public_symbols": [
+        "StrategyCommitmentFields",
+        "commitment_fields"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.strategy.contracts",
+      "source": "src/police_thief_p2p/services/strategy/contracts.py",
+      "direct_tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ],
+      "public_symbols": [
+        "HintVerdict",
+        "SemanticRegion",
+        "BehaviorMode",
+        "HintIntent",
+        "ScoreBreakdown",
+        "DecisionMetrics",
+        "Decision",
+        "Decision.telemetry"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.strategy.geometry",
+      "source": "src/police_thief_p2p/services/strategy/geometry.py",
+      "direct_tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ],
+      "public_symbols": [
+        "destination",
+        "barriers_after",
+        "expected_distance",
+        "lower_quantile_distance",
+        "reachable_within",
+        "revisit_cost"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.strategy.hints",
+      "source": "src/police_thief_p2p/services/strategy/hints.py",
+      "direct_tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ],
+      "public_symbols": [
+        "semantic_region",
+        "count_words",
+        "cap_words",
+        "realize_hint",
+        "HintIntentPolicy",
+        "HintIntentPolicy.choose"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.strategy.language",
+      "source": "src/police_thief_p2p/services/strategy/language.py",
+      "direct_tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ],
+      "public_symbols": [
+        "quoted_hint_data",
+        "build_paraphrase_prompt",
+        "parse_llm_text",
+        "OptionalParaphraser",
+        "OptionalParaphraser.paraphrase"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.strategy.opponent",
+      "source": "src/police_thief_p2p/services/strategy/opponent.py",
+      "direct_tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ],
+      "public_symbols": [
+        "ObservationSource",
+        "OpponentObservation",
+        "OpponentProfile",
+        "OpponentProfile.update",
+        "OpponentProfile.summary"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.strategy.opponent_motion",
+      "source": "src/police_thief_p2p/services/strategy/opponent_motion.py",
+      "direct_tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ],
+      "public_symbols": [
+        "sample_legal_target"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.strategy.opponent_store",
+      "source": "src/police_thief_p2p/services/strategy/opponent_store.py",
+      "direct_tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ],
+      "public_symbols": [
+        "OpponentProfileStore",
+        "OpponentProfileStore.load",
+        "OpponentProfileStore.save_audited"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.strategy.police",
+      "source": "src/police_thief_p2p/services/strategy/police.py",
+      "direct_tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ],
+      "public_symbols": [
+        "AdvancedPoliceBrain",
+        "AdvancedPoliceBrain.decide"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.strategy.police_features",
+      "source": "src/police_thief_p2p/services/strategy/police_features.py",
+      "direct_tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ],
+      "public_symbols": [
+        "police_candidates",
+        "PoliceEvaluator",
+        "PoliceEvaluator.evaluate"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.strategy.request",
+      "source": "src/police_thief_p2p/services/strategy/request.py",
+      "direct_tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ],
+      "public_symbols": [
+        "OpponentSummary",
+        "StrategyRequest",
+        "StrategyRequest.guard_deadline"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.strategy.resolver",
+      "source": "src/police_thief_p2p/services/strategy/resolver.py",
+      "direct_tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ],
+      "public_symbols": [
+        "StrategyResolver",
+        "StrategyResolver.resolve"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.strategy.search",
+      "source": "src/police_thief_p2p/services/strategy/search.py",
+      "direct_tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ],
+      "public_symbols": [
+        "BoundedTranspositionCache",
+        "BoundedTranspositionCache.get_or_compute",
+        "BoundedTranspositionCache.keys",
+        "stratified_samples",
+        "cvar",
+        "SearchResult",
+        "iterative_search"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.strategy.search_state",
+      "source": "src/police_thief_p2p/services/strategy/search_state.py",
+      "direct_tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ],
+      "public_symbols": [
+        "SearchState",
+        "SearchState.cache_key",
+        "RoleEvaluator",
+        "RoleEvaluator.evaluate"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.strategy.service",
+      "source": "src/police_thief_p2p/services/strategy/service.py",
+      "direct_tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ],
+      "public_symbols": [
+        "StrategyService",
+        "StrategyService.decide"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.strategy.thief",
+      "source": "src/police_thief_p2p/services/strategy/thief.py",
+      "direct_tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ],
+      "public_symbols": [
+        "AdvancedThiefBrain",
+        "AdvancedThiefBrain.decide"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.services.strategy.thief_features",
+      "source": "src/police_thief_p2p/services/strategy/thief_features.py",
+      "direct_tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ],
+      "public_symbols": [
+        "ThiefEvaluator",
+        "ThiefEvaluator.evaluate"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.shared.__init__",
+      "source": "src/police_thief_p2p/shared/__init__.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.shared.canonical_json",
+      "source": "src/police_thief_p2p/shared/canonical_json.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": [
+        "CanonicalJsonError",
+        "canonical_json_bytes",
+        "sha256_digest",
+        "digest_bytes",
+        "digests_equal",
+        "DocumentComparison"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.shared.config",
+      "source": "src/police_thief_p2p/shared/config.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": []
+    },
+    {
+      "module": "police_thief_p2p.shared.config_errors",
+      "source": "src/police_thief_p2p/shared/config_errors.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": [
+        "ConfigErrorCode",
+        "ConfigError"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.shared.config_loader",
+      "source": "src/police_thief_p2p/shared/config_loader.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": [
+        "load_shared_bytes",
+        "load_shared_path",
+        "load_private_bytes",
+        "load_private_path"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.shared.config_models",
+      "source": "src/police_thief_p2p/shared/config_models.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": [
+        "NetworkAndLeague",
+        "NetworkAndLeague.watchdog_covers_response",
+        "GatekeeperConfig",
+        "SharedConfig",
+        "SharedConfig.compatible_schema_version",
+        "SharedConfig.distinct_group_ids",
+        "SharedConfig.namespaced_extensions",
+        "SharedConfig.legal_distinct_starts",
+        "SharedConfig.canonical_bytes",
+        "SharedConfig.digest"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.shared.config_rules",
+      "source": "src/police_thief_p2p/shared/config_rules.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": [
+        "MinimumDirection",
+        "MinimumRule",
+        "MinimumRule.accepts"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.shared.config_sections",
+      "source": "src/police_thief_p2p/shared/config_sections.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": [
+        "FrozenModel",
+        "BoardAndAgents",
+        "WorldConfig",
+        "MovementAndBarriers",
+        "MovementAndBarriers.exact_move_set",
+        "ScentRounding",
+        "ScentNumericExample",
+        "ScentNumericExample.exact_example",
+        "PheromoneConfig",
+        "PheromoneConfig.exact_scent_contract",
+        "ScoringConfig"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.shared.configuration_service",
+      "source": "src/police_thief_p2p/shared/configuration_service.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": [
+        "load_effective_paths",
+        "compare_shared_documents"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.shared.coordinates",
+      "source": "src/police_thief_p2p/shared/coordinates.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": [
+        "OriginCorner",
+        "Position",
+        "CoordinateTransform",
+        "CoordinateTransform.to_canonical",
+        "CoordinateTransform.from_canonical"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.shared.effective_config",
+      "source": "src/police_thief_p2p/shared/effective_config.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": [
+        "ConfigSource",
+        "EffectiveConfig",
+        "EffectiveConfig.source_for",
+        "merge_effective_config"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.shared.gatekeeper",
+      "source": "src/police_thief_p2p/shared/gatekeeper.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": [
+        "ExternalCall",
+        "ExternalResult",
+        "GatekeeperPort",
+        "GatekeeperPort.execute",
+        "MonotonicSource",
+        "MonotonicSource.monotonic",
+        "InitialGatekeeper",
+        "InitialGatekeeper.execute"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.shared.identifiers",
+      "source": "src/police_thief_p2p/shared/identifiers.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": [
+        "GroupId",
+        "GameId",
+        "UuidId",
+        "UuidId.generate",
+        "GameUid",
+        "MessageId",
+        "CorrelationId",
+        "BoundedCounter",
+        "SubGameNumber",
+        "StepNumber"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.shared.logging",
+      "source": "src/police_thief_p2p/shared/logging.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": [
+        "JsonFormatter",
+        "JsonFormatter.format",
+        "correlation_context",
+        "configure_logging"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.shared.private_config",
+      "source": "src/police_thief_p2p/shared/private_config.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": [
+        "IdentityConfig",
+        "IdentityConfig.valid_group_id",
+        "NetworkConfig",
+        "PathsConfig",
+        "LanguageConfig",
+        "EmailConfig",
+        "GuiConfig",
+        "TunnelConfig",
+        "ObservabilityConfig",
+        "PrivateConfig",
+        "PrivateConfig.secret_environment_names",
+        "ResolvedSecrets",
+        "ResolvedSecrets.get",
+        "resolve_secret_environment"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.shared.redaction",
+      "source": "src/police_thief_p2p/shared/redaction.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": [
+        "is_sensitive_key",
+        "redact_text",
+        "redact_value"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.shared.reliability_config",
+      "source": "src/police_thief_p2p/shared/reliability_config.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": [
+        "ReliabilityConfig"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.shared.scent",
+      "source": "src/police_thief_p2p/shared/scent.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": [
+        "RoundingMode",
+        "ScentPolicy",
+        "ScentPolicy.quantize",
+        "ScentPolicy.emission",
+        "ScentPolicy.after_full_turn",
+        "ScentPolicy.serialize"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.shared.schema_catalog",
+      "source": "src/police_thief_p2p/shared/schema_catalog.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": [
+        "load_schema",
+        "contracts_are_compatible"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.shared.schema_registry",
+      "source": "src/police_thief_p2p/shared/schema_registry.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": [
+        "validate_schema"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.shared.strategy_config",
+      "source": "src/police_thief_p2p/shared/strategy_config.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": [
+        "PoliceWeightsConfig",
+        "ThiefWeightsConfig",
+        "StrategyConfig",
+        "StrategyConfig.safe_strategy_class",
+        "StrategyConfig.semantic_profile_version",
+        "StrategyConfig.deadline_reserves_guard"
+      ]
+    },
+    {
+      "module": "police_thief_p2p.shared.version",
+      "source": "src/police_thief_p2p/shared/version.py",
+      "direct_tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_canonical_json.py"
+      ],
+      "public_symbols": [
+        "is_semantic_version",
+        "VersionInfo",
+        "current_versions"
+      ]
+    }
+  ]
+}

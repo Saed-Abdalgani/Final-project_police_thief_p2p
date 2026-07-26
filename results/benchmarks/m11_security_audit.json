@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "measured_at": "2026-07-26",
+  "package_version": "0.10.0",
+  "scope": {
+    "candidate_files": 460,
+    "git_commits_all_refs": 16,
+    "role_history": "unified canonical history feeding both M13 role exports",
+    "release_archives": 2
+  },
+  "findings": {
+    "forbidden_tracked_paths": [],
+    "missing_ignore_rules": [],
+    "working_tree_secret_patterns": [],
+    "history_secret_patterns": [],
+    "archive_secret_or_path_findings": []
+  },
+  "result": "PASS"
+}

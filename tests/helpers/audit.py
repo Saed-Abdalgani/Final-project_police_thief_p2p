@@ -69,7 +69,10 @@ def _step_zero(
     return SignedStepZero.create(body, key), key
 
 
-def build_valid_audit_bundle(config: SharedConfig) -> AuditBundle:
+def build_valid_audit_bundle(
+    config: SharedConfig,
+    sub_game_number: int = 1,
+) -> AuditBundle:
     policy = ScentPolicy()
     scent_digest = scent_model_digest(policy)
     states = {
@@ -104,7 +107,7 @@ def build_valid_audit_bundle(config: SharedConfig) -> AuditBundle:
         scent_fields[actor] = scent_fields[actor].emit(result.state.position, policy)
         frame = scent_fields[actor].to_frame(
             game_uid=GAME_UID,
-            sub_game_number=1,
+            sub_game_number=sub_game_number,
             step_number=actor_steps[actor],
             actor=actor,
             scent_model_sha256=scent_digest,
@@ -112,7 +115,7 @@ def build_valid_audit_bundle(config: SharedConfig) -> AuditBundle:
         )
         body = CommitmentBody(
             game_uid=GAME_UID,
-            sub_game_number=1,
+            sub_game_number=sub_game_number,
             step_number=actor_steps[actor],
             actor=actor,
             pre_action_state_digest=local_state_digest(state),
@@ -130,7 +133,7 @@ def build_valid_audit_bundle(config: SharedConfig) -> AuditBundle:
         )
         nonce = SecretNonce(sequence.to_bytes(32, "big"))
         public = store.seal(CommitmentPayload(body, nonce))
-        identity = CommitmentIdentity(GAME_UID, 1, actor_steps[actor], actor)
+        identity = CommitmentIdentity(GAME_UID, sub_game_number, actor_steps[actor], actor)
         store.acknowledge(identity, public.commitment_sha256)
         reveal = store.reveal(identity)
         journal.append("step-reveal", reveal.model_dump(mode="json"))
@@ -140,13 +143,13 @@ def build_valid_audit_bundle(config: SharedConfig) -> AuditBundle:
             scent_fields = {
                 role: field.decay_after_full_turn(policy) for role, field in scent_fields.items()
             }
-    manifest = store.final_manifest(GAME_UID, 1, ProtocolPhase.AUDITING)
+    manifest = store.final_manifest(GAME_UID, sub_game_number, ProtocolPhase.AUDITING)
     last = evidence[-1].reveal.commitment_sha256
     capture = CaptureExchange(
         SealedCapture(
             CaptureStatement(
                 game_uid=GAME_UID,
-                sub_game_number=1,
+                sub_game_number=sub_game_number,
                 step_number=6,
                 action_commitment_sha256=last,
                 kind="claim",
@@ -157,7 +160,7 @@ def build_valid_audit_bundle(config: SharedConfig) -> AuditBundle:
         SealedCapture(
             CaptureStatement(
                 game_uid=GAME_UID,
-                sub_game_number=1,
+                sub_game_number=sub_game_number,
                 step_number=6,
                 action_commitment_sha256=last,
                 kind="response",
@@ -168,7 +171,7 @@ def build_valid_audit_bundle(config: SharedConfig) -> AuditBundle:
     )
     return AuditBundle(
         GAME_UID,
-        1,
+        sub_game_number,
         config,
         config.digest(),
         policy,

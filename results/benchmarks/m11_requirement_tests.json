@@ -1,0 +1,2163 @@
+{
+  "schema_version": "1.0.0",
+  "package_version": "0.10.0",
+  "summary": {
+    "requirements": 227,
+    "appendix_e_rules": 55,
+    "appendix_f_parameters": 32,
+    "mapped_entries": 314,
+    "result": "PASS"
+  },
+  "missing": [],
+  "entries": [
+    {
+      "id": "FR-SDK-001",
+      "tests": [
+        "tests/unit/test_sdk.py",
+        "tests/security/test_import_boundaries.py"
+      ]
+    },
+    {
+      "id": "FR-SDK-002",
+      "tests": [
+        "tests/unit/test_sdk.py",
+        "tests/security/test_import_boundaries.py"
+      ]
+    },
+    {
+      "id": "FR-SDK-003",
+      "tests": [
+        "tests/unit/test_sdk.py",
+        "tests/security/test_import_boundaries.py"
+      ]
+    },
+    {
+      "id": "FR-SDK-004",
+      "tests": [
+        "tests/unit/test_sdk.py",
+        "tests/security/test_import_boundaries.py"
+      ]
+    },
+    {
+      "id": "FR-SDK-005",
+      "tests": [
+        "tests/unit/test_sdk.py",
+        "tests/security/test_import_boundaries.py"
+      ]
+    },
+    {
+      "id": "FR-SDK-006",
+      "tests": [
+        "tests/unit/test_sdk.py",
+        "tests/security/test_import_boundaries.py"
+      ]
+    },
+    {
+      "id": "FR-SDK-007",
+      "tests": [
+        "tests/unit/test_sdk.py",
+        "tests/security/test_import_boundaries.py"
+      ]
+    },
+    {
+      "id": "FR-SDK-008",
+      "tests": [
+        "tests/unit/test_sdk.py",
+        "tests/security/test_import_boundaries.py"
+      ]
+    },
+    {
+      "id": "FR-CFG-001",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/property/test_configuration_properties.py"
+      ]
+    },
+    {
+      "id": "FR-CFG-002",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/property/test_configuration_properties.py"
+      ]
+    },
+    {
+      "id": "FR-CFG-003",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/property/test_configuration_properties.py"
+      ]
+    },
+    {
+      "id": "FR-CFG-004",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/property/test_configuration_properties.py"
+      ]
+    },
+    {
+      "id": "FR-CFG-005",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/property/test_configuration_properties.py"
+      ]
+    },
+    {
+      "id": "FR-CFG-006",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/property/test_configuration_properties.py"
+      ]
+    },
+    {
+      "id": "FR-CFG-007",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/property/test_configuration_properties.py"
+      ]
+    },
+    {
+      "id": "FR-CFG-008",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/property/test_configuration_properties.py"
+      ]
+    },
+    {
+      "id": "FR-CFG-009",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/property/test_configuration_properties.py"
+      ]
+    },
+    {
+      "id": "FR-CFG-010",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/property/test_configuration_properties.py"
+      ]
+    },
+    {
+      "id": "FR-CFG-011",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/property/test_configuration_properties.py"
+      ]
+    },
+    {
+      "id": "FR-CFG-012",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/property/test_configuration_properties.py"
+      ]
+    },
+    {
+      "id": "FR-CFG-013",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/property/test_configuration_properties.py"
+      ]
+    },
+    {
+      "id": "FR-NEG-001",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/integration/test_protocol_runtime.py"
+      ]
+    },
+    {
+      "id": "FR-NEG-002",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/integration/test_protocol_runtime.py"
+      ]
+    },
+    {
+      "id": "FR-NEG-003",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/integration/test_protocol_runtime.py"
+      ]
+    },
+    {
+      "id": "FR-NEG-004",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/integration/test_protocol_runtime.py"
+      ]
+    },
+    {
+      "id": "FR-NEG-005",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/integration/test_protocol_runtime.py"
+      ]
+    },
+    {
+      "id": "FR-NEG-006",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/integration/test_protocol_runtime.py"
+      ]
+    },
+    {
+      "id": "FR-NEG-007",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/integration/test_protocol_runtime.py"
+      ]
+    },
+    {
+      "id": "FR-NEG-008",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/integration/test_protocol_runtime.py"
+      ]
+    },
+    {
+      "id": "FR-NEG-009",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/integration/test_protocol_runtime.py"
+      ]
+    },
+    {
+      "id": "FR-NEG-010",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/integration/test_protocol_runtime.py"
+      ]
+    },
+    {
+      "id": "FR-NEG-011",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/integration/test_protocol_runtime.py"
+      ]
+    },
+    {
+      "id": "FR-NEG-012",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/integration/test_protocol_runtime.py"
+      ]
+    },
+    {
+      "id": "FR-GAME-001",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ]
+    },
+    {
+      "id": "FR-GAME-002",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ]
+    },
+    {
+      "id": "FR-GAME-003",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ]
+    },
+    {
+      "id": "FR-GAME-004",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ]
+    },
+    {
+      "id": "FR-GAME-005",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ]
+    },
+    {
+      "id": "FR-GAME-006",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ]
+    },
+    {
+      "id": "FR-GAME-007",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ]
+    },
+    {
+      "id": "FR-GAME-008",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ]
+    },
+    {
+      "id": "FR-GAME-009",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ]
+    },
+    {
+      "id": "FR-GAME-010",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ]
+    },
+    {
+      "id": "FR-GAME-011",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ]
+    },
+    {
+      "id": "FR-GAME-012",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ]
+    },
+    {
+      "id": "FR-GAME-013",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ]
+    },
+    {
+      "id": "FR-GAME-014",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ]
+    },
+    {
+      "id": "FR-GAME-015",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ]
+    },
+    {
+      "id": "FR-GAME-016",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ]
+    },
+    {
+      "id": "FR-GAME-017",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ]
+    },
+    {
+      "id": "FR-GAME-018",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ]
+    },
+    {
+      "id": "FR-GAME-019",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ]
+    },
+    {
+      "id": "FR-GAME-020",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/property/test_domain_properties.py"
+      ]
+    },
+    {
+      "id": "FR-BEL-001",
+      "tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ]
+    },
+    {
+      "id": "FR-BEL-002",
+      "tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ]
+    },
+    {
+      "id": "FR-BEL-003",
+      "tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ]
+    },
+    {
+      "id": "FR-BEL-004",
+      "tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ]
+    },
+    {
+      "id": "FR-BEL-005",
+      "tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ]
+    },
+    {
+      "id": "FR-BEL-006",
+      "tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ]
+    },
+    {
+      "id": "FR-BEL-007",
+      "tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ]
+    },
+    {
+      "id": "FR-BEL-008",
+      "tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ]
+    },
+    {
+      "id": "FR-BEL-009",
+      "tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ]
+    },
+    {
+      "id": "FR-BEL-010",
+      "tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ]
+    },
+    {
+      "id": "FR-BEL-011",
+      "tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ]
+    },
+    {
+      "id": "FR-BEL-012",
+      "tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ]
+    },
+    {
+      "id": "FR-BEL-013",
+      "tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ]
+    },
+    {
+      "id": "FR-BEL-014",
+      "tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ]
+    },
+    {
+      "id": "FR-BEL-015",
+      "tests": [
+        "tests/unit/test_hint_belief_service.py",
+        "tests/property/test_belief_properties.py"
+      ]
+    },
+    {
+      "id": "FR-STR-001",
+      "tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ]
+    },
+    {
+      "id": "FR-STR-002",
+      "tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ]
+    },
+    {
+      "id": "FR-STR-003",
+      "tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ]
+    },
+    {
+      "id": "FR-STR-004",
+      "tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ]
+    },
+    {
+      "id": "FR-STR-005",
+      "tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ]
+    },
+    {
+      "id": "FR-STR-006",
+      "tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ]
+    },
+    {
+      "id": "FR-STR-007",
+      "tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ]
+    },
+    {
+      "id": "FR-STR-008",
+      "tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ]
+    },
+    {
+      "id": "FR-STR-009",
+      "tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ]
+    },
+    {
+      "id": "FR-STR-010",
+      "tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ]
+    },
+    {
+      "id": "FR-STR-011",
+      "tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ]
+    },
+    {
+      "id": "FR-STR-012",
+      "tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ]
+    },
+    {
+      "id": "FR-STR-013",
+      "tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ]
+    },
+    {
+      "id": "FR-STR-014",
+      "tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ]
+    },
+    {
+      "id": "FR-STR-015",
+      "tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ]
+    },
+    {
+      "id": "FR-STR-016",
+      "tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ]
+    },
+    {
+      "id": "FR-STR-017",
+      "tests": [
+        "tests/unit/test_strategy_policies.py",
+        "tests/property/test_strategy_properties.py"
+      ]
+    },
+    {
+      "id": "FR-MCP-001",
+      "tests": [
+        "tests/contract/test_protocol_contracts.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "FR-MCP-002",
+      "tests": [
+        "tests/contract/test_protocol_contracts.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "FR-MCP-003",
+      "tests": [
+        "tests/contract/test_protocol_contracts.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "FR-MCP-004",
+      "tests": [
+        "tests/contract/test_protocol_contracts.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "FR-MCP-005",
+      "tests": [
+        "tests/contract/test_protocol_contracts.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "FR-MCP-006",
+      "tests": [
+        "tests/contract/test_protocol_contracts.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "FR-MCP-007",
+      "tests": [
+        "tests/contract/test_protocol_contracts.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "FR-MCP-008",
+      "tests": [
+        "tests/contract/test_protocol_contracts.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "FR-MCP-009",
+      "tests": [
+        "tests/contract/test_protocol_contracts.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "FR-MCP-010",
+      "tests": [
+        "tests/contract/test_protocol_contracts.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "FR-MCP-011",
+      "tests": [
+        "tests/contract/test_protocol_contracts.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "FR-MCP-012",
+      "tests": [
+        "tests/contract/test_protocol_contracts.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "FR-MCP-013",
+      "tests": [
+        "tests/contract/test_protocol_contracts.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "FR-MCP-014",
+      "tests": [
+        "tests/contract/test_protocol_contracts.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "FR-MCP-015",
+      "tests": [
+        "tests/contract/test_protocol_contracts.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "FR-ORC-001",
+      "tests": [
+        "tests/integration/test_orchestrator_lifecycle.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "FR-ORC-002",
+      "tests": [
+        "tests/integration/test_orchestrator_lifecycle.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "FR-ORC-003",
+      "tests": [
+        "tests/integration/test_orchestrator_lifecycle.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "FR-ORC-004",
+      "tests": [
+        "tests/integration/test_orchestrator_lifecycle.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "FR-ORC-005",
+      "tests": [
+        "tests/integration/test_orchestrator_lifecycle.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "FR-ORC-006",
+      "tests": [
+        "tests/integration/test_orchestrator_lifecycle.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "FR-ORC-007",
+      "tests": [
+        "tests/integration/test_orchestrator_lifecycle.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "FR-ORC-008",
+      "tests": [
+        "tests/integration/test_orchestrator_lifecycle.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "FR-ORC-009",
+      "tests": [
+        "tests/integration/test_orchestrator_lifecycle.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "FR-ORC-010",
+      "tests": [
+        "tests/integration/test_orchestrator_lifecycle.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "FR-ORC-011",
+      "tests": [
+        "tests/integration/test_orchestrator_lifecycle.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "FR-ORC-012",
+      "tests": [
+        "tests/integration/test_orchestrator_lifecycle.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "FR-ORC-013",
+      "tests": [
+        "tests/integration/test_orchestrator_lifecycle.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "FR-CRY-001",
+      "tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ]
+    },
+    {
+      "id": "FR-CRY-002",
+      "tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ]
+    },
+    {
+      "id": "FR-CRY-003",
+      "tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ]
+    },
+    {
+      "id": "FR-CRY-004",
+      "tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ]
+    },
+    {
+      "id": "FR-CRY-005",
+      "tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ]
+    },
+    {
+      "id": "FR-CRY-006",
+      "tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ]
+    },
+    {
+      "id": "FR-CRY-007",
+      "tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ]
+    },
+    {
+      "id": "FR-CRY-008",
+      "tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ]
+    },
+    {
+      "id": "FR-CRY-009",
+      "tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ]
+    },
+    {
+      "id": "FR-CRY-010",
+      "tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ]
+    },
+    {
+      "id": "FR-CRY-011",
+      "tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ]
+    },
+    {
+      "id": "FR-CRY-012",
+      "tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ]
+    },
+    {
+      "id": "FR-CRY-013",
+      "tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ]
+    },
+    {
+      "id": "FR-CRY-014",
+      "tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ]
+    },
+    {
+      "id": "FR-CRY-015",
+      "tests": [
+        "tests/unit/test_crypto_primitives.py",
+        "tests/integration/test_mutual_audit.py"
+      ]
+    },
+    {
+      "id": "FR-ART-001",
+      "tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ]
+    },
+    {
+      "id": "FR-ART-002",
+      "tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ]
+    },
+    {
+      "id": "FR-ART-003",
+      "tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ]
+    },
+    {
+      "id": "FR-ART-004",
+      "tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ]
+    },
+    {
+      "id": "FR-ART-005",
+      "tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ]
+    },
+    {
+      "id": "FR-ART-006",
+      "tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ]
+    },
+    {
+      "id": "FR-ART-007",
+      "tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ]
+    },
+    {
+      "id": "FR-ART-008",
+      "tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ]
+    },
+    {
+      "id": "FR-ART-009",
+      "tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ]
+    },
+    {
+      "id": "FR-ART-010",
+      "tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ]
+    },
+    {
+      "id": "FR-ART-011",
+      "tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ]
+    },
+    {
+      "id": "FR-ART-012",
+      "tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ]
+    },
+    {
+      "id": "FR-ART-013",
+      "tests": [
+        "tests/unit/test_m9_artifacts_reporting.py"
+      ]
+    },
+    {
+      "id": "FR-UI-001",
+      "tests": [
+        "tests/unit/test_m10_live_view.py",
+        "tests/integration/test_m10_replay_gui.py"
+      ]
+    },
+    {
+      "id": "FR-UI-002",
+      "tests": [
+        "tests/unit/test_m10_live_view.py",
+        "tests/integration/test_m10_replay_gui.py"
+      ]
+    },
+    {
+      "id": "FR-UI-003",
+      "tests": [
+        "tests/unit/test_m10_live_view.py",
+        "tests/integration/test_m10_replay_gui.py"
+      ]
+    },
+    {
+      "id": "FR-UI-004",
+      "tests": [
+        "tests/unit/test_m10_live_view.py",
+        "tests/integration/test_m10_replay_gui.py"
+      ]
+    },
+    {
+      "id": "FR-UI-005",
+      "tests": [
+        "tests/unit/test_m10_live_view.py",
+        "tests/integration/test_m10_replay_gui.py"
+      ]
+    },
+    {
+      "id": "FR-UI-006",
+      "tests": [
+        "tests/unit/test_m10_live_view.py",
+        "tests/integration/test_m10_replay_gui.py"
+      ]
+    },
+    {
+      "id": "FR-UI-007",
+      "tests": [
+        "tests/unit/test_m10_live_view.py",
+        "tests/integration/test_m10_replay_gui.py"
+      ]
+    },
+    {
+      "id": "FR-UI-008",
+      "tests": [
+        "tests/unit/test_m10_live_view.py",
+        "tests/integration/test_m10_replay_gui.py"
+      ]
+    },
+    {
+      "id": "FR-UI-009",
+      "tests": [
+        "tests/unit/test_m10_live_view.py",
+        "tests/integration/test_m10_replay_gui.py"
+      ]
+    },
+    {
+      "id": "FR-UI-010",
+      "tests": [
+        "tests/unit/test_m10_live_view.py",
+        "tests/integration/test_m10_replay_gui.py"
+      ]
+    },
+    {
+      "id": "FR-UI-011",
+      "tests": [
+        "tests/unit/test_m10_live_view.py",
+        "tests/integration/test_m10_replay_gui.py"
+      ]
+    },
+    {
+      "id": "FR-UI-012",
+      "tests": [
+        "tests/unit/test_m10_live_view.py",
+        "tests/integration/test_m10_replay_gui.py"
+      ]
+    },
+    {
+      "id": "FR-UI-013",
+      "tests": [
+        "tests/unit/test_m10_live_view.py",
+        "tests/integration/test_m10_replay_gui.py"
+      ]
+    },
+    {
+      "id": "FR-UI-014",
+      "tests": [
+        "tests/unit/test_m10_live_view.py",
+        "tests/integration/test_m10_replay_gui.py"
+      ]
+    },
+    {
+      "id": "FR-UI-015",
+      "tests": [
+        "tests/unit/test_m10_live_view.py",
+        "tests/integration/test_m10_replay_gui.py"
+      ]
+    },
+    {
+      "id": "FR-RPT-001",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ]
+    },
+    {
+      "id": "FR-RPT-002",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ]
+    },
+    {
+      "id": "FR-RPT-003",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ]
+    },
+    {
+      "id": "FR-RPT-004",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ]
+    },
+    {
+      "id": "FR-RPT-005",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ]
+    },
+    {
+      "id": "FR-RPT-006",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ]
+    },
+    {
+      "id": "FR-RPT-007",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ]
+    },
+    {
+      "id": "FR-RPT-008",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ]
+    },
+    {
+      "id": "FR-RPT-009",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ]
+    },
+    {
+      "id": "FR-RPT-010",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ]
+    },
+    {
+      "id": "FR-RPT-011",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ]
+    },
+    {
+      "id": "FR-RPT-012",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ]
+    },
+    {
+      "id": "FR-RPT-013",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py"
+      ]
+    },
+    {
+      "id": "FR-LGE-001",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "FR-LGE-002",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "FR-LGE-003",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "FR-LGE-004",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "FR-LGE-005",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "FR-LGE-006",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "FR-LGE-007",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "FR-LGE-008",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "FR-LGE-009",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "FR-LGE-010",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "FR-LGE-011",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "FR-LGE-012",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "FR-LGE-013",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "FR-LGE-014",
+      "tests": [
+        "tests/unit/test_negotiation.py",
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "NFR-REL-001",
+      "tests": [
+        "tests/chaos/test_orchestration_faults.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "NFR-REL-002",
+      "tests": [
+        "tests/chaos/test_orchestration_faults.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "NFR-REL-003",
+      "tests": [
+        "tests/chaos/test_orchestration_faults.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "NFR-REL-004",
+      "tests": [
+        "tests/chaos/test_orchestration_faults.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "NFR-REL-005",
+      "tests": [
+        "tests/chaos/test_orchestration_faults.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "NFR-REL-006",
+      "tests": [
+        "tests/chaos/test_orchestration_faults.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "NFR-REL-007",
+      "tests": [
+        "tests/chaos/test_orchestration_faults.py",
+        "tests/integration/test_dual_process_mcp.py"
+      ]
+    },
+    {
+      "id": "NFR-SEC-001",
+      "tests": [
+        "tests/security/test_mcp_boundaries.py",
+        "tests/security/test_redaction_security.py"
+      ]
+    },
+    {
+      "id": "NFR-SEC-002",
+      "tests": [
+        "tests/security/test_mcp_boundaries.py",
+        "tests/security/test_redaction_security.py"
+      ]
+    },
+    {
+      "id": "NFR-SEC-003",
+      "tests": [
+        "tests/security/test_mcp_boundaries.py",
+        "tests/security/test_redaction_security.py"
+      ]
+    },
+    {
+      "id": "NFR-SEC-004",
+      "tests": [
+        "tests/security/test_mcp_boundaries.py",
+        "tests/security/test_redaction_security.py"
+      ]
+    },
+    {
+      "id": "NFR-SEC-005",
+      "tests": [
+        "tests/security/test_mcp_boundaries.py",
+        "tests/security/test_redaction_security.py"
+      ]
+    },
+    {
+      "id": "NFR-SEC-006",
+      "tests": [
+        "tests/security/test_mcp_boundaries.py",
+        "tests/security/test_redaction_security.py"
+      ]
+    },
+    {
+      "id": "NFR-SEC-007",
+      "tests": [
+        "tests/security/test_mcp_boundaries.py",
+        "tests/security/test_redaction_security.py"
+      ]
+    },
+    {
+      "id": "NFR-SEC-008",
+      "tests": [
+        "tests/security/test_mcp_boundaries.py",
+        "tests/security/test_redaction_security.py"
+      ]
+    },
+    {
+      "id": "NFR-SEC-009",
+      "tests": [
+        "tests/security/test_mcp_boundaries.py",
+        "tests/security/test_redaction_security.py"
+      ]
+    },
+    {
+      "id": "NFR-SEC-010",
+      "tests": [
+        "tests/security/test_mcp_boundaries.py",
+        "tests/security/test_redaction_security.py"
+      ]
+    },
+    {
+      "id": "NFR-MNT-001",
+      "tests": [
+        "tests/integration/test_quality_entrypoints.py",
+        "tests/security/test_import_boundaries.py"
+      ]
+    },
+    {
+      "id": "NFR-MNT-002",
+      "tests": [
+        "tests/integration/test_quality_entrypoints.py",
+        "tests/security/test_import_boundaries.py"
+      ]
+    },
+    {
+      "id": "NFR-MNT-003",
+      "tests": [
+        "tests/integration/test_quality_entrypoints.py",
+        "tests/security/test_import_boundaries.py"
+      ]
+    },
+    {
+      "id": "NFR-MNT-004",
+      "tests": [
+        "tests/integration/test_quality_entrypoints.py",
+        "tests/security/test_import_boundaries.py"
+      ]
+    },
+    {
+      "id": "NFR-MNT-005",
+      "tests": [
+        "tests/integration/test_quality_entrypoints.py",
+        "tests/security/test_import_boundaries.py"
+      ]
+    },
+    {
+      "id": "NFR-MNT-006",
+      "tests": [
+        "tests/integration/test_quality_entrypoints.py",
+        "tests/security/test_import_boundaries.py"
+      ]
+    },
+    {
+      "id": "NFR-MNT-007",
+      "tests": [
+        "tests/integration/test_quality_entrypoints.py",
+        "tests/security/test_import_boundaries.py"
+      ]
+    },
+    {
+      "id": "NFR-PERF-001",
+      "tests": [
+        "tests/performance/test_strategy_orchestration_performance.py"
+      ]
+    },
+    {
+      "id": "NFR-PERF-002",
+      "tests": [
+        "tests/performance/test_strategy_orchestration_performance.py"
+      ]
+    },
+    {
+      "id": "NFR-PERF-003",
+      "tests": [
+        "tests/performance/test_strategy_orchestration_performance.py"
+      ]
+    },
+    {
+      "id": "NFR-PERF-004",
+      "tests": [
+        "tests/performance/test_strategy_orchestration_performance.py"
+      ]
+    },
+    {
+      "id": "NFR-PERF-005",
+      "tests": [
+        "tests/performance/test_strategy_orchestration_performance.py"
+      ]
+    },
+    {
+      "id": "NFR-OBS-001",
+      "tests": [
+        "tests/unit/test_logging_redaction.py",
+        "tests/unit/test_system_probes.py"
+      ]
+    },
+    {
+      "id": "NFR-OBS-002",
+      "tests": [
+        "tests/unit/test_logging_redaction.py",
+        "tests/unit/test_system_probes.py"
+      ]
+    },
+    {
+      "id": "NFR-OBS-003",
+      "tests": [
+        "tests/unit/test_logging_redaction.py",
+        "tests/unit/test_system_probes.py"
+      ]
+    },
+    {
+      "id": "NFR-OBS-004",
+      "tests": [
+        "tests/unit/test_logging_redaction.py",
+        "tests/unit/test_system_probes.py"
+      ]
+    },
+    {
+      "id": "NFR-OBS-005",
+      "tests": [
+        "tests/unit/test_logging_redaction.py",
+        "tests/unit/test_system_probes.py"
+      ]
+    },
+    {
+      "id": "NFR-REP-001",
+      "tests": [
+        "tests/contract/test_configuration_schemas.py",
+        "tests/integration/test_sdk_readiness.py"
+      ]
+    },
+    {
+      "id": "NFR-REP-002",
+      "tests": [
+        "tests/contract/test_configuration_schemas.py",
+        "tests/integration/test_sdk_readiness.py"
+      ]
+    },
+    {
+      "id": "NFR-REP-003",
+      "tests": [
+        "tests/contract/test_configuration_schemas.py",
+        "tests/integration/test_sdk_readiness.py"
+      ]
+    },
+    {
+      "id": "NFR-REP-004",
+      "tests": [
+        "tests/contract/test_configuration_schemas.py",
+        "tests/integration/test_sdk_readiness.py"
+      ]
+    },
+    {
+      "id": "NFR-REP-005",
+      "tests": [
+        "tests/contract/test_configuration_schemas.py",
+        "tests/integration/test_sdk_readiness.py"
+      ]
+    },
+    {
+      "id": "NFR-UX-001",
+      "tests": [
+        "tests/integration/test_m10_replay_gui.py"
+      ]
+    },
+    {
+      "id": "NFR-UX-002",
+      "tests": [
+        "tests/integration/test_m10_replay_gui.py"
+      ]
+    },
+    {
+      "id": "NFR-UX-003",
+      "tests": [
+        "tests/integration/test_m10_replay_gui.py"
+      ]
+    },
+    {
+      "id": "NFR-UX-004",
+      "tests": [
+        "tests/integration/test_m10_replay_gui.py"
+      ]
+    },
+    {
+      "id": "NFR-UX-005",
+      "tests": [
+        "tests/integration/test_m10_replay_gui.py"
+      ]
+    },
+    {
+      "id": "E-001",
+      "tests": [
+        "tests/integration/test_protocol_runtime.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "E-002",
+      "tests": [
+        "tests/integration/test_protocol_runtime.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "E-003",
+      "tests": [
+        "tests/integration/test_protocol_runtime.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "E-004",
+      "tests": [
+        "tests/integration/test_protocol_runtime.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "E-005",
+      "tests": [
+        "tests/integration/test_protocol_runtime.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "E-006",
+      "tests": [
+        "tests/integration/test_protocol_runtime.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "E-007",
+      "tests": [
+        "tests/integration/test_protocol_runtime.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "E-008",
+      "tests": [
+        "tests/integration/test_protocol_runtime.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "E-009",
+      "tests": [
+        "tests/integration/test_protocol_runtime.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "E-010",
+      "tests": [
+        "tests/integration/test_protocol_runtime.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "E-011",
+      "tests": [
+        "tests/integration/test_protocol_runtime.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "E-012",
+      "tests": [
+        "tests/integration/test_protocol_runtime.py",
+        "tests/chaos/test_orchestration_faults.py"
+      ]
+    },
+    {
+      "id": "E-013",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/unit/test_domain_terminal.py"
+      ]
+    },
+    {
+      "id": "E-014",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/unit/test_domain_terminal.py"
+      ]
+    },
+    {
+      "id": "E-015",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/unit/test_domain_terminal.py"
+      ]
+    },
+    {
+      "id": "E-016",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/unit/test_domain_terminal.py"
+      ]
+    },
+    {
+      "id": "E-017",
+      "tests": [
+        "tests/integration/test_mutual_audit.py",
+        "tests/unit/test_crypto_primitives.py"
+      ]
+    },
+    {
+      "id": "E-018",
+      "tests": [
+        "tests/integration/test_mutual_audit.py",
+        "tests/unit/test_crypto_primitives.py"
+      ]
+    },
+    {
+      "id": "E-019",
+      "tests": [
+        "tests/integration/test_mutual_audit.py",
+        "tests/unit/test_crypto_primitives.py"
+      ]
+    },
+    {
+      "id": "E-020",
+      "tests": [
+        "tests/integration/test_mutual_audit.py",
+        "tests/unit/test_crypto_primitives.py"
+      ]
+    },
+    {
+      "id": "E-021",
+      "tests": [
+        "tests/integration/test_mutual_audit.py",
+        "tests/unit/test_crypto_primitives.py"
+      ]
+    },
+    {
+      "id": "E-022",
+      "tests": [
+        "tests/integration/test_mutual_audit.py",
+        "tests/unit/test_crypto_primitives.py"
+      ]
+    },
+    {
+      "id": "E-023",
+      "tests": [
+        "tests/integration/test_mutual_audit.py",
+        "tests/unit/test_crypto_primitives.py"
+      ]
+    },
+    {
+      "id": "E-024",
+      "tests": [
+        "tests/integration/test_mutual_audit.py",
+        "tests/unit/test_crypto_primitives.py"
+      ]
+    },
+    {
+      "id": "E-025",
+      "tests": [
+        "tests/unit/test_strategy_contracts.py"
+      ]
+    },
+    {
+      "id": "E-026",
+      "tests": [
+        "tests/unit/test_strategy_contracts.py"
+      ]
+    },
+    {
+      "id": "E-027",
+      "tests": [
+        "tests/unit/test_strategy_contracts.py"
+      ]
+    },
+    {
+      "id": "E-028",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py",
+        "tests/unit/test_m9_gatekeeper.py"
+      ]
+    },
+    {
+      "id": "E-029",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py",
+        "tests/unit/test_m9_gatekeeper.py"
+      ]
+    },
+    {
+      "id": "E-030",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py",
+        "tests/unit/test_m9_gatekeeper.py"
+      ]
+    },
+    {
+      "id": "E-031",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py",
+        "tests/unit/test_m9_gatekeeper.py"
+      ]
+    },
+    {
+      "id": "E-032",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py",
+        "tests/unit/test_m9_gatekeeper.py"
+      ]
+    },
+    {
+      "id": "E-033",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py",
+        "tests/unit/test_m9_gatekeeper.py"
+      ]
+    },
+    {
+      "id": "E-034",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py",
+        "tests/unit/test_m9_gatekeeper.py"
+      ]
+    },
+    {
+      "id": "E-035",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py",
+        "tests/unit/test_m9_gatekeeper.py"
+      ]
+    },
+    {
+      "id": "E-036",
+      "tests": [
+        "tests/integration/test_mutual_audit.py",
+        "tests/unit/test_crypto_primitives.py"
+      ]
+    },
+    {
+      "id": "E-037",
+      "tests": [
+        "tests/integration/test_mutual_audit.py",
+        "tests/unit/test_crypto_primitives.py"
+      ]
+    },
+    {
+      "id": "E-038",
+      "tests": [
+        "tests/integration/test_mutual_audit.py",
+        "tests/unit/test_crypto_primitives.py"
+      ]
+    },
+    {
+      "id": "E-039",
+      "tests": [
+        "tests/security/test_import_boundaries.py",
+        "tests/integration/test_repository_validators.py"
+      ]
+    },
+    {
+      "id": "E-040",
+      "tests": [
+        "tests/security/test_import_boundaries.py",
+        "tests/integration/test_repository_validators.py"
+      ]
+    },
+    {
+      "id": "E-041",
+      "tests": [
+        "tests/security/test_import_boundaries.py",
+        "tests/integration/test_repository_validators.py"
+      ]
+    },
+    {
+      "id": "E-042",
+      "tests": [
+        "tests/security/test_import_boundaries.py",
+        "tests/integration/test_repository_validators.py"
+      ]
+    },
+    {
+      "id": "E-043",
+      "tests": [
+        "tests/security/test_import_boundaries.py",
+        "tests/integration/test_repository_validators.py"
+      ]
+    },
+    {
+      "id": "E-044",
+      "tests": [
+        "tests/security/test_import_boundaries.py",
+        "tests/integration/test_repository_validators.py"
+      ]
+    },
+    {
+      "id": "E-045",
+      "tests": [
+        "tests/security/test_import_boundaries.py",
+        "tests/integration/test_repository_validators.py"
+      ]
+    },
+    {
+      "id": "E-046",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/unit/test_domain_terminal.py"
+      ]
+    },
+    {
+      "id": "E-047",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/unit/test_domain_terminal.py"
+      ]
+    },
+    {
+      "id": "E-048",
+      "tests": [
+        "tests/unit/test_domain_state_engine.py",
+        "tests/unit/test_domain_terminal.py"
+      ]
+    },
+    {
+      "id": "E-049",
+      "tests": [
+        "tests/security/test_import_boundaries.py",
+        "tests/integration/test_repository_validators.py"
+      ]
+    },
+    {
+      "id": "E-050",
+      "tests": [
+        "tests/security/test_import_boundaries.py",
+        "tests/integration/test_repository_validators.py"
+      ]
+    },
+    {
+      "id": "E-051",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py",
+        "tests/unit/test_m9_gatekeeper.py"
+      ]
+    },
+    {
+      "id": "E-052",
+      "tests": [
+        "tests/security/test_import_boundaries.py",
+        "tests/integration/test_repository_validators.py"
+      ]
+    },
+    {
+      "id": "E-053",
+      "tests": [
+        "tests/security/test_import_boundaries.py",
+        "tests/integration/test_repository_validators.py"
+      ]
+    },
+    {
+      "id": "E-054",
+      "tests": [
+        "tests/integration/test_m9_outbox_gmail.py",
+        "tests/unit/test_m9_gatekeeper.py"
+      ]
+    },
+    {
+      "id": "E-055",
+      "tests": [
+        "tests/security/test_import_boundaries.py",
+        "tests/integration/test_repository_validators.py"
+      ]
+    },
+    {
+      "id": "F-001",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_coordinates_scent.py"
+      ]
+    },
+    {
+      "id": "F-002",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_coordinates_scent.py"
+      ]
+    },
+    {
+      "id": "F-003",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_coordinates_scent.py"
+      ]
+    },
+    {
+      "id": "F-004",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_coordinates_scent.py"
+      ]
+    },
+    {
+      "id": "F-005",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_coordinates_scent.py"
+      ]
+    },
+    {
+      "id": "F-006",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_coordinates_scent.py"
+      ]
+    },
+    {
+      "id": "F-007",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_coordinates_scent.py"
+      ]
+    },
+    {
+      "id": "F-008",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_coordinates_scent.py"
+      ]
+    },
+    {
+      "id": "F-009",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_coordinates_scent.py"
+      ]
+    },
+    {
+      "id": "F-010",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_coordinates_scent.py"
+      ]
+    },
+    {
+      "id": "F-011",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_coordinates_scent.py"
+      ]
+    },
+    {
+      "id": "F-012",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_coordinates_scent.py"
+      ]
+    },
+    {
+      "id": "F-013",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_coordinates_scent.py"
+      ]
+    },
+    {
+      "id": "F-014",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_coordinates_scent.py"
+      ]
+    },
+    {
+      "id": "F-015",
+      "tests": [
+        "tests/unit/test_config_models.py",
+        "tests/unit/test_coordinates_scent.py"
+      ]
+    },
+    {
+      "id": "F-016",
+      "tests": [
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "F-017",
+      "tests": [
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "F-018",
+      "tests": [
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "F-019",
+      "tests": [
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "F-020",
+      "tests": [
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "F-021",
+      "tests": [
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "F-022",
+      "tests": [
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "F-023",
+      "tests": [
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "F-024",
+      "tests": [
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "F-025",
+      "tests": [
+        "tests/unit/test_domain_schedule_scoring.py"
+      ]
+    },
+    {
+      "id": "F-026",
+      "tests": [
+        "tests/unit/test_m9_gatekeeper.py",
+        "tests/chaos/test_deadline_clock.py"
+      ]
+    },
+    {
+      "id": "F-027",
+      "tests": [
+        "tests/unit/test_m9_gatekeeper.py",
+        "tests/chaos/test_deadline_clock.py"
+      ]
+    },
+    {
+      "id": "F-028",
+      "tests": [
+        "tests/unit/test_m9_gatekeeper.py",
+        "tests/chaos/test_deadline_clock.py"
+      ]
+    },
+    {
+      "id": "F-029",
+      "tests": [
+        "tests/unit/test_m9_gatekeeper.py",
+        "tests/chaos/test_deadline_clock.py"
+      ]
+    },
+    {
+      "id": "F-030",
+      "tests": [
+        "tests/unit/test_m9_gatekeeper.py",
+        "tests/chaos/test_deadline_clock.py"
+      ]
+    },
+    {
+      "id": "F-031",
+      "tests": [
+        "tests/unit/test_m9_gatekeeper.py",
+        "tests/chaos/test_deadline_clock.py"
+      ]
+    },
+    {
+      "id": "F-032",
+      "tests": [
+        "tests/unit/test_m9_gatekeeper.py",
+        "tests/chaos/test_deadline_clock.py"
+      ]
+    }
+  ]
+}

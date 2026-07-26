@@ -175,3 +175,7 @@ The M0 validator shall fail when:
 
 Detailed requirement-to-test-case links are added as tests are written. M0 establishes complete ownership and planned evidence, not false implementation evidence.
 
+M11 replaces that planned-only test linkage with the generated executable
+matrix at `results/benchmarks/m11_requirement_tests.json`. The generator asserts
+the exact 227 FR/NFR identifiers, `E-001..E-055`, and `F-001..F-032`; every one
+of the 314 entries maps to existing focused tests and is contract-tested in CI.

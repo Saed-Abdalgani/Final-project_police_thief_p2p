@@ -73,9 +73,8 @@ class OutboxDispatcher:
         if item.state is OutboxState.FAILED_PERMANENT:
             return _receipt(DispatchOutcome.FAILED_PERMANENT, item)
         if item.state is OutboxState.RETRY_WAIT:
-            if (
-                item.retry_not_before is not None
-                and self._clock.monotonic() < item.retry_not_before
+            if item.retry_not_before is not None and self._clock.monotonic() < float(
+                item.retry_not_before
             ):
                 return _receipt(DispatchOutcome.RETRY_WAIT, item)
             item = self._outbox.transition(logical_report_id, OutboxState.VALIDATED)
@@ -114,11 +113,12 @@ class OutboxDispatcher:
             return _receipt(DispatchOutcome.FAILED_PERMANENT, failed)
         retry_after = result.payload.get("retry_after_sec", 1)
         delay = float(retry_after) if isinstance(retry_after, (int, float)) else 1.0
+        retry_at = self._clock.monotonic() + max(1.0, delay)
         waiting = self._outbox.transition(
             logical_report_id,
             OutboxState.RETRY_WAIT,
             last_error_code=safe_code,
-            retry_not_before=self._clock.monotonic() + max(1.0, delay),
+            retry_not_before=format(retry_at, ".9f").rstrip("0").rstrip("."),
         )
         return _receipt(DispatchOutcome.RETRY_WAIT, waiting)
 

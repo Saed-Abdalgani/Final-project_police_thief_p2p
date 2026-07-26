@@ -4,6 +4,7 @@ from typing import cast
 import pytest
 
 from police_thief_p2p import SimulationSdk
+from police_thief_p2p.adapters.system.clocks import FakeClock
 from police_thief_p2p.adapters.system.deterministic_random import DeterministicRandomSource
 from police_thief_p2p.domain import ActionType, Role
 from police_thief_p2p.services.belief import BeliefGrid
@@ -152,8 +153,8 @@ def test_sdk_places_strategy_between_belief_and_commitment(
     )
     state = sdk.create_local_game(effective.shared, Role.THIEF)
     belief = BeliefGrid.uniform(state.rules.board)
-    first = sdk.choose_strategy_action(state, belief, effective)
-    second = sdk.choose_strategy_action(state, belief, effective)
+    first = sdk.choose_strategy_action(state, belief, effective, clock=FakeClock())
+    second = sdk.choose_strategy_action(state, belief, effective, clock=FakeClock())
     fields = sdk.strategy_commitment_fields(first)
     assert first.action == second.action
     assert fields.action.action_type == first.action.action_type

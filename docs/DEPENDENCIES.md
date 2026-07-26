@@ -1,6 +1,6 @@
 # Dependency Policy and Rationale
 
-- **Package baseline:** `0.1.0`
+- **Package baseline:** `0.10.0`
 - **Manager:** `uv` only
 - **Lock:** `uv.lock`
 
@@ -36,3 +36,19 @@ queues, or baseline strategy. The Python standard library owns those capabilitie
 - Record security, license, transitive-size, and optional-service implications.
 - No dependency may bypass the SDK, Gatekeeper, local-truth, or deterministic-core
   boundaries.
+
+## M11 locked audit
+
+On 2026-07-26, `uv.lock` contained 98 project/runtime/development packages across
+supported platforms. `pip-audit` resolved the frozen export in strict mode and
+reported zero known vulnerabilities across 94 packages applicable to the
+Windows/Python 3.13 baseline. `results/benchmarks/m11_vulnerabilities.json`
+contains the exact package/version/finding records.
+
+`scripts.run_m11_license_audit` inventories every one of the 98 lock entries.
+Installed metadata is authoritative where present. The only absent/metadata-gap
+entries were reviewed from primary package sources: `caio 0.9.25` is Apache-2.0,
+`jeepney 0.9.0` is MIT, and `SecretStorage 3.5.0` is BSD-3-Clause. No GPL, AGPL,
+proprietary, commercial, unknown, or attribution-blocking dependency remains.
+The complete result and provenance URLs are in
+`results/benchmarks/m11_licenses.json`.

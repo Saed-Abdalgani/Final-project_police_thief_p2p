@@ -78,13 +78,30 @@ def articulation_points(
     barriers: BarrierSet = EMPTY_BARRIERS,
 ) -> frozenset[Position]:
     """Return vertices whose removal increases public component count."""
-    baseline = len(connected_components(board, barriers))
-    points = {
-        position
-        for position in board.cells()
-        if position not in barriers
-        and len(connected_components(board, barriers.add(position))) > baseline
-    }
+    discovery: dict[Position, int] = {}
+    low: dict[Position, int] = {}
+    parents: dict[Position, Position] = {}
+    points: set[Position] = set()
+
+    def visit(position: Position) -> None:
+        discovery[position] = low[position] = len(discovery)
+        children = 0
+        for neighbor in board.neighbors(position, barriers):
+            if neighbor not in discovery:
+                parents[neighbor] = position
+                children += 1
+                visit(neighbor)
+                low[position] = min(low[position], low[neighbor])
+                if position in parents and low[neighbor] >= discovery[position]:
+                    points.add(position)
+            elif parents.get(position) != neighbor:
+                low[position] = min(low[position], discovery[neighbor])
+        if position not in parents and children > 1:
+            points.add(position)
+
+    for position in board.cells():
+        if position not in barriers and position not in discovery:
+            visit(position)
     return frozenset(points)
 
 

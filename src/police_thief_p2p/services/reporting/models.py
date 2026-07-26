@@ -6,7 +6,7 @@ from typing import Annotated
 from pydantic import Field, StrictInt, StrictStr
 
 from police_thief_p2p.services.artifacts.common import Digest
-from police_thief_p2p.shared.config_sections import FrozenModel
+from police_thief_p2p.shared.config_sections import DecimalText, FrozenModel
 
 
 class OutboxState(StrEnum):
@@ -48,7 +48,7 @@ class OutboxItem(FrozenModel):
     attempts: Annotated[StrictInt, Field(ge=0)] = 0
     provider_id: StrictStr | None = None
     last_error_code: StrictStr | None = None
-    retry_not_before: float | None = None
+    retry_not_before: DecimalText | None = None
 
     def transitioned(self, state: OutboxState, **changes: object) -> "OutboxItem":
         """Return a validated next state or reject illegal mutation."""

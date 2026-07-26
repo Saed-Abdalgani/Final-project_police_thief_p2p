@@ -5,7 +5,7 @@ without a central game server or shared live state. Each peer owns only local tr
 uses SHA-256 Commit-Reveal for later audit, and exposes all business capabilities
 through a typed `SimulationSdk`.
 
-Status: artifact, reporting, competitive strategy, and durable orchestration milestones. Strict
+Status: M11 release-candidate quality, security, chaos, and performance gates pass. Strict
 configuration, local-only physics, FastMCP negotiation, sealed mutual audit,
 exact scent/belief tracking, deadline-safe Police/Thief planning, safe language,
 formal lifecycle orchestration, recovery, Watchdog, and bounded reliability
@@ -13,6 +13,12 @@ controls are complete. Linked immutable artifacts, exact score/token reporting,
 durable idempotent Gmail outbox, send-only OAuth, and the full per-service
 Gatekeeper are implemented; the controlled real Gmail rehearsal remains an
 operator-owned release action.
+
+The measured campaign covers all 314 normative requirements/rules/parameters,
+1,000 continuous six-game series, adversarial and crash matrices, locked
+dependency/license/history/archive audits, mutation suites, and repeatable
+performance budgets. See [`docs/evidence/M11_EXIT.md`](docs/evidence/M11_EXIT.md)
+and [`docs/TESTING.md`](docs/TESTING.md).
 
 ## Requirements
 

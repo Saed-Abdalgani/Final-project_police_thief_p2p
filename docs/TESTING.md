@@ -167,3 +167,55 @@ Quality tools include synthetic negative tests:
 M1 closes only after a local clone of the committed candidate runs the command
 suite with `uv sync --frozen`. The transcript, candidate commit, environment, and
 artifact hashes are archived under `docs/evidence/`.
+
+## M11 release-candidate campaign
+
+M11 exercises the complete implementation, not a reduced mock package. The local
+baseline is Windows 11, CPython 3.13, four CPU cores, and 8 GB RAM. GitHub Actions
+runs the full suite on Windows with Python 3.13 and 3.14, plus an independent
+macOS/Python 3.13 import and readiness smoke. Platform details and the one
+capability-based symlink skip are recorded in `docs/M11_PLATFORM.md`.
+
+Fixtures are immutable builders under `tests/helpers`; each role/process receives
+separate config, artifact, cache, and temporary roots. The two-process MCP suite
+shares only loopback streamable HTTP. Hypothesis uses the deterministic `ci`
+profile (`derandomize=True`, no database, no wall-clock deadline). The continuous
+soak uses seed identifiers `0..999`, six one-step sub-games per series, injected
+fake clocks, and no external providers.
+
+Run the measured campaign:
+
+```text
+uv run python -m scripts.m11_inventory
+uv run python -m scripts.m11_trace_matrix
+uv run python -m scripts.run_m11_mutation
+uv run python -m scripts.run_m11_soak
+uv run python -m scripts.run_m11_benchmarks
+uv run python -m scripts.run_m11_release_audit
+uv run python -m scripts.run_m11_license_audit
+uv export --frozen --all-groups --no-emit-project --no-hashes \
+  --format requirements-txt --output-file tmp/m11-requirements.txt
+uvx pip-audit --requirement tmp/m11-requirements.txt --strict \
+  --format json --output results/benchmarks/m11_vulnerabilities.json \
+  --progress-spinner off --desc off
+uv run pytest
+```
+
+The M11 gates are:
+
+- exact mapping of all source modules and all 314 normative FR/NFR/E/F entries;
+- every public callable documented and directly mapped to executable tests;
+- Ruff zero findings, Ruff-format clean, strict mypy clean, import/static/schema/
+  traceability validators clean, and no source file above 150 code lines;
+- global statement/branch coverage at least 85%;
+- 1,000 continuous six-game series, zero deadlock/unbounded wait, bounded
+  journals/cache/signature stores, and zero retained-object growth;
+- SDK cold-readiness p95 under 3,000 ms, algorithmic domain p95 under 250 ms,
+  six-log replay p95 under 2,000 ms, and artifact write p95 under 100 ms;
+- zero known locked-dependency vulnerabilities, incompatible licenses, secret/
+  archive/history findings, or unresolved P0/P1 defects.
+
+Machine-readable evidence is committed under `results/benchmarks/m11_*.json`.
+The manual cryptographic review is `docs/M11_CRYPTO_REVIEW.md`; the platform
+record is `docs/M11_PLATFORM.md`; the signed decision is
+`docs/evidence/M11_EXIT.md`.
