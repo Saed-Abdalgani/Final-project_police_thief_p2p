@@ -6,7 +6,9 @@
 The supported CI matrix is Windows Latest on CPython 3.13 and 3.14 for frozen
 sync, repository validators, Ruff, strict mypy, the full coverage suite, and
 distribution builds. macOS Latest on CPython 3.13 performs frozen sync, package
-import, SDK readiness, and the version smoke test.
+import, SDK readiness, and the version smoke test. The complete matrix passed in
+[quality run 30201853430](https://github.com/Saed-Abdalgani/Final-project_police_thief_p2p/actions/runs/30201853430)
+for implementation commit `c07e26174ba0dd046f244fb4c56937750507893e`.
 
 Local measurement used Windows 11 `10.0.26200`, CPython 3.13.13, four CPU cores,
 and 8 GB RAM. All local static, functional, security, chaos, mutation, soak, and

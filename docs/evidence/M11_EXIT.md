@@ -1,6 +1,7 @@
 # M11 QA and Security Exit
 
 **Candidate:** `0.10.0`
+**Implementation commit:** `c07e26174ba0dd046f244fb4c56937750507893e`
 **Review date:** 2026-07-26
 **Decision:** PASS
 **Severity gate:** no unresolved P0/P1 defect
@@ -27,8 +28,13 @@
   `m11_vulnerabilities.json` and `m11_licenses.json`.
 - Manual cryptographic decision: `docs/M11_CRYPTO_REVIEW.md`.
 - Windows/macOS scope and limitation: `docs/M11_PLATFORM.md`.
-- Full local regression: 521 passed, one capability-based symlink skip, 87.11%
-  statement/branch coverage (85% gate).
+- Clean-clone regression at the implementation commit: frozen install, all
+  repository validators, Ruff, strict mypy, 521 passed, one capability-based
+  symlink skip, 87.11% statement/branch coverage (85% gate), and successful
+  `0.10.0` sdist/wheel builds.
+- GitHub Actions
+  [quality run 30201853430](https://github.com/Saed-Abdalgani/Final-project_police_thief_p2p/actions/runs/30201853430):
+  Windows CPython 3.13, Windows CPython 3.14, and macOS CPython 3.13 all passed.
 
 ## Independent role-based review
 

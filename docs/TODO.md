@@ -650,66 +650,66 @@ A checked task has:
 
 **Exit gate:** the full implementation passes requirement traceability, >=85% coverage, Ruff/type gates, adversarial security review, chaos/soak campaigns, and performance budgets on supported platforms.
 
-- [ ] **T511 [P0]** Complete `docs/TESTING.md` with test layers, environments, fixtures, seeds, commands, gates, and evidence locations.
-- [ ] **T512 [P0]** Inventory every source module and map it to direct unit/integration tests.
-- [ ] **T513 [P0]** Generate requirement-to-test coverage matrix for every FR, NFR, Appendix E rule, and Appendix F parameter.
-- [ ] **T514 [P0]** Fill unit-test gaps for every module's happy, boundary, invalid, and dependency-failure paths.
-- [ ] **T515 [P0]** Verify every public function/method has at least one direct test and docstring.
-- [ ] **T516 [P0]** Expand board/action/scoring property tests to large generated configurations at legal minima and stricter values.
-- [ ] **T517 [P0]** Expand config property/fuzz tests for encodings, duplicates, nesting, unknowns, boundary numbers, and overlays.
-- [ ] **T518 [P0]** Expand crypto property/mutation tests for canonical bytes, nonce, every payload field, order, and replay context.
-- [ ] **T519 [P0]** Expand belief property tests for long sequences, contradictory evidence, underflow, topology changes, and determinism.
-- [ ] **T520 [P0]** Cover every state-machine transition and every illegal source-target pair.
-- [ ] **T521 [P0]** Validate every positive/negative JSON example against declaration/config/log/result/protocol schemas in CI.
-- [ ] **T522 [P0]** Run MCP contract suite against independently started server/client versions and both role repositories.
-- [ ] **T523 [P0]** Run full two-process localhost sub-game with no shared filesystem visibility.
-- [ ] **T524 [P0]** Run full six-sub-game local series including final audit, artifacts, and dry-run reports.
-- [ ] **T525 [P0]** Inject deterministic network latency/jitter at every outbound tool and confirm deadlines remain correct.
-- [ ] **T526 [P0]** Inject request/response loss at each protocol phase and verify retry/terminal behavior.
-- [ ] **T527 [P0]** Inject duplicate messages at each mutating tool and verify exactly-once effects.
-- [ ] **T528 [P0]** Inject reordered/future/stale messages and verify bounded rejection/buffering.
-- [ ] **T529 [P0]** Disconnect/reconnect tunnel transport during each phase and verify documented outcome.
-- [ ] **T530 [P0]** Crash each process before/after every persist and acknowledgement boundary; evidence: recovery/termination matrix.
-- [ ] **T531 [P0]** Corrupt/truncate/replace each artifact and journal family; evidence: fail-closed validation.
-- [ ] **T532 [P0]** Freeze gameplay, strategy, persistence, and transport workers separately and verify Watchdog response.
-- [ ] **T533 [P0]** Load-test Gatekeeper quota, bucket, concurrency, queue, retry, DOS, and circuit behavior.
-- [ ] **T534 [P0]** Run >=1,000 local sub-games and a continuous soak session; evidence: no deadlock, leak, or unbounded growth.
-- [ ] **T535 [P0]** Complete `docs/SECURITY.md` with threat model, controls, residual risks, secret rotation, and incident process.
-- [ ] **T536 [P0]** Audit all remote/input boundaries for strict validation before state mutation.
-- [ ] **T537 [P0]** Test path traversal through game IDs, filenames, manifest links, config paths, and archive export.
-- [ ] **T538 [P0]** Test symlink/reparse-point escape where supported and reject resolved paths outside allowed roots.
-- [ ] **T539 [P0]** Test oversized, deeply nested, compressed, repeated, and collection-amplification payloads.
-- [ ] **T540 [P0]** Test malicious Unicode, bidi controls, nulls, separators, and homoglyphs in identifiers/hints/log fields.
-- [ ] **T541 [P0]** Test log injection and ensure structured logs preserve one event per record.
-- [ ] **T542 [P0]** Test prompt injection, data exfiltration requests, tool-like text, and schema-breaking LLM output.
-- [ ] **T543 [P0]** Run secret scanner over working tree, ignored-file policy, fixtures, docs, artifacts, and release archives.
-- [ ] **T544 [P0]** Scan complete Git history of both role repositories for credentials, tokens, keys, and `.env` content.
-- [ ] **T545 [P0]** Verify OAuth scope is send-only in code, tokens, docs, and controlled integration.
-- [ ] **T546 [P0]** Test report-recipient injection and enforce the competition allowlist.
-- [ ] **T547 [P0]** Test opponent/tunnel URL validation against credential URLs, unsupported schemes, loopback in league mode, and unsafe redirects.
-- [ ] **T548 [P0]** Test private strategy dynamic-import restrictions against arbitrary modules, files, and non-subclasses.
-- [ ] **T549 [P0]** Run locked dependency vulnerability audit and resolve/document all findings.
-- [ ] **T550 [P0]** Audit dependency and reused-code licenses for compatibility and required attribution.
-- [ ] **T551 [P0]** Conduct manual cryptographic design review of entropy, canonicalization, key handling, nonce lifecycle, and sanction logic.
-- [ ] **T552 [P0]** Update threat model and risk register from security/chaos findings; evidence: every critical/high issue closed or explicitly blocking.
-- [ ] **T553 [P0]** Build repeatable performance harness with warmup, sample count, hardware metadata, and percentile reporting.
-- [ ] **T554 [P1]** Benchmark SDK cold start/readiness and keep p95 within plan target.
-- [ ] **T555 [P1]** Benchmark domain transition/path/graph operations across board sizes and barrier densities.
-- [ ] **T556 [P1]** Benchmark belief prediction/update over 35-step sequences and multimodal posteriors.
-- [ ] **T557 [P0]** Benchmark baseline/advanced strategy p50/p95/max and hard deadline compliance.
-- [ ] **T558 [P1]** Benchmark replay schema/linkage/hash/transition verification for all six logs.
-- [ ] **T559 [P1]** Benchmark artifact derivation, validation, digesting, and atomic writes.
-- [ ] **T560 [P0]** Measure peak memory and object growth during soak; evidence: no unbounded session, queue, cache, or idempotency retention.
-- [ ] **T561 [P1]** Measure MCP request count, bytes, retries, and latency per completed series.
-- [ ] **T562 [P0]** Verify template mode consumes exactly zero LLM tokens and optional providers stay within signed budget.
-- [ ] **T563 [P1]** Measure outbox age, dispatch attempts, queue depth, and recovery after simulated Gmail outage.
-- [ ] **T564 [P1]** Profile top CPU/memory hotspots and optimize only with benchmark evidence.
-- [ ] **T565 [P0]** Run Ruff, strict mypy, import-boundary, file-size, schema, and task/requirement static checks.
-- [ ] **T566 [P1]** Run mutation testing on config rules, scoring, state transitions, crypto verification, and Gatekeeper decisions.
-- [ ] **T567 [P0]** Quarantine/fix all flaky tests and verify deterministic repeated CI runs.
-- [ ] **T568 [P0]** Complete the Windows matrix and macOS smoke, documenting platform-specific limitations.
-- [ ] **T569 [P0]** Run the full clean-clone quality command suite with global coverage >=85% and Ruff zero violations.
-- [ ] **T570 [P0]** Complete M11 independent QA/security review; evidence: no unresolved P0/P1 defect and signed exit report.
+- [x] **T511 [P0]** Complete `docs/TESTING.md` with test layers, environments, fixtures, seeds, commands, gates, and evidence locations.
+- [x] **T512 [P0]** Inventory every source module and map it to direct unit/integration tests.
+- [x] **T513 [P0]** Generate requirement-to-test coverage matrix for every FR, NFR, Appendix E rule, and Appendix F parameter.
+- [x] **T514 [P0]** Fill unit-test gaps for every module's happy, boundary, invalid, and dependency-failure paths.
+- [x] **T515 [P0]** Verify every public function/method has at least one direct test and docstring.
+- [x] **T516 [P0]** Expand board/action/scoring property tests to large generated configurations at legal minima and stricter values.
+- [x] **T517 [P0]** Expand config property/fuzz tests for encodings, duplicates, nesting, unknowns, boundary numbers, and overlays.
+- [x] **T518 [P0]** Expand crypto property/mutation tests for canonical bytes, nonce, every payload field, order, and replay context.
+- [x] **T519 [P0]** Expand belief property tests for long sequences, contradictory evidence, underflow, topology changes, and determinism.
+- [x] **T520 [P0]** Cover every state-machine transition and every illegal source-target pair.
+- [x] **T521 [P0]** Validate every positive/negative JSON example against declaration/config/log/result/protocol schemas in CI.
+- [x] **T522 [P0]** Run MCP contract suite against independently started server/client versions and both role repositories.
+- [x] **T523 [P0]** Run full two-process localhost sub-game with no shared filesystem visibility.
+- [x] **T524 [P0]** Run full six-sub-game local series including final audit, artifacts, and dry-run reports.
+- [x] **T525 [P0]** Inject deterministic network latency/jitter at every outbound tool and confirm deadlines remain correct.
+- [x] **T526 [P0]** Inject request/response loss at each protocol phase and verify retry/terminal behavior.
+- [x] **T527 [P0]** Inject duplicate messages at each mutating tool and verify exactly-once effects.
+- [x] **T528 [P0]** Inject reordered/future/stale messages and verify bounded rejection/buffering.
+- [x] **T529 [P0]** Disconnect/reconnect tunnel transport during each phase and verify documented outcome.
+- [x] **T530 [P0]** Crash each process before/after every persist and acknowledgement boundary; evidence: recovery/termination matrix.
+- [x] **T531 [P0]** Corrupt/truncate/replace each artifact and journal family; evidence: fail-closed validation.
+- [x] **T532 [P0]** Freeze gameplay, strategy, persistence, and transport workers separately and verify Watchdog response.
+- [x] **T533 [P0]** Load-test Gatekeeper quota, bucket, concurrency, queue, retry, DOS, and circuit behavior.
+- [x] **T534 [P0]** Run >=1,000 local sub-games and a continuous soak session; evidence: no deadlock, leak, or unbounded growth.
+- [x] **T535 [P0]** Complete `docs/SECURITY.md` with threat model, controls, residual risks, secret rotation, and incident process.
+- [x] **T536 [P0]** Audit all remote/input boundaries for strict validation before state mutation.
+- [x] **T537 [P0]** Test path traversal through game IDs, filenames, manifest links, config paths, and archive export.
+- [x] **T538 [P0]** Test symlink/reparse-point escape where supported and reject resolved paths outside allowed roots.
+- [x] **T539 [P0]** Test oversized, deeply nested, compressed, repeated, and collection-amplification payloads.
+- [x] **T540 [P0]** Test malicious Unicode, bidi controls, nulls, separators, and homoglyphs in identifiers/hints/log fields.
+- [x] **T541 [P0]** Test log injection and ensure structured logs preserve one event per record.
+- [x] **T542 [P0]** Test prompt injection, data exfiltration requests, tool-like text, and schema-breaking LLM output.
+- [x] **T543 [P0]** Run secret scanner over working tree, ignored-file policy, fixtures, docs, artifacts, and release archives.
+- [x] **T544 [P0]** Scan complete Git history of both role repositories for credentials, tokens, keys, and `.env` content.
+- [x] **T545 [P0]** Verify OAuth scope is send-only in code, tokens, docs, and controlled integration.
+- [x] **T546 [P0]** Test report-recipient injection and enforce the competition allowlist.
+- [x] **T547 [P0]** Test opponent/tunnel URL validation against credential URLs, unsupported schemes, loopback in league mode, and unsafe redirects.
+- [x] **T548 [P0]** Test private strategy dynamic-import restrictions against arbitrary modules, files, and non-subclasses.
+- [x] **T549 [P0]** Run locked dependency vulnerability audit and resolve/document all findings.
+- [x] **T550 [P0]** Audit dependency and reused-code licenses for compatibility and required attribution.
+- [x] **T551 [P0]** Conduct manual cryptographic design review of entropy, canonicalization, key handling, nonce lifecycle, and sanction logic.
+- [x] **T552 [P0]** Update threat model and risk register from security/chaos findings; evidence: every critical/high issue closed or explicitly blocking.
+- [x] **T553 [P0]** Build repeatable performance harness with warmup, sample count, hardware metadata, and percentile reporting.
+- [x] **T554 [P1]** Benchmark SDK cold start/readiness and keep p95 within plan target.
+- [x] **T555 [P1]** Benchmark domain transition/path/graph operations across board sizes and barrier densities.
+- [x] **T556 [P1]** Benchmark belief prediction/update over 35-step sequences and multimodal posteriors.
+- [x] **T557 [P0]** Benchmark baseline/advanced strategy p50/p95/max and hard deadline compliance.
+- [x] **T558 [P1]** Benchmark replay schema/linkage/hash/transition verification for all six logs.
+- [x] **T559 [P1]** Benchmark artifact derivation, validation, digesting, and atomic writes.
+- [x] **T560 [P0]** Measure peak memory and object growth during soak; evidence: no unbounded session, queue, cache, or idempotency retention.
+- [x] **T561 [P1]** Measure MCP request count, bytes, retries, and latency per completed series.
+- [x] **T562 [P0]** Verify template mode consumes exactly zero LLM tokens and optional providers stay within signed budget.
+- [x] **T563 [P1]** Measure outbox age, dispatch attempts, queue depth, and recovery after simulated Gmail outage.
+- [x] **T564 [P1]** Profile top CPU/memory hotspots and optimize only with benchmark evidence.
+- [x] **T565 [P0]** Run Ruff, strict mypy, import-boundary, file-size, schema, and task/requirement static checks.
+- [x] **T566 [P1]** Run mutation testing on config rules, scoring, state transitions, crypto verification, and Gatekeeper decisions.
+- [x] **T567 [P0]** Quarantine/fix all flaky tests and verify deterministic repeated CI runs.
+- [x] **T568 [P0]** Complete the Windows matrix and macOS smoke, documenting platform-specific limitations.
+- [x] **T569 [P0]** Run the full clean-clone quality command suite with global coverage >=85% and Ruff zero violations.
+- [x] **T570 [P0]** Complete M11 independent QA/security review; evidence: no unresolved P0/P1 defect and signed exit report.
 
 ---
 
