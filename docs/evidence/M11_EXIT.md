@@ -1,8 +1,8 @@
 # M11 QA and Security Exit
 
-**Candidate:** `0.10.0`  
-**Review date:** 2026-07-26  
-**Decision:** PASS  
+**Candidate:** `0.10.0`
+**Review date:** 2026-07-26
+**Decision:** PASS
 **Severity gate:** no unresolved P0/P1 defect
 
 ## Objective evidence

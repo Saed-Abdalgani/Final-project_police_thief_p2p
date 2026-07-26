@@ -95,7 +95,7 @@ def main() -> int:
         "wall_seconds": round(wall_seconds, 3),
         "result": "PASS" if passed else "FAIL",
     }
-    OUTPUT.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
+    OUTPUT.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps(document, sort_keys=True))
     return 0 if passed else 1
 

@@ -116,7 +116,7 @@ def build_inventory(root: Path = ROOT) -> dict[str, object]:
 def main() -> int:
     """Write the inventory and return failure when coverage metadata is incomplete."""
     document = build_inventory()
-    OUTPUT.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
+    OUTPUT.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps(document["summary"], sort_keys=True))
     return 0 if document["summary"]["result"] == "PASS" else 1  # type: ignore[index]
 

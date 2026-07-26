@@ -53,7 +53,7 @@ def main() -> int:
         "transcript_tail": transcript[-3:],
         "result": "PASS" if completed.returncode == 0 else "FAIL",
     }
-    OUTPUT.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
+    OUTPUT.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps({"result": document["result"], "tail": transcript[-1:]}))
     return completed.returncode
 

@@ -26,6 +26,6 @@
   "peak_traced_sample_bytes": 115489,
   "peak_tracked_objects": 30688,
   "retained_object_delta": 0,
-  "wall_seconds": 25.283,
+  "wall_seconds": 26.336,
   "result": "PASS"
 }

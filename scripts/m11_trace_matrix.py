@@ -132,7 +132,7 @@ def build_matrix(root: Path = ROOT) -> dict[str, object]:
 def main() -> int:
     """Write the matrix and fail unless every normative identifier is mapped."""
     document = build_matrix()
-    OUTPUT.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
+    OUTPUT.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8", newline="\n")
     summary = document["summary"]
     print(json.dumps(summary, sort_keys=True))
     return 0 if isinstance(summary, dict) and summary["result"] == "PASS" else 1

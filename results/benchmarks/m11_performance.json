@@ -23,27 +23,27 @@
   "measurements": {
     "sdk_cold_readiness": {
       "samples": 10,
-      "p50_ms": 650.929,
-      "p95_ms": 703.219,
-      "max_ms": 703.219
+      "p50_ms": 209.161,
+      "p95_ms": 311.024,
+      "max_ms": 311.024
     },
     "domain_15x15_transition_graph": {
       "samples": 20,
-      "p50_ms": 26.154,
-      "p95_ms": 34.326,
-      "max_ms": 34.839
+      "p50_ms": 7.703,
+      "p95_ms": 12.573,
+      "max_ms": 13.227
     },
     "six_log_replay": {
       "samples": 10,
-      "p50_ms": 1415.717,
-      "p95_ms": 1767.37,
-      "max_ms": 1767.37
+      "p50_ms": 435.316,
+      "p95_ms": 516.505,
+      "max_ms": 516.505
     },
     "artifact_digest_atomic_write": {
       "samples": 20,
-      "p50_ms": 6.974,
-      "p95_ms": 8.816,
-      "max_ms": 8.877
+      "p50_ms": 4.679,
+      "p95_ms": 6.102,
+      "max_ms": 6.174
     },
     "mcp_completed_series": {
       "workload": "six sub-games, one step, every mutating MCP tool",
@@ -53,9 +53,9 @@
       "response_loss_campaign_retries": 60,
       "encoding_latency": {
         "samples": 20,
-        "p50_ms": 7.053,
-        "p95_ms": 11.042,
-        "max_ms": 17.413
+        "p50_ms": 1.945,
+        "p95_ms": 3.131,
+        "max_ms": 3.815
       }
     },
     "outbox_outage_recovery": {
@@ -71,42 +71,42 @@
     {
       "function": "C:\\Users\\saedn\\Desktop\\AI Agents orchestration\\Final project_police_thief_p2p\\scripts\\run_m11_benchmarks.py:68:<lambda>",
       "calls": 1,
-      "cumulative_seconds": 3.794252
+      "cumulative_seconds": 0.973764
     },
     {
       "function": "C:\\Users\\saedn\\Desktop\\AI Agents orchestration\\Final project_police_thief_p2p\\src\\police_thief_p2p\\sdk\\replay_facade.py:88:verify_series_replay",
       "calls": 1,
-      "cumulative_seconds": 3.794107
+      "cumulative_seconds": 0.9737
     },
     {
       "function": "C:\\Users\\saedn\\Desktop\\AI Agents orchestration\\Final project_police_thief_p2p\\src\\police_thief_p2p\\sdk\\replay_facade.py:96:<genexpr>",
       "calls": 7,
-      "cumulative_seconds": 3.794044
+      "cumulative_seconds": 0.973687
     },
     {
       "function": "C:\\Users\\saedn\\Desktop\\AI Agents orchestration\\Final project_police_thief_p2p\\src\\police_thief_p2p\\sdk\\replay_facade.py:65:verify_manifest_log",
       "calls": 6,
-      "cumulative_seconds": 3.791266
+      "cumulative_seconds": 0.972905
     },
     {
       "function": "C:\\Users\\saedn\\Desktop\\AI Agents orchestration\\Final project_police_thief_p2p\\src\\police_thief_p2p\\services\\artifacts\\linkage.py:33:verify_manifest",
       "calls": 6,
-      "cumulative_seconds": 2.341082
+      "cumulative_seconds": 0.59367
     },
     {
       "function": "C:\\Users\\saedn\\Desktop\\AI Agents orchestration\\Final project_police_thief_p2p\\src\\police_thief_p2p\\shared\\schema_registry.py:23:validate_schema",
       "calls": 102,
-      "cumulative_seconds": 2.085706
+      "cumulative_seconds": 0.519721
     },
     {
       "function": "~:0:<built-in method builtins.sorted>",
       "calls": 474,
-      "cumulative_seconds": 1.88354
+      "cumulative_seconds": 0.453417
     },
     {
       "function": "C:\\Users\\saedn\\Desktop\\AI Agents orchestration\\Final project_police_thief_p2p\\.venv\\Lib\\site-packages\\jsonschema\\validators.py:349:iter_errors",
       "calls": 102,
-      "cumulative_seconds": 1.87379
+      "cumulative_seconds": 0.450361
     }
   ],
   "inherited_evidence": {

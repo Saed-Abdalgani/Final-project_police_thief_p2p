@@ -1,8 +1,8 @@
 # M11 Cryptographic Design Review
 
 **Scope:** entropy, canonicalization, key handling, nonce lifecycle, replay
-context, and sanctions in candidate `0.10.0`  
-**Review date:** 2026-07-26  
+context, and sanctions in candidate `0.10.0`
+**Review date:** 2026-07-26
 **Decision:** PASS — no open P0/P1 finding
 
 ## Findings

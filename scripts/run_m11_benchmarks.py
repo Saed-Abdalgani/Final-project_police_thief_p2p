@@ -123,7 +123,7 @@ def main() -> int:
         },
         "gates": {**gates, "result": "PASS" if all(gates.values()) else "FAIL"},
     }
-    OUTPUT.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
+    OUTPUT.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps(document["gates"], sort_keys=True))
     return 0 if document["gates"]["result"] == "PASS" else 1  # type: ignore[index]
 

@@ -129,7 +129,7 @@ def main() -> int:
         },
         "result": "PASS" if passed else "FAIL",
     }
-    OUTPUT.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
+    OUTPUT.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps({"result": document["result"], "findings": finding_count}))
     return 0 if passed else 1
 

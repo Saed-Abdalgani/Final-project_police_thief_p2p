@@ -87,7 +87,7 @@ def build_audit(root: Path = ROOT) -> dict[str, object]:
 def main() -> int:
     """Write the license inventory and fail on absent or incompatible metadata."""
     document = build_audit()
-    OUTPUT.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
+    OUTPUT.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(
         json.dumps(
             {

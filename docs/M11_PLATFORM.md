@@ -1,6 +1,6 @@
 # M11 Platform Record
 
-**Candidate:** `0.10.0`  
+**Candidate:** `0.10.0`
 **Recorded:** 2026-07-26
 
 The supported CI matrix is Windows Latest on CPython 3.13 and 3.14 for frozen
