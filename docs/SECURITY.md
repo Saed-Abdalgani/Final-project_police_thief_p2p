@@ -156,8 +156,7 @@ finding.
 
 - Role exports must regenerate from the canonical commit after any patch; drift
   between sibling repositories is a release defect, not a local hotfix.
-- The M12 holdout recorded one decision deadline miss and a Thief survival rate
-  below `70%`; competitive promotion remains blocked until a new freeze and
-  holdout version clear those gates.
+- The M12 repair holdout (`1.2.0`) cleared reliability and role gates (`R02-DEADLINE`
+  zero misses; Thief survival `75%`). Earlier spent seals remain historical only.
 - Lecturer access, Moodle form PDF layout, and public-tunnel verification are
   EXTERNAL checks and are not implied by a green CI run.

@@ -182,9 +182,9 @@ regression cases; they are deliberately not promoted into training or holdout.
   but substitutes deterministic provider stubs when no daemon or cloud secret is
   present. Availability is recorded honestly per provider, so a reader can tell
   which column was measured live.
-- **Holdout is spent.** The sealed holdout was opened exactly once, for one freeze
-  digest. Any further tuning invalidates the candidate and requires a new holdout
-  version before another generalization claim.
+- **Holdout resealing.** The original sealed holdout was spent on the pre-repair
+  freeze. After the deadline/Thief repair, a new holdout version (`1.2.0`, seeds
+  `32000`–`32011`) was opened exactly once for the repaired freeze digest.
 
 ## 7. Conclusions
 
@@ -192,12 +192,12 @@ Measured against `docs/evidence/M12_EXIT.md` and the campaign JSON files:
 
 | Hypothesis | Outcome |
 |---|---|
-| H1 holdout uplift / share | Holdout share about `65.4%`; validation about `67.5%`. Competitive holdout promotion failed. |
-| H2 role success | Validation Police `96.7%` / Thief `76.7%` cleared `70%`. Holdout Thief survival `66.7%` failed `S03-THIEF`. |
+| H1 holdout uplift / share | Repair holdout (`1.2.0`) share about `67.6%`; validation about `69.0%`. Competitive holdout promotion passed. |
+| H2 role success | Validation Police `100%` / Thief `80%` and holdout Police `100%` / Thief `75%` cleared `70%`. |
 | H3 ablations | Studies campaign completed; every ablation remained reliable. |
 | H4 robustness | Degraded-observation robustness gate passed; adversarial reliability flag noted in studies evidence. |
 | H5 language default | Template remains default: zero tokens, deterministic, unsafe outputs rejected. |
-| H6 reliability | Holdout recorded one `R02-DEADLINE` miss, so the frozen candidate is not competitively promoted. |
+| H6 reliability | Repair holdout recorded zero `R02-DEADLINE` misses; p95 latency stayed under `250` ms. |
 
 League rehearsal on two isolated peer roots over loopback passed mutual audits;
 external public-tunnel / second-machine verification remains outstanding

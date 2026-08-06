@@ -59,7 +59,8 @@ def main() -> int:
                 seeds=manifest.seeds[:HOLDOUT_SEEDS],
             )
         )
-    holdout_gates = promotion_report(holdout, train_share=train_share)
+    # S06 compares train to validation only; holdout uses competitive/reliability gates.
+    holdout_gates = promotion_report(holdout)
     record = ReproducibilityManifest(
         campaign_id="m12-selection",
         commit_sha=commit_sha(),

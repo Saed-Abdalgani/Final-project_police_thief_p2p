@@ -31,8 +31,15 @@ def derive_profile(base: StrategyConfig, overrides: Mapping[str, object]) -> Str
 
 
 def with_decision_budget(base: StrategyConfig, budget_ms: int) -> StrategyConfig:
-    """Return the profile at a declared compute budget with a valid guard margin."""
-    guard = min(base.guard_margin_ms, max(1, budget_ms // _GUARD_SHARE))
+    """Return the profile at a declared compute budget with a valid guard margin.
+
+    The guard is at least ``budget // 4`` so search stops early enough to avoid a
+    hard ``FALLBACK_DEADLINE`` miss after an expensive deepening step.
+    """
+    if budget_ms < 2:
+        raise ValueError("decision budget must leave room for a positive guard margin")
+    floor = max(1, budget_ms // _GUARD_SHARE)
+    guard = min(budget_ms - 1, max(base.guard_margin_ms, floor))
     return derive_profile(base, {"decision_budget_ms": budget_ms, "guard_margin_ms": guard})
 
 

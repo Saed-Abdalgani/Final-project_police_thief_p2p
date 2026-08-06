@@ -70,15 +70,17 @@ class ThiefEvaluator:
                 )
             distance = shortest_path_length(board, own, projected, barriers)
             threat_distance = board.size**2 if distance is None else distance
+            # Soft survival prefers a safe buffer; binary distance>0 is nearly constant.
+            survival = 0.0 if threat_distance <= 0 else 1.0 - math.exp(-threat_distance / 2.0)
             trapped = float(threat_distance <= 1 and routes <= 1)
-            survival = float(threat_distance > 0)
+            pressure = max(0.0, 3.0 - float(min(threat_distance, 3)))
             score = (
                 weights.survival * survival
                 + weights.risk_distance * threat_distance
                 + weights.space * space
                 + weights.routes * routes
                 + weights.entropy * entropy
-                - weights.traps * trapped
+                - weights.traps * (trapped + 0.35 * pressure)
                 - weights.scent * revisit
                 - weights.corner * corner_risk
                 - weights.cycle * cycle

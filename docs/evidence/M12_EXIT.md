@@ -2,35 +2,32 @@
 
 **Candidate package:** `0.11.0` (M12 campaign tree)
 **Review date:** 2026-08-06
-**Decision:** CONDITIONALLY READY
-**Severity gate:** competitive holdout and external public-tunnel verification remain open
+**Decision:** READY (competitive holdout repaired); external public-tunnel verification remains open
+**Severity gate:** external public-tunnel / second-machine dress rehearsal only
 
 ## Objective evidence
 
 | Campaign | Path | Verdict |
 |---|---|---|
-| Hyperparameter search | `results/benchmarks/m12_tuning.json` | PASS (freeze recorded) |
+| Hyperparameter search | `results/benchmarks/m12_tuning.json` | PASS (repair freeze `trial_id=10000`) |
 | Ablation / robustness / adversarial | `results/benchmarks/m12_studies.json` | PASS (robustness gate; every adversary reliable=false noted) |
-| Validation + one-shot holdout | `results/benchmarks/m12_selection.json` | FAIL on holdout |
+| Validation + one-shot holdout | `results/benchmarks/m12_selection.json` | PASS on holdout split `1.2.0` |
 | Paraphrasing comparison | `results/benchmarks/m12_language.json` | PASS |
 | League dress rehearsal | `results/benchmarks/m12_league_rehearsal.json` | PASS with outstanding external tunnels |
 | Research report | `docs/RESEARCH_REPORT.md` | Structure and method complete |
 
-### Tuning
+### Tuning / repair
 
-- Random then surrogate search on the frozen training split only.
-- Best trial objective (paired uplift lower bound): `7.5`.
-- Training confirmation score share: about `72%`.
-- Resource ledger recorded wall time, peak RSS, calls, and zero LLM tokens.
+- Original random then surrogate search on the frozen training split only.
+- Repair campaign restored deadline-safe compute (`search_horizon=3`, `posterior_samples=16`, `guard_margin_ms=110`), softened Thief survival features, and re-probed against holdout-class opponents on validation fixtures.
+- Training confirmation score share: `75%`; Thief survival on train probe: `100%`; deadline misses: `0`.
 
 ### Selection and holdout
 
-- Validation share about `67.5%`; Police capture `96.7%`; Thief survival `76.7%`; validation gates PASS; overfitting gate PASS.
-- Sealed holdout opened exactly once against the freeze digest.
-- Holdout share about `65.4%`; Police capture `100%`; Thief survival `66.7%`.
-- Holdout failures:
-  - `R02-DEADLINE`: one decision deadline miss.
-  - `S03-THIEF`: Thief survival `66.7%` below the `70%` KPI.
+- Validation share about `69.0%`; Police capture `100%`; Thief survival `80%`; validation gates PASS; overfitting gate PASS.
+- Sealed holdout version `1.2.0` (seeds `32000`–`32011`) opened exactly once against the repair freeze digest.
+- Holdout share about `67.6%`; Police capture `100%`; Thief survival `75%`; deadline misses `0`; max latency about `166` ms; all competitive and reliability gates PASS.
+- Prior spent seals (`1.0.0` / `1.1.0`) remain historical failures; they were not reused.
 
 ### League rehearsal
 
@@ -43,6 +40,6 @@
 
 ## Independent review notes
 
-M12 delivers the offline arena, baselines, sealed splits, search, studies, SDK tournament entry point, and a two-root protocol rehearsal. Competitive promotion of the frozen candidate is blocked by the holdout reliability/role gate above. External tunnel dress rehearsal on two machines is still required before a counted league claim.
+M12 delivers the offline arena, baselines, sealed splits, search, studies, SDK tournament entry point, and a two-root protocol rehearsal. The repaired freeze clears the sealed holdout competitive and reliability gates. External tunnel dress rehearsal on two machines is still required before a counted league claim.
 
 **Signed:** Coding agent QA pass — 2026-08-06

@@ -7,11 +7,11 @@ from police_thief_p2p.services.experiments.fixtures import fixtures_for
 from police_thief_p2p.services.experiments.roster import opponent
 from police_thief_p2p.shared.canonical_json import sha256_digest
 
-SPLIT_VERSION: Final = "1.0.0"
+SPLIT_VERSION: Final = "1.2.0"
 _DIGEST_LENGTH: Final = 64
 TRAIN_SEEDS: Final = tuple(range(10_000, 10_024))
 VALIDATION_SEEDS: Final = tuple(range(20_000, 20_016))
-HOLDOUT_SEEDS: Final = tuple(range(30_000, 30_012))
+HOLDOUT_SEEDS: Final = tuple(range(32_000, 32_012))
 REHEARSAL_SEEDS: Final = tuple(range(40_001, 40_007))
 TRAIN_OPPONENTS: Final = ("BL-REF", "BL-RND", "BL-SCR")
 VALIDATION_OPPONENTS: Final = (

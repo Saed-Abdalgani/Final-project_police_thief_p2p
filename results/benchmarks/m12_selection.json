@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "commit_sha": "62ae9f433c61cd041e9e20709f7a6331af7f67bc",
-  "train_share_percent": 72.018,
+  "commit_sha": "9ad92647be615f7e0da765cb73b80f04cb92f165",
+  "train_share_percent": 75.0,
   "validation": {
     "spec": {
       "spec_version": "1.0.0",
@@ -34,53 +34,53 @@
       "extras": []
     },
     "match_count": 60,
-    "score_share_percent": 67.46,
+    "score_share_percent": 69.048,
     "score_interval": {
-      "mean": 14.1667,
-      "lower": 12.8333,
-      "upper": 15.6667,
+      "mean": 14.5,
+      "lower": 13.1667,
+      "upper": 16.0,
       "samples": 60,
       "confidence": 0.95
     },
     "uplift_interval": {
-      "mean": 7.3333,
-      "lower": 4.8333,
-      "upper": 9.6667,
+      "mean": 8.0,
+      "lower": 5.6667,
+      "upper": 10.1667,
       "samples": 60,
       "confidence": 0.95
     },
-    "police_capture_rate": 0.9667,
-    "thief_survival_rate": 0.7667,
+    "police_capture_rate": 1.0,
+    "thief_survival_rate": 0.8,
     "per_opponent_share": {
-      "BL-ADV-CORNER": 70.0,
-      "BL-ADV-CYCLE": 71.739,
+      "BL-ADV-CORNER": 75.0,
+      "BL-ADV-CYCLE": 75.0,
       "BL-ADV-LIAR": 75.0,
       "BL-ADV-TRUST": 75.0,
       "BL-POST": 50.0
     },
     "per_fixture_share": {
       "validation-long-9": 69.048,
-      "validation-offset-7": 64.286,
+      "validation-offset-7": 69.048,
       "validation-quota-8": 69.048
     },
-    "worst_fixture_drop": 3.175,
-    "latency_p95_ms": 210.811,
-    "latency_max_ms": 236.088,
+    "worst_fixture_drop": 0.0,
+    "latency_p95_ms": 149.39,
+    "latency_max_ms": 179.246,
     "ratings": {
-      "BL-ADV-CORNER": 1480.28,
-      "BL-ADV-CYCLE": 1480.28,
-      "BL-ADV-LIAR": 1123.24,
-      "BL-ADV-TRUST": 1123.24,
-      "BL-POST": 1896.04,
-      "candidate-advanced": 1896.92
+      "BL-ADV-CORNER": 1203.31,
+      "BL-ADV-CYCLE": 1203.31,
+      "BL-ADV-LIAR": 1203.31,
+      "BL-ADV-TRUST": 1203.31,
+      "BL-POST": 2092.94,
+      "candidate-advanced": 2093.81
     },
     "reliability": {
       "matches": 60,
       "technical_or_tamper": 0,
       "invalid_actions": 0,
       "deadline_misses": 0,
-      "fallbacks": 28,
-      "max_latency_ms": 236.088,
+      "fallbacks": 314,
+      "max_latency_ms": 179.246,
       "passes": true
     }
   },
@@ -107,37 +107,37 @@
       {
         "gate_id": "P01-LATENCY",
         "requirement": "p95 decision latency at or below 250 ms",
-        "measured": 210.811,
+        "measured": 149.39,
         "passed": true
       },
       {
         "gate_id": "S01-SHARE",
         "requirement": "official score share at or above 60 percent",
-        "measured": 67.46,
+        "measured": 69.048,
         "passed": true
       },
       {
         "gate_id": "S02-UPLIFT",
         "requirement": "paired point-uplift bootstrap interval excludes zero from above",
-        "measured": 4.833,
+        "measured": 5.667,
         "passed": true
       },
       {
         "gate_id": "S03-POLICE",
         "requirement": "Police capture rate at or above 70%",
-        "measured": 0.967,
+        "measured": 1.0,
         "passed": true
       },
       {
         "gate_id": "S03-THIEF",
         "requirement": "Thief survival rate at or above 70%",
-        "measured": 0.767,
+        "measured": 0.8,
         "passed": true
       },
       {
         "gate_id": "S05-FIXTURE",
         "requirement": "worst fixture family within 15 points of aggregate",
-        "measured": 3.175,
+        "measured": 0.0,
         "passed": true
       },
       {
@@ -149,7 +149,7 @@
       {
         "gate_id": "S06-GENERALIZATION",
         "requirement": "validation share within 8 points of training",
-        "measured": 4.558,
+        "measured": 5.952,
         "passed": true
       }
     ],
@@ -159,12 +159,12 @@
   "overfitting_gate": {
     "gate_id": "S06-GENERALIZATION",
     "requirement": "validation share within 8 points of training",
-    "measured": 4.558,
+    "measured": 5.952,
     "passed": true
   },
   "sealed_holdout": {
-    "split_sha256": "720416ba4299015cbac76316fd6cae58eacdded0c234e640cc0e57f81d301c7b",
-    "opened_for_freeze_sha256": "9938db61a948da3aa4b3d6d6cfe066efe4b63ea2ae9b776c685cdb76cb3b87b6",
+    "split_sha256": "f8198bfa0fca0820e3ef1889054624f41d3ae66232baedc2f6563a0e15d61ad2",
+    "opened_for_freeze_sha256": "b311e9b4aa56925a9892f433a3a1a1f76021e409c910b3d3008b9daca5030928",
     "one_shot": true
   },
   "holdout": {
@@ -185,8 +185,8 @@
         "holdout-dense-10"
       ],
       "seeds": [
-        30000,
-        30001
+        32000,
+        32001
       ],
       "repetitions": 1,
       "decision_budget_ms": 250,
@@ -198,52 +198,52 @@
       "extras": []
     },
     "match_count": 48,
-    "score_share_percent": 65.385,
+    "score_share_percent": 67.647,
     "score_interval": {
-      "mean": 14.1667,
-      "lower": 12.5,
-      "upper": 15.8333,
+      "mean": 14.375,
+      "lower": 12.6042,
+      "upper": 15.9375,
       "samples": 48,
       "confidence": 0.95
     },
     "uplift_interval": {
-      "mean": 6.6667,
-      "lower": 3.75,
-      "upper": 9.5833,
+      "mean": 7.5,
+      "lower": 4.5833,
+      "upper": 10.0,
       "samples": 48,
       "confidence": 0.95
     },
     "police_capture_rate": 1.0,
-    "thief_survival_rate": 0.6667,
+    "thief_survival_rate": 0.75,
     "per_opponent_share": {
       "BL-ADV-BOUNDARY": 75.0,
       "BL-ADV-SWITCH": 75.0,
       "BL-PREV": 50.0,
-      "BL-REF": 65.385
+      "BL-REF": 75.0
     },
     "per_fixture_share": {
-      "holdout-bottom-index-7": 61.111,
+      "holdout-bottom-index-7": 67.647,
       "holdout-dense-10": 67.647,
       "holdout-origin-8": 67.647
     },
-    "worst_fixture_drop": 4.274,
-    "latency_p95_ms": 212.749,
-    "latency_max_ms": 281.245,
+    "worst_fixture_drop": 0.0,
+    "latency_p95_ms": 151.873,
+    "latency_max_ms": 166.432,
     "ratings": {
-      "BL-ADV-BOUNDARY": 1066.42,
-      "BL-ADV-SWITCH": 1066.42,
-      "BL-PREV": 1881.73,
-      "BL-REF": 1602.84,
-      "candidate-advanced": 1882.6
+      "BL-ADV-BOUNDARY": 1147.65,
+      "BL-ADV-SWITCH": 1147.65,
+      "BL-PREV": 2028.09,
+      "BL-REF": 1147.65,
+      "candidate-advanced": 2028.96
     },
     "reliability": {
       "matches": 48,
       "technical_or_tamper": 0,
       "invalid_actions": 0,
-      "deadline_misses": 1,
-      "fallbacks": 98,
-      "max_latency_ms": 281.245,
-      "passes": false
+      "deadline_misses": 0,
+      "fallbacks": 263,
+      "max_latency_ms": 166.432,
+      "passes": true
     }
   },
   "holdout_resources": {
@@ -254,8 +254,8 @@
       "python": "3.13.13",
       "implementation": "CPython"
     },
-    "wall_time_sec": 155.678,
-    "peak_rss_mb": 39.848,
+    "wall_time_sec": 155.547,
+    "peak_rss_mb": 39.953,
     "calls": 0,
     "payload_bytes": 0,
     "prompt_tokens": 0,
@@ -279,25 +279,25 @@
       {
         "gate_id": "R02-DEADLINE",
         "requirement": "zero decision deadline misses",
-        "measured": 1,
-        "passed": false
+        "measured": 0,
+        "passed": true
       },
       {
         "gate_id": "P01-LATENCY",
         "requirement": "p95 decision latency at or below 250 ms",
-        "measured": 212.749,
+        "measured": 151.873,
         "passed": true
       },
       {
         "gate_id": "S01-SHARE",
         "requirement": "official score share at or above 60 percent",
-        "measured": 65.385,
+        "measured": 67.647,
         "passed": true
       },
       {
         "gate_id": "S02-UPLIFT",
         "requirement": "paired point-uplift bootstrap interval excludes zero from above",
-        "measured": 3.75,
+        "measured": 4.583,
         "passed": true
       },
       {
@@ -309,13 +309,13 @@
       {
         "gate_id": "S03-THIEF",
         "requirement": "Thief survival rate at or above 70%",
-        "measured": 0.667,
-        "passed": false
+        "measured": 0.75,
+        "passed": true
       },
       {
         "gate_id": "S05-FIXTURE",
         "requirement": "worst fixture family within 15 points of aggregate",
-        "measured": 4.274,
+        "measured": 0.0,
         "passed": true
       },
       {
@@ -323,24 +323,15 @@
         "requirement": "no single-opponent specialization below an even split",
         "measured": 50.0,
         "passed": true
-      },
-      {
-        "gate_id": "S06-GENERALIZATION",
-        "requirement": "validation share within 8 points of training",
-        "measured": 6.633,
-        "passed": true
       }
     ],
-    "failures": [
-      "R02-DEADLINE",
-      "S03-THIEF"
-    ],
-    "passed": false
+    "failures": [],
+    "passed": true
   },
   "manifest": {
     "manifest_version": "1.0.0",
     "campaign_id": "m12-selection",
-    "commit_sha": "62ae9f433c61cd041e9e20709f7a6331af7f67bc",
+    "commit_sha": "9ad92647be615f7e0da765cb73b80f04cb92f165",
     "runtime": {
       "python": "3.13.13",
       "implementation": "CPython",
@@ -349,7 +340,7 @@
     },
     "split": {
       "split": "validation",
-      "version": "1.0.0",
+      "version": "1.2.0",
       "seeds": [
         20000,
         20001,
@@ -381,14 +372,14 @@
         "validation-long-9"
       ]
     },
-    "split_sha256": "371a72d2e8f8c1adda043dacaebc93de5f9c059df787db4c6e703d6f02b61263",
-    "candidate_freeze_sha256": "9938db61a948da3aa4b3d6d6cfe066efe4b63ea2ae9b776c685cdb76cb3b87b6",
+    "split_sha256": "f7d72a6c9296f055e11ebf4a4edf4ab43a5e4729b616af57b447819a20322f2d",
+    "candidate_freeze_sha256": "b311e9b4aa56925a9892f433a3a1a1f76021e409c910b3d3008b9daca5030928",
     "candidate": {
       "candidate_id": "candidate-advanced",
       "selection_split": "validation",
-      "selection_objective": 4.8333,
-      "trial_id": 10,
-      "strategy_profile_sha256": "c7dcd0d35698539fbc5d6bf795471685389a9e44314377e2b9122c026b883abd",
+      "selection_objective": 5.6667,
+      "trial_id": 10000,
+      "strategy_profile_sha256": "5186939cb36204da13b47414d04af30817ac5c94ab1a39db23fbbc74a77d6091",
       "strategy": {
         "police_class": "police_thief_p2p.services.strategy.police.AdvancedPoliceBrain",
         "thief_class": "police_thief_p2p.services.strategy.thief.AdvancedThiefBrain",
@@ -396,13 +387,13 @@
         "profile_version": "1.0.0",
         "seed": 7,
         "decision_budget_ms": 250,
-        "guard_margin_ms": 40,
-        "search_horizon": 2,
-        "posterior_samples": 13,
+        "guard_margin_ms": 110,
+        "search_horizon": 3,
+        "posterior_samples": 16,
         "cache_entries": 512,
         "near_tie_epsilon": 0.02,
         "opponent_decay": 0.9,
-        "police.capture": 889.1028656246492,
+        "police.capture": 700.0,
         "police.distance": 6.961160678295597,
         "police.escape": 2.0,
         "police.cut": 9.781430534131694,
@@ -411,16 +402,16 @@
         "police.budget": 1.5375236304803723,
         "police.risk": 0.3232323238342487,
         "police.cycle": 3.0,
-        "thief.survival": 1068.5378518333846,
-        "thief.risk_distance": 14.789313206348513,
-        "thief.space": 6.664407514134246,
-        "thief.routes": 26.547913106753906,
-        "thief.entropy": 4.7748599972213475,
+        "thief.survival": 1950.0,
+        "thief.risk_distance": 25.0,
+        "thief.space": 8.0,
+        "thief.routes": 30.0,
+        "thief.entropy": 5.0,
         "thief.traps": 100.0,
         "thief.scent": 9.792756690626282,
-        "thief.corner": 14.549118783312979,
+        "thief.corner": 22.0,
         "thief.cycle": 3.5885562161363587,
-        "thief.risk": 0.04610720992453969,
+        "thief.risk": 0.55,
         "hints.trust_threshold": 0.7277996765441939,
         "hints.max_consecutive_lies": 2,
         "hints.deceive_while_mobile": true,
@@ -439,53 +430,53 @@
       }
     },
     "metrics": {
-      "train_share_percent": 72.018,
+      "train_share_percent": 75.0,
       "validation": {
         "campaign_id": "m12-validation",
         "match_count": 60,
-        "score_share_percent": 67.46,
+        "score_share_percent": 69.048,
         "score_interval": {
-          "mean": 14.1667,
-          "lower": 12.8333,
-          "upper": 15.6667,
+          "mean": 14.5,
+          "lower": 13.1667,
+          "upper": 16.0,
           "samples": 60,
           "confidence": 0.95
         },
-        "police_capture_rate": 0.9667,
-        "thief_survival_rate": 0.7667,
-        "latency_p95_ms": 210.811,
+        "police_capture_rate": 1.0,
+        "thief_survival_rate": 0.8,
+        "latency_p95_ms": 149.39,
         "reliability": {
           "matches": 60,
           "technical_or_tamper": 0,
           "invalid_actions": 0,
           "deadline_misses": 0,
-          "fallbacks": 28,
-          "max_latency_ms": 236.088,
+          "fallbacks": 314,
+          "max_latency_ms": 179.246,
           "passes": true
         }
       },
       "holdout": {
         "campaign_id": "m12-holdout",
         "match_count": 48,
-        "score_share_percent": 65.385,
+        "score_share_percent": 67.647,
         "score_interval": {
-          "mean": 14.1667,
-          "lower": 12.5,
-          "upper": 15.8333,
+          "mean": 14.375,
+          "lower": 12.6042,
+          "upper": 15.9375,
           "samples": 48,
           "confidence": 0.95
         },
         "police_capture_rate": 1.0,
-        "thief_survival_rate": 0.6667,
-        "latency_p95_ms": 212.749,
+        "thief_survival_rate": 0.75,
+        "latency_p95_ms": 151.873,
         "reliability": {
           "matches": 48,
           "technical_or_tamper": 0,
           "invalid_actions": 0,
-          "deadline_misses": 1,
-          "fallbacks": 98,
-          "max_latency_ms": 281.245,
-          "passes": false
+          "deadline_misses": 0,
+          "fallbacks": 263,
+          "max_latency_ms": 166.432,
+          "passes": true
         }
       }
     },
@@ -497,8 +488,8 @@
         "python": "3.13.13",
         "implementation": "CPython"
       },
-      "wall_time_sec": 199.066,
-      "peak_rss_mb": 39.113,
+      "wall_time_sec": 217.404,
+      "peak_rss_mb": 39.043,
       "calls": 0,
       "payload_bytes": 0,
       "prompt_tokens": 0,
@@ -510,7 +501,7 @@
   "gates": {
     "validation_passed": true,
     "overfitting_passed": true,
-    "holdout_passed": false,
-    "result": "FAIL"
+    "holdout_passed": true,
+    "result": "PASS"
   }
 }
