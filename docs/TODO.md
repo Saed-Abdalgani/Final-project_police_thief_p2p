@@ -790,10 +790,10 @@ A checked task has:
 - [x] **T634 [P0]** Finalize license, credits, reused-code attribution, reference repository acknowledgement, and asset provenance.
 - [x] **T635 [P0]** Export the standalone Police repository deterministically from the frozen candidate state.
 - [x] **T636 [P0]** Export the standalone Thief repository deterministically from the same reviewed state without runtime linkage.
-- [ ] **T637 [P0]** Run full clean-clone install/test/headless/replay/release verification independently in both repositories.
+- [x] **T637 [P0]** Run full clean-clone install/test/headless/replay/release verification independently in both repositories.
 - [x] **T638 [P0]** Conduct final UI accessibility and screenshot review at common scaling settings.
 - [x] **T639 [P0]** Commit every played per-match config and exact evidence manifest to the relevant repositories without secrets.
-- [ ] **T640 [P0]** Create and push annotated `v1.0-submission` tags pointing to verified clean commits in both repositories.
+- [x] **T640 [P0]** Create and push annotated `v1.0-submission` tags pointing to verified clean commits in both repositories.
 - [ ] **T641 [P0]** Verify lecturer access to both repositories/tags and verify sibling links from an unauthenticated or invited-reviewer perspective.
 - [ ] **T642 [P0]** Fill the provided Moodle form without moving fields, export it to PDF, and visually compare layout to the template.
 - [x] **T643 [P0]** Prepare individual Moodle submission checklist for every team member with group ID and both repository links.
