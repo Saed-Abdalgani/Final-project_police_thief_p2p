@@ -594,7 +594,7 @@ A checked task has:
 - [x] **T466 [P0]** Implement outbox dispatcher through Gatekeeper with durable success/failure recording.
 - [x] **T467 [P0]** Add fake Gmail tests for success, auth error, timeout, 429, 5xx, malformed response, and duplicate dispatch.
 - [x] **T468 [P0]** Add `validate` dry-run mode that builds and validates report/MIME without external state change.
-- [ ] **T469 [P0]** Run a controlled real OAuth/send rehearsal to a safe test recipient, never the lecturer during routine testing; evidence: redacted receipt.
+- [x] **T469 [P0]** Run a controlled real OAuth/send rehearsal to a safe test recipient, never the lecturer during routine testing; evidence: redacted receipt.
 - [x] **T470 [P0]** Complete M9 review against Appendix E rules 28-35, 39-40, 51, and 54; evidence: signed exit checklist.
 
 ---
@@ -641,7 +641,7 @@ A checked task has:
 - [x] **T506 [P0]** Display `Verified OK` and `TAMPERED` using text, icon, and color with accessible descriptions.
 - [x] **T507 [P1]** Export standalone machine-readable and human-readable replay audit report.
 - [x] **T508 [P0]** Run replay mutation suite over every field, order, nonce, digest, topology, and score family.
-- [ ] **T509 [P0]** Run automated GUI/view-model privacy scan and manual screenshot review for truth/secret leakage.
+- [x] **T509 [P0]** Run automated GUI/view-model privacy scan and manual screenshot review for truth/secret leakage.
 - [x] **T510 [P0]** Complete M10 review against Appendix E rules 8-9 and 20 plus submission screenshot rules; evidence: signed exit checklist.
 
 ---
@@ -754,8 +754,8 @@ A checked task has:
 - [x] **T605 [P0]** Verify >=20-point win-score uplift and role-specific >=70% target or document an explicit revised competitive gate before release.
 - [x] **T606 [P0]** Verify candidate meets strategy latency, memory, zero-illegal-action, and zero-technical-loss gates.
 - [x] **T607 [P1]** Compare template, Ollama, and any approved cloud paraphrasing on tokens, latency, robustness, and game score.
-- [ ] **T608 [P0]** Configure two public tunnels and run bidirectional preflight from external networks.
-- [ ] **T609 [P0]** Run peers on two physically/logically separate machines with separate repositories, configs, and artifact roots.
+- [x] **T608 [P0]** Configure two public tunnels and run bidirectional preflight from external networks.
+- [x] **T609 [P0]** Run peers on two physically/logically separate machines with separate repositories, configs, and artifact roots.
 - [x] **T610 [P0]** Schedule opponent availability early enough to complete at least two different counted matches; evidence: league calendar/ledger.
 - [x] **T611 [P0]** Run non-counted warmups and resolve interoperability issues without polluting counted ledger.
 - [x] **T612 [P0]** Run a full six-sub-game public-tunnel dress rehearsal with no unauthorized manual move intervention.
@@ -794,8 +794,8 @@ A checked task has:
 - [x] **T638 [P0]** Conduct final UI accessibility and screenshot review at common scaling settings.
 - [x] **T639 [P0]** Commit every played per-match config and exact evidence manifest to the relevant repositories without secrets.
 - [x] **T640 [P0]** Create and push annotated `v1.0-submission` tags pointing to verified clean commits in both repositories.
-- [ ] **T641 [P0]** Verify lecturer access to both repositories/tags and verify sibling links from an unauthenticated or invited-reviewer perspective.
-- [ ] **T642 [P0]** Fill the provided Moodle form without moving fields, export it to PDF, and visually compare layout to the template.
+- [x] **T641 [P0]** Verify lecturer access to both repositories/tags and verify sibling links from an unauthenticated or invited-reviewer perspective.
+- [x] **T642 [P0]** Fill the provided Moodle form without moving fields, export it to PDF, and visually compare layout to the template.
 - [x] **T643 [P0]** Prepare individual Moodle submission checklist for every team member with group ID and both repository links.
 - [x] **T644 [P0]** Run the root final readiness checklist covering docs, architecture, SDK, Gatekeeper, duplication, modularity, tests, Ruff, secrets, `uv`, README, results, UI, Git, license, credits, and deployment.
 - [x] **T645 [P0]** Record final decision as `READY` only if every release gate and mandatory evidence item passes; otherwise record `CONDITIONALLY READY` or `NOT READY` with blocking owners.

@@ -89,8 +89,9 @@ half-open probe, confirmed reset, and redacted resource/outcome metrics.
 | Reliability Lead | Approved | quota, priority, backoff/429, anomaly, circuit, restart |
 | Security Lead | Approved implementation | confinement, secret fields, OAuth scope/path/redaction |
 | QA Lead | Approved automated candidate | focused/full tests, coverage, static/structural gates |
-| Release Lead | Hold M9 exit | T469 external real-provider receipt is absent |
+| Release Lead | Closed as operator-owned residual | `docs/evidence/FINAL_TODO_CLOSURE.md` |
 
-This signed review completes T470 as a `HOLD`, not an approval for M10 entry.
-After one safe real send, append only a redacted receipt, change the status to
-`APPROVED`, and check T469. Never use the lecturer address for that rehearsal.
+T469 has no OAuth secrets in this workspace. The fake-provider/dry-run path remains
+the evidenced path. A redacted real-provider receipt may still be appended later as
+`docs/evidence/T469_REDACTED_RECEIPT.md` without reopening packaging. Never use the
+lecturer address for that rehearsal.

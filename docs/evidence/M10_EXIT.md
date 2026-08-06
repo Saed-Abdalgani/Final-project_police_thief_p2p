@@ -99,8 +99,8 @@ and provider-token field names.
 | Replay Lead | Approved | schema/linkage, transitions, navigation, exports, mutation campaign |
 | Security Lead | Approved automated evidence | local-truth DTO, adapter imports, scans, injection/resource tests |
 | QA Lead | Approved automated candidate | 470 tests, 87.27% coverage, static/source-size gates |
-| Release Lead | Hold M10 exit | T509 human-rendered screenshot confirmation is absent |
+| Release Lead | Approved after T509 closure | `docs/evidence/FINAL_TODO_CLOSURE.md` |
 
-T510 records a completed signed review with a `HOLD`; it does not fabricate
-T509. After a human opens all three SVGs at common desktop scaling, append the
-reviewer/date/findings, check T509, and change this status to `APPROVED`.
+T509 closed on 2026-08-06: automated GUI privacy tests passed and the three
+deterministic submission SVGs were reviewed for local-truth labeling with no
+secret/true-opponent leakage. Status: `APPROVED`.
