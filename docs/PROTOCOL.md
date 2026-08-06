@@ -1,9 +1,10 @@
 # Peer Protocol and Interoperability Contract
 
-**Contract version:** `0.6.0`
+**Contract version:** `0.7.0`
 **Schema family:** `0.2.0`
-**Status:** M4 tool inventory frozen; M5 audit and M6 scent evidence semantics frozen
-**Authority:** `docs/PRD.md`, mechanism PRDs, ADR-004/005/006/014
+**Package:** `0.11.0`
+**Status:** Tool names stable since M4; audit, scent, and reliability semantics frozen through M11; M12/M13 consume the same peer contract
+**Authority:** `docs/PRD.md`, mechanism PRDs, ADR-004/005/006/014, `docs/SCHEMAS.md`
 
 ## 1. Boundary and ownership
 

@@ -769,33 +769,33 @@ A checked task has:
 
 **Exit gate:** both standalone repositories are reproducible, cross-linked, secret-free, tagged, academically documented, and accompanied by the exact Moodle submission package and final `READY` audit.
 
-- [ ] **T616 [P0]** Complete README installation prerequisites and `uv sync` clean-clone instructions for both repositories.
-- [ ] **T617 [P0]** Complete README headless, GUI, replay, validation, tournament, and reporting usage commands.
-- [ ] **T618 [P0]** Complete README shared/private configuration guide, Appendix F status explanation, and safe secret setup.
-- [ ] **T619 [P0]** Add minimal localhost, public-tunnel, replay, and report-dry-run examples with expected outputs.
-- [ ] **T620 [P0]** Complete troubleshooting for ports, tunnels, negotiation mismatch, timeout, audit failure, Tk, OAuth, 429, and pending outbox.
-- [ ] **T621 [P0]** Write academic README section describing the chosen Dec-POMDP state, action, transition, reward, observation, and uncertainty model.
-- [ ] **T622 [P0]** Write academic README section on FastMCP orchestration dilemmas, state machine, Gatekeeper, retries, and failures.
-- [ ] **T623 [P0]** Write academic README section on belief, Police/Thief strategy, barriers, opponent model, hint policy, and LLM boundary.
-- [ ] **T624 [P0]** Add experiment methodology, learning/tuning curves where relevant, holdout results, efficiency, token, and cost analysis.
-- [ ] **T625 [P0]** Add required live belief-heatmap and replay `Verified OK` screenshots with captions and reproduction steps.
-- [ ] **T626 [P0]** Add reciprocal Police/Thief repository links to both READMEs and all four links to result JSON examples.
-- [ ] **T627 [P0]** Complete and review all seven per-mechanism PRDs against implemented behavior.
-- [ ] **T628 [P0]** Complete `docs/PROTOCOL.md` with tool schemas, sequences, idempotency, phases, errors, and conformance commands.
-- [ ] **T629 [P0]** Complete `docs/SCHEMAS.md` with four artifact schemas, canonicalization, versions, examples, and linkage.
-- [ ] **T630 [P0]** Complete `docs/OPERATIONS.md` with preflight, runbook, recovery, tunnel, report, incident, and rollback procedures.
-- [ ] **T631 [P0]** Finalize `docs/RESEARCH_REPORT.md`, results tables, sensitivity plots, visualizations, and cost analysis.
-- [ ] **T632 [P0]** Finalize `docs/SECURITY.md` with threat model, review findings, residual risks, secret rotation, and OAuth least privilege.
-- [ ] **T633 [P0]** Finalize changelog/version compatibility for package, protocol, schemas, config, strategy, and guidelines.
-- [ ] **T634 [P0]** Finalize license, credits, reused-code attribution, reference repository acknowledgement, and asset provenance.
-- [ ] **T635 [P0]** Export the standalone Police repository deterministically from the frozen candidate state.
-- [ ] **T636 [P0]** Export the standalone Thief repository deterministically from the same reviewed state without runtime linkage.
+- [x] **T616 [P0]** Complete README installation prerequisites and `uv sync` clean-clone instructions for both repositories.
+- [x] **T617 [P0]** Complete README headless, GUI, replay, validation, tournament, and reporting usage commands.
+- [x] **T618 [P0]** Complete README shared/private configuration guide, Appendix F status explanation, and safe secret setup.
+- [x] **T619 [P0]** Add minimal localhost, public-tunnel, replay, and report-dry-run examples with expected outputs.
+- [x] **T620 [P0]** Complete troubleshooting for ports, tunnels, negotiation mismatch, timeout, audit failure, Tk, OAuth, 429, and pending outbox.
+- [x] **T621 [P0]** Write academic README section describing the chosen Dec-POMDP state, action, transition, reward, observation, and uncertainty model.
+- [x] **T622 [P0]** Write academic README section on FastMCP orchestration dilemmas, state machine, Gatekeeper, retries, and failures.
+- [x] **T623 [P0]** Write academic README section on belief, Police/Thief strategy, barriers, opponent model, hint policy, and LLM boundary.
+- [x] **T624 [P0]** Add experiment methodology, learning/tuning curves where relevant, holdout results, efficiency, token, and cost analysis.
+- [x] **T625 [P0]** Add required live belief-heatmap and replay `Verified OK` screenshots with captions and reproduction steps.
+- [x] **T626 [P0]** Add reciprocal Police/Thief repository links to both READMEs and all four links to result JSON examples.
+- [x] **T627 [P0]** Complete and review all seven per-mechanism PRDs against implemented behavior.
+- [x] **T628 [P0]** Complete `docs/PROTOCOL.md` with tool schemas, sequences, idempotency, phases, errors, and conformance commands.
+- [x] **T629 [P0]** Complete `docs/SCHEMAS.md` with four artifact schemas, canonicalization, versions, examples, and linkage.
+- [x] **T630 [P0]** Complete `docs/OPERATIONS.md` with preflight, runbook, recovery, tunnel, report, incident, and rollback procedures.
+- [x] **T631 [P0]** Finalize `docs/RESEARCH_REPORT.md`, results tables, sensitivity plots, visualizations, and cost analysis.
+- [x] **T632 [P0]** Finalize `docs/SECURITY.md` with threat model, review findings, residual risks, secret rotation, and OAuth least privilege.
+- [x] **T633 [P0]** Finalize changelog/version compatibility for package, protocol, schemas, config, strategy, and guidelines.
+- [x] **T634 [P0]** Finalize license, credits, reused-code attribution, reference repository acknowledgement, and asset provenance.
+- [x] **T635 [P0]** Export the standalone Police repository deterministically from the frozen candidate state.
+- [x] **T636 [P0]** Export the standalone Thief repository deterministically from the same reviewed state without runtime linkage.
 - [ ] **T637 [P0]** Run full clean-clone install/test/headless/replay/release verification independently in both repositories.
-- [ ] **T638 [P0]** Conduct final UI accessibility and screenshot review at common scaling settings.
-- [ ] **T639 [P0]** Commit every played per-match config and exact evidence manifest to the relevant repositories without secrets.
+- [x] **T638 [P0]** Conduct final UI accessibility and screenshot review at common scaling settings.
+- [x] **T639 [P0]** Commit every played per-match config and exact evidence manifest to the relevant repositories without secrets.
 - [ ] **T640 [P0]** Create and push annotated `v1.0-submission` tags pointing to verified clean commits in both repositories.
 - [ ] **T641 [P0]** Verify lecturer access to both repositories/tags and verify sibling links from an unauthenticated or invited-reviewer perspective.
 - [ ] **T642 [P0]** Fill the provided Moodle form without moving fields, export it to PDF, and visually compare layout to the template.
-- [ ] **T643 [P0]** Prepare individual Moodle submission checklist for every team member with group ID and both repository links.
-- [ ] **T644 [P0]** Run the root final readiness checklist covering docs, architecture, SDK, Gatekeeper, duplication, modularity, tests, Ruff, secrets, `uv`, README, results, UI, Git, license, credits, and deployment.
-- [ ] **T645 [P0]** Record final decision as `READY` only if every release gate and mandatory evidence item passes; otherwise record `CONDITIONALLY READY` or `NOT READY` with blocking owners.
+- [x] **T643 [P0]** Prepare individual Moodle submission checklist for every team member with group ID and both repository links.
+- [x] **T644 [P0]** Run the root final readiness checklist covering docs, architecture, SDK, Gatekeeper, duplication, modularity, tests, Ruff, secrets, `uv`, README, results, UI, Git, license, credits, and deployment.
+- [x] **T645 [P0]** Record final decision as `READY` only if every release gate and mandatory evidence item passes; otherwise record `CONDITIONALLY READY` or `NOT READY` with blocking owners.

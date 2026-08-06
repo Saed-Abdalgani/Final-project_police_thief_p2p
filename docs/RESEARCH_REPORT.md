@@ -188,11 +188,20 @@ regression cases; they are deliberately not promoted into training or holdout.
 
 ## 7. Conclusions
 
-The conclusions the evidence supports, hypothesis by hypothesis, are recorded in
-the `gates` block of each campaign file and summarized in
-`docs/evidence/M12_EXIT.md`. Where a gate fails, the exit document names it as a
-failure and states the revised gate or the blocking work rather than restating the
-target as if it had been met.
+Measured against `docs/evidence/M12_EXIT.md` and the campaign JSON files:
+
+| Hypothesis | Outcome |
+|---|---|
+| H1 holdout uplift / share | Holdout share about `65.4%`; validation about `67.5%`. Competitive holdout promotion failed. |
+| H2 role success | Validation Police `96.7%` / Thief `76.7%` cleared `70%`. Holdout Thief survival `66.7%` failed `S03-THIEF`. |
+| H3 ablations | Studies campaign completed; every ablation remained reliable. |
+| H4 robustness | Degraded-observation robustness gate passed; adversarial reliability flag noted in studies evidence. |
+| H5 language default | Template remains default: zero tokens, deterministic, unsafe outputs rejected. |
+| H6 reliability | Holdout recorded one `R02-DEADLINE` miss, so the frozen candidate is not competitively promoted. |
+
+League rehearsal on two isolated peer roots over loopback passed mutual audits;
+external public-tunnel / second-machine verification remains outstanding
+(T608/T609).
 
 ## 8. Reproduction
 

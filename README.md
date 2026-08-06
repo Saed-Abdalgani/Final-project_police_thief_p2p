@@ -5,20 +5,20 @@ without a central game server or shared live state. Each peer owns only local tr
 uses SHA-256 Commit-Reveal for later audit, and exposes all business capabilities
 through a typed `SimulationSdk`.
 
-Status: M11 release-candidate quality, security, chaos, and performance gates pass. Strict
-configuration, local-only physics, FastMCP negotiation, sealed mutual audit,
-exact scent/belief tracking, deadline-safe Police/Thief planning, safe language,
-formal lifecycle orchestration, recovery, Watchdog, and bounded reliability
-controls are complete. Linked immutable artifacts, exact score/token reporting,
-durable idempotent Gmail outbox, send-only OAuth, and the full per-service
-Gatekeeper are implemented; the controlled real Gmail rehearsal remains an
-operator-owned release action.
+Status: package `0.11.0`. M11 quality/security gates and M12 experiment campaigns
+are complete. M12 holdout promotion is **conditional** (one deadline miss;
+Thief survival below 70%), and external public-tunnel verification remains open.
+M13 packages two standalone role repositories with reciprocal links.
 
-The measured campaign covers all 314 normative requirements/rules/parameters,
-1,000 continuous six-game series, adversarial and crash matrices, locked
-dependency/license/history/archive audits, mutation suites, and repeatable
-performance budgets. See [`docs/evidence/M11_EXIT.md`](docs/evidence/M11_EXIT.md)
-and [`docs/TESTING.md`](docs/TESTING.md).
+Sibling submission repositories:
+
+- Police: https://github.com/JCS1029/GRP00001-police-p2p
+- Thief: https://github.com/JCS1029/GRP00001-thief-p2p
+
+Evidence: [`docs/evidence/M11_EXIT.md`](docs/evidence/M11_EXIT.md),
+[`docs/evidence/M12_EXIT.md`](docs/evidence/M12_EXIT.md),
+[`docs/evidence/M13_EXIT.md`](docs/evidence/M13_EXIT.md),
+[`docs/TESTING.md`](docs/TESTING.md).
 
 ## Requirements
 
@@ -32,7 +32,7 @@ Do not install dependencies with `pip`, `venv`, `virtualenv`, or `python -m`.
 ## Installation
 
 ```text
-git clone <repository-url>
+git clone https://github.com/Saed-Abdalgani/Final-project_police_thief_p2p.git
 cd Final-project_police_thief_p2p
 uv python install 3.13
 uv sync --frozen --all-groups
@@ -77,6 +77,24 @@ Run the two-process A-first/B-first interoperability campaign:
 
 ```text
 uv run pytest tests/integration/test_dual_process_mcp.py -q
+```
+
+Run an offline tournament (never touch holdout without `--allow-holdout`):
+
+```text
+uv run python -m scripts.run_tournament --split validation --campaign-id demo
+```
+
+Launch the optional Tk live GUI when a display is available:
+
+```text
+uv run python -m police_thief_p2p.adapters.gui.live_app
+```
+
+Headless screenshot evidence remains the submission default:
+
+```text
+uv run python scripts/generate_m10_screenshots.py
 ```
 
 ## Configuration
@@ -207,6 +225,48 @@ The complete test strategy, markers, and clean-clone sequence are in
 [`docs/PLAN.md`](docs/PLAN.md), [`docs/DECISIONS.md`](docs/DECISIONS.md), and
 [`docs/SECURITY.md`](docs/SECURITY.md).
 
+## Academic model
+
+### Dec-POMDP view
+
+Each peer is a Dec-POMDP agent. The local state is own position, public barriers,
+remaining barrier budget, step index, and terminal flags. Actions are the legal
+move/stay set plus optional barrier placement. Transitions are the deterministic
+shared engine. Rewards are the official fixed scoring rules, not a private
+shaping signal. Observations are delayed/lossy scent frames and natural-language
+hints. Uncertainty is a belief distribution over the opponent cell with learned
+hint reliability; live objective opponent truth is forbidden.
+
+### FastMCP orchestration
+
+Peers negotiate and play only through versioned FastMCP tools. A typed state
+machine owns phases; at-least-once delivery with exactly-once effects is enforced
+by idempotent message IDs. Every outbound dependency call (MCP, language, email,
+tunnel health) passes the Gatekeeper for timeouts, retries, 429/backoff, and
+circuit breaking. Failures are typed and fail closed.
+
+### Belief, strategy, and language boundary
+
+Belief fuses motion mixtures with scent likelihoods and capped hint evidence.
+Police search combines capture, distance, cut, information, and risk terms;
+Thief search combines survival, routes, space, scent leakage, and risk. Barriers
+are graph cuts under the shared quota. Hints follow a private honesty cadence;
+optional LLM paraphrasing is Gatekeeper-bound and always degrades to the
+deterministic template. See [`docs/STRATEGY.md`](docs/STRATEGY.md).
+
+### Experiments
+
+Methodology and holdout procedure are in
+[`docs/RESEARCH_REPORT.md`](docs/RESEARCH_REPORT.md). Machine-readable results:
+
+- [`results/benchmarks/m12_tuning.json`](results/benchmarks/m12_tuning.json)
+- [`results/benchmarks/m12_selection.json`](results/benchmarks/m12_selection.json)
+- [`results/benchmarks/m12_language.json`](results/benchmarks/m12_language.json)
+- [`results/benchmarks/m12_league_rehearsal.json`](results/benchmarks/m12_league_rehearsal.json)
+
+Holdout score share was about `65.4%` with failures `R02-DEADLINE` and
+`S03-THIEF`; validation and overfitting gates passed.
+
 ## Troubleshooting
 
 - **Wrong Python selected:** run `uv python install 3.13` and `uv sync --reinstall`.
@@ -216,11 +276,20 @@ The complete test strategy, markers, and clean-clone sequence are in
   and inspect the returned missing path.
 - **Peer does not become ready:** verify the configured port is free and call
   `health_v1` at the streamable-HTTP `/mcp` endpoint; startup retries are bounded.
+- **Tunnel preflight fails:** confirm `health_url` matches the public/streamable
+  endpoint, reject query-bearing tunnel URLs, and re-run bidirectional probes.
 - **Negotiation is refused:** compare exact shared-file bytes first, then
   `config_sha256`, scent digest/vector, protocol/schema, group IDs, commits, URLs,
   counted ledger, game UUID, and role schedule in that order.
 - **Sequence/conflict error:** retry the exact original envelope and message ID;
   never construct new bytes for an uncertain mutation.
+- **Audit / mutual agree fails:** preserve both artifact roots; compare manifest
+  digests and audit reports; do not reseal evidence.
+- **OAuth / Gmail:** use send-only scopes from `.env-example`; never commit token
+  files. A pending outbox item retries under Gatekeeper limits until accepted or
+  permanently failed.
+- **HTTP 429:** wait at least configured backoff and any `Retry-After`; do not
+  open a parallel client that bypasses the Gatekeeper.
 - **Secret scanner flags a value:** remove/rotate the value. Do not suppress a real
   credential in a baseline.
 - **Tk unavailable:** headless operation remains the required functional path.

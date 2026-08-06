@@ -6,6 +6,9 @@ All notable project changes are documented here. The project follows semantic ve
 
 ### Added
 
+- Deterministic Police/Thief role exports (`scripts/export_role_repo.py`),
+  release manifests, sibling repositories, schema catalog, and M13 submission
+  checklist with a CONDITIONALLY READY exit record.
 - Offline experiment arena that plays paired role-swapped sub-games through the
   real domain engine, belief service, scent emission, and strategy guard, with
   deterministic observation delay and scent dropout.

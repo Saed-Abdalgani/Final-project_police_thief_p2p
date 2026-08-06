@@ -1,0 +1,38 @@
+{
+  "manifest_version": "1.0.0",
+  "description": "Files shared by both role exports from one frozen canonical commit.",
+  "include": [
+    ".env-example",
+    ".gitattributes",
+    ".github/",
+    ".gitignore",
+    ".pre-commit-config.yaml",
+    ".python-version",
+    "CHANGELOG.md",
+    "CREDITS.md",
+    "LICENSE",
+    "assets/",
+    "config/",
+    "data/",
+    "docs/",
+    "notebooks/",
+    "pyproject.toml",
+    "results/benchmarks/",
+    "results/.gitkeep",
+    "results/evidence/.gitkeep",
+    "scripts/",
+    "src/",
+    "tests/",
+    "uv.lock"
+  ],
+  "exclude": [
+    "results/rehearsal/",
+    "results/tournaments/",
+    "**/__pycache__/",
+    "**/.mypy_cache/",
+    "**/.ruff_cache/",
+    "**/*.pyc",
+    ".venv/",
+    "release/exports/"
+  ]
+}

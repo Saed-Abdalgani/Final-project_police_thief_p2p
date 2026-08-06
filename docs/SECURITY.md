@@ -151,3 +151,13 @@ audit. The frozen dependency audit reports zero known vulnerabilities; all 98
 locked package licenses are compatible after explicit primary-source review of
 platform-only metadata. The cryptographic design review records no open P0/P1
 finding.
+
+## M13 residual risks
+
+- Role exports must regenerate from the canonical commit after any patch; drift
+  between sibling repositories is a release defect, not a local hotfix.
+- The M12 holdout recorded one decision deadline miss and a Thief survival rate
+  below `70%`; competitive promotion remains blocked until a new freeze and
+  holdout version clear those gates.
+- Lecturer access, Moodle form PDF layout, and public-tunnel verification are
+  EXTERNAL checks and are not implied by a green CI run.

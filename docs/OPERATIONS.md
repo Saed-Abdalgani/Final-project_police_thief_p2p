@@ -144,3 +144,17 @@ backoff and provider `Retry-After`. Circuits move from open to one half-open pro
 after cooldown. Manual circuit/anomaly or session-quota reset requires explicit
 operator confirmation. Inspect only redacted metrics: tokens, quotas, queue
 depth, concurrency, retries, rejections, and circuit state.
+
+## Role-repository export
+
+Export both standalone peers from one frozen canonical commit:
+
+```text
+uv run python -m scripts.export_role_repo both
+uv run python -m scripts.verify_release release/exports/GRP00001-police-p2p release/exports/GRP00001-thief-p2p
+```
+
+Manifests live under `release/export_manifests/`. Generated trees under
+`release/exports/` are not committed. After verification, push each export to its
+sibling GitHub repository and annotate `v1.0-submission` only on a clean verified
+commit.

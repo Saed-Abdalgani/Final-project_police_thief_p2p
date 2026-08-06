@@ -1,0 +1,10 @@
+{
+  "manifest_version": "1.0.0",
+  "role": "thief",
+  "package_name": "grp00001-thief-p2p",
+  "repository": "https://github.com/JCS1029/GRP00001-thief-p2p",
+  "sibling_repository": "https://github.com/JCS1029/GRP00001-police-p2p",
+  "default_group_id": "GRP00002",
+  "default_role": "thief",
+  "inherits": "common.json"
+}

@@ -76,3 +76,7 @@ Desktop.ini
 # Local tooling reports
 .secrets.baseline.local
 foundation-clean-clone/
+
+# Generated role exports
+release/exports/
+
