@@ -1,28 +1,27 @@
 {
   "schema_version": "1.0.0",
-  "commit_sha": "62ae9f433c61cd041e9e20709f7a6331af7f67bc",
+  "commit_sha": "432b3d1b7cf69fd2ba9a64438e5707d9c96b73fa",
   "procedure": {
     "peer_roots": {
       "alpha": {
         "root_leaf": "peer-alpha",
         "group_id": "GRP00001",
-        "endpoint": "http://127.0.0.1:60807/mcp",
+        "endpoint": "http://127.0.0.1:52884/mcp",
         "artifact_root_leaf": "peer-alpha/artifacts",
-        "process_id": 8004
+        "process_id": 17220
       },
       "beta": {
         "root_leaf": "peer-beta",
         "group_id": "GRP00002",
-        "endpoint": "http://127.0.0.1:60808/mcp",
+        "endpoint": "http://127.0.0.1:52885/mcp",
         "artifact_root_leaf": "peer-beta/artifacts",
-        "process_id": 17692
+        "process_id": 16324
       }
     },
-    "root_location": "a fresh operating-system temporary directory outside the repository, so peer state is never shared with the workspace or a previous rehearsal",
-    "separation": "Each peer owns a distinct repository-style root with its own configuration, artifact root, cache, and temporary directories, and runs as its own operating system process with an independent port.",
+    "separation": "Each peer owns a distinct repository-style root with its own configuration, artifact root, cache, and temporary directories, and runs as its own operating system process with an independent port. Both roots live in a fresh operating-system temporary directory outside the repository, so peer state is never shared with the workspace or with a previous rehearsal.",
     "transport": "streamable HTTP MCP over the configured tunnel health endpoints",
     "manual_intervention": "none; every move came from the frozen strategy pipeline",
-    "wall_time_sec": 28.511
+    "wall_time_sec": 50.869
   },
   "resources": {
     "host": {
@@ -32,8 +31,8 @@
       "python": "3.13.13",
       "implementation": "CPython"
     },
-    "wall_time_sec": 28.511,
-    "peak_rss_mb": 107.812,
+    "wall_time_sec": 50.869,
+    "peak_rss_mb": 106.824,
     "calls": 8,
     "payload_bytes": 3832,
     "prompt_tokens": 0,
@@ -45,11 +44,11 @@
     "configured_health_url": "http://127.0.0.1:8000/health",
     "probes": {
       "alpha": {
-        "endpoint": "http://127.0.0.1:60807/mcp",
+        "endpoint": "http://127.0.0.1:52884/mcp",
         "healthy": true
       },
       "beta": {
-        "endpoint": "http://127.0.0.1:60808/mcp",
+        "endpoint": "http://127.0.0.1:52885/mcp",
         "healthy": true
       }
     },

@@ -1,0 +1,68 @@
+# Private Thief peer for desktop↔laptop playtest. Copy to thief.playtest.toml and edit URLs.
+[identity]
+group_id = "GRP00002"
+role = "thief"
+member_names = ["Laptop Operator"]
+
+[network]
+listen_host = "127.0.0.1"
+listen_port = 8000
+# After the desktop tunnel is up, replace with its public HTTPS MCP URL:
+opponent_public_url = "https://REPLACE-POLICE-TUNNEL.example/mcp"
+max_request_bytes = 65536
+max_json_depth = 16
+max_string_length = 4096
+max_collection_items = 256
+reorder_window = 8
+
+[paths]
+artifact_root = "results/playtest-thief"
+
+[strategy]
+police_class = "police_thief_p2p.services.strategy.police.AdvancedPoliceBrain"
+thief_class = "police_thief_p2p.services.strategy.thief.AdvancedThiefBrain"
+profile = "playtest"
+profile_version = "1.0.0"
+seed = 11
+decision_budget_ms = 250
+guard_margin_ms = 110
+search_horizon = 3
+posterior_samples = 16
+cache_entries = 512
+
+[language]
+provider = "template"
+model = "deterministic-template"
+deadline_sec = 10
+
+[email]
+credential_path = "credentials.json"
+token_path = "token.json"
+sender = "your-account@gmail.com"
+recipient_allowlist = ["rmisegal+uoh26finalgame@gmail.com"]
+
+[gui]
+enabled = true
+theme = "system"
+
+[tunnel]
+provider = "cloudflare"
+# After this machine's tunnel is up, replace with its public HTTPS MCP URL:
+health_url = "https://REPLACE-THIEF-TUNNEL.example/mcp"
+
+[observability]
+level = "INFO"
+
+[reliability]
+negotiation_timeout_sec = 60
+acknowledgement_timeout_sec = 30
+reveal_timeout_sec = 30
+strategy_timeout_sec = 1
+audit_timeout_sec = 120
+reporting_timeout_sec = 120
+max_attempts = 4
+max_backoff_ms = 2000
+gameplay_queue_capacity = 128
+optional_queue_capacity = 32
+circuit_failure_threshold = 3
+circuit_cooldown_sec = 10
