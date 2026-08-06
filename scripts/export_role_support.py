@@ -68,14 +68,10 @@ def specialize_private_config(destination: Path, *, group_id: str, role: str) ->
     path.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
 
 
-def specialize_pyproject(destination: Path, *, repository: str, package_name: str) -> None:
-    """Point package metadata at the exported repository rather than the canonical tree."""
+def specialize_pyproject(destination: Path, *, repository: str) -> None:
+    """Point package URLs at the exported repository without renaming the installable module."""
     path = destination / "pyproject.toml"
     text = path.read_text(encoding="utf-8")
-    text = text.replace(
-        'name = "police-thief-p2p"',
-        f'name = "{package_name}"',
-    )
     text = text.replace(
         "https://github.com/Saed-Abdalgani/Final-project_police_thief_p2p/tree/main/docs",
         f"{repository}/tree/main/docs",

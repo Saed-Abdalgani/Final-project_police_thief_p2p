@@ -59,11 +59,7 @@ def export_role(role: str, destination: Path | None = None) -> Path:
         group_id=str(manifest["default_group_id"]),
         role=str(manifest["default_role"]),
     )
-    specialize_pyproject(
-        target,
-        repository=str(manifest["repository"]),
-        package_name=str(manifest["package_name"]),
-    )
+    specialize_pyproject(target, repository=str(manifest["repository"]))
     record = {
         "role": role,
         "canonical_commit": sha,
