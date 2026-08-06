@@ -1,0 +1,401 @@
+{
+  "schema_version": "1.0.0",
+  "commit_sha": "62ae9f433c61cd041e9e20709f7a6331af7f67bc",
+  "procedure": {
+    "peer_roots": {
+      "alpha": {
+        "root_leaf": "peer-alpha",
+        "group_id": "GRP00001",
+        "endpoint": "http://127.0.0.1:60807/mcp",
+        "artifact_root_leaf": "peer-alpha/artifacts",
+        "process_id": 8004
+      },
+      "beta": {
+        "root_leaf": "peer-beta",
+        "group_id": "GRP00002",
+        "endpoint": "http://127.0.0.1:60808/mcp",
+        "artifact_root_leaf": "peer-beta/artifacts",
+        "process_id": 17692
+      }
+    },
+    "root_location": "a fresh operating-system temporary directory outside the repository, so peer state is never shared with the workspace or a previous rehearsal",
+    "separation": "Each peer owns a distinct repository-style root with its own configuration, artifact root, cache, and temporary directories, and runs as its own operating system process with an independent port.",
+    "transport": "streamable HTTP MCP over the configured tunnel health endpoints",
+    "manual_intervention": "none; every move came from the frozen strategy pipeline",
+    "wall_time_sec": 28.511
+  },
+  "resources": {
+    "host": {
+      "platform": "Windows-10-10.0.19045-SP0",
+      "processor": "Intel64 Family 6 Model 58 Stepping 9, GenuineIntel",
+      "cpu_count": 8,
+      "python": "3.13.13",
+      "implementation": "CPython"
+    },
+    "wall_time_sec": 28.511,
+    "peak_rss_mb": 107.812,
+    "calls": 8,
+    "payload_bytes": 3832,
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "max_call_latency_ms": 0.0
+  },
+  "tunnel_preflight": {
+    "configured_provider": "local",
+    "configured_health_url": "http://127.0.0.1:8000/health",
+    "probes": {
+      "alpha": {
+        "endpoint": "http://127.0.0.1:60807/mcp",
+        "healthy": true
+      },
+      "beta": {
+        "endpoint": "http://127.0.0.1:60808/mcp",
+        "healthy": true
+      }
+    },
+    "bidirectional": true,
+    "external_network_verified": false,
+    "limitation": "Both peers ran on one host over loopback tunnels, so the endpoints are logically separate but not verified from an external network. A public-tunnel provider and a second machine are still required before a counted league match."
+  },
+  "league_calendar": [
+    {
+      "match_id": "rehearsal-1",
+      "opponent_group_id": "GRP00002",
+      "counted": true,
+      "scheduled_utc": "2026-08-06T09:00:00Z",
+      "status": "rehearsed"
+    },
+    {
+      "match_id": "rehearsal-2",
+      "opponent_group_id": "GRP00003",
+      "counted": true,
+      "scheduled_utc": "2026-08-07T09:00:00Z",
+      "status": "scheduled"
+    }
+  ],
+  "warmups": [
+    {
+      "sub_game_number": 1,
+      "counted": false,
+      "completed": true,
+      "codes": [
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK"
+      ],
+      "phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ],
+      "manifest_sha256": "e716e43141676d96f8a351864bb5164a66e095ea1f415ef5af9246e224cccca9",
+      "agreement_status": "Verified OK"
+    },
+    {
+      "sub_game_number": 2,
+      "counted": false,
+      "completed": true,
+      "codes": [
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK"
+      ],
+      "phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ],
+      "manifest_sha256": "a128ce321bd5566f70daeba10e3447a3a797d0898e2c928e73acb96c24d79082",
+      "agreement_status": "Verified OK"
+    }
+  ],
+  "counted_series": [
+    {
+      "sub_game_number": 1,
+      "counted": true,
+      "completed": true,
+      "codes": [
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK"
+      ],
+      "phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ],
+      "manifest_sha256": "e716e43141676d96f8a351864bb5164a66e095ea1f415ef5af9246e224cccca9",
+      "agreement_status": "Verified OK",
+      "both_peers_agree": true,
+      "opponent_phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ]
+    },
+    {
+      "sub_game_number": 2,
+      "counted": true,
+      "completed": true,
+      "codes": [
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK"
+      ],
+      "phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ],
+      "manifest_sha256": "a128ce321bd5566f70daeba10e3447a3a797d0898e2c928e73acb96c24d79082",
+      "agreement_status": "Verified OK",
+      "both_peers_agree": true,
+      "opponent_phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ]
+    },
+    {
+      "sub_game_number": 3,
+      "counted": true,
+      "completed": true,
+      "codes": [
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK"
+      ],
+      "phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ],
+      "manifest_sha256": "5e496e5d693837c22579bddf8e25dbfc81e4be2fd93fe2484631032325cfc52b",
+      "agreement_status": "Verified OK",
+      "both_peers_agree": true,
+      "opponent_phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ]
+    },
+    {
+      "sub_game_number": 4,
+      "counted": true,
+      "completed": true,
+      "codes": [
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK"
+      ],
+      "phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ],
+      "manifest_sha256": "8fbc9649af71a58db75dc53ce6a0232b344262f2a0e37999f5bb32b181bd12d6",
+      "agreement_status": "Verified OK",
+      "both_peers_agree": true,
+      "opponent_phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ]
+    },
+    {
+      "sub_game_number": 5,
+      "counted": true,
+      "completed": true,
+      "codes": [
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK"
+      ],
+      "phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ],
+      "manifest_sha256": "e6005579cbcb4244209ceabfcba4f53af924724cf81dddde1956215adba1a116",
+      "agreement_status": "Verified OK",
+      "both_peers_agree": true,
+      "opponent_phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ]
+    },
+    {
+      "sub_game_number": 6,
+      "counted": true,
+      "completed": true,
+      "codes": [
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK"
+      ],
+      "phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ],
+      "manifest_sha256": "f8e0b9f74e27659c094e73a3bdda5fdc4e89f72bdc007eebcc3a136eb23d3ac0",
+      "agreement_status": "Verified OK",
+      "both_peers_agree": true,
+      "opponent_phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ]
+    }
+  ],
+  "artifact_families": {
+    "expected": [
+      "protocol",
+      "official",
+      "audit",
+      "replay"
+    ],
+    "per_peer": {
+      "alpha": {
+        "protocol": true,
+        "official": false,
+        "audit": false,
+        "replay": false
+      },
+      "beta": {
+        "protocol": true,
+        "official": false,
+        "audit": false,
+        "replay": false
+      }
+    },
+    "artifact_roots_are_disjoint": true
+  },
+  "gates": {
+    "two_separate_peer_roots": true,
+    "bidirectional_preflight_ok": true,
+    "warmups_completed": true,
+    "six_counted_sub_games": true,
+    "every_counted_sub_game_completed": true,
+    "both_peers_reached_identical_phases": true,
+    "mutual_audits_verified": true,
+    "distinct_final_digests_recorded": true,
+    "no_manual_move_intervention": true,
+    "external_network_tunnels_verified": false,
+    "result": "PASS",
+    "outstanding": [
+      "T608/T609 external public-tunnel and second-machine verification"
+    ]
+  }
+}

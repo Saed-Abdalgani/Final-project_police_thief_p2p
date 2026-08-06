@@ -11,6 +11,7 @@ from police_thief_p2p.services.strategy.contracts import (
     HintVerdict,
     SemanticRegion,
 )
+from police_thief_p2p.shared.strategy_config import HintPolicyConfig
 
 _WORDS = re.compile(r"[^\W\d_]+(?:['-][^\W\d_]+)?", re.UNICODE)
 _NUMBER_OR_COORDINATE = re.compile(
@@ -36,6 +37,17 @@ _PHRASES = {
     SemanticRegion.CORNER: "near a secluded corner",
     SemanticRegion.NEUTRAL: "somewhere among the open paths",
 }
+_ALTERNATE_PHRASES = {
+    SemanticRegion.NORTH: "beside the cold northern rooftops",
+    SemanticRegion.SOUTH: "along the slow southern lanes",
+    SemanticRegion.EAST: "past the eastern market stalls",
+    SemanticRegion.WEST: "behind the western workshops",
+    SemanticRegion.CENTER: "between the crowded inner squares",
+    SemanticRegion.EDGE: "against the far perimeter wall",
+    SemanticRegion.CORNER: "tucked into a quiet corner nook",
+    SemanticRegion.NEUTRAL: "wandering the ordinary side streets",
+}
+_VARIANTS = (_PHRASES, _ALTERNATE_PHRASES)
 
 
 def semantic_region(position: Position, size: int) -> SemanticRegion:
@@ -58,6 +70,20 @@ def semantic_region(position: Position, size: int) -> SemanticRegion:
     return SemanticRegion.CENTER
 
 
+def configured_policy(config: HintPolicyConfig) -> "HintIntentPolicy":
+    """Build the deception schedule declared by private strategy config."""
+    return HintIntentPolicy(
+        trust_threshold=config.trust_threshold,
+        max_consecutive_lies=config.max_consecutive_lies,
+        deceive_while_mobile=config.deceive_while_mobile,
+    )
+
+
+def opposite_region(region: SemanticRegion) -> SemanticRegion:
+    """Return the plausible contradictory region used by deceptive hints."""
+    return _OPPOSITE[region]
+
+
 def count_words(text: str) -> int:
     """Count Unicode letter words; punctuation and emoji are not words."""
     return len(_WORDS.findall(unicodedata.normalize("NFC", text)))
@@ -76,11 +102,13 @@ def cap_words(text: str, maximum: int) -> str:
     return normalized[: matches[maximum - 1].end()].rstrip(" ,;:-")
 
 
-def realize_hint(intent: HintIntent, map_area: str, maximum: int) -> str:
+def realize_hint(intent: HintIntent, map_area: str, maximum: int, variant: int = 0) -> str:
     """Render a deterministic map-aware template and enforce the final cap."""
+    if not 0 <= variant < len(_VARIANTS):
+        raise ValueError("hint template variant is outside the declared range")
     area_words = _WORDS.findall(map_area)
     prefix = f"Around {' '.join(area_words[:4])}, " if area_words else ""
-    hint = f"{prefix}I am {_PHRASES[intent.region]}."
+    hint = f"{prefix}I am {_VARIANTS[variant][intent.region]}."
     if _NUMBER_OR_COORDINATE.search(hint):
         raise ValueError("hint templates cannot encode coordinates")
     return cap_words(hint, maximum)
@@ -89,6 +117,15 @@ def realize_hint(intent: HintIntent, map_area: str, maximum: int) -> str:
 @dataclass(frozen=True, slots=True)
 class HintIntentPolicy:
     """Schedule plausible deception from trust, safety mode, and prior verdicts."""
+
+    trust_threshold: float = 0.55
+    max_consecutive_lies: int = 2
+    deceive_while_mobile: bool = True
+
+    def __post_init__(self) -> None:
+        """Validate bounded deception cadence parameters."""
+        if not 0.0 <= self.trust_threshold <= 1.0 or not 1 <= self.max_consecutive_lies <= 8:
+            raise ValueError("hint intent policy bounds are invalid")
 
     def choose(
         self,
@@ -101,11 +138,14 @@ class HintIntentPolicy:
     ) -> HintIntent:
         """Choose truth/lie separately from movement and surface wording."""
         truthful = semantic_region(position, size)
-        repeated_lies = len(prior_verdicts) >= 2 and all(
-            verdict is HintVerdict.LIE for verdict in prior_verdicts[-2:]
+        window = prior_verdicts[-self.max_consecutive_lies :]
+        repeated_lies = len(window) >= self.max_consecutive_lies and all(
+            verdict is HintVerdict.LIE for verdict in window
         )
-        safe_to_deceive = mode in {BehaviorMode.DECEPTION, BehaviorMode.MOBILITY}
-        lie = trust >= 0.55 and safe_to_deceive and not repeated_lies
+        permitted = {BehaviorMode.DECEPTION}
+        if self.deceive_while_mobile:
+            permitted.add(BehaviorMode.MOBILITY)
+        lie = trust >= self.trust_threshold and mode in permitted and not repeated_lies
         if lie:
             return HintIntent(HintVerdict.LIE, _OPPOSITE[truthful])
         return HintIntent(HintVerdict.TRUTH, truthful)

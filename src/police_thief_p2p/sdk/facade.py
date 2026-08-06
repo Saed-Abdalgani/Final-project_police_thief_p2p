@@ -11,6 +11,7 @@ from police_thief_p2p.sdk.live_facade import LiveViewFacade
 from police_thief_p2p.sdk.orchestration_facade import OrchestrationFacade
 from police_thief_p2p.sdk.replay_facade import ReplayFacade
 from police_thief_p2p.sdk.reporting_facade import ArtifactReportingFacade
+from police_thief_p2p.sdk.simulation_facade import SimulationFacade
 from police_thief_p2p.sdk.strategy_facade import StrategyFacade
 from police_thief_p2p.shared.schema_catalog import contracts_are_compatible
 from police_thief_p2p.shared.version import (
@@ -41,6 +42,7 @@ class SimulationSdk(
     ArtifactReportingFacade,
     LiveViewFacade,
     ReplayFacade,
+    SimulationFacade,
 ):
     """Expose typed product use cases without leaking service implementations."""
 

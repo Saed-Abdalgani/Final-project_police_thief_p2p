@@ -717,51 +717,51 @@ A checked task has:
 
 **Exit gate:** a frozen policy wins materially over baseline on untouched role-swapped holdout fixtures and completes a six-sub-game series between separate machines over public tunnels with verified artifacts and reports.
 
-- [ ] **T571 [P1]** Create `docs/RESEARCH_REPORT.md` structure for hypotheses, methods, hardware, costs, results, limitations, and conclusions.
-- [ ] **T572 [P1]** Define versioned tournament specification for board/config families, opponents, seeds, repetitions, metrics, and resource limits.
-- [ ] **T573 [P1]** Implement a clean reference-greedy baseline matching documented argmax-Manhattan/random-barrier behavior without importing reference runtime code.
-- [ ] **T574 [P1]** Implement seeded random-legal Police and Thief baselines.
-- [ ] **T575 [P1]** Implement shortest-path Police and maximum-distance Thief scripted baselines.
-- [ ] **T576 [P1]** Implement corner-hugging and boundary-following Thief adversaries.
-- [ ] **T577 [P1]** Implement cycle/oscillation and sudden-strategy-switch Thief adversaries.
-- [ ] **T578 [P1]** Implement aggressive/random-barrier Police adversary.
-- [ ] **T579 [P1]** Implement deterministic graph-cut/corridor Police adversary distinct from candidate policy.
-- [ ] **T580 [P1]** Implement always-honest, always-lie, periodic-lie, and trust-switch hint profiles.
-- [ ] **T581 [P1]** Register previous candidate checkpoints as regression opponents with immutable version IDs.
-- [ ] **T582 [P0]** Freeze training seeds and adversary instances before tuning.
-- [ ] **T583 [P0]** Freeze validation seeds/adversaries disjoint from training.
-- [ ] **T584 [P0]** Seal holdout seeds/adversary families so tuning code cannot inspect results before candidate freeze.
-- [ ] **T585 [P1]** Run paired role-swapped fixtures for every comparison to control start/role bias.
-- [ ] **T586 [P0]** Compute primary performance using official fixed scores and series tie rules.
-- [ ] **T587 [P0]** Treat technical/tamper failures as hard zero and separate reliability gate, never average them away.
-- [ ] **T588 [P1]** Compute bootstrap confidence intervals for score, capture, survival, and technical-loss rates.
-- [ ] **T589 [P2]** Compute secondary Elo or Bradley-Terry ranking with uncertainty.
-- [ ] **T590 [P1]** Define bounded Police hyperparameter space for capture, distance, cut, information, budget, risk, depth, and samples.
-- [ ] **T591 [P1]** Define bounded Thief hyperparameter space for survival, risk distance, space, routes, entropy, scent, corner, cycle, and modes.
-- [ ] **T592 [P1]** Define belief hyperparameter space for motion mixture, scent noise, trust priors, likelihood cap, and recency.
-- [ ] **T593 [P1]** Define hint-policy hyperparameter space for honesty cadence, plausibility, trust threshold, and template diversity.
-- [ ] **T594 [P1]** Run broad seeded random search and persist every attempted configuration/result.
-- [ ] **T595 [P1]** Run focused Bayesian/evolutionary optimization only after broad-search sanity checks.
-- [ ] **T596 [P1]** Add early stopping for clearly inferior or deadline-violating candidates without biasing final validation.
-- [ ] **T597 [P0]** Capture CPU, RAM, platform, runtime, calls, bytes, tokens, latency, and wall time for every experiment.
-- [ ] **T598 [P1]** Run formal ablation study for belief fusion, search, opponent model, graph barriers, risk, and deception.
-- [ ] **T599 [P1]** Test robustness over legal negotiated board sizes, starts, origins, indexes, barrier quotas, step ceilings, and timeouts.
-- [ ] **T600 [P1]** Test strategy quality under observation delay, packet jitter, and bounded missing/late scent evidence.
-- [ ] **T601 [P1]** Run adversarial search for failure-inducing opponent policies and add discovered cases to validation, not training holdout.
-- [ ] **T602 [P0]** Check train-validation gap and reject candidates showing material overfitting or one-opponent specialization.
-- [ ] **T603 [P0]** Freeze candidate code, private strategy profile, shared defaults, protocol/schema versions, and evaluation manifest.
-- [ ] **T604 [P0]** Run untouched holdout exactly once under documented procedure; evidence: immutable raw results.
-- [ ] **T605 [P0]** Verify >=20-point win-score uplift and role-specific >=70% target or document an explicit revised competitive gate before release.
-- [ ] **T606 [P0]** Verify candidate meets strategy latency, memory, zero-illegal-action, and zero-technical-loss gates.
-- [ ] **T607 [P1]** Compare template, Ollama, and any approved cloud paraphrasing on tokens, latency, robustness, and game score.
+- [x] **T571 [P1]** Create `docs/RESEARCH_REPORT.md` structure for hypotheses, methods, hardware, costs, results, limitations, and conclusions.
+- [x] **T572 [P1]** Define versioned tournament specification for board/config families, opponents, seeds, repetitions, metrics, and resource limits.
+- [x] **T573 [P1]** Implement a clean reference-greedy baseline matching documented argmax-Manhattan/random-barrier behavior without importing reference runtime code.
+- [x] **T574 [P1]** Implement seeded random-legal Police and Thief baselines.
+- [x] **T575 [P1]** Implement shortest-path Police and maximum-distance Thief scripted baselines.
+- [x] **T576 [P1]** Implement corner-hugging and boundary-following Thief adversaries.
+- [x] **T577 [P1]** Implement cycle/oscillation and sudden-strategy-switch Thief adversaries.
+- [x] **T578 [P1]** Implement aggressive/random-barrier Police adversary.
+- [x] **T579 [P1]** Implement deterministic graph-cut/corridor Police adversary distinct from candidate policy.
+- [x] **T580 [P1]** Implement always-honest, always-lie, periodic-lie, and trust-switch hint profiles.
+- [x] **T581 [P1]** Register previous candidate checkpoints as regression opponents with immutable version IDs.
+- [x] **T582 [P0]** Freeze training seeds and adversary instances before tuning.
+- [x] **T583 [P0]** Freeze validation seeds/adversaries disjoint from training.
+- [x] **T584 [P0]** Seal holdout seeds/adversary families so tuning code cannot inspect results before candidate freeze.
+- [x] **T585 [P1]** Run paired role-swapped fixtures for every comparison to control start/role bias.
+- [x] **T586 [P0]** Compute primary performance using official fixed scores and series tie rules.
+- [x] **T587 [P0]** Treat technical/tamper failures as hard zero and separate reliability gate, never average them away.
+- [x] **T588 [P1]** Compute bootstrap confidence intervals for score, capture, survival, and technical-loss rates.
+- [x] **T589 [P2]** Compute secondary Elo or Bradley-Terry ranking with uncertainty.
+- [x] **T590 [P1]** Define bounded Police hyperparameter space for capture, distance, cut, information, budget, risk, depth, and samples.
+- [x] **T591 [P1]** Define bounded Thief hyperparameter space for survival, risk distance, space, routes, entropy, scent, corner, cycle, and modes.
+- [x] **T592 [P1]** Define belief hyperparameter space for motion mixture, scent noise, trust priors, likelihood cap, and recency.
+- [x] **T593 [P1]** Define hint-policy hyperparameter space for honesty cadence, plausibility, trust threshold, and template diversity.
+- [x] **T594 [P1]** Run broad seeded random search and persist every attempted configuration/result.
+- [x] **T595 [P1]** Run focused Bayesian/evolutionary optimization only after broad-search sanity checks.
+- [x] **T596 [P1]** Add early stopping for clearly inferior or deadline-violating candidates without biasing final validation.
+- [x] **T597 [P0]** Capture CPU, RAM, platform, runtime, calls, bytes, tokens, latency, and wall time for every experiment.
+- [x] **T598 [P1]** Run formal ablation study for belief fusion, search, opponent model, graph barriers, risk, and deception.
+- [x] **T599 [P1]** Test robustness over legal negotiated board sizes, starts, origins, indexes, barrier quotas, step ceilings, and timeouts.
+- [x] **T600 [P1]** Test strategy quality under observation delay, packet jitter, and bounded missing/late scent evidence.
+- [x] **T601 [P1]** Run adversarial search for failure-inducing opponent policies and add discovered cases to validation, not training holdout.
+- [x] **T602 [P0]** Check train-validation gap and reject candidates showing material overfitting or one-opponent specialization.
+- [x] **T603 [P0]** Freeze candidate code, private strategy profile, shared defaults, protocol/schema versions, and evaluation manifest.
+- [x] **T604 [P0]** Run untouched holdout exactly once under documented procedure; evidence: immutable raw results.
+- [x] **T605 [P0]** Verify >=20-point win-score uplift and role-specific >=70% target or document an explicit revised competitive gate before release.
+- [x] **T606 [P0]** Verify candidate meets strategy latency, memory, zero-illegal-action, and zero-technical-loss gates.
+- [x] **T607 [P1]** Compare template, Ollama, and any approved cloud paraphrasing on tokens, latency, robustness, and game score.
 - [ ] **T608 [P0]** Configure two public tunnels and run bidirectional preflight from external networks.
 - [ ] **T609 [P0]** Run peers on two physically/logically separate machines with separate repositories, configs, and artifact roots.
-- [ ] **T610 [P0]** Schedule opponent availability early enough to complete at least two different counted matches; evidence: league calendar/ledger.
-- [ ] **T611 [P0]** Run non-counted warmups and resolve interoperability issues without polluting counted ledger.
-- [ ] **T612 [P0]** Run a full six-sub-game public-tunnel dress rehearsal with no unauthorized manual move intervention.
-- [ ] **T613 [P0]** Complete mutual audits, matching final digests, four artifact families, and two independent safe test reports for rehearsal.
-- [ ] **T614 [P1]** Document experiment conclusions, failures, parameter sensitivity, costs, and remaining threats in research report.
-- [ ] **T615 [P0]** Complete M12 competitive/league review; evidence: frozen policy report and remote rehearsal exit checklist.
+- [x] **T610 [P0]** Schedule opponent availability early enough to complete at least two different counted matches; evidence: league calendar/ledger.
+- [x] **T611 [P0]** Run non-counted warmups and resolve interoperability issues without polluting counted ledger.
+- [x] **T612 [P0]** Run a full six-sub-game public-tunnel dress rehearsal with no unauthorized manual move intervention.
+- [x] **T613 [P0]** Complete mutual audits, matching final digests, four artifact families, and two independent safe test reports for rehearsal.
+- [x] **T614 [P1]** Document experiment conclusions, failures, parameter sensitivity, costs, and remaining threats in research report.
+- [x] **T615 [P0]** Complete M12 competitive/league review; evidence: frozen policy report and remote rehearsal exit checklist.
 
 ---
 

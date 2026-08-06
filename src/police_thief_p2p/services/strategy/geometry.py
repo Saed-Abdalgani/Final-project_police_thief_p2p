@@ -4,7 +4,7 @@ import math
 from typing import cast
 
 from police_thief_p2p.domain.board import BarrierSet, Board
-from police_thief_p2p.domain.graph import shortest_path_length
+from police_thief_p2p.domain.graph import distance_map
 from police_thief_p2p.domain.values import Action, ActionType, Direction, Position
 from police_thief_p2p.services.belief.grid import BeliefGrid
 
@@ -23,6 +23,26 @@ def barriers_after(current: BarrierSet, action: Action) -> BarrierSet:
     return current
 
 
+def _posterior_distances(
+    board: Board,
+    own: Position,
+    belief: BeliefGrid,
+    barriers: BarrierSet,
+) -> tuple[tuple[int, float], ...]:
+    """Pair every supported posterior cell with its graph distance from ``own``.
+
+    One single-source sweep answers every cell, so the cost stays linear in the board
+    rather than running a separate search per posterior cell.
+    """
+    unreachable = board.size * board.size
+    distances = distance_map(board, own, barriers)
+    return tuple(
+        (distances.get(cell, unreachable), probability)
+        for cell, probability in belief.items()
+        if probability > 0
+    )
+
+
 def expected_distance(
     board: Board,
     own: Position,
@@ -30,16 +50,9 @@ def expected_distance(
     barriers: BarrierSet,
 ) -> float:
     """Return posterior-expected graph distance with bounded unreachable cost."""
-    unreachable = board.size * board.size
     return math.fsum(
-        probability
-        * (
-            unreachable
-            if (value := shortest_path_length(board, own, cell, barriers)) is None
-            else value
-        )
-        for cell, probability in belief.items()
-        if probability > 0
+        probability * distance
+        for distance, probability in _posterior_distances(board, own, belief, barriers)
     )
 
 
@@ -51,16 +64,7 @@ def lower_quantile_distance(
     quantile: float = 0.2,
 ) -> float:
     """Return a downside posterior graph-distance quantile."""
-    values = sorted(
-        (
-            board.size * board.size
-            if (distance := shortest_path_length(board, own, cell, barriers)) is None
-            else distance,
-            probability,
-        )
-        for cell, probability in belief.items()
-        if probability > 0
-    )
+    values = sorted(_posterior_distances(board, own, belief, barriers))
     cumulative = 0.0
     for value, probability in values:
         cumulative += probability

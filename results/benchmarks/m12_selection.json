@@ -1,0 +1,516 @@
+{
+  "schema_version": "1.0.0",
+  "commit_sha": "62ae9f433c61cd041e9e20709f7a6331af7f67bc",
+  "train_share_percent": 72.018,
+  "validation": {
+    "spec": {
+      "spec_version": "1.0.0",
+      "campaign_id": "m12-validation",
+      "split": "validation",
+      "candidate_id": "candidate-advanced",
+      "opponent_ids": [
+        "BL-POST",
+        "BL-ADV-CORNER",
+        "BL-ADV-CYCLE",
+        "BL-ADV-LIAR",
+        "BL-ADV-TRUST"
+      ],
+      "fixture_ids": [
+        "validation-offset-7",
+        "validation-quota-8",
+        "validation-long-9"
+      ],
+      "seeds": [
+        20000,
+        20001
+      ],
+      "repetitions": 1,
+      "decision_budget_ms": 250,
+      "max_latency_ms": 250.0,
+      "primary_metric": "official_score_uplift",
+      "observation_delay": 0,
+      "scent_dropout": 0.0,
+      "match_count": 60,
+      "extras": []
+    },
+    "match_count": 60,
+    "score_share_percent": 67.46,
+    "score_interval": {
+      "mean": 14.1667,
+      "lower": 12.8333,
+      "upper": 15.6667,
+      "samples": 60,
+      "confidence": 0.95
+    },
+    "uplift_interval": {
+      "mean": 7.3333,
+      "lower": 4.8333,
+      "upper": 9.6667,
+      "samples": 60,
+      "confidence": 0.95
+    },
+    "police_capture_rate": 0.9667,
+    "thief_survival_rate": 0.7667,
+    "per_opponent_share": {
+      "BL-ADV-CORNER": 70.0,
+      "BL-ADV-CYCLE": 71.739,
+      "BL-ADV-LIAR": 75.0,
+      "BL-ADV-TRUST": 75.0,
+      "BL-POST": 50.0
+    },
+    "per_fixture_share": {
+      "validation-long-9": 69.048,
+      "validation-offset-7": 64.286,
+      "validation-quota-8": 69.048
+    },
+    "worst_fixture_drop": 3.175,
+    "latency_p95_ms": 210.811,
+    "latency_max_ms": 236.088,
+    "ratings": {
+      "BL-ADV-CORNER": 1480.28,
+      "BL-ADV-CYCLE": 1480.28,
+      "BL-ADV-LIAR": 1123.24,
+      "BL-ADV-TRUST": 1123.24,
+      "BL-POST": 1896.04,
+      "candidate-advanced": 1896.92
+    },
+    "reliability": {
+      "matches": 60,
+      "technical_or_tamper": 0,
+      "invalid_actions": 0,
+      "deadline_misses": 0,
+      "fallbacks": 28,
+      "max_latency_ms": 236.088,
+      "passes": true
+    }
+  },
+  "validation_gates": {
+    "gates": [
+      {
+        "gate_id": "R02-TECHNICAL",
+        "requirement": "zero technical failures or tamper events",
+        "measured": 0,
+        "passed": true
+      },
+      {
+        "gate_id": "R02-INVALID",
+        "requirement": "zero invalid submitted actions",
+        "measured": 0,
+        "passed": true
+      },
+      {
+        "gate_id": "R02-DEADLINE",
+        "requirement": "zero decision deadline misses",
+        "measured": 0,
+        "passed": true
+      },
+      {
+        "gate_id": "P01-LATENCY",
+        "requirement": "p95 decision latency at or below 250 ms",
+        "measured": 210.811,
+        "passed": true
+      },
+      {
+        "gate_id": "S01-SHARE",
+        "requirement": "official score share at or above 60 percent",
+        "measured": 67.46,
+        "passed": true
+      },
+      {
+        "gate_id": "S02-UPLIFT",
+        "requirement": "paired point-uplift bootstrap interval excludes zero from above",
+        "measured": 4.833,
+        "passed": true
+      },
+      {
+        "gate_id": "S03-POLICE",
+        "requirement": "Police capture rate at or above 70%",
+        "measured": 0.967,
+        "passed": true
+      },
+      {
+        "gate_id": "S03-THIEF",
+        "requirement": "Thief survival rate at or above 70%",
+        "measured": 0.767,
+        "passed": true
+      },
+      {
+        "gate_id": "S05-FIXTURE",
+        "requirement": "worst fixture family within 15 points of aggregate",
+        "measured": 3.175,
+        "passed": true
+      },
+      {
+        "gate_id": "S05-OPPONENT",
+        "requirement": "no single-opponent specialization below an even split",
+        "measured": 50.0,
+        "passed": true
+      },
+      {
+        "gate_id": "S06-GENERALIZATION",
+        "requirement": "validation share within 8 points of training",
+        "measured": 4.558,
+        "passed": true
+      }
+    ],
+    "failures": [],
+    "passed": true
+  },
+  "overfitting_gate": {
+    "gate_id": "S06-GENERALIZATION",
+    "requirement": "validation share within 8 points of training",
+    "measured": 4.558,
+    "passed": true
+  },
+  "sealed_holdout": {
+    "split_sha256": "720416ba4299015cbac76316fd6cae58eacdded0c234e640cc0e57f81d301c7b",
+    "opened_for_freeze_sha256": "9938db61a948da3aa4b3d6d6cfe066efe4b63ea2ae9b776c685cdb76cb3b87b6",
+    "one_shot": true
+  },
+  "holdout": {
+    "spec": {
+      "spec_version": "1.0.0",
+      "campaign_id": "m12-holdout",
+      "split": "holdout",
+      "candidate_id": "candidate-advanced",
+      "opponent_ids": [
+        "BL-REF",
+        "BL-ADV-BOUNDARY",
+        "BL-ADV-SWITCH",
+        "BL-PREV"
+      ],
+      "fixture_ids": [
+        "holdout-bottom-index-7",
+        "holdout-origin-8",
+        "holdout-dense-10"
+      ],
+      "seeds": [
+        30000,
+        30001
+      ],
+      "repetitions": 1,
+      "decision_budget_ms": 250,
+      "max_latency_ms": 250.0,
+      "primary_metric": "official_score_uplift",
+      "observation_delay": 0,
+      "scent_dropout": 0.0,
+      "match_count": 48,
+      "extras": []
+    },
+    "match_count": 48,
+    "score_share_percent": 65.385,
+    "score_interval": {
+      "mean": 14.1667,
+      "lower": 12.5,
+      "upper": 15.8333,
+      "samples": 48,
+      "confidence": 0.95
+    },
+    "uplift_interval": {
+      "mean": 6.6667,
+      "lower": 3.75,
+      "upper": 9.5833,
+      "samples": 48,
+      "confidence": 0.95
+    },
+    "police_capture_rate": 1.0,
+    "thief_survival_rate": 0.6667,
+    "per_opponent_share": {
+      "BL-ADV-BOUNDARY": 75.0,
+      "BL-ADV-SWITCH": 75.0,
+      "BL-PREV": 50.0,
+      "BL-REF": 65.385
+    },
+    "per_fixture_share": {
+      "holdout-bottom-index-7": 61.111,
+      "holdout-dense-10": 67.647,
+      "holdout-origin-8": 67.647
+    },
+    "worst_fixture_drop": 4.274,
+    "latency_p95_ms": 212.749,
+    "latency_max_ms": 281.245,
+    "ratings": {
+      "BL-ADV-BOUNDARY": 1066.42,
+      "BL-ADV-SWITCH": 1066.42,
+      "BL-PREV": 1881.73,
+      "BL-REF": 1602.84,
+      "candidate-advanced": 1882.6
+    },
+    "reliability": {
+      "matches": 48,
+      "technical_or_tamper": 0,
+      "invalid_actions": 0,
+      "deadline_misses": 1,
+      "fallbacks": 98,
+      "max_latency_ms": 281.245,
+      "passes": false
+    }
+  },
+  "holdout_resources": {
+    "host": {
+      "platform": "Windows-10-10.0.19045-SP0",
+      "processor": "Intel64 Family 6 Model 58 Stepping 9, GenuineIntel",
+      "cpu_count": 8,
+      "python": "3.13.13",
+      "implementation": "CPython"
+    },
+    "wall_time_sec": 155.678,
+    "peak_rss_mb": 39.848,
+    "calls": 0,
+    "payload_bytes": 0,
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "max_call_latency_ms": 0.0
+  },
+  "holdout_gates": {
+    "gates": [
+      {
+        "gate_id": "R02-TECHNICAL",
+        "requirement": "zero technical failures or tamper events",
+        "measured": 0,
+        "passed": true
+      },
+      {
+        "gate_id": "R02-INVALID",
+        "requirement": "zero invalid submitted actions",
+        "measured": 0,
+        "passed": true
+      },
+      {
+        "gate_id": "R02-DEADLINE",
+        "requirement": "zero decision deadline misses",
+        "measured": 1,
+        "passed": false
+      },
+      {
+        "gate_id": "P01-LATENCY",
+        "requirement": "p95 decision latency at or below 250 ms",
+        "measured": 212.749,
+        "passed": true
+      },
+      {
+        "gate_id": "S01-SHARE",
+        "requirement": "official score share at or above 60 percent",
+        "measured": 65.385,
+        "passed": true
+      },
+      {
+        "gate_id": "S02-UPLIFT",
+        "requirement": "paired point-uplift bootstrap interval excludes zero from above",
+        "measured": 3.75,
+        "passed": true
+      },
+      {
+        "gate_id": "S03-POLICE",
+        "requirement": "Police capture rate at or above 70%",
+        "measured": 1.0,
+        "passed": true
+      },
+      {
+        "gate_id": "S03-THIEF",
+        "requirement": "Thief survival rate at or above 70%",
+        "measured": 0.667,
+        "passed": false
+      },
+      {
+        "gate_id": "S05-FIXTURE",
+        "requirement": "worst fixture family within 15 points of aggregate",
+        "measured": 4.274,
+        "passed": true
+      },
+      {
+        "gate_id": "S05-OPPONENT",
+        "requirement": "no single-opponent specialization below an even split",
+        "measured": 50.0,
+        "passed": true
+      },
+      {
+        "gate_id": "S06-GENERALIZATION",
+        "requirement": "validation share within 8 points of training",
+        "measured": 6.633,
+        "passed": true
+      }
+    ],
+    "failures": [
+      "R02-DEADLINE",
+      "S03-THIEF"
+    ],
+    "passed": false
+  },
+  "manifest": {
+    "manifest_version": "1.0.0",
+    "campaign_id": "m12-selection",
+    "commit_sha": "62ae9f433c61cd041e9e20709f7a6331af7f67bc",
+    "runtime": {
+      "python": "3.13.13",
+      "implementation": "CPython",
+      "platform": "Windows",
+      "machine": "AMD64"
+    },
+    "split": {
+      "split": "validation",
+      "version": "1.0.0",
+      "seeds": [
+        20000,
+        20001,
+        20002,
+        20003,
+        20004,
+        20005,
+        20006,
+        20007,
+        20008,
+        20009,
+        20010,
+        20011,
+        20012,
+        20013,
+        20014,
+        20015
+      ],
+      "opponent_ids": [
+        "BL-POST",
+        "BL-ADV-CORNER",
+        "BL-ADV-CYCLE",
+        "BL-ADV-LIAR",
+        "BL-ADV-TRUST"
+      ],
+      "fixture_ids": [
+        "validation-offset-7",
+        "validation-quota-8",
+        "validation-long-9"
+      ]
+    },
+    "split_sha256": "371a72d2e8f8c1adda043dacaebc93de5f9c059df787db4c6e703d6f02b61263",
+    "candidate_freeze_sha256": "9938db61a948da3aa4b3d6d6cfe066efe4b63ea2ae9b776c685cdb76cb3b87b6",
+    "candidate": {
+      "candidate_id": "candidate-advanced",
+      "selection_split": "validation",
+      "selection_objective": 4.8333,
+      "trial_id": 10,
+      "strategy_profile_sha256": "c7dcd0d35698539fbc5d6bf795471685389a9e44314377e2b9122c026b883abd",
+      "strategy": {
+        "police_class": "police_thief_p2p.services.strategy.police.AdvancedPoliceBrain",
+        "thief_class": "police_thief_p2p.services.strategy.thief.AdvancedThiefBrain",
+        "profile": "balanced",
+        "profile_version": "1.0.0",
+        "seed": 7,
+        "decision_budget_ms": 250,
+        "guard_margin_ms": 40,
+        "search_horizon": 2,
+        "posterior_samples": 13,
+        "cache_entries": 512,
+        "near_tie_epsilon": 0.02,
+        "opponent_decay": 0.9,
+        "police.capture": 889.1028656246492,
+        "police.distance": 6.961160678295597,
+        "police.escape": 2.0,
+        "police.cut": 9.781430534131694,
+        "police.information": 1.27448711312184,
+        "police.self_trap": 250.0,
+        "police.budget": 1.5375236304803723,
+        "police.risk": 0.3232323238342487,
+        "police.cycle": 3.0,
+        "thief.survival": 1068.5378518333846,
+        "thief.risk_distance": 14.789313206348513,
+        "thief.space": 6.664407514134246,
+        "thief.routes": 26.547913106753906,
+        "thief.entropy": 4.7748599972213475,
+        "thief.traps": 100.0,
+        "thief.scent": 9.792756690626282,
+        "thief.corner": 14.549118783312979,
+        "thief.cycle": 3.5885562161363587,
+        "thief.risk": 0.04610720992453969,
+        "hints.trust_threshold": 0.7277996765441939,
+        "hints.max_consecutive_lies": 2,
+        "hints.deceive_while_mobile": true,
+        "hints.template_variant": 1
+      },
+      "belief": {
+        "chase": 0.4670004592823036,
+        "evade": 0.9230173053908444,
+        "boundary": 0.13558336928520956,
+        "revisit": 0.46564665106142494,
+        "cycle": 0.12960444485972733,
+        "hint_ratio_cap": 2.633927810536999,
+        "prior_alpha": 1.3330855922053861,
+        "prior_beta": 1.901027381406655,
+        "recency": 0.9776049026303855
+      }
+    },
+    "metrics": {
+      "train_share_percent": 72.018,
+      "validation": {
+        "campaign_id": "m12-validation",
+        "match_count": 60,
+        "score_share_percent": 67.46,
+        "score_interval": {
+          "mean": 14.1667,
+          "lower": 12.8333,
+          "upper": 15.6667,
+          "samples": 60,
+          "confidence": 0.95
+        },
+        "police_capture_rate": 0.9667,
+        "thief_survival_rate": 0.7667,
+        "latency_p95_ms": 210.811,
+        "reliability": {
+          "matches": 60,
+          "technical_or_tamper": 0,
+          "invalid_actions": 0,
+          "deadline_misses": 0,
+          "fallbacks": 28,
+          "max_latency_ms": 236.088,
+          "passes": true
+        }
+      },
+      "holdout": {
+        "campaign_id": "m12-holdout",
+        "match_count": 48,
+        "score_share_percent": 65.385,
+        "score_interval": {
+          "mean": 14.1667,
+          "lower": 12.5,
+          "upper": 15.8333,
+          "samples": 48,
+          "confidence": 0.95
+        },
+        "police_capture_rate": 1.0,
+        "thief_survival_rate": 0.6667,
+        "latency_p95_ms": 212.749,
+        "reliability": {
+          "matches": 48,
+          "technical_or_tamper": 0,
+          "invalid_actions": 0,
+          "deadline_misses": 1,
+          "fallbacks": 98,
+          "max_latency_ms": 281.245,
+          "passes": false
+        }
+      }
+    },
+    "resources": {
+      "host": {
+        "platform": "Windows-10-10.0.19045-SP0",
+        "processor": "Intel64 Family 6 Model 58 Stepping 9, GenuineIntel",
+        "cpu_count": 8,
+        "python": "3.13.13",
+        "implementation": "CPython"
+      },
+      "wall_time_sec": 199.066,
+      "peak_rss_mb": 39.113,
+      "calls": 0,
+      "payload_bytes": 0,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "max_call_latency_ms": 0.0
+    },
+    "notes": "Holdout opened exactly once against the validation-selected freeze."
+  },
+  "gates": {
+    "validation_passed": true,
+    "overfitting_passed": true,
+    "holdout_passed": false,
+    "result": "FAIL"
+  }
+}

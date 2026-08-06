@@ -7,7 +7,7 @@ from police_thief_p2p.services.strategy.contracts import (
     Decision,
     DecisionMetrics,
 )
-from police_thief_p2p.services.strategy.hints import HintIntentPolicy, realize_hint
+from police_thief_p2p.services.strategy.hints import configured_policy, realize_hint
 from police_thief_p2p.services.strategy.police_features import (
     PoliceEvaluator,
     police_candidates,
@@ -47,7 +47,7 @@ class AdvancedPoliceBrain(StrategyBrain):
             cache_entries=request.config.cache_entries,
             risk_weight=request.config.police.risk,
         )
-        intent = HintIntentPolicy().choose(
+        intent = configured_policy(request.config.hints).choose(
             request.state.position,
             request.state.rules.board.size,
             trust=request.opponent.hint_trust,
@@ -70,7 +70,12 @@ class AdvancedPoliceBrain(StrategyBrain):
         return Decision(
             result.action,
             intent,
-            realize_hint(intent, request.map_area, request.hint_max_words),
+            realize_hint(
+                intent,
+                request.map_area,
+                request.hint_max_words,
+                request.config.hints.template_variant,
+            ),
             reason,
             metrics,
         )

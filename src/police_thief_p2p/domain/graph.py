@@ -56,21 +56,32 @@ def shortest_path_length(
     barriers: BarrierSet = EMPTY_BARRIERS,
 ) -> int | None:
     """Return BFS distance, or ``None`` when either cell is blocked/unreachable."""
-    if not board.contains(start) or not board.contains(goal):
+    if not board.contains(goal):
         raise ValueError("path endpoint is outside the board")
-    if start in barriers or goal in barriers:
+    if goal in barriers:
         return None
-    pending = deque([(start, 0)])
-    reached = {start}
+    return distance_map(board, start, barriers).get(goal)
+
+
+def distance_map(
+    board: Board,
+    start: Position,
+    barriers: BarrierSet = EMPTY_BARRIERS,
+) -> dict[Position, int]:
+    """Return BFS distances from ``start`` to every reachable passable cell."""
+    if not board.contains(start):
+        raise ValueError("path endpoint is outside the board")
+    if start in barriers:
+        return {}
+    distances = {start: 0}
+    pending = deque([start])
     while pending:
-        current, distance = pending.popleft()
-        if current == goal:
-            return distance
+        current = pending.popleft()
         for neighbor in board.neighbors(current, barriers):
-            if neighbor not in reached:
-                reached.add(neighbor)
-                pending.append((neighbor, distance + 1))
-    return None
+            if neighbor not in distances:
+                distances[neighbor] = distances[current] + 1
+                pending.append(neighbor)
+    return distances
 
 
 def articulation_points(

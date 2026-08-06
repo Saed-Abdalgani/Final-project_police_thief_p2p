@@ -45,6 +45,15 @@ class ThiefWeightsConfig(FrozenModel):
     risk: Annotated[float, Field(ge=0.0, le=1.0, allow_inf_nan=False)] = 0.35
 
 
+class HintPolicyConfig(FrozenModel):
+    """Bounded private hint honesty cadence and surface-diversity settings."""
+
+    trust_threshold: Annotated[float, Field(ge=0.0, le=1.0, allow_inf_nan=False)] = 0.55
+    max_consecutive_lies: Annotated[StrictInt, Field(ge=1, le=8)] = 2
+    deceive_while_mobile: bool = True
+    template_variant: Annotated[StrictInt, Field(ge=0, le=1)] = 0
+
+
 class StrategyConfig(FrozenModel):
     """Private selectors, deterministic seed, search bounds, and typed weights."""
 
@@ -62,6 +71,7 @@ class StrategyConfig(FrozenModel):
     opponent_decay: Annotated[float, Field(gt=0.0, le=1.0, allow_inf_nan=False)] = 0.9
     police: PoliceWeightsConfig = PoliceWeightsConfig()
     thief: ThiefWeightsConfig = ThiefWeightsConfig()
+    hints: HintPolicyConfig = HintPolicyConfig()
 
     @field_validator("police_class", "thief_class")
     @classmethod

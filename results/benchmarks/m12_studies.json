@@ -1,0 +1,579 @@
+{
+  "schema_version": "1.0.0",
+  "commit_sha": "62ae9f433c61cd041e9e20709f7a6331af7f67bc",
+  "split": "validation",
+  "resources": {
+    "host": {
+      "platform": "Windows-10-10.0.19045-SP0",
+      "processor": "Intel64 Family 6 Model 58 Stepping 9, GenuineIntel",
+      "cpu_count": 8,
+      "python": "3.13.13",
+      "implementation": "CPython"
+    },
+    "wall_time_sec": 757.168,
+    "peak_rss_mb": 39.562,
+    "calls": 0,
+    "payload_bytes": 0,
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "max_call_latency_ms": 0.0
+  },
+  "intact_share_percent": 61.111,
+  "ablations": [
+    {
+      "study_id": "ABL-FULL",
+      "component": "intact",
+      "description": "Full tuned candidate with no component removed.",
+      "removed": {},
+      "share_percent": 61.111,
+      "share_delta": 0.0,
+      "uplift_interval": {
+        "mean": 5.0,
+        "lower": -2.5,
+        "upper": 11.6667,
+        "samples": 12,
+        "confidence": 0.95
+      },
+      "police_capture_rate": 1.0,
+      "thief_survival_rate": 0.5,
+      "latency_p95_ms": 219.84,
+      "reliability": {
+        "matches": 12,
+        "technical_or_tamper": 0,
+        "invalid_actions": 0,
+        "deadline_misses": 0,
+        "fallbacks": 36,
+        "max_latency_ms": 227.558,
+        "passes": true
+      }
+    },
+    {
+      "study_id": "ABL-DEPTH",
+      "component": "lookahead",
+      "description": "Collapse iterative deepening to a single-ply greedy evaluation.",
+      "removed": {
+        "search_horizon": 1
+      },
+      "share_percent": 61.111,
+      "share_delta": 0.0,
+      "uplift_interval": {
+        "mean": 5.0,
+        "lower": -2.5,
+        "upper": 10.8333,
+        "samples": 12,
+        "confidence": 0.95
+      },
+      "police_capture_rate": 1.0,
+      "thief_survival_rate": 0.5,
+      "latency_p95_ms": 220.73,
+      "reliability": {
+        "matches": 12,
+        "technical_or_tamper": 0,
+        "invalid_actions": 0,
+        "deadline_misses": 0,
+        "fallbacks": 34,
+        "max_latency_ms": 232.486,
+        "passes": true
+      }
+    },
+    {
+      "study_id": "ABL-SAMPLES",
+      "component": "posterior-sampling",
+      "description": "Reduce stratified posterior sampling to a single representative cell.",
+      "removed": {
+        "posterior_samples": 1
+      },
+      "share_percent": 61.111,
+      "share_delta": 0.0,
+      "uplift_interval": {
+        "mean": 5.0,
+        "lower": -2.5,
+        "upper": 11.6667,
+        "samples": 12,
+        "confidence": 0.95
+      },
+      "police_capture_rate": 1.0,
+      "thief_survival_rate": 0.5,
+      "latency_p95_ms": 74.019,
+      "reliability": {
+        "matches": 12,
+        "technical_or_tamper": 0,
+        "invalid_actions": 0,
+        "deadline_misses": 0,
+        "fallbacks": 0,
+        "max_latency_ms": 104.559,
+        "passes": true
+      }
+    },
+    {
+      "study_id": "ABL-CUT",
+      "component": "police-graph-cut",
+      "description": "Remove the Police connectivity-reduction (barrier cut) term.",
+      "removed": {
+        "police.cut": 0.0,
+        "police.budget": 0.0
+      },
+      "share_percent": 61.111,
+      "share_delta": 0.0,
+      "uplift_interval": {
+        "mean": 5.0,
+        "lower": -2.5,
+        "upper": 11.6667,
+        "samples": 12,
+        "confidence": 0.95
+      },
+      "police_capture_rate": 1.0,
+      "thief_survival_rate": 0.5,
+      "latency_p95_ms": 220.554,
+      "reliability": {
+        "matches": 12,
+        "technical_or_tamper": 0,
+        "invalid_actions": 0,
+        "deadline_misses": 0,
+        "fallbacks": 40,
+        "max_latency_ms": 228.867,
+        "passes": true
+      }
+    },
+    {
+      "study_id": "ABL-INFO",
+      "component": "police-information-gain",
+      "description": "Remove the Police information-gain exploration term.",
+      "removed": {
+        "police.information": 0.0
+      },
+      "share_percent": 61.111,
+      "share_delta": 0.0,
+      "uplift_interval": {
+        "mean": 5.0,
+        "lower": -2.5,
+        "upper": 11.6667,
+        "samples": 12,
+        "confidence": 0.95
+      },
+      "police_capture_rate": 1.0,
+      "thief_survival_rate": 0.5,
+      "latency_p95_ms": 221.427,
+      "reliability": {
+        "matches": 12,
+        "technical_or_tamper": 0,
+        "invalid_actions": 0,
+        "deadline_misses": 0,
+        "fallbacks": 37,
+        "max_latency_ms": 228.415,
+        "passes": true
+      }
+    },
+    {
+      "study_id": "ABL-ROUTES",
+      "component": "thief-escape-routes",
+      "description": "Remove the Thief vertex-disjoint escape-route term.",
+      "removed": {
+        "thief.routes": 0.0,
+        "thief.corner": 0.0
+      },
+      "share_percent": 61.111,
+      "share_delta": 0.0,
+      "uplift_interval": {
+        "mean": 5.0,
+        "lower": -2.5,
+        "upper": 11.6667,
+        "samples": 12,
+        "confidence": 0.95
+      },
+      "police_capture_rate": 1.0,
+      "thief_survival_rate": 0.5,
+      "latency_p95_ms": 220.831,
+      "reliability": {
+        "matches": 12,
+        "technical_or_tamper": 0,
+        "invalid_actions": 0,
+        "deadline_misses": 0,
+        "fallbacks": 44,
+        "max_latency_ms": 233.63,
+        "passes": true
+      }
+    },
+    {
+      "study_id": "ABL-SCENT",
+      "component": "thief-scent-awareness",
+      "description": "Remove the Thief self-scent leakage penalty.",
+      "removed": {
+        "thief.scent": 0.0
+      },
+      "share_percent": 57.143,
+      "share_delta": -3.968,
+      "uplift_interval": {
+        "mean": 3.3333,
+        "lower": -5.0,
+        "upper": 10.8333,
+        "samples": 12,
+        "confidence": 0.95
+      },
+      "police_capture_rate": 1.0,
+      "thief_survival_rate": 0.3333,
+      "latency_p95_ms": 219.979,
+      "reliability": {
+        "matches": 12,
+        "technical_or_tamper": 0,
+        "invalid_actions": 0,
+        "deadline_misses": 0,
+        "fallbacks": 35,
+        "max_latency_ms": 230.827,
+        "passes": true
+      }
+    },
+    {
+      "study_id": "ABL-RISK",
+      "component": "downside-risk-aversion",
+      "description": "Replace risk-sensitive scoring with risk-neutral expectation.",
+      "removed": {
+        "police.risk": 0.0,
+        "thief.risk": 0.0
+      },
+      "share_percent": 61.111,
+      "share_delta": 0.0,
+      "uplift_interval": {
+        "mean": 5.0,
+        "lower": -2.5,
+        "upper": 11.6667,
+        "samples": 12,
+        "confidence": 0.95
+      },
+      "police_capture_rate": 1.0,
+      "thief_survival_rate": 0.5,
+      "latency_p95_ms": 220.59,
+      "reliability": {
+        "matches": 12,
+        "technical_or_tamper": 0,
+        "invalid_actions": 0,
+        "deadline_misses": 0,
+        "fallbacks": 36,
+        "max_latency_ms": 228.089,
+        "passes": true
+      }
+    },
+    {
+      "study_id": "ABL-DECEPTION",
+      "component": "hint-deception",
+      "description": "Force fully honest hints by raising the deception trust threshold.",
+      "removed": {
+        "hints.trust_threshold": 1.0
+      },
+      "share_percent": 61.111,
+      "share_delta": 0.0,
+      "uplift_interval": {
+        "mean": 5.0,
+        "lower": -2.5,
+        "upper": 11.6667,
+        "samples": 12,
+        "confidence": 0.95
+      },
+      "police_capture_rate": 1.0,
+      "thief_survival_rate": 0.5,
+      "latency_p95_ms": 220.596,
+      "reliability": {
+        "matches": 12,
+        "technical_or_tamper": 0,
+        "invalid_actions": 0,
+        "deadline_misses": 0,
+        "fallbacks": 37,
+        "max_latency_ms": 229.09,
+        "passes": true
+      }
+    }
+  ],
+  "robustness": [
+    {
+      "case_id": "ROB-CLEAN",
+      "description": "Nominal observation channel and release budget.",
+      "observation_delay": 0,
+      "scent_dropout": 0.0,
+      "decision_budget_ms": 250,
+      "opponent_ids": [],
+      "hint_profile": null,
+      "share_percent": 61.111,
+      "share_delta": 0.0,
+      "latency_p95_ms": 219.941,
+      "reliability": {
+        "matches": 12,
+        "technical_or_tamper": 0,
+        "invalid_actions": 0,
+        "deadline_misses": 0,
+        "fallbacks": 33,
+        "max_latency_ms": 235.895,
+        "passes": true
+      }
+    },
+    {
+      "case_id": "ROB-DELAY-1",
+      "description": "One-turn delayed opponent scent delivery.",
+      "observation_delay": 1,
+      "scent_dropout": 0.0,
+      "decision_budget_ms": 250,
+      "opponent_ids": [],
+      "hint_profile": null,
+      "share_percent": 61.111,
+      "share_delta": 0.0,
+      "latency_p95_ms": 219.453,
+      "reliability": {
+        "matches": 12,
+        "technical_or_tamper": 0,
+        "invalid_actions": 0,
+        "deadline_misses": 0,
+        "fallbacks": 39,
+        "max_latency_ms": 229.165,
+        "passes": true
+      }
+    },
+    {
+      "case_id": "ROB-DELAY-2",
+      "description": "Two-turn delayed opponent scent delivery.",
+      "observation_delay": 2,
+      "scent_dropout": 0.0,
+      "decision_budget_ms": 250,
+      "opponent_ids": [],
+      "hint_profile": null,
+      "share_percent": 61.111,
+      "share_delta": 0.0,
+      "latency_p95_ms": 221.007,
+      "reliability": {
+        "matches": 12,
+        "technical_or_tamper": 0,
+        "invalid_actions": 0,
+        "deadline_misses": 0,
+        "fallbacks": 52,
+        "max_latency_ms": 226.117,
+        "passes": true
+      }
+    },
+    {
+      "case_id": "ROB-DROP-30",
+      "description": "Thirty percent scent-frame loss.",
+      "observation_delay": 0,
+      "scent_dropout": 0.3,
+      "decision_budget_ms": 250,
+      "opponent_ids": [],
+      "hint_profile": null,
+      "share_percent": 57.143,
+      "share_delta": -3.968,
+      "latency_p95_ms": 220.602,
+      "reliability": {
+        "matches": 12,
+        "technical_or_tamper": 0,
+        "invalid_actions": 0,
+        "deadline_misses": 0,
+        "fallbacks": 41,
+        "max_latency_ms": 230.214,
+        "passes": true
+      }
+    },
+    {
+      "case_id": "ROB-DROP-60",
+      "description": "Sixty percent scent-frame loss.",
+      "observation_delay": 0,
+      "scent_dropout": 0.6,
+      "decision_budget_ms": 250,
+      "opponent_ids": [],
+      "hint_profile": null,
+      "share_percent": 61.111,
+      "share_delta": 0.0,
+      "latency_p95_ms": 221.46,
+      "reliability": {
+        "matches": 12,
+        "technical_or_tamper": 0,
+        "invalid_actions": 0,
+        "deadline_misses": 0,
+        "fallbacks": 61,
+        "max_latency_ms": 247.489,
+        "passes": true
+      }
+    },
+    {
+      "case_id": "ROB-DEGRADED",
+      "description": "Combined delay, heavy loss, and a halved decision budget.",
+      "observation_delay": 2,
+      "scent_dropout": 0.5,
+      "decision_budget_ms": 120,
+      "opponent_ids": [],
+      "hint_profile": null,
+      "share_percent": 65.385,
+      "share_delta": 4.274,
+      "latency_p95_ms": 101.031,
+      "reliability": {
+        "matches": 12,
+        "technical_or_tamper": 0,
+        "invalid_actions": 0,
+        "deadline_misses": 0,
+        "fallbacks": 116,
+        "max_latency_ms": 111.821,
+        "passes": true
+      }
+    },
+    {
+      "case_id": "ROB-LIAR",
+      "description": "Adversarial always-lying hint opponents.",
+      "observation_delay": 0,
+      "scent_dropout": 0.0,
+      "decision_budget_ms": 250,
+      "opponent_ids": [
+        "BL-ADV-LIAR"
+      ],
+      "hint_profile": "always-lie",
+      "share_percent": 75.0,
+      "share_delta": 13.889,
+      "latency_p95_ms": 218.178,
+      "reliability": {
+        "matches": 6,
+        "technical_or_tamper": 0,
+        "invalid_actions": 0,
+        "deadline_misses": 0,
+        "fallbacks": 19,
+        "max_latency_ms": 227.489,
+        "passes": true
+      }
+    },
+    {
+      "case_id": "ROB-TRUST-SWITCH",
+      "description": "Opponents that build trust before switching to deception.",
+      "observation_delay": 0,
+      "scent_dropout": 0.0,
+      "decision_budget_ms": 250,
+      "opponent_ids": [
+        "BL-ADV-TRUST"
+      ],
+      "hint_profile": "trust-switch",
+      "share_percent": 75.0,
+      "share_delta": 13.889,
+      "latency_p95_ms": 220.726,
+      "reliability": {
+        "matches": 6,
+        "technical_or_tamper": 0,
+        "invalid_actions": 0,
+        "deadline_misses": 0,
+        "fallbacks": 26,
+        "max_latency_ms": 230.509,
+        "passes": true
+      }
+    }
+  ],
+  "adversarial_search": {
+    "method": "Exhaustive sweep of every registered adversary over all validation board geometries; the worst two are retained as validation-only regression cases.",
+    "results": [
+      {
+        "opponent_id": "BL-ADV-BOUNDARY",
+        "share_percent": 75.0,
+        "police_capture_rate": 1.0,
+        "thief_survival_rate": 1.0,
+        "worst_fixture_drop": 0.0,
+        "per_fixture_share": {
+          "validation-long-9": 75.0,
+          "validation-offset-7": 75.0,
+          "validation-quota-8": 75.0
+        },
+        "reliability_passes": true
+      },
+      {
+        "opponent_id": "BL-ADV-CORNER",
+        "share_percent": 75.0,
+        "police_capture_rate": 1.0,
+        "thief_survival_rate": 1.0,
+        "worst_fixture_drop": 0.0,
+        "per_fixture_share": {
+          "validation-long-9": 75.0,
+          "validation-offset-7": 75.0,
+          "validation-quota-8": 75.0
+        },
+        "reliability_passes": true
+      },
+      {
+        "opponent_id": "BL-ADV-CYCLE",
+        "share_percent": 75.0,
+        "police_capture_rate": 1.0,
+        "thief_survival_rate": 1.0,
+        "worst_fixture_drop": 0.0,
+        "per_fixture_share": {
+          "validation-long-9": 75.0,
+          "validation-offset-7": 75.0,
+          "validation-quota-8": 75.0
+        },
+        "reliability_passes": true
+      },
+      {
+        "opponent_id": "BL-ADV-LIAR",
+        "share_percent": 75.0,
+        "police_capture_rate": 1.0,
+        "thief_survival_rate": 1.0,
+        "worst_fixture_drop": 0.0,
+        "per_fixture_share": {
+          "validation-long-9": 75.0,
+          "validation-offset-7": 75.0,
+          "validation-quota-8": 75.0
+        },
+        "reliability_passes": true
+      },
+      {
+        "opponent_id": "BL-ADV-PERIODIC",
+        "share_percent": 75.0,
+        "police_capture_rate": 1.0,
+        "thief_survival_rate": 1.0,
+        "worst_fixture_drop": 0.0,
+        "per_fixture_share": {
+          "validation-long-9": 75.0,
+          "validation-offset-7": 75.0,
+          "validation-quota-8": 75.0
+        },
+        "reliability_passes": false
+      },
+      {
+        "opponent_id": "BL-ADV-SWITCH",
+        "share_percent": 75.0,
+        "police_capture_rate": 1.0,
+        "thief_survival_rate": 1.0,
+        "worst_fixture_drop": 0.0,
+        "per_fixture_share": {
+          "validation-long-9": 75.0,
+          "validation-offset-7": 75.0,
+          "validation-quota-8": 75.0
+        },
+        "reliability_passes": true
+      },
+      {
+        "opponent_id": "BL-ADV-TRUST",
+        "share_percent": 75.0,
+        "police_capture_rate": 1.0,
+        "thief_survival_rate": 1.0,
+        "worst_fixture_drop": 0.0,
+        "per_fixture_share": {
+          "validation-long-9": 75.0,
+          "validation-offset-7": 75.0,
+          "validation-quota-8": 75.0
+        },
+        "reliability_passes": true
+      }
+    ],
+    "worst_case_opponent_ids": [
+      "BL-ADV-BOUNDARY",
+      "BL-ADV-CORNER"
+    ]
+  },
+  "geometry_robustness": {
+    "note": "Board size, start, origin corner, axis index, barrier quota, and step ceiling variation is exercised through the disjoint validation fixture families.",
+    "per_fixture_share": {
+      "validation-long-9": 61.111,
+      "validation-offset-7": 61.111,
+      "validation-quota-8": 61.111
+    }
+  },
+  "gates": {
+    "robustness": {
+      "gate_id": "S04-DEGRADED",
+      "requirement": "no degraded-observation case falls below an even split",
+      "measured": 57.143,
+      "passed": true
+    },
+    "every_ablation_reliable": true,
+    "every_adversary_reliable": false,
+    "result": "PASS"
+  }
+}

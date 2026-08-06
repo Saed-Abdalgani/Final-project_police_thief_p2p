@@ -2,6 +2,41 @@
 
 All notable project changes are documented here. The project follows semantic versioning for documentation, package, protocol, config, and schema contracts, with compatibility recorded separately when those versions diverge.
 
+## Package [0.11.0] - 2026-08-06
+
+### Added
+
+- Offline experiment arena that plays paired role-swapped sub-games through the
+  real domain engine, belief service, scent emission, and strategy guard, with
+  deterministic observation delay and scent dropout.
+- Baseline and adversary roster covering reference-greedy, random-legal,
+  scripted, evader, pursuer, and hint-profile families plus immutable regression
+  checkpoints.
+- Frozen train/validation/sealed-holdout split manifests whose seeds, opponents,
+  and fixtures are disjoint and digested, with holdout access gated on a
+  candidate freeze digest.
+- Official scoring, separate zero-tolerance reliability accounting, bootstrap and
+  paired-uplift intervals, and Bradley-Terry ranking on the Elo scale.
+- Bounded Police, Thief, belief, and hint search spaces with seeded random search,
+  Gaussian-kernel surrogate refinement, and two-tier early stopping that persists
+  every attempted configuration.
+- Ablation, board-geometry robustness, degraded-observation, and adversarial
+  sweep studies; overfitting gate; and a one-shot holdout evaluation.
+- Per-campaign resource accounting for wall time, peak resident memory, calls,
+  payload bytes, and tokens, excluded from the manifest digest so replays on
+  different hardware keep the same manifest identity.
+- League dress rehearsal driving two independently rooted peer processes through
+  warmups and a counted six-sub-game series with mutual audits.
+- `scripts/run_tournament.py` and an SDK simulation facade for ad-hoc tournaments.
+
+### Fixed
+
+- The deterministic fallback baselines ran one breadth-first search per supported
+  posterior cell, so the safety path invoked after a deadline overrun cost far
+  more than the search it protected. They now derive every distance from a single
+  single-source sweep, which cut p95 decision latency on an 8x8 board from 860 ms
+  to 224 ms and brought every measured geometry inside the 250 ms budget.
+
 ## Package [0.10.0] - 2026-07-26
 
 ### Added

@@ -9,7 +9,7 @@ from police_thief_p2p.services.strategy.contracts import (
     DecisionMetrics,
 )
 from police_thief_p2p.services.strategy.geometry import destination
-from police_thief_p2p.services.strategy.hints import HintIntentPolicy, realize_hint
+from police_thief_p2p.services.strategy.hints import configured_policy, realize_hint
 from police_thief_p2p.services.strategy.request import StrategyRequest
 from police_thief_p2p.services.strategy.search import iterative_search, stratified_samples
 from police_thief_p2p.services.strategy.search_state import SearchState
@@ -67,7 +67,7 @@ class AdvancedThiefBrain(StrategyBrain):
             rng=request.rng,
         )
         mode = _mode(request, request.legal_actions.index(result.action))
-        intent = HintIntentPolicy().choose(
+        intent = configured_policy(request.config.hints).choose(
             request.state.position,
             request.state.rules.board.size,
             trust=request.opponent.hint_trust,
@@ -85,7 +85,12 @@ class AdvancedThiefBrain(StrategyBrain):
         return Decision(
             result.action,
             intent,
-            realize_hint(intent, request.map_area, request.hint_max_words),
+            realize_hint(
+                intent,
+                request.map_area,
+                request.hint_max_words,
+                request.config.hints.template_variant,
+            ),
             f"THIEF_{mode.value.replace('-', '_').upper()}",
             metrics,
         )
