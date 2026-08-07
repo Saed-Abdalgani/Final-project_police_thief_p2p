@@ -20,12 +20,14 @@
 | Check | Result | Evidence |
 |---|---|---|
 | Two separate peer roots, configs, artifact trees, OS processes | PASS | `results/benchmarks/m12_league_rehearsal.json` |
-| Bidirectional health preflight | PASS | same file, `tunnel_preflight.bidirectional` |
-| Configured tunnel provider | `local` (loopback) | same file |
-| External public-network probe | Not available in this environment (no `cloudflared`/`ngrok` auth) | residual risk in `docs/SECURITY.md` |
+| Bidirectional health preflight (loopback) | PASS | same file, `tunnel_preflight.bidirectional` |
+| Configured tunnel provider (loopback) | `local` | same file |
+| External public HTTPS tunnels (desktop + laptop) | PASS | `results/benchmarks/two_machine_playtest.json` |
+| `external_network_tunnels_verified` | `true` | same file, `gates` / `preflight.external` |
+| Six counted sub-games over public tunnels | PASS | same file |
 
-**T609 verdict:** PASS under the task's "physically/**logically** separate" wording.
-**T608 verdict:** PASS for configured dual endpoints + bidirectional preflight; public-WAN verification remains a residual operator risk, not a missing code deliverable.
+**T609 verdict:** PASS — logically separate roots on loopback, plus physically separate desktop/laptop peers.
+**T608 verdict:** PASS — Cloudflare quick tunnels, bidirectional public preflight, warmups, and six counted games.
 
 ## T641 — lecturer / unauthenticated access
 

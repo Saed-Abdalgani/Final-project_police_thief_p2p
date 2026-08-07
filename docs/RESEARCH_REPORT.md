@@ -169,12 +169,12 @@ regression cases; they are deliberately not promoted into training or holdout.
 - **Single host.** All offline numbers come from one machine and one interpreter.
   Latency gates are therefore host-specific, and the p95 figures should be read as
   "this host at this budget," not as a portable guarantee.
-- **Rehearsal is loopback.** The league dress rehearsal runs two fully separated
-  peer roots as independent processes on one host over loopback tunnels. That
-  validates configuration separation, artifact isolation, and the full protocol
-  exchange, but it does **not** validate public-tunnel reachability from an
-  external network or a second physical machine. The rehearsal gate reports this
-  as an explicit outstanding item rather than passing it silently.
+- **Rehearsal was first proven on loopback, then on two machines.** The packaged
+  league dress rehearsal still runs two fully separated peer roots on one host.
+  A follow-up desktop↔laptop campaign over Cloudflare public HTTPS tunnels
+  cleared bidirectional preflight, warmups, and six counted games
+  (`results/benchmarks/two_machine_playtest.json`,
+  `external_network_tunnels_verified: true`).
 - **Simulated opponents.** Adversaries are the declared policy families, not real
   league opponents. A human-tuned opponent may exploit patterns none of them do.
 - **Optional providers are stubbed at the boundary.** The provider comparison
@@ -199,9 +199,8 @@ Measured against `docs/evidence/M12_EXIT.md` and the campaign JSON files:
 | H5 language default | Template remains default: zero tokens, deterministic, unsafe outputs rejected. |
 | H6 reliability | Repair holdout recorded zero `R02-DEADLINE` misses; p95 latency stayed under `250` ms. |
 
-League rehearsal on two isolated peer roots over loopback passed mutual audits;
-external public-tunnel / second-machine verification remains outstanding
-(T608/T609).
+League rehearsal passed on loopback and again on two machines over public
+HTTPS tunnels (`two_machine_playtest.json`; T608/T609 cleared).
 
 ## 8. Reproduction
 
@@ -225,5 +224,6 @@ tuned point from `results/benchmarks/m12_tuning.json`.
 | Ablation, robustness, adversarial sweep | `results/benchmarks/m12_studies.json` | T598-T601 |
 | Validation, overfitting gate, one-shot holdout | `results/benchmarks/m12_selection.json` | T602, T604-T606 |
 | Paraphrasing provider comparison | `results/benchmarks/m12_language.json` | T607 |
-| League dress rehearsal | `results/benchmarks/m12_league_rehearsal.json` | T608-T613 |
+| League dress rehearsal (loopback) | `results/benchmarks/m12_league_rehearsal.json` | T608-T613 (logical) |
+| Two-machine public tunnels | `results/benchmarks/two_machine_playtest.json` | T608-T609 (WAN) |
 | Exit review | `docs/evidence/M12_EXIT.md` | T614, T615 |

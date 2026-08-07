@@ -1,0 +1,308 @@
+{
+  "schema_version": "1.0.0",
+  "commit_sha": "8467358eb5ed949755677beb32d5d11df07c08ca",
+  "endpoints": {
+    "police": "https://precious-shown-consumption-constraint.trycloudflare.com/mcp",
+    "thief": "https://das-expenses-copying-perspective.trycloudflare.com/mcp"
+  },
+  "preflight": {
+    "police_ok": true,
+    "thief_ok": true,
+    "external": true
+  },
+  "warmups": [
+    {
+      "sub_game_number": 1,
+      "counted": false,
+      "completed": true,
+      "codes": [
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK"
+      ],
+      "phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ],
+      "manifest_sha256": "e716e43141676d96f8a351864bb5164a66e095ea1f415ef5af9246e224cccca9",
+      "agreement_status": "Verified OK"
+    },
+    {
+      "sub_game_number": 2,
+      "counted": false,
+      "completed": true,
+      "codes": [
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK"
+      ],
+      "phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ],
+      "manifest_sha256": "a128ce321bd5566f70daeba10e3447a3a797d0898e2c928e73acb96c24d79082",
+      "agreement_status": "Verified OK"
+    }
+  ],
+  "counted_series": [
+    {
+      "sub_game_number": 1,
+      "counted": true,
+      "completed": true,
+      "codes": [
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK"
+      ],
+      "phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ],
+      "manifest_sha256": "e716e43141676d96f8a351864bb5164a66e095ea1f415ef5af9246e224cccca9",
+      "agreement_status": "Verified OK",
+      "both_peers_agree": true,
+      "opponent_phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ]
+    },
+    {
+      "sub_game_number": 2,
+      "counted": true,
+      "completed": true,
+      "codes": [
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK"
+      ],
+      "phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ],
+      "manifest_sha256": "a128ce321bd5566f70daeba10e3447a3a797d0898e2c928e73acb96c24d79082",
+      "agreement_status": "Verified OK",
+      "both_peers_agree": true,
+      "opponent_phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ]
+    },
+    {
+      "sub_game_number": 3,
+      "counted": true,
+      "completed": true,
+      "codes": [
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK"
+      ],
+      "phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ],
+      "manifest_sha256": "5e496e5d693837c22579bddf8e25dbfc81e4be2fd93fe2484631032325cfc52b",
+      "agreement_status": "Verified OK",
+      "both_peers_agree": true,
+      "opponent_phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ]
+    },
+    {
+      "sub_game_number": 4,
+      "counted": true,
+      "completed": true,
+      "codes": [
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK"
+      ],
+      "phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ],
+      "manifest_sha256": "8fbc9649af71a58db75dc53ce6a0232b344262f2a0e37999f5bb32b181bd12d6",
+      "agreement_status": "Verified OK",
+      "both_peers_agree": true,
+      "opponent_phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ]
+    },
+    {
+      "sub_game_number": 5,
+      "counted": true,
+      "completed": true,
+      "codes": [
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK"
+      ],
+      "phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ],
+      "manifest_sha256": "e6005579cbcb4244209ceabfcba4f53af924724cf81dddde1956215adba1a116",
+      "agreement_status": "Verified OK",
+      "both_peers_agree": true,
+      "opponent_phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ]
+    },
+    {
+      "sub_game_number": 6,
+      "counted": true,
+      "completed": true,
+      "codes": [
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK",
+        "OK"
+      ],
+      "phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ],
+      "manifest_sha256": "f8e0b9f74e27659c094e73a3bdda5fdc4e89f72bdc007eebcc3a136eb23d3ac0",
+      "agreement_status": "Verified OK",
+      "both_peers_agree": true,
+      "opponent_phases": [
+        "negotiating",
+        "ready",
+        "awaiting_ack",
+        "revealing",
+        "auditing",
+        "agreeing_result",
+        "reporting",
+        "completed"
+      ]
+    }
+  ],
+  "gates": {
+    "bidirectional_preflight_ok": true,
+    "warmups_completed": true,
+    "six_counted_sub_games": true,
+    "every_counted_sub_game_completed": true,
+    "both_peers_reached_identical_phases": true,
+    "external_network_tunnels_verified": true,
+    "result": "PASS"
+  }
+}

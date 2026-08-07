@@ -158,5 +158,6 @@ finding.
   between sibling repositories is a release defect, not a local hotfix.
 - The M12 repair holdout (`1.2.0`) cleared reliability and role gates (`R02-DEADLINE`
   zero misses; Thief survival `75%`). Earlier spent seals remain historical only.
-- Lecturer access, Moodle form PDF layout, and public-tunnel verification are
-  EXTERNAL checks and are not implied by a green CI run.
+- Lecturer access and Moodle form PDF layout remain EXTERNAL checks and are not
+  implied by a green CI run. Public-tunnel two-machine rehearsal is evidenced in
+  `results/benchmarks/two_machine_playtest.json`.
