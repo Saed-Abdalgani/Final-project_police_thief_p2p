@@ -12,6 +12,7 @@ from police_thief_p2p.sdk.errors import (
     InvalidInputError,
 )
 from police_thief_p2p.shared.config_models import SharedConfig
+from police_thief_p2p.shared.version import PACKAGE_VERSION
 
 
 def test_sdk_readiness_is_typed_and_serializable() -> None:
@@ -41,14 +42,14 @@ def test_cli_json_calls_sdk_and_returns_safe_payload(
     assert main(["readiness", "--json"]) == 0
     payload = json.loads(capsys.readouterr().out)
     assert payload["status"] == "READY"
-    assert payload["package_version"] == "0.10.0"
+    assert payload["package_version"] == PACKAGE_VERSION
 
 
 def test_cli_human_output_and_parser(capsys: pytest.CaptureFixture[str]) -> None:
     assert build_parser().prog == "police-thief-p2p"
     assert main(["readiness"]) == 0
     output = capsys.readouterr().out
-    assert "READY: package 0.10.0" in output
+    assert f"READY: package {PACKAGE_VERSION}" in output
     assert "config.contracts: PASS" in output
 
 

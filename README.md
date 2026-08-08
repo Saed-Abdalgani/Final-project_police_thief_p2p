@@ -85,10 +85,11 @@ Run an offline tournament (never touch holdout without `--allow-holdout`):
 uv run python -m scripts.run_tournament --split validation --campaign-id demo
 ```
 
-Launch the optional Tk live GUI when a display is available:
+Launch the optional Tk live GUI when a display is available (deterministic demo feed):
 
 ```text
-uv run python -m police_thief_p2p.adapters.gui.live_app
+uv run python -m police_thief_p2p.adapters.gui
+uv run python -m scripts.run_live_gui_demo
 ```
 
 Headless screenshot evidence remains the submission default:

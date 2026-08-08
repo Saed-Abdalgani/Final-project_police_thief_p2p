@@ -27,6 +27,8 @@
 - Replay Verified OK: `docs/screenshots/m10_replay_verified.svg`
 - Replay TAMPERED contrast: `docs/screenshots/m10_replay_tampered.svg`
 - M12 campaigns: `results/benchmarks/m12_*.json`
+- Two-machine public tunnels: `results/benchmarks/two_machine_playtest.json`
+- Full audit map: `docs/evidence/SUBMISSION_AUDIT.md`
 - Exit notes: `docs/evidence/M12_EXIT.md`, `docs/evidence/M13_EXIT.md`
 
 ## Moodle form

@@ -12,7 +12,7 @@ project — only this repository cloned twice (desktop + laptop).
 | Loopback league dress rehearsal | `scripts.run_m12_league_rehearsal` | No |
 | Screenshots / replay assets | `scripts/generate_m10_screenshots.py` | No |
 | Public-tunnel counted series | peers + `cloudflared` + remote driver | **Yes** |
-| Live GUI | `python -m police_thief_p2p.adapters.gui.live_app` | Optional |
+| Live GUI | `python -m police_thief_p2p.adapters.gui` | Optional |
 
 ## Phase A — same machine (run on desktop first)
 
@@ -87,13 +87,30 @@ uv run python -m scripts.run_remote_league_playtest --police-url "https://DESKTO
 Evidence: `results/benchmarks/two_machine_playtest.json`.
 `external_network_tunnels_verified` is true only when both URLs are public HTTPS.
 
-## Phase C — optional local GUI
+## Phase C — watch a finished game (replay)
+
+The tunnel playtest proves the protocol; **replay** is how you visually step through a finished match.
 
 ```powershell
-uv run python -m police_thief_p2p.adapters.gui.live_app
+uv run python -m scripts.run_replay_demo
 ```
 
-## Phase D — report dry-run (when you have a manifest)
+In the window: **Play** auto-advances frames; **Next** / **Previous** step manually; banner should say **Verified OK**.
+
+Headless check only:
+
+```powershell
+uv run python -m scripts.run_replay_demo --no-gui
+uv run police-thief-p2p replay verify --manifest results/replay-demo/manifest.json --artifact-root results/replay-demo --group GRP00001 --sub-game 1
+```
+
+## Phase D — optional local GUI (local-truth monitor, not the match movie)
+
+```powershell
+uv run python -m police_thief_p2p.adapters.gui
+```
+
+## Phase E — report dry-run (when you have a manifest)
 
 ```powershell
 uv run police-thief-p2p report validate `

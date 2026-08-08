@@ -1,27 +1,27 @@
 {
   "schema_version": "1.0.0",
-  "commit_sha": "432b3d1b7cf69fd2ba9a64438e5707d9c96b73fa",
+  "commit_sha": "8a375719b3d4c72164b2c1b444ec3f2aaed58626",
   "procedure": {
     "peer_roots": {
       "alpha": {
         "root_leaf": "peer-alpha",
         "group_id": "GRP00001",
-        "endpoint": "http://127.0.0.1:52884/mcp",
+        "endpoint": "http://127.0.0.1:53708/mcp",
         "artifact_root_leaf": "peer-alpha/artifacts",
-        "process_id": 17220
+        "process_id": 19492
       },
       "beta": {
         "root_leaf": "peer-beta",
         "group_id": "GRP00002",
-        "endpoint": "http://127.0.0.1:52885/mcp",
+        "endpoint": "http://127.0.0.1:53709/mcp",
         "artifact_root_leaf": "peer-beta/artifacts",
-        "process_id": 16324
+        "process_id": 9316
       }
     },
     "separation": "Each peer owns a distinct repository-style root with its own configuration, artifact root, cache, and temporary directories, and runs as its own operating system process with an independent port. Both roots live in a fresh operating-system temporary directory outside the repository, so peer state is never shared with the workspace or with a previous rehearsal.",
     "transport": "streamable HTTP MCP over the configured tunnel health endpoints",
     "manual_intervention": "none; every move came from the frozen strategy pipeline",
-    "wall_time_sec": 50.869
+    "wall_time_sec": 25.662
   },
   "resources": {
     "host": {
@@ -31,8 +31,8 @@
       "python": "3.13.13",
       "implementation": "CPython"
     },
-    "wall_time_sec": 50.869,
-    "peak_rss_mb": 106.824,
+    "wall_time_sec": 25.662,
+    "peak_rss_mb": 107.547,
     "calls": 8,
     "payload_bytes": 3832,
     "prompt_tokens": 0,
@@ -44,11 +44,11 @@
     "configured_health_url": "http://127.0.0.1:8000/health",
     "probes": {
       "alpha": {
-        "endpoint": "http://127.0.0.1:52884/mcp",
+        "endpoint": "http://127.0.0.1:53708/mcp",
         "healthy": true
       },
       "beta": {
-        "endpoint": "http://127.0.0.1:52885/mcp",
+        "endpoint": "http://127.0.0.1:53709/mcp",
         "healthy": true
       }
     },
