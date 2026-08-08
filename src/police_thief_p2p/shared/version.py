@@ -4,7 +4,7 @@ import re
 from dataclasses import dataclass
 from typing import Final
 
-PACKAGE_VERSION: Final = "0.10.0"
+PACKAGE_VERSION: Final = "0.11.0"
 PROTOCOL_VERSION: Final = "0.7.0"
 SCHEMA_VERSION: Final = "0.2.0"
 _SEMVER_PATTERN: Final = re.compile(
