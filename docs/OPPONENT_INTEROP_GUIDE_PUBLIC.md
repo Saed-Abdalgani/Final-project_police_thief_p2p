@@ -4,9 +4,12 @@
 **Our group ID:** `GRP00001`  
 **Our role exports:** Police + Thief standalone repositories below  
 **Package / protocol / schema:** `0.11.0` / `0.7.0` / `0.2.0`  
-**Canonical freeze (dev monorepo):** `4021b9e98c8d64055117e732489e4b359345f8ee`  
-**Police runtime HEAD:** `915b91ddade4026eb05f752549546d5652c109eb`  
-**Thief runtime HEAD:** `0349356e866f9ab796ba49ab223710ab4740f23d`  
+**Canonical freeze (dev monorepo):** confirm with `git rev-parse HEAD` on
+https://github.com/Saed-Abdalgani/Final-project_police_thief_p2p `main` at match time  
+**Police runtime SHA:** confirm with `git rev-parse HEAD` on
+https://github.com/JCS1029/GRP00001-police-p2p at match time (`v1.0-submission` or agreed commit)  
+**Thief runtime SHA:** confirm with `git rev-parse HEAD` on
+https://github.com/JCS1029/GRP00001-thief-p2p at match time (`v1.0-submission` or agreed commit)  
 **Submission tag (both role repos):** `v1.0-submission`
 
 This document is what we send back when another team shares an interop guide.
@@ -76,8 +79,8 @@ Group:                GRP00001
 Members:              <fill non-empty list at match time>
 Cop repo:             https://github.com/JCS1029/GRP00001-police-p2p
 Thief repo:           https://github.com/JCS1029/GRP00001-thief-p2p
-Cop runtime SHA:      915b91ddade4026eb05f752549546d5652c109eb
-Thief runtime SHA:    0349356e866f9ab796ba49ab223710ab4740f23d
+Cop runtime SHA:      <40-hex: git -C police-checkout rev-parse HEAD>
+Thief runtime SHA:    <40-hex: git -C thief-checkout rev-parse HEAD>
 Public MCP endpoint:  https://<live-trycloudflare-or-host>/mcp
 Starting role:        police   (if opponent group starts as thief; else agree)
 Agreed game_uid / shared config:  byte-identical game.json (Appendix A)
