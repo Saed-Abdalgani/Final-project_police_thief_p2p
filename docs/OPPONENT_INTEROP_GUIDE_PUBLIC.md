@@ -4,7 +4,7 @@
 **Our group ID:** `GRP00001`  
 **Our role exports:** Police + Thief standalone repositories below  
 **Package / protocol / schema:** `0.11.0` / `0.7.0` / `0.2.0`  
-**Canonical freeze (dev monorepo):** `11d5036` on `main` (see GitHub for full SHA)  
+**Canonical freeze (dev monorepo):** `4021b9e98c8d64055117e732489e4b359345f8ee`  
 **Police runtime HEAD:** `915b91ddade4026eb05f752549546d5652c109eb`  
 **Thief runtime HEAD:** `0349356e866f9ab796ba49ab223710ab4740f23d`  
 **Submission tag (both role repos):** `v1.0-submission`
