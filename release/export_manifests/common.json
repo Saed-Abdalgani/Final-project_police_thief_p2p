@@ -32,6 +32,7 @@
     "**/.mypy_cache/",
     "**/.ruff_cache/",
     "**/*.pyc",
+    "**/*.localbak",
     ".venv/",
     "release/exports/"
   ]
