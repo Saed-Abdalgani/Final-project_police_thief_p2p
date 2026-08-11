@@ -4,9 +4,9 @@
 **Our group ID:** `GRP00001`  
 **Our role exports:** Police + Thief standalone repositories below  
 **Package / protocol / schema:** `0.11.0` / `0.7.0` / `0.2.0`  
-**Canonical freeze (dev monorepo):** `bef5284131c66caf298270ac83ae13f4351ef14d`  
-**Police runtime HEAD:** `5261265192a0e48f3a5aa8572b10633d6d75cdf5`  
-**Thief runtime HEAD:** `a084274bb47510e27101b7fc1bac95335574950d`  
+**Canonical freeze (dev monorepo):** `11d5036` on `main` (see GitHub for full SHA)  
+**Police runtime HEAD:** `915b91ddade4026eb05f752549546d5652c109eb`  
+**Thief runtime HEAD:** `0349356e866f9ab796ba49ab223710ab4740f23d`  
 **Submission tag (both role repos):** `v1.0-submission`
 
 This document is what we send back when another team shares an interop guide.
@@ -76,8 +76,8 @@ Group:                GRP00001
 Members:              <fill non-empty list at match time>
 Cop repo:             https://github.com/JCS1029/GRP00001-police-p2p
 Thief repo:           https://github.com/JCS1029/GRP00001-thief-p2p
-Cop runtime SHA:      5261265192a0e48f3a5aa8572b10633d6d75cdf5
-Thief runtime SHA:    a084274bb47510e27101b7fc1bac95335574950d
+Cop runtime SHA:      915b91ddade4026eb05f752549546d5652c109eb
+Thief runtime SHA:    0349356e866f9ab796ba49ab223710ab4740f23d
 Public MCP endpoint:  https://<live-trycloudflare-or-host>/mcp
 Starting role:        police   (if opponent group starts as thief; else agree)
 Agreed game_uid / shared config:  byte-identical game.json (Appendix A)
