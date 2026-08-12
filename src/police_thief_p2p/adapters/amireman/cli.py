@@ -31,7 +31,7 @@ def build_parser() -> argparse.ArgumentParser:
     friendly = sub.add_parser("friendly", help="DEMO / NON-COUNTED series (never emails lecturer)")
     friendly.add_argument("--peer", required=True, help="Opponent public MCP URL ending in /mcp")
     friendly.add_argument("--role", required=True, choices=("police", "thief"))
-    friendly.add_argument("--group", default="GRP00001")
+    friendly.add_argument("--group", default="saedshki")
     friendly.add_argument("--games", type=int, default=6)
     friendly.add_argument("--host", default="127.0.0.1")
     friendly.add_argument("--port", type=int, default=8901)

@@ -19,7 +19,7 @@ def test_amireman_loopback_two_games(tmp_path: Path) -> None:
     def police() -> None:
         try:
             results["police"] = run_friendly(
-                "GRP00001",
+                "saedshki",
                 "http://127.0.0.1:18902/mcp",
                 "police",
                 terms,

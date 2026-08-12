@@ -1,7 +1,9 @@
 # GRP00001 Opponent Interoperability Guide (Public)
 
 **Audience:** remote league opponents  
-**Our group ID:** `GRP00001`  
+**Our Moodle / package group label:** `GRP00001`  
+**Wire identity for amireman-family DEMO matches:** `saedshki`  
+(Repo names stay GRP00001; negotiation / consensus / artifacts for amireman use `saedshki`.)  
 **Our role exports:** Police + Thief standalone repositories below  
 **Package / protocol / schema:** `0.11.0` / `0.7.0` / `0.2.0`  
 **Canonical freeze (dev monorepo):** confirm with `git rev-parse HEAD` on

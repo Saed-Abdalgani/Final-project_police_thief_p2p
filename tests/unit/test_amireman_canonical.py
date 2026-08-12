@@ -30,10 +30,10 @@ def test_commit_of_matches_appendix_b() -> None:
 
 def test_derive_game_ids_order_independent() -> None:
     terms = default_terms()
-    a = derive_game_ids(terms, "GRP00001", "amireman")
-    b = derive_game_ids(terms, "amireman", "GRP00001")
+    a = derive_game_ids(terms, "saedshki", "amireman")
+    b = derive_game_ids(terms, "amireman", "saedshki")
     assert a == b
-    assert a[0] == "GRP00001-vs-amireman"
+    assert a[0] == "amireman-vs-saedshki"
     assert len(a[1]) == 36
 
 
@@ -42,8 +42,8 @@ def test_consensus_sha_stable() -> None:
         {
             "sub_game_number": 1,
             "result": "survival",
-            "roles": {"GRP00001": "police", "amireman": "thief"},
-            "score": {"GRP00001": 5, "amireman": 10},
+            "roles": {"saedshki": "police", "amireman": "thief"},
+            "score": {"saedshki": 5, "amireman": 10},
             "winner_group": "amireman",
         }
     ]
