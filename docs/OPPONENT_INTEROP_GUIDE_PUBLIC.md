@@ -23,28 +23,32 @@ We received a public guide that describes a **different wire protocol** from our
 (tools named `negotiate` / `receive_turn` / `submit_audit` / `receive_control`,
 flat 14-key signed terms, `python -m thief_agent.interop …`).
 
-**Our implementation does not speak that tool inventory.**
+**Native `_v1` peers do not speak that tool inventory.** For opponents on the
+`negotiate` / `receive_turn` / `submit_audit` / `receive_control` dialect
+(for example amireman), we ship a dedicated compatibility peer:
 
-| Topic | Their guide (example) | Our implementation |
+`python -m police_thief_p2p.adapters.amireman.interop friendly …`
+
+| Topic | Amireman / reference-v3 wire | Our native `_v1` peer |
 |---|---|---|
-| MCP tools | `negotiate`, `receive_turn`, `submit_audit`, `receive_control` | `health_v1`, `capabilities_v1`, `propose_match_v1`, `accept_match_v1`, `commit_step_v1`, `acknowledge_step_v1`, `reveal_step_v1`, `capture_claim_v1`, `capture_response_v1`, `final_reveal_v1`, `audit_result_v1`, `agree_result_v1`, `peer_status_v1` |
+| MCP tools | `negotiate`, `receive_turn`, `submit_audit`, `receive_control` | `health_v1` … `agree_result_v1` inventory |
 | Shared rules shape | flat 14 signed keys | nested byte-identical `game.json` (schema `0.2.0`) |
-| Turn crypto | commit inside one turn message | three-phase commit → ack → reveal |
-| Capture on wire | `capture_claim` field every Cop turn | dedicated `capture_claim_v1` / `capture_response_v1` tools |
-| Entry CLI | `thief_agent.interop friendly …` | `police_thief_p2p.adapters.mcp.peer_process` + remote driver |
+| Turn crypto | commit on turn; nonce at audit | three-phase commit → ack → reveal |
+| Capture on wire | `capture_claim` every Cop turn | `capture_claim_v1` / `capture_response_v1` |
+| Entry CLI | `thief_agent.interop friendly …` | `peer_process` **or** `adapters.amireman.interop` |
 
 **Physics knobs can look similar** (7×7, 35 moves, 14 barriers, scent 5 / 0.1 / 0.9,
-starts `[3,3]` / `[0,0]`, six sub-games) **and still be unplayable** if the MCP
-tool names and envelopes differ.
+starts `[3,3]` / `[0,0]`, six sub-games) **and still be unplayable** on the wrong
+CLI. Against amireman-family peers, use the amireman adapter — not `peer_process`.
 
 ### Decision gate before any official series
 
 Do **not** start a counted match until both teams explicitly confirm one of:
 
-1. **Same wire family:** opponent runs (or adapts to) our FastMCP tool inventory
+1. **Same wire family:** opponent runs (or adapts to) our FastMCP `_v1` inventory
    and nested `game.json` constitution in this document / `docs/PROTOCOL.md`, **or**
-2. **Adapter bridge:** a mutually agreed translator between the two protocols
-   (not shipped in our default tree), **or**
+2. **Adapter bridge:** we run `adapters.amireman.interop` against their 4-tool
+   wire (DEMO first; counted only after a clean friendly series), **or**
 3. **Abort / reschedule** with the lecturer if no common wire exists.
 
 A successful `curl` of `/mcp` only proves HTTP reachability. It does **not** prove

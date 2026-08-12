@@ -110,13 +110,63 @@ uv run police-thief-p2p replay verify --manifest results/replay-demo/manifest.js
 uv run python -m police_thief_p2p.adapters.gui
 ```
 
-## Phase E — report dry-run (when you have a manifest)
+## Phase D2 — amireman-wire DEMO (4-tool compatibility peer)
+
+Against teams that speak `negotiate` / `receive_turn` / `submit_audit` /
+`receive_control` (not our `_v1` tools), run the dedicated adapter. This path is
+**DEMO / friendly only** (`match_mode=friendly`, never emails the lecturer).
+
+Local loopback smoke (two terminals):
+
+```powershell
+# Terminal A — we start as Police for sub-game 1
+uv run python -m police_thief_p2p.adapters.amireman.interop friendly `
+  --peer http://127.0.0.1:8902/mcp --role police --group GRP00001 `
+  --host 127.0.0.1 --port 8901 --games 2 --game-id DEMO-LOCAL `
+  --public-mcp-url http://127.0.0.1:8901/mcp `
+  --member "Your Name" --member "Teammate Name" `
+  --terms config/shared/amireman.game.json `
+  --out results/amireman-demo/local-a --verbose
+
+# Terminal B — complementary Thief peer (or the real opponent)
+uv run python -m police_thief_p2p.adapters.amireman.interop friendly `
+  --peer http://127.0.0.1:8901/mcp --role thief --group amireman `
+  --host 127.0.0.1 --port 8902 --games 2 --game-id DEMO-LOCAL `
+  --public-mcp-url http://127.0.0.1:8902/mcp `
+  --member "Amir Fadila" --member "Eman Sarhan" `
+  --terms config/shared/amireman.game.json `
+  --out results/amireman-demo/local-b --verbose
+```
+
+For the real remote DEMO: exchange live `https://…/mcp` URLs, use `--games 6`,
+keep `--role police` (they start as Thief), and do **not** run Phase E lecturer
+send on DEMO artifacts.
+
+## Phase E — report dry-run / send (when you have a manifest)
+
+Dry-run (no Gmail call):
 
 ```powershell
 uv run police-thief-p2p report validate `
   --manifest <artifact-root>/official/manifest_<game-id>.json `
   --artifact-root <artifact-root> `
   --sender your-account@gmail.com
+```
+
+Send to the allowlisted recipient in `config/private/police.playtest.toml`
+(first run opens a browser for Gmail send-only OAuth; creates `secrets/token.json`):
+
+```powershell
+uv run python -m scripts.send_series_report `
+  --manifest <artifact-root>/official/manifest_<game-id>.json `
+  --artifact-root <artifact-root> `
+  --send
+```
+
+Local OAuth rehearsal without a real opponent series:
+
+```powershell
+uv run python -m scripts.send_series_report --demo --send
 ```
 
 ## Same Wi‑Fi LAN alternative (not competition-grade)

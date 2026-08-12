@@ -1,41 +1,36 @@
-
-[identity]
+﻿[identity]
 group_id = "GRP00001"
 role = "police"
-member_names = ["League Rehearsal"]
+member_names = ["Member One", "Member Two"]
 [network]
 listen_host = "127.0.0.1"
-listen_port = 8000
-opponent_public_url = "http://127.0.0.1:8001/mcp"
+listen_port = 8901
+opponent_public_url = "http://127.0.0.1:8902/mcp"
 max_request_bytes = 65536
 max_json_depth = 16
 max_string_length = 4096
 max_collection_items = 256
 reorder_window = 8
 [paths]
-artifact_root = "results/playtest-police"
+artifact_root = "results/amireman-demo"
 [strategy]
 police_class = "police_thief_p2p.services.strategy.police.AdvancedPoliceBrain"
 thief_class = "police_thief_p2p.services.strategy.thief.AdvancedThiefBrain"
-profile = "m12-rehearsal"
+profile = "amireman-demo"
 [language]
 provider = "template"
 model = "deterministic-template"
 deadline_sec = 10
 [email]
-# credentials.json = the Desktop OAuth client file you downloaded (you create this).
-# token.json = created automatically on first successful Google login/send (leave it alone).
 credential_path = "secrets/credentials.json"
 token_path = "secrets/token.json"
 sender = "your-account@gmail.com"
-recipient_allowlist = [
-  "your-account@gmail.com",
-]
+recipient_allowlist = ["your-account@gmail.com"]
 [gui]
 enabled = false
 theme = "system"
 [tunnel]
 provider = "local"
-health_url = "http://127.0.0.1:8000/mcp"
+health_url = "http://127.0.0.1:8901/mcp"
 [observability]
 level = "ERROR"
