@@ -12,7 +12,14 @@ FORBIDDEN_LINKAGE = ("editable = true", 'path = "', "path = '")
 
 
 def _run(command: Sequence[str], cwd: Path) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(command, cwd=cwd, check=False, capture_output=True, text=True, timeout=600)
+    return subprocess.run(  # noqa: S603
+        command,
+        cwd=cwd,
+        check=False,
+        capture_output=True,
+        text=True,
+        timeout=600,
+    )
 
 
 def verify_export(root: Path) -> list[str]:
