@@ -14,6 +14,8 @@ from police_thief_p2p.adapters.amireman.self_mail import send_self_demo_mail_syn
 from police_thief_p2p.adapters.amireman.terms import validate_terms
 from police_thief_p2p.shared.config_loader import load_private_bytes
 
+_PLACEHOLDER_SENDERS = {"your-account@gmail.com", "lecturer@example.invalid"}
+
 
 def _git_head(root: Path) -> str:
     try:
@@ -48,7 +50,7 @@ def _mail_paths(root: Path, private_config: Path | None) -> tuple[Path, Path, st
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
-    friendly = sub.add_parser("friendly", help="DEMO / NON-COUNTED series (never emails lecturer)")
+    friendly = sub.add_parser("friendly", help="DEMO series; self-mails result, never lecturer")
     friendly.add_argument("--peer", required=True, help="Opponent public MCP URL ending in /mcp")
     friendly.add_argument("--role", required=True, choices=("police", "thief"))
     friendly.add_argument("--group", default="saedshki")
@@ -58,13 +60,17 @@ def build_parser() -> argparse.ArgumentParser:
     friendly.add_argument("--game-id", default=None)
     friendly.add_argument("--public-mcp-url", default=None)
     friendly.add_argument("--out", type=Path, required=True)
-    friendly.add_argument("--terms", type=Path, default=None, help="Flat terms or nested game.json")
-    friendly.add_argument("--member", action="append", default=[], help="Repeatable member name")
-    friendly.add_argument("--commit", default=None, help="40-hex runtime SHA (default: git HEAD)")
+    friendly.add_argument("--terms", type=Path, default=None)
+    friendly.add_argument("--member", action="append", default=[])
+    friendly.add_argument("--commit", default=None)
     friendly.add_argument("--turn-timeout", type=float, default=180.0)
     friendly.add_argument("--seed", type=int, default=1234)
     friendly.add_argument("--verbose", action="store_true")
-    friendly.add_argument("--self-mail", action="store_true", help="Email DEMO result JSON to yourself")
+    friendly.add_argument(
+        "--no-self-mail",
+        action="store_true",
+        help="Skip post-series self Gmail (default is to self-mail immediately)",
+    )
     friendly.add_argument("--mail-to", default=None, help="Self Gmail (defaults to private sender)")
     friendly.add_argument("--private-config", type=Path, default=None)
     mail = sub.add_parser("self-mail", help="Email an existing DEMO result JSON to yourself")
@@ -75,19 +81,20 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def _maybe_self_mail(args, root: Path, result_doc: dict, artifacts: list) -> dict:
-    if not getattr(args, "self_mail", False) and args.command != "self-mail":
-        return {"self_mail_sent": False, "lecturer_report_sent": False}
+def _do_self_mail(args, root: Path, result_doc: dict, artifacts: list) -> dict:
     credentials, token, configured_sender = _mail_paths(root, args.private_config)
     recipient = args.mail_to or configured_sender
-    sender = recipient  # DEMO self-mail: From and To are the same operator inbox
+    if recipient.lower() in _PLACEHOLDER_SENDERS:
+        raise SystemExit("pass --mail-to your@gmail.com (private sender is still a placeholder)")
+    sender = recipient
     result_path = (
         Path(args.result)
         if args.command == "self-mail"
         else Path(next(path for path in artifacts if Path(path).name.startswith("result_")))
     )
     game_id = args.game_id or result_doc.get("game_id") or result_path.stem.replace("result_", "")
-    return send_self_demo_mail_sync(
+    print(f"self-mail: sending {result_path.name} to {recipient} …", flush=True)
+    info = send_self_demo_mail_sync(
         result_json=result_path.resolve(),
         credentials=credentials,
         token=token,
@@ -96,13 +103,18 @@ def _maybe_self_mail(args, root: Path, result_doc: dict, artifacts: list) -> dic
         artifact_root=(root / "results" / "amireman-demo").resolve(),
         game_id=str(game_id),
     )
+    print(
+        f"self-mail: accepted by Gmail provider_id={info['provider_id']} at {info['sent_at_utc']}",
+        flush=True,
+    )
+    return info
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     root = Path(__file__).resolve().parents[4]
     if args.command == "self-mail":
-        info = _maybe_self_mail(args, root, {}, [])
+        info = _do_self_mail(args, root, {}, [])
         print(json.dumps(info, indent=2))
         return 0 if info.get("self_mail_sent") else 1
     if args.command != "friendly":
@@ -130,10 +142,15 @@ def main(argv: Sequence[str] | None = None) -> int:
         game_id=args.game_id,
     )
     payload = json.loads(dump_result(result))
-    if args.self_mail:
-        payload.update(_maybe_self_mail(args, root, result.result_doc, result.artifacts))
+    if not args.no_self_mail:
+        payload.update(_do_self_mail(args, root, result.result_doc, result.artifacts))
+    else:
+        payload.update({"self_mail_sent": False, "lecturer_report_sent": False})
     print(json.dumps(payload, indent=2))
-    return 0 if result.clean and result.sha_match else 1
+    ok = result.clean and result.sha_match
+    if not args.no_self_mail:
+        ok = ok and bool(payload.get("self_mail_sent"))
+    return 0 if ok else 1
 
 
 if __name__ == "__main__":

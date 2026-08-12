@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -53,6 +54,7 @@ async def send_self_demo_mail(
         "recipient": recipient,
         "provider_id": receipt.message_id,
         "attachment": str(result_json),
+        "sent_at_utc": datetime.now(UTC).isoformat(),
     }
 
 
