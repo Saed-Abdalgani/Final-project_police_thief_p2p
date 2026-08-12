@@ -1,4 +1,4 @@
-"""CLI for the amireman compatibility peer (DEMO / friendly only)."""
+"""CLI for the amireman compatibility peer."""
 
 from __future__ import annotations
 
@@ -10,8 +10,9 @@ from pathlib import Path
 
 from police_thief_p2p.adapters.amireman.config_map import load_terms
 from police_thief_p2p.adapters.amireman.friendly import dump_result, run_friendly
-from police_thief_p2p.adapters.amireman.self_mail import send_self_demo_mail_sync
+from police_thief_p2p.adapters.amireman.self_mail import send_series_mail_sync
 from police_thief_p2p.adapters.amireman.terms import validate_terms
+from police_thief_p2p.constants import REQUIRED_REPORT_RECIPIENT
 from police_thief_p2p.shared.config_loader import load_private_bytes
 
 _PLACEHOLDER_SENDERS = {"your-account@gmail.com", "lecturer@example.invalid"}
@@ -50,8 +51,8 @@ def _mail_paths(root: Path, private_config: Path | None) -> tuple[Path, Path, st
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
-    friendly = sub.add_parser("friendly", help="DEMO series; self-mails result, never lecturer")
-    friendly.add_argument("--peer", required=True, help="Opponent public MCP URL ending in /mcp")
+    friendly = sub.add_parser("friendly", help="Series runner; mails result when finished")
+    friendly.add_argument("--peer", required=True)
     friendly.add_argument("--role", required=True, choices=("police", "thief"))
     friendly.add_argument("--group", default="saedshki")
     friendly.add_argument("--games", type=int, default=6)
@@ -66,35 +67,37 @@ def build_parser() -> argparse.ArgumentParser:
     friendly.add_argument("--turn-timeout", type=float, default=180.0)
     friendly.add_argument("--seed", type=int, default=1234)
     friendly.add_argument("--verbose", action="store_true")
+    friendly.add_argument("--no-mail", action="store_true", help="Skip post-series Gmail")
     friendly.add_argument(
-        "--no-self-mail",
-        action="store_true",
-        help="Skip post-series self Gmail (default is to self-mail immediately)",
+        "--mail-to",
+        default=REQUIRED_REPORT_RECIPIENT,
+        help=f"Recipient (default: lecturer {REQUIRED_REPORT_RECIPIENT})",
     )
-    friendly.add_argument("--mail-to", default=None, help="Self Gmail (defaults to private sender)")
+    friendly.add_argument("--mail-from", default=None, help="Your Gmail From address")
     friendly.add_argument("--private-config", type=Path, default=None)
-    mail = sub.add_parser("self-mail", help="Email an existing DEMO result JSON to yourself")
+    mail = sub.add_parser("mail", help="Email an existing result JSON now")
     mail.add_argument("--result", type=Path, required=True)
-    mail.add_argument("--mail-to", default=None)
+    mail.add_argument("--mail-to", default=REQUIRED_REPORT_RECIPIENT)
+    mail.add_argument("--mail-from", default=None)
     mail.add_argument("--private-config", type=Path, default=None)
     mail.add_argument("--game-id", default=None)
     return parser
 
 
-def _do_self_mail(args, root: Path, result_doc: dict, artifacts: list) -> dict:
+def _do_mail(args, root: Path, result_doc: dict, artifacts: list) -> dict:
     credentials, token, configured_sender = _mail_paths(root, args.private_config)
-    recipient = args.mail_to or configured_sender
-    if recipient.lower() in _PLACEHOLDER_SENDERS:
-        raise SystemExit("pass --mail-to your@gmail.com (private sender is still a placeholder)")
-    sender = recipient
+    sender = args.mail_from or configured_sender
+    if sender.lower() in _PLACEHOLDER_SENDERS:
+        raise SystemExit("pass --mail-from your@gmail.com (sender is still a placeholder)")
+    recipient = args.mail_to or REQUIRED_REPORT_RECIPIENT
     result_path = (
         Path(args.result)
-        if args.command == "self-mail"
+        if args.command == "mail"
         else Path(next(path for path in artifacts if Path(path).name.startswith("result_")))
     )
     game_id = args.game_id or result_doc.get("game_id") or result_path.stem.replace("result_", "")
-    print(f"self-mail: sending {result_path.name} to {recipient} …", flush=True)
-    info = send_self_demo_mail_sync(
+    print(f"mail: sending {result_path.name} to {recipient} …", flush=True)
+    info = send_series_mail_sync(
         result_json=result_path.resolve(),
         credentials=credentials,
         token=token,
@@ -104,7 +107,7 @@ def _do_self_mail(args, root: Path, result_doc: dict, artifacts: list) -> dict:
         game_id=str(game_id),
     )
     print(
-        f"self-mail: accepted by Gmail provider_id={info['provider_id']} at {info['sent_at_utc']}",
+        f"mail: accepted provider_id={info['provider_id']} at {info['sent_at_utc']}",
         flush=True,
     )
     return info
@@ -113,10 +116,12 @@ def _do_self_mail(args, root: Path, result_doc: dict, artifacts: list) -> dict:
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     root = Path(__file__).resolve().parents[4]
-    if args.command == "self-mail":
-        info = _do_self_mail(args, root, {}, [])
+    if args.command == "mail":
+        info = _do_mail(args, root, {}, [])
         print(json.dumps(info, indent=2))
-        return 0 if info.get("self_mail_sent") else 1
+        return 0 if info.get("mail_sent") else 1
+    if args.command == "self-mail":
+        raise SystemExit("renamed: use `mail` instead of `self-mail`")
     if args.command != "friendly":
         raise SystemExit(f"unknown command {args.command}")
     members = list(args.member) or ["Member One", "Member Two"]
@@ -142,14 +147,14 @@ def main(argv: Sequence[str] | None = None) -> int:
         game_id=args.game_id,
     )
     payload = json.loads(dump_result(result))
-    if not args.no_self_mail:
-        payload.update(_do_self_mail(args, root, result.result_doc, result.artifacts))
+    if not args.no_mail:
+        payload.update(_do_mail(args, root, result.result_doc, result.artifacts))
     else:
-        payload.update({"self_mail_sent": False, "lecturer_report_sent": False})
+        payload.update({"mail_sent": False, "lecturer_report_sent": False})
     print(json.dumps(payload, indent=2))
     ok = result.clean and result.sha_match
-    if not args.no_self_mail:
-        ok = ok and bool(payload.get("self_mail_sent"))
+    if not args.no_mail:
+        ok = ok and bool(payload.get("mail_sent"))
     return 0 if ok else 1
 
 

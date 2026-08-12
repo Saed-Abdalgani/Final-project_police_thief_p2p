@@ -139,12 +139,12 @@ uv run python -m police_thief_p2p.adapters.amireman.interop friendly `
 ```
 
 For the real remote DEMO: exchange live `https://…/mcp` URLs, use `--games 6`,
-keep `--role police` (they start as Thief). When the series ends, the CLI
-**immediately self-mails** `result_*.json` to `--mail-to` (lecturer is blocked).
-Pass `--no-self-mail` only for local loopback tests.
+keep `--role police` (they start as Thief). When the series ends, the CLI **immediately mails** `result_*.json`
+(default To: course lecturer). Pass `--mail-from your@gmail.com`.
+Use `--mail-to your@gmail.com` for self-only tests, or `--no-mail` to skip.
 
 ```powershell
-  --mail-to your-account@gmail.com `
+  --mail-from your-account@gmail.com `
   --private-config config/private/police.amireman.toml
 ```
 

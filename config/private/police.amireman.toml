@@ -25,7 +25,10 @@ deadline_sec = 10
 credential_path = "secrets/credentials.json"
 token_path = "secrets/token.json"
 sender = "your-account@gmail.com"
-recipient_allowlist = ["your-account@gmail.com"]
+recipient_allowlist = [
+  "your-account@gmail.com",
+  "rmisegal+uoh26finalgame@gmail.com",
+]
 [gui]
 enabled = false
 theme = "system"

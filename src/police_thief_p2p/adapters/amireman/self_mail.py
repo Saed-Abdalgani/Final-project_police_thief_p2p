@@ -1,4 +1,4 @@
-"""Self-only DEMO Gmail notify for amireman friendly runs (never lecturer)."""
+"""Post-series Gmail notify for amireman runs (self or lecturer)."""
 
 from __future__ import annotations
 
@@ -12,17 +12,17 @@ from police_thief_p2p.constants import REQUIRED_REPORT_RECIPIENT
 from police_thief_p2p.sdk.email import EmailMessage
 
 
-def _assert_self_only(sender: str, recipient: str) -> None:
+def _assert_policy(sender: str, recipient: str) -> None:
     sender_n = sender.strip().lower()
     recipient_n = recipient.strip().lower()
     lecturer = REQUIRED_REPORT_RECIPIENT.strip().lower()
-    if recipient_n == lecturer or sender_n == lecturer:
-        raise ValueError("DEMO self-mail refuses the lecturer address")
-    if recipient_n != sender_n:
-        raise ValueError("DEMO self-mail requires recipient == sender (self only)")
+    if "@" not in sender_n or sender_n == lecturer:
+        raise ValueError("sender must be your own Gmail account")
+    if recipient_n not in {sender_n, lecturer}:
+        raise ValueError("recipient must be yourself or the course lecturer address")
 
 
-async def send_self_demo_mail(
+async def send_series_mail(
     *,
     result_json: Path,
     credentials: Path,
@@ -32,32 +32,44 @@ async def send_self_demo_mail(
     artifact_root: Path,
     game_id: str,
 ) -> dict[str, Any]:
-    """Send the DEMO result JSON to the operator's own Gmail. Never lecturer."""
-    _assert_self_only(sender, recipient)
+    """Send result JSON immediately after the series. From=operator, To=self or lecturer."""
+    _assert_policy(sender, recipient)
     if not result_json.is_file():
         raise FileNotFoundError(f"missing result file: {result_json}")
-    attachment = result_json.read_bytes()
+    to_lecturer = recipient.strip().lower() == REQUIRED_REPORT_RECIPIENT.strip().lower()
+    subject = (
+        f"[COUNTED] Police-Thief series {game_id}"
+        if to_lecturer
+        else f"[DEMO NON-COUNTED] Police-Thief series {game_id}"
+    )
     oauth = GmailOAuth(credentials, token, artifact_root=artifact_root, timeout_sec=180)
     oauth.access_token()
     gmail = GmailSender(oauth, sender=sender, timeout_sec=90)
     receipt = await gmail.send(
         EmailMessage(
             recipient=recipient,
-            subject=f"[DEMO NON-COUNTED] Police-Thief series {game_id}",
+            subject=subject,
             attachment_name=result_json.name,
-            attachment=attachment,
+            attachment=result_json.read_bytes(),
         )
     )
     return {
-        "self_mail_sent": True,
-        "lecturer_report_sent": False,
+        "mail_sent": True,
+        "self_mail_sent": not to_lecturer,
+        "lecturer_report_sent": to_lecturer,
         "recipient": recipient,
+        "sender": sender,
         "provider_id": receipt.message_id,
         "attachment": str(result_json),
         "sent_at_utc": datetime.now(UTC).isoformat(),
     }
 
 
-def send_self_demo_mail_sync(**kwargs: Any) -> dict[str, Any]:
+def send_series_mail_sync(**kwargs: Any) -> dict[str, Any]:
     """Sync wrapper for CLI / post-series hooks."""
-    return asyncio.run(send_self_demo_mail(**kwargs))
+    return asyncio.run(send_series_mail(**kwargs))
+
+
+# Back-compat aliases used by older call sites / docs.
+send_self_demo_mail = send_series_mail
+send_self_demo_mail_sync = send_series_mail_sync
