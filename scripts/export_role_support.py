@@ -37,9 +37,11 @@ def selected_files(manifest: dict[str, object]) -> list[Path]:
             continue
         if not source.is_dir():
             raise FileNotFoundError(f"export include path missing: {pattern}")
-        for path in source.rglob("*"):
-            if path.is_file() and not _excluded(path.relative_to(ROOT).as_posix(), exclude):
-                chosen.append(path.relative_to(ROOT))
+        chosen.extend(
+            path.relative_to(ROOT)
+            for path in source.rglob("*")
+            if path.is_file() and not _excluded(path.relative_to(ROOT).as_posix(), exclude)
+        )
     return sorted(set(chosen), key=lambda item: item.as_posix())
 
 
