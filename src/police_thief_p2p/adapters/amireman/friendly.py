@@ -1,4 +1,4 @@
-"""DEMO / FRIENDLY runner: full series, never mails the lecturer."""
+"""Series runner for amireman-wire; CLI handles optional post-series mail."""
 
 from __future__ import annotations
 
@@ -49,7 +49,7 @@ def run_friendly(
     listener: Callable[[dict], None] | None = None,
     game_id: str | None = None,
 ) -> FriendlyResult:
-    """Stand up server, play DEMO series, write local artifacts. Never emails."""
+    """Stand up server, play the series, write local artifacts (no mail here)."""
     if not members:
         raise ValueError("members list must be non-empty for amireman identity")
     identity = identity_for(

@@ -113,10 +113,9 @@ uv run python -m police_thief_p2p.adapters.gui
 ## Phase D2 — amireman-wire DEMO (4-tool compatibility peer)
 
 Against teams that speak `negotiate` / `receive_turn` / `submit_audit` /
-`receive_control` (not our `_v1` tools), run the dedicated adapter. This path is
-**DEMO / friendly only** (`match_mode=friendly`, never emails the lecturer).
+`receive_control` (not our `_v1` tools), run the dedicated adapter.
 
-Local loopback smoke (two terminals):
+Local loopback smoke (two terminals; add `--no-mail`):
 
 ```powershell
 # Terminal A — we start as Police for sub-game 1
@@ -126,7 +125,7 @@ uv run python -m police_thief_p2p.adapters.amireman.interop friendly `
   --public-mcp-url http://127.0.0.1:8901/mcp `
   --member "Your Name" --member "Teammate Name" `
   --terms config/shared/amireman.game.json `
-  --out results/amireman-demo/local-a --verbose
+  --out results/amireman-demo/local-a --verbose --no-mail
 
 # Terminal B — complementary Thief peer (or the real opponent)
 uv run python -m police_thief_p2p.adapters.amireman.interop friendly `
@@ -135,16 +134,16 @@ uv run python -m police_thief_p2p.adapters.amireman.interop friendly `
   --public-mcp-url http://127.0.0.1:8902/mcp `
   --member "Amir Fadila" --member "Eman Sarhan" `
   --terms config/shared/amireman.game.json `
-  --out results/amireman-demo/local-b --verbose
+  --out results/amireman-demo/local-b --verbose --no-mail
 ```
 
-For the real remote DEMO: exchange live `https://…/mcp` URLs, use `--games 6`,
-keep `--role police` (they start as Thief). When the series ends, the CLI **immediately mails** `result_*.json`
-(default To: course lecturer). Pass `--mail-from your@gmail.com`.
-Use `--mail-to your@gmail.com` for self-only tests, or `--no-mail` to skip.
+Remote series: exchange live `https://…/mcp` URLs, `--games 6`, `--role police`
+(they start as Thief). When the series ends, the CLI **mails** `result_*.json`
+to the course lecturer by default (`[COUNTED]` subject). Pass `--mail-from`.
+Use `--mail-to your@gmail.com` for self-only DEMO, or `--no-mail` to skip.
 
 ```powershell
-  --mail-from your-account@gmail.com `
+  --mail-from lovely.lololagain@gmail.com `
   --private-config config/private/police.amireman.toml
 ```
 

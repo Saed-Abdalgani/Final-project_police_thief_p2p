@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import asyncio
+import json
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from police_thief_p2p.adapters.amireman.canonical import canonical
 from police_thief_p2p.adapters.email import GmailOAuth, GmailSender
 from police_thief_p2p.constants import REQUIRED_REPORT_RECIPIENT
 from police_thief_p2p.sdk.email import EmailMessage
@@ -20,6 +22,14 @@ def _assert_policy(sender: str, recipient: str) -> None:
         raise ValueError("sender must be your own Gmail account")
     if recipient_n not in {sender_n, lecturer}:
         raise ValueError("recipient must be yourself or the course lecturer address")
+
+
+def _stamp_result(path: Path, *, to_lecturer: bool) -> None:
+    """Align on-disk result flags with the mail destination before attach."""
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    doc["lecturer_report_sent"] = to_lecturer
+    doc["match_mode"] = "counted" if to_lecturer else "friendly"
+    path.write_bytes(canonical(doc).encode("utf-8") + b"\n")
 
 
 async def send_series_mail(
@@ -37,6 +47,7 @@ async def send_series_mail(
     if not result_json.is_file():
         raise FileNotFoundError(f"missing result file: {result_json}")
     to_lecturer = recipient.strip().lower() == REQUIRED_REPORT_RECIPIENT.strip().lower()
+    _stamp_result(result_json, to_lecturer=to_lecturer)
     subject = (
         f"[COUNTED] Police-Thief series {game_id}"
         if to_lecturer
