@@ -139,8 +139,23 @@ uv run python -m police_thief_p2p.adapters.amireman.interop friendly `
 ```
 
 For the real remote DEMO: exchange live `https://…/mcp` URLs, use `--games 6`,
-keep `--role police` (they start as Thief), and do **not** run Phase E lecturer
-send on DEMO artifacts.
+keep `--role police` (they start as Thief), and do **not** mail the lecturer.
+To email the DEMO `result_*.json` to yourself after the series (self-only):
+
+```powershell
+# add to the friendly command:
+  --self-mail --mail-to your-account@gmail.com --private-config config/private/police.amireman.toml
+```
+
+Or mail an already-finished DEMO result:
+
+```powershell
+uv run python -m police_thief_p2p.adapters.amireman.interop self-mail `
+  --result results/amireman-demo/remote/result_G003.json `
+  --mail-to your-account@gmail.com `
+  --private-config config/private/police.amireman.toml `
+  --game-id G003
+```
 
 ## Phase E — report dry-run / send (when you have a manifest)
 
