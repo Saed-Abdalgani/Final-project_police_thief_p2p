@@ -35,21 +35,46 @@ def emission_delta(centre: Cell, size: int) -> Grid:
     return delta
 
 
+ROUND_DIGITS: Final = 4
+_DUST: Final = 10 ** (-ROUND_DIGITS)
+
+
+def _keep(value: float) -> float | None:
+    value = min(MAX_INTENSITY, max(0.0, value))
+    if value <= _DUST:
+        return None
+    return value
+
+
+def decay_only(grid: Grid, rho: float) -> Grid:
+    """One decay tick with no emission — the field served on the wire."""
+    out: Grid = {}
+    for cell, old in grid.items():
+        kept = _keep((1.0 - rho) * old)
+        if kept is not None:
+            out[cell] = kept
+    return out
+
+
 def step_update(grid: Grid, centre: Cell, size: int, rho: float) -> Grid:
     """tau_next = min(0.9, max(0, (1-rho)*tau_old + delta))."""
     delta = emission_delta(centre, size)
     out: Grid = {}
     for cell in set(grid) | set(delta):
-        value = max(0.0, (1.0 - rho) * grid.get(cell, 0.0) + delta.get(cell, 0.0))
-        value = min(MAX_INTENSITY, value)
-        if value > 1e-9:
-            out[cell] = value
+        kept = _keep((1.0 - rho) * grid.get(cell, 0.0) + delta.get(cell, 0.0))
+        if kept is not None:
+            out[cell] = kept
     return out
 
 
 def grid_out(grid: Grid) -> dict[str, float]:
-    """Wire shape {"r,c": intensity}."""
-    return {f"{row},{col}": value for (row, col), value in grid.items()}
+    """Wire shape {"r,c": intensity}, rounded to 4 digits, zeros dropped."""
+    out: dict[str, float] = {}
+    for (row, col), value in grid.items():
+        rounded = round(value, ROUND_DIGITS)
+        if rounded > 0:
+            out[f"{row},{col}"] = rounded
+    return out
 
 
 def grid_in(data: dict[str, float] | None) -> Grid:

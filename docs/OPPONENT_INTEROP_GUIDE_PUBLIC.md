@@ -82,7 +82,7 @@ plus the exact 40-hex HEAD they will run.
 READY
 
 Group:                GRP00001
-Members:              <fill non-empty list at match time>
+Members:              Mohamed Shawki 214502080, Saed-Abdalgani 325812667
 Cop repo:             https://github.com/JCS1029/GRP00001-police-p2p
 Thief repo:           https://github.com/JCS1029/GRP00001-thief-p2p
 Cop runtime SHA:      <40-hex: git -C police-checkout rev-parse HEAD>

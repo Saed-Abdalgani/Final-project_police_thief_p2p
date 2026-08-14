@@ -92,3 +92,90 @@ def test_nested_game_maps_to_flat_terms(tmp_path) -> None:
         encoding="utf-8",
     )
     assert load_terms(path)["setting"] == "Haifa"
+
+
+AHK_YOSI_TERMS = {
+    "axis_origin_corner": "top-left",
+    "axis_start_index": 0,
+    "barriers_max": 14,
+    "board_size": 7,
+    "cop_start": [0, 0],
+    "decay_per_step": 0.1,
+    "emit_intensity": 0.9,
+    "hint_max_words": 15,
+    "max_steps": 35,
+    "min_center_intensity": 0.5,
+    "num_games": 6,
+    "setting": "New York",
+    "smell_grid_size": 5,
+    "thief_start": [3, 3],
+}
+
+
+def test_ahk_yosi_commit_golden_vectors() -> None:
+    assert (
+        commit_of({"a": 1}, "abababababababababababababababab")
+        == "2d5faf71c42626d681a5727c2e7940af4c8e21e7f59f3acd6e063ae654bcee0a"
+    )
+    step = {
+        "barrier": None,
+        "hint": "north side",
+        "intent": "lie",
+        "kind": "step",
+        "move": "E",
+        "pos_after": [3, 4],
+        "pos_before": [3, 3],
+        "role": "thief",
+        "scent": [[0.0, 0.0], [0.0, 0.81]],
+        "step": 1,
+        "sub_game": 1,
+        "sub_game_number": 1,
+    }
+    assert (
+        commit_of(step, "abababababababababababababababab")
+        == "a963512dd17cb3b86f6fe1d9027d1b03de14cdbd791f4c809d98e8b4ff9836a0"
+    )
+
+
+def test_ahk_yosi_game_uid_golden_vectors() -> None:
+    assert derive_game_ids(AHK_YOSI_TERMS, "ahk-yosi", "amireman") == (
+        "ahk-yosi-vs-amireman",
+        "4cada35c-bba4-72c7-0838-d6fd723e13b8",
+    )
+    assert derive_game_ids(AHK_YOSI_TERMS, "ahk-yosi", "saedshki") == (
+        "ahk-yosi-vs-saedshki",
+        "749e57f6-03b8-5f91-7323-ec193385c9a1",
+    )
+
+
+def test_ahk_yosi_consensus_golden_vector() -> None:
+    rows = [
+        {
+            "sub_game_number": 1,
+            "result": "survival",
+            "roles": {"ahk-yosi": "police", "them": "thief"},
+            "score": {"ahk-yosi": 5, "them": 10},
+            "winner_group": "them",
+        },
+        {
+            "sub_game_number": 2,
+            "result": "capture",
+            "roles": {"ahk-yosi": "thief", "them": "police"},
+            "score": {"ahk-yosi": 5, "them": 20},
+            "winner_group": "them",
+        },
+    ]
+    assert (
+        consensus_sha("a-vs-b", "uid-1234", rows)
+        == "3d2eddb4692b0a42fa3b01a37ad9241f40734687730be4f74724c5b115443764"
+    )
+
+
+def test_ahk_yosi_terms_file_loads() -> None:
+    from pathlib import Path
+
+    path = Path(__file__).resolve().parents[2] / "config" / "shared" / "ahk-yosi.terms.json"
+    terms = load_terms(path)
+    assert terms["setting"] == "New York"
+    assert terms["board_size"] == 7
+    assert terms["cop_start"] == [0, 0]

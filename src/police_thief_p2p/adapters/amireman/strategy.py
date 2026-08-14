@@ -86,6 +86,7 @@ def build_payload(
     barrier: list | None = None,
     capture_claim: list | None = None,
     claim_response: dict | None = None,
+    sub_game: int | None = None,
 ) -> dict[str, Any]:
     """Sealed audit payload matching amireman field conventions."""
     payload: dict[str, Any] = {
@@ -96,6 +97,9 @@ def build_payload(
         "intent": "truth",
         "hint": hint,
     }
+    if sub_game is not None:
+        payload["sub_game"] = int(sub_game)
+        payload["sub_game_number"] = int(sub_game)
     if barrier is not None:
         payload["barrier_placed"] = list(barrier)
     if capture_claim is not None:

@@ -7,7 +7,7 @@ from typing import Any
 
 from police_thief_p2p.adapters.amireman.canonical import seal
 from police_thief_p2p.adapters.amireman.capture import evaluate_thief_caught
-from police_thief_p2p.adapters.amireman.scent import grid_in, grid_out, step_update
+from police_thief_p2p.adapters.amireman.scent import decay_only, grid_in, grid_out, step_update
 from police_thief_p2p.adapters.amireman.strategy import apply_move, build_payload, choose_move
 
 
@@ -24,6 +24,8 @@ class PeerHalf:
         self.pos = (int(start[0]), int(start[1]))
         self.barriers: set[tuple[int, int]] = set()
         self.barriers_used = 0
+        self.sub_game = int(sub_game)
+        self.setting = str(terms.get("setting", "Haifa"))
         self.own_scent = step_update({}, self.pos, self.size, self.rho)
         self.recv_scent: dict[tuple[int, int], float] = {}
         self.known_opp: tuple[int, int] | None = None
@@ -52,9 +54,10 @@ class PeerHalf:
             self.barriers_used += 1
         else:
             self.pos = apply_move(self.pos, move)
+        served = decay_only(self.own_scent, self.rho)
         self.own_scent = step_update(self.own_scent, self.pos, self.size, self.rho)
         claim = list(self.pos) if self.role == "police" else None
-        hint = "Haifa streets clear" if self.role == "police" else "moving carefully"
+        hint = f"{self.setting} streets clear" if self.role == "police" else "moving carefully"
         wire_move = "STAY" if move == "STAY" or barrier is not None else move
         payload = build_payload(
             self.step,
@@ -65,6 +68,7 @@ class PeerHalf:
             barrier=barrier,
             capture_claim=claim,
             claim_response=claim_response,
+            sub_game=self.sub_game,
         )
         sealed = seal(payload)
         self.records.append({"payload": payload, **sealed})
@@ -73,13 +77,14 @@ class PeerHalf:
             "sender": self.role,
             "commit": sealed["commit"],
             "hint": hint,
-            "scent": grid_out(self.own_scent),
+            "scent": grid_out(served),
             "claim": claim,
             "barrier_placed": barrier,
         }
 
     def hold(self, claim_response: dict | None = None) -> dict[str, Any]:
         self.step += 1
+        served = decay_only(self.own_scent, self.rho)
         self.own_scent = step_update(self.own_scent, self.pos, self.size, self.rho)
         payload = build_payload(
             self.step,
@@ -88,6 +93,7 @@ class PeerHalf:
             "STAY",
             "",
             claim_response=claim_response,
+            sub_game=self.sub_game,
         )
         sealed = seal(payload)
         self.records.append({"payload": payload, **sealed})
@@ -96,7 +102,7 @@ class PeerHalf:
             "sender": self.role,
             "commit": sealed["commit"],
             "hint": "",
-            "scent": grid_out(self.own_scent),
+            "scent": grid_out(served),
             "claim": None,
             "barrier_placed": None,
         }
@@ -135,6 +141,7 @@ def _step0(group: str, sub_game: int, commit: str) -> dict[str, Any]:
         "step": 0,
         "type": "system_spec",
         "group_name": group,
+        "sub_game": sub_game,
         "sub_game_number": sub_game,
         "github_commit": commit,
         "code_version": "amireman-compat-0.1",

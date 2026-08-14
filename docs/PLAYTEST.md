@@ -123,7 +123,7 @@ uv run python -m police_thief_p2p.adapters.amireman.interop friendly `
   --peer http://127.0.0.1:8902/mcp --role police --group saedshki `
   --host 127.0.0.1 --port 8901 --games 2 --game-id DEMO-LOCAL `
   --public-mcp-url http://127.0.0.1:8901/mcp `
-  --member "Your Name" --member "Teammate Name" `
+  --member "Mohamed Shawki" --member "Saed-Abdalgani" `
   --terms config/shared/amireman.game.json `
   --out results/amireman-demo/local-a --verbose --no-mail
 

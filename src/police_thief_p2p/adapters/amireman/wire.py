@@ -36,6 +36,20 @@ class TurnMessage:
         return cls(**{key: value for key, value in data.items() if key in known})
 
 
+CONSENSUS_TAG = "series_consensus"
+
+
+def is_series_consensus(data: dict[str, Any] | AuditPayload) -> bool:
+    """True for the end-of-series digest envelope, not a per-sub-game reveal."""
+    if isinstance(data, AuditPayload):
+        claim, sha, records = data.result_claim, data.consensus_sha, data.records
+    else:
+        claim, sha, records = data.get("result_claim"), data.get("consensus_sha"), data.get("records")
+    if claim == CONSENSUS_TAG:
+        return True
+    return bool(sha) and records == []
+
+
 @dataclass
 class AuditPayload:
     """End-of-game reveal or series_consensus envelope."""
@@ -44,9 +58,11 @@ class AuditPayload:
     records: list
     result_claim: str
     consensus_sha: str | None = None
+    sub_game: int | None = None
+    sub_game_number: int | None = None
 
     def to_wire(self) -> dict[str, Any]:
-        return {k: v for k, v in asdict(self).items() if not (k == "consensus_sha" and v is None)}
+        return {k: v for k, v in asdict(self).items() if v is not None}
 
     @classmethod
     def from_wire(cls, data: dict[str, Any]) -> AuditPayload:
@@ -54,6 +70,14 @@ class AuditPayload:
         payload = cls(**{key: value for key, value in data.items() if key in known})
         if payload.consensus_sha is not None and not _HEX64.match(str(payload.consensus_sha)):
             payload.consensus_sha = None
+        for key in ("sub_game", "sub_game_number"):
+            value = getattr(payload, key)
+            if value is not None:
+                setattr(payload, key, int(value))
+        if payload.sub_game is None:
+            payload.sub_game = payload.sub_game_number
+        if payload.sub_game_number is None:
+            payload.sub_game_number = payload.sub_game
         return payload
 
 

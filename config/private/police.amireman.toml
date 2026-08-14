@@ -1,7 +1,7 @@
 [identity]
 group_id = "saedshki"
 role = "police"
-member_names = ["Member One", "Member Two"]
+member_names = ["Mohamed Shawki", "Saed-Abdalgani"]
 [network]
 listen_host = "127.0.0.1"
 listen_port = 8901

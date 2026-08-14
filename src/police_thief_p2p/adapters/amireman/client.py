@@ -22,7 +22,7 @@ class McpTransport:
         opponent_url: str,
         inboxes: PeerInboxes,
         *,
-        connect_timeout: float = 60.0,
+        connect_timeout: float = 180.0,
         retry_interval: float = 1.0,
     ) -> None:
         self._url = opponent_url
@@ -51,9 +51,9 @@ class McpTransport:
                 time.sleep(self._retry)
 
     def exchange_agreement(self, signed: dict[str, Any]) -> dict[str, Any]:
-        self._call_with_retry("negotiate", signed)
+        self._call_with_retry("negotiate", signed, timeout=self._connect_timeout)
         try:
-            return self._inboxes.agreements.get(timeout=self._connect_timeout)
+            return self._inboxes.agreements.get(timeout=240.0)
         except queue.Empty as exc:
             raise RuntimeError("opponent never sent its agreement") from exc
 

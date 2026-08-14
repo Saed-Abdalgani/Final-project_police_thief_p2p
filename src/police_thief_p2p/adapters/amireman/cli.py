@@ -62,6 +62,11 @@ def build_parser() -> argparse.ArgumentParser:
     friendly.add_argument("--public-mcp-url", default=None)
     friendly.add_argument("--out", type=Path, required=True)
     friendly.add_argument("--terms", type=Path, default=None)
+    friendly.add_argument(
+        "--setting",
+        default=None,
+        help="Override signed terms 'setting' (must match opponent, e.g. 'New York')",
+    )
     friendly.add_argument("--member", action="append", default=[])
     friendly.add_argument("--commit", default=None)
     friendly.add_argument("--turn-timeout", type=float, default=180.0)
@@ -124,8 +129,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         raise SystemExit("renamed: use `mail` instead of `self-mail`")
     if args.command != "friendly":
         raise SystemExit(f"unknown command {args.command}")
-    members = list(args.member) or ["Member One", "Member Two"]
+    members = list(args.member) or ["Mohamed Shawki", "Saed-Abdalgani"]
     terms = load_terms(args.terms)
+    if getattr(args, "setting", None):
+        terms["setting"] = args.setting
     validate_terms(terms)
     commit = args.commit or _git_head(root)
     listener = (lambda event: print(event, flush=True)) if args.verbose else None
