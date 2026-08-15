@@ -158,6 +158,7 @@ def test_gmail_adapter_classifies_provider_results(
     )
     result = asyncio.run(sender.execute(call))
     assert result.outcome == outcome
+    assert asyncio.run(sender(call)).outcome == outcome
     assert seen
     assert b"private-token" not in seen[0][1]
 

@@ -7,6 +7,7 @@ from datetime import UTC, datetime
 from typing import Any
 
 from police_thief_p2p.adapters.amireman.half import PeerHalf
+from police_thief_p2p.adapters.amireman.scent import MULTIPLICATIVE_KERNEL_V1
 from police_thief_p2p.adapters.amireman.wire import TurnMessage
 
 
@@ -32,8 +33,9 @@ class SubEngine:
         github_commit: str,
         sub_game_number: int,
         seed: int = 1234,
+        scent_model: str = MULTIPLICATIVE_KERNEL_V1,
     ) -> None:
-        self.half = PeerHalf(role, terms, group, github_commit, sub_game_number, seed)
+        self.half = PeerHalf(role, terms, group, github_commit, sub_game_number, seed, scent_model)
         self.role = role
         self.threshold = int(terms["max_steps"])
         self.pending_response: dict | None = None

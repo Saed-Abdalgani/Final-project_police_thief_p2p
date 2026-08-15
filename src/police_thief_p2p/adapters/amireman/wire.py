@@ -7,6 +7,18 @@ from dataclasses import asdict, dataclass, field
 from typing import Any
 
 _HEX64 = re.compile(r"^[0-9a-f]{64}$")
+TURN_KEYS: tuple[str, ...] = (
+    "step",
+    "sender",
+    "hint",
+    "smell_grid",
+    "commit",
+    "timestamp",
+    "barrier_placed",
+    "capture_claim",
+    "claim_response",
+    "win_claim",
+)
 
 
 @dataclass
@@ -25,7 +37,8 @@ class TurnMessage:
     win_claim: dict | None = None
 
     def to_wire(self) -> dict[str, Any]:
-        return asdict(self)
+        raw = asdict(self)
+        return {key: raw[key] for key in TURN_KEYS}
 
     @classmethod
     def from_wire(cls, data: dict[str, Any]) -> TurnMessage:
@@ -33,7 +46,12 @@ class TurnMessage:
         missing = {"step", "sender", "commit"} - set(data)
         if missing:
             raise ValueError(f"turn message missing fields: {sorted(missing)}")
-        return cls(**{key: value for key, value in data.items() if key in known})
+        filtered = {key: value for key, value in data.items() if key in known}
+        if filtered.get("hint") is None:
+            filtered["hint"] = ""
+        if filtered.get("smell_grid") is None:
+            filtered["smell_grid"] = {}
+        return cls(**filtered)
 
 
 CONSENSUS_TAG = "series_consensus"

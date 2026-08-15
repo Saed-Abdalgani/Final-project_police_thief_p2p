@@ -56,6 +56,14 @@ def emit_artifacts(out_dir: Path, series: Any, terms: dict[str, Any]) -> tuple[l
         "peer_consensus_sha": series.peer_consensus_sha,
         "sha_match": series.sha_match,
         "results_agreed": series.results_agreed,
+        "mutual_agreement": {
+            "sha256": series.settlement_sha,
+            "confirmed": bool(series.summaries)
+            and all(
+                not item["audit"].get("tampered") and item["audit"].get("result_agreed")
+                for item in series.summaries
+            ),
+        },
         "summaries": [{k: v for k, v in item.items() if k != "records"} for item in series.summaries],
         "ended_at": datetime.now(UTC).isoformat(),
     }

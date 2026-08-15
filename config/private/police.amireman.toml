@@ -24,9 +24,10 @@ deadline_sec = 10
 [email]
 credential_path = "secrets/credentials.json"
 token_path = "secrets/token.json"
-sender = "your-account@gmail.com"
+sender = "lovely.lololagain@gmail.com"
 recipient_allowlist = [
-  "your-account@gmail.com",
+  "lovely.lololagain@gmail.com",
+  "afafgharra000@gmail.com",
   "rmisegal+uoh26finalgame@gmail.com",
 ]
 [gui]

@@ -44,3 +44,38 @@ def canonical_rows(summaries: list, ours: str, theirs: str) -> list[dict]:
             }
         )
     return rows
+
+
+def aggregate(rows: list[dict], tie_score: int = TIE_SCORE) -> dict:
+    """Series totals in the course-reference shape used for mutual_agreement."""
+    scores = [row["score"] for row in rows]
+    groups = sorted({group for item in scores for group in item})
+    totals = {group: sum(item.get(group, 0) for item in scores) for group in groups}
+    won = dict.fromkeys(groups, 0)
+    ties = 0
+    for item in scores:
+        if not item:
+            continue
+        best = max(item.values())
+        leaders = [group for group, value in item.items() if value == best]
+        if len(leaders) == 1:
+            won[leaders[0]] += 1
+        else:
+            ties += 1
+    if len(groups) == 2 and totals[groups[0]] == totals[groups[1]]:
+        for group in groups:
+            totals[group] += tie_score
+        return {
+            "total_score": totals,
+            "sub_games_won": won,
+            "ties": ties,
+            "winner_group": None,
+            "series_tie": True,
+        }
+    return {
+        "total_score": totals,
+        "sub_games_won": won,
+        "ties": ties,
+        "winner_group": max(totals, key=lambda group: totals[group]) if totals else None,
+        "series_tie": False,
+    }

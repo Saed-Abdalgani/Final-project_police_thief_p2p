@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+from datetime import UTC, datetime
 from pathlib import Path
 
 from police_thief_p2p.adapters.email import GmailOAuth, GmailSender
@@ -14,7 +15,7 @@ from police_thief_p2p.adapters.system.deterministic_random import DeterministicR
 from police_thief_p2p.constants import REQUIRED_REPORT_RECIPIENT
 from police_thief_p2p.sdk import SimulationSdk
 from police_thief_p2p.services.gatekeeper import DurableQuotaManager, FullGatekeeper, load_profiles
-from police_thief_p2p.services.reporting import DurableOutbox, OutboxDispatcher
+from police_thief_p2p.services.reporting import DurableOutbox, OutboxDispatcher, OutboxState
 from police_thief_p2p.shared.config_loader import load_private_bytes
 from scripts.m12_campaign_support import ROOT
 
@@ -66,13 +67,23 @@ async def _send(report, artifact_root: Path, credentials: Path, token: Path, sen
         ),
         rng=DeterministicRandomSource(11),
     )
+    outbox = DurableOutbox(AtomicFileRepository(artifact_root / "diagnostics" / "gmail-outbox"))
     dispatcher = OutboxDispatcher(
-        DurableOutbox(AtomicFileRepository(artifact_root / "diagnostics" / "gmail-outbox")),
+        outbox,
         gatekeeper,
         clock,
         sender=sender,
     )
     item = dispatcher.enqueue(report)
+    if item.state is OutboxState.RETRY_WAIT:
+        # Operator --send means retry now. Persisted monotonic retry_not_before
+        # does not survive a new process, so a second run would otherwise no-op.
+        outbox.transition(
+            item.logical_report_id,
+            OutboxState.VALIDATED,
+            last_error_code=None,
+            retry_not_before=None,
+        )
     return await dispatcher.dispatch(item.logical_report_id)
 
 
@@ -105,6 +116,8 @@ def main(argv: list[str] | None = None) -> int:
         raise SystemExit(f"recipient {recipient!r} is not on the private allowlist")
     if args.demo:
         artifact_root = artifact_root / "gmail-demo"
+        if args.send:
+            artifact_root = artifact_root / datetime.now(UTC).strftime("%Y%m%dT%H%M%S")
         artifact_root.mkdir(parents=True, exist_ok=True)
         manifest_path = _demo_manifest(artifact_root)
     elif args.manifest is None:

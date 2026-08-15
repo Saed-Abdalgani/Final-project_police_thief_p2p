@@ -7,11 +7,16 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 from typing import Any
 
-from police_thief_p2p.adapters.amireman.canonical import consensus_sha
+from police_thief_p2p.adapters.amireman.canonical import consensus_sha, settlement_sha
 from police_thief_p2p.adapters.amireman.negotiate import Negotiator
 from police_thief_p2p.adapters.amireman.runtime import SubGameRuntime
-from police_thief_p2p.adapters.amireman.scoring import canonical_rows, role_for
-from police_thief_p2p.adapters.amireman.wire import CONSENSUS_TAG, AuditPayload, is_series_consensus
+from police_thief_p2p.adapters.amireman.scoring import aggregate, canonical_rows, role_for
+from police_thief_p2p.adapters.amireman.scent import MULTIPLICATIVE_KERNEL_V1
+from police_thief_p2p.adapters.amireman.wire import (
+    CONSENSUS_TAG,
+    AuditPayload,
+    is_series_consensus,
+)
 
 DEFAULT_REPOS = {
     "cop": "https://github.com/JCS1029/GRP00001-police-p2p",
@@ -55,6 +60,7 @@ class SeriesResult:
     game_uid: str | None = None
     consensus_sha: str | None = None
     peer_consensus_sha: str | None = None
+    settlement_sha: str | None = None
     sha_match: bool = False
     results_agreed: bool = False
 
@@ -67,7 +73,7 @@ def _exchange_consensus(
     candidates = []
     if deferred is not None:
         candidates.append(deferred)
-    deadline = time.monotonic() + min(turn_timeout, 60.0)
+    deadline = time.monotonic() + min(turn_timeout, 8.0)
     while True:
         for msg in candidates:
             peer = AuditPayload.from_wire(msg)
@@ -96,6 +102,7 @@ def run_series(
     listener: Callable[[dict], None] | None = None,
     turn_timeout: float = 180.0,
     game_id: str | None = None,
+    scent_model: str = MULTIPLICATIVE_KERNEL_V1,
 ) -> SeriesResult:
     result = SeriesResult(own_identity=own_identity)
     known_opponent: str | None = None
@@ -113,13 +120,16 @@ def run_series(
         result.peer_identity = agreed.opponent_identity or result.peer_identity
         if listener is not None:
             listener({"type": "negotiated", "sub_game": n, "role": role, "game_id": result.game_id})
-        runtime = SubGameRuntime(role, terms, transport, group, github_commit, n, seed, listener)
+        runtime = SubGameRuntime(
+            role, terms, transport, group, github_commit, n, seed, listener, scent_model=scent_model
+        )
         result.summaries.append(runtime.run(turn_timeout=turn_timeout))
         if runtime.deferred_consensus is not None:
             deferred_consensus = runtime.deferred_consensus
     theirs = result.peer_identity.get("group_id", "")
     rows = canonical_rows(result.summaries, group, theirs)
     result.consensus_sha = consensus_sha(result.game_id or "", result.game_uid or "", rows)
+    result.settlement_sha = settlement_sha(result.game_id or "", aggregate(rows), rows)
     result.results_agreed = bool(result.summaries) and all(
         s["audit"].get("result_agreed", False) for s in result.summaries
     )

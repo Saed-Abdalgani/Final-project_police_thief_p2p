@@ -3,16 +3,19 @@
 from __future__ import annotations
 
 import json
+import time
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 
 from police_thief_p2p.adapters.amireman.artifacts import (
     LECTURER_REPORT_SENT,
     MATCH_MODE,
     emit_artifacts,
 )
-from police_thief_p2p.adapters.amireman.client import McpTransport
+from police_thief_p2p.adapters.amireman.client import McpTransport, mcp_url
+from police_thief_p2p.adapters.amireman.scent import MULTIPLICATIVE_KERNEL_V1
 from police_thief_p2p.adapters.amireman.series import identity_for, run_series
 from police_thief_p2p.adapters.amireman.server import start_peer_server
 
@@ -48,17 +51,20 @@ def run_friendly(
     public_mcp_url: str | None = None,
     listener: Callable[[dict], None] | None = None,
     game_id: str | None = None,
+    scent_model: str = MULTIPLICATIVE_KERNEL_V1,
 ) -> FriendlyResult:
     """Stand up server, play the series, write local artifacts (no mail here)."""
     if not members:
         raise ValueError("members list must be non-empty for amireman identity")
+    advertised = mcp_url(public_mcp_url or f"http://{host}:{port}/mcp")
     identity = identity_for(
         group,
         members=members,
         github_commit=github_commit,
-        public_mcp_url=public_mcp_url or f"http://{host}:{port}/mcp",
+        public_mcp_url=advertised,
     )
     server = start_peer_server(f"interop-{group}", host, port)
+    print(f"mcp: listening on http://{host}:{port}/mcp (tunnel GET should be 406)", flush=True)
     transport = McpTransport(opponent_url, server.inboxes)
     try:
         series = run_series(
@@ -73,9 +79,12 @@ def run_friendly(
             listener=listener,
             turn_timeout=turn_timeout,
             game_id=game_id,
+            scent_model=scent_model,
         )
     finally:
-        server.stop()
+        transport.close()
+        time.sleep(2.0)
+        server.stop(max_linger=12.0, grace=8.0)
     paths, result_doc = emit_artifacts(Path(out_dir), series, terms)
     clean = len(series.summaries) == num_games and all(
         not s["audit"].get("tampered") and s["result"] != "timeout" for s in series.summaries

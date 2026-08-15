@@ -9,6 +9,7 @@ from police_thief_p2p.adapters.amireman.canonical import (
     consensus_sha,
     derive_game_ids,
     seal,
+    settlement_sha,
     verify,
 )
 from police_thief_p2p.adapters.amireman.config_map import load_terms, terms_from_nested_game
@@ -140,11 +141,11 @@ def test_ahk_yosi_commit_golden_vectors() -> None:
 def test_ahk_yosi_game_uid_golden_vectors() -> None:
     assert derive_game_ids(AHK_YOSI_TERMS, "ahk-yosi", "amireman") == (
         "ahk-yosi-vs-amireman",
-        "4cada35c-bba4-72c7-0838-d6fd723e13b8",
+        "cae8267d-2bf6-2925-c008-dc50f0080963",
     )
     assert derive_game_ids(AHK_YOSI_TERMS, "ahk-yosi", "saedshki") == (
         "ahk-yosi-vs-saedshki",
-        "749e57f6-03b8-5f91-7323-ec193385c9a1",
+        "bbfe72b0-aa67-2773-63df-7aba86f37cc3",
     )
 
 
@@ -179,3 +180,70 @@ def test_ahk_yosi_terms_file_loads() -> None:
     assert terms["setting"] == "New York"
     assert terms["board_size"] == 7
     assert terms["cop_start"] == [0, 0]
+
+
+def test_commit_of_keeps_non_ascii_hint() -> None:
+    payload = {"hint": "streets — north", "step": 1}
+    nonce = "ab" * 16
+    digest = commit_of(payload, nonce)
+    assert verify(payload, nonce, digest)
+    escaped = canonical(payload).replace("—", "\\u2014")
+    assert escaped != canonical(payload)
+
+
+def test_settlement_sha_matches_smngrp05_fourth_friendly() -> None:
+    rows = [
+        {
+            "sub_game_number": 1,
+            "roles": {"SMNGRP05": "thief", "saedshki": "police"},
+            "result": "survival",
+            "winner_group": "SMNGRP05",
+            "score": {"SMNGRP05": 10, "saedshki": 5},
+        },
+        {
+            "sub_game_number": 2,
+            "roles": {"SMNGRP05": "police", "saedshki": "thief"},
+            "result": "survival",
+            "winner_group": "saedshki",
+            "score": {"SMNGRP05": 5, "saedshki": 10},
+        },
+        {
+            "sub_game_number": 3,
+            "roles": {"SMNGRP05": "thief", "saedshki": "police"},
+            "result": "survival",
+            "winner_group": "SMNGRP05",
+            "score": {"SMNGRP05": 10, "saedshki": 5},
+        },
+        {
+            "sub_game_number": 4,
+            "roles": {"SMNGRP05": "police", "saedshki": "thief"},
+            "result": "survival",
+            "winner_group": "saedshki",
+            "score": {"SMNGRP05": 5, "saedshki": 10},
+        },
+        {
+            "sub_game_number": 5,
+            "roles": {"SMNGRP05": "thief", "saedshki": "police"},
+            "result": "survival",
+            "winner_group": "SMNGRP05",
+            "score": {"SMNGRP05": 10, "saedshki": 5},
+        },
+        {
+            "sub_game_number": 6,
+            "roles": {"SMNGRP05": "police", "saedshki": "thief"},
+            "result": "capture",
+            "winner_group": "SMNGRP05",
+            "score": {"SMNGRP05": 20, "saedshki": 5},
+        },
+    ]
+    aggregate = {
+        "series_tie": False,
+        "sub_games_won": {"SMNGRP05": 4, "saedshki": 2},
+        "ties": 0,
+        "total_score": {"SMNGRP05": 60, "saedshki": 40},
+        "winner_group": "SMNGRP05",
+    }
+    assert (
+        settlement_sha("SMNGRP05-vs-saedshki", aggregate, rows)
+        == "0bbef8592a72087807a996fd84e8fefeac55cfe74766165953c133b798540835"
+    )

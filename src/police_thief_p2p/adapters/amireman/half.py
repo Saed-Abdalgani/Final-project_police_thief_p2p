@@ -7,28 +7,47 @@ from typing import Any
 
 from police_thief_p2p.adapters.amireman.canonical import seal
 from police_thief_p2p.adapters.amireman.capture import evaluate_thief_caught
-from police_thief_p2p.adapters.amireman.scent import decay_only, grid_in, grid_out, step_update
+from police_thief_p2p.adapters.amireman.scent import (
+    MULTIPLICATIVE_KERNEL_V1,
+    decay_only,
+    grid_in,
+    grid_out,
+    step_update,
+)
 from police_thief_p2p.adapters.amireman.strategy import apply_move, build_payload, choose_move
 
 
 class PeerHalf:
     """Computes own moves, emits public turn fields, seals audit records."""
 
-    def __init__(self, role: str, terms: dict[str, Any], group: str, commit: str, sub_game: int, seed: int) -> None:
+    def __init__(
+        self,
+        role: str,
+        terms: dict[str, Any],
+        group: str,
+        commit: str,
+        sub_game: int,
+        seed: int,
+        scent_model: str = MULTIPLICATIVE_KERNEL_V1,
+    ) -> None:
         self.role = role
         self.size = int(terms["board_size"])
         self.rho = float(terms["decay_per_step"])
         self.max_barriers = int(terms["barriers_max"])
         self.threshold = int(terms["max_steps"])
         start = terms["cop_start"] if role == "police" else terms["thief_start"]
+        opp = terms["thief_start"] if role == "police" else terms["cop_start"]
         self.pos = (int(start[0]), int(start[1]))
+        self.opp_start = (int(opp[0]), int(opp[1]))
         self.barriers: set[tuple[int, int]] = set()
         self.barriers_used = 0
         self.sub_game = int(sub_game)
         self.setting = str(terms.get("setting", "Haifa"))
-        self.own_scent = step_update({}, self.pos, self.size, self.rho)
+        self.scent_model = scent_model
+        self.own_scent = step_update({}, self.pos, self.size, self.rho, self.scent_model)
         self.recv_scent: dict[tuple[int, int], float] = {}
         self.known_opp: tuple[int, int] | None = None
+        self.last_target: tuple[int, int] | None = None
         self.step = 0
         self.rng = random.Random(seed + 100 + sub_game)
         self.records: list[dict[str, Any]] = [
@@ -47,6 +66,11 @@ class PeerHalf:
             rng=self.rng,
             barriers_used=self.barriers_used,
             barriers_max=self.max_barriers,
+            last_target=self.last_target,
+            step=self.step,
+            max_steps=self.threshold,
+            opp_start=self.opp_start,
+            sub_game=self.sub_game,
         )
         if barrier is not None:
             cell = (int(barrier[0]), int(barrier[1]))
@@ -54,8 +78,8 @@ class PeerHalf:
             self.barriers_used += 1
         else:
             self.pos = apply_move(self.pos, move)
-        served = decay_only(self.own_scent, self.rho)
-        self.own_scent = step_update(self.own_scent, self.pos, self.size, self.rho)
+        served = decay_only(self.own_scent, self.rho, self.scent_model)
+        self.own_scent = step_update(self.own_scent, self.pos, self.size, self.rho, self.scent_model)
         claim = list(self.pos) if self.role == "police" else None
         hint = f"{self.setting} streets clear" if self.role == "police" else "moving carefully"
         wire_move = "STAY" if move == "STAY" or barrier is not None else move
@@ -84,8 +108,8 @@ class PeerHalf:
 
     def hold(self, claim_response: dict | None = None) -> dict[str, Any]:
         self.step += 1
-        served = decay_only(self.own_scent, self.rho)
-        self.own_scent = step_update(self.own_scent, self.pos, self.size, self.rho)
+        served = decay_only(self.own_scent, self.rho, self.scent_model)
+        self.own_scent = step_update(self.own_scent, self.pos, self.size, self.rho, self.scent_model)
         payload = build_payload(
             self.step,
             self.role,
@@ -114,19 +138,20 @@ class PeerHalf:
         barrier = msg.get("barrier_placed")
         if self.role == "police" and claim is None and isinstance(msg.get("capture_claim"), list):
             claim = msg.get("capture_claim")
-        if isinstance(claim, list) and len(claim) == 2 and self.role == "thief":
-            # Cop always claims own cell — that is where we believe the Cop is.
-            self.known_opp = (int(claim[0]), int(claim[1]))
-        if self.role == "police" and isinstance(msg.get("smell_grid"), dict):
-            peak = max(self.recv_scent.items(), key=lambda i: i[1], default=(None, 0))[0]
-            if peak is not None:
-                self.known_opp = peak
-        if self.role != "thief":
-            return False
         if isinstance(barrier, list) and len(barrier) == 2:
             cell = (int(barrier[0]), int(barrier[1]))
             if 0 <= cell[0] < self.size and 0 <= cell[1] < self.size and cell not in self.barriers:
                 self.barriers.add(cell)
+        if isinstance(claim, list) and len(claim) == 2 and self.role == "thief":
+            # Cop always claims own cell — that is where we believe the Cop is.
+            self.last_target = self.known_opp
+            self.known_opp = (int(claim[0]), int(claim[1]))
+        if self.role == "police" and self.recv_scent:
+            peak = max(self.recv_scent.items(), key=lambda item: item[1])[0]
+            self.last_target = self.known_opp
+            self.known_opp = peak
+        if self.role != "thief":
+            return False
         return evaluate_thief_caught(
             thief=self.pos,
             claim=claim,

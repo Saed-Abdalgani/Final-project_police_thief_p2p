@@ -1,4 +1,4 @@
-"""Post-series Gmail notify for amireman runs (self or lecturer)."""
+"""Post-series Gmail notify for amireman runs (self, opponent, or lecturer)."""
 
 from __future__ import annotations
 
@@ -14,14 +14,21 @@ from police_thief_p2p.constants import REQUIRED_REPORT_RECIPIENT
 from police_thief_p2p.sdk.email import EmailMessage
 
 
-def _assert_policy(sender: str, recipient: str) -> None:
+def _assert_policy(
+    sender: str, recipient: str, allowlist: tuple[str, ...] = ()
+) -> None:
     sender_n = sender.strip().lower()
     recipient_n = recipient.strip().lower()
     lecturer = REQUIRED_REPORT_RECIPIENT.strip().lower()
     if "@" not in sender_n or sender_n == lecturer:
         raise ValueError("sender must be your own Gmail account")
-    if recipient_n not in {sender_n, lecturer}:
-        raise ValueError("recipient must be yourself or the course lecturer address")
+    allowed = {sender_n}
+    for item in allowlist:
+        text = str(item).strip().lower()
+        if "@" in text:
+            allowed.add(text)
+    if recipient_n not in allowed:
+        raise ValueError("recipient is not on the private allowlist")
 
 
 def _stamp_result(path: Path, *, to_lecturer: bool) -> None:
@@ -41,9 +48,10 @@ async def send_series_mail(
     recipient: str,
     artifact_root: Path,
     game_id: str,
+    allowlist: tuple[str, ...] = (),
 ) -> dict[str, Any]:
-    """Send result JSON immediately after the series. From=operator, To=self or lecturer."""
-    _assert_policy(sender, recipient)
+    """Send result JSON immediately after the series. Lecturer only if allowlisted."""
+    _assert_policy(sender, recipient, allowlist)
     if not result_json.is_file():
         raise FileNotFoundError(f"missing result file: {result_json}")
     to_lecturer = recipient.strip().lower() == REQUIRED_REPORT_RECIPIENT.strip().lower()

@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from police_thief_p2p.adapters.amireman.canonical import commit_of, derive_game_ids, fresh_nonce, verify
-from police_thief_p2p.adapters.amireman.terms import TERMS_KEYS, terms_equal
+from police_thief_p2p.adapters.amireman.terms import TERMS_KEYS, terms_diff, terms_equal
 from police_thief_p2p.adapters.amireman.wire import Negotiation
 
 
@@ -58,7 +58,11 @@ class Negotiator:
         if missing:
             raise NegotiationRefusedError(f"opponent terms incomplete; missing {missing}")
         if not terms_equal(self.terms, peer_terms):
-            raise NegotiationRefusedError("terms mismatch: constitution disagreement")
+            parts = [
+                f"{key}: ours={ours!r} theirs={theirs!r}"
+                for key, ours, theirs in terms_diff(self.terms, peer_terms)
+            ]
+            raise NegotiationRefusedError("terms mismatch: " + "; ".join(parts))
         nonce, signature = raw.get("nonce"), raw.get("signature")
         if not nonce or not signature:
             raise NegotiationRefusedError("greeting carries no nonce/signature")

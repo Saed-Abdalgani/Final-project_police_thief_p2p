@@ -59,3 +59,12 @@ def validate_terms(terms: dict[str, Any]) -> None:
 def terms_equal(left: dict[str, Any], right: dict[str, Any]) -> bool:
     """Parsed-object equality over the 14 keys."""
     return all(left.get(key) == right.get(key) for key in TERMS_KEYS)
+
+
+def terms_diff(left: dict[str, Any], right: dict[str, Any]) -> list[tuple[str, Any, Any]]:
+    """Return (key, ours, theirs) for every signed-term disagreement."""
+    return [
+        (key, left.get(key), right.get(key))
+        for key in TERMS_KEYS
+        if left.get(key) != right.get(key)
+    ]

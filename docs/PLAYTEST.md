@@ -138,13 +138,33 @@ uv run python -m police_thief_p2p.adapters.amireman.interop friendly `
 ```
 
 Remote series: exchange live `https://…/mcp` URLs, `--games 6`, `--role police`
-(they start as Thief). When the series ends, the CLI **mails** `result_*.json`
-to the course lecturer by default (`[COUNTED]` subject). Pass `--mail-from`.
-Use `--mail-to your@gmail.com` for self-only DEMO, or `--no-mail` to skip.
+(they start as Thief). When the series ends, the CLI mails `result_*.json` to
+`--mail-from` / the configured sender by default (`[DEMO NON-COUNTED]`).
+Pass `--mail-to afafgharra000@gmail.com` for a SMNGRP05 warmup report to them.
+Use `--no-mail` to skip. The lecturer address is never the default.
 
 ```powershell
   --mail-from lovely.lololagain@gmail.com `
+  --mail-to afafgharra000@gmail.com `
   --private-config config/private/police.amireman.toml
+```
+
+SMNGRP05 warmup (we are Police in sub-game 1; they open as Thief). Replace `PEER_URL` with the live `/mcp` they send immediately before the window:
+
+```powershell
+uv run python -m police_thief_p2p.adapters.amireman.interop friendly `
+  --peer PEER_URL --role police --group saedshki --games 6 `
+  --host 127.0.0.1 --port 8901 `
+  --terms config/shared/smngrp05.terms.json `
+  --setting "New York" `
+  --scent-model subtractive_chebyshev_v1 `
+  --member "Mohamed Shawki" --member "Saed-Abdalgani" `
+  --public-mcp-url OUR_TUNNEL_URL `
+  --out results/amireman-demo/smngrp05-warmup `
+  --mail-from lovely.lololagain@gmail.com `
+  --mail-to afafgharra000@gmail.com `
+  --private-config config/private/police.amireman.toml `
+  --verbose
 ```
 
 ## Phase E — report dry-run / send (when you have a manifest)

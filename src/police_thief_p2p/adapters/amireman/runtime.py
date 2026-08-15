@@ -6,13 +6,14 @@ import time
 from collections.abc import Callable
 from typing import Any
 
-from police_thief_p2p.adapters.amireman.canonical import audit_records
+from police_thief_p2p.adapters.amireman.canonical import audit_records, canonical, commit_of
 from police_thief_p2p.adapters.amireman.delivery import (
     EquivocationError,
     Inbox,
     ProtocolViolationError,
 )
 from police_thief_p2p.adapters.amireman.engine import IncomingOutcome, SubEngine, _now_iso
+from police_thief_p2p.adapters.amireman.scent import MULTIPLICATIVE_KERNEL_V1
 from police_thief_p2p.adapters.amireman.wire import AuditPayload, TurnMessage, is_series_consensus
 
 
@@ -29,8 +30,11 @@ class SubGameRuntime:
         sub_game_number: int,
         seed: int = 1234,
         listener: Callable[[dict], None] | None = None,
+        scent_model: str = MULTIPLICATIVE_KERNEL_V1,
     ) -> None:
-        self.engine = SubEngine(role, terms, group, github_commit, sub_game_number, seed)
+        self.engine = SubEngine(
+            role, terms, group, github_commit, sub_game_number, seed, scent_model=scent_model
+        )
         self.transport = transport
         self.inbox = Inbox(window=4)
         self.role = role
@@ -83,6 +87,12 @@ class SubGameRuntime:
             self._take_turn()
 
     def _records_for_this_game(self, records: list) -> list:
+        """Keep this sub-game's tagged records plus records that omit a tag.
+
+        Reference-v3 / SMNGRP05 only stamp ``sub_game_number`` on step 0. Step
+        payloads have none. ``tagged or untagged`` then kept step 0 and dropped
+        every live step, so an honest log looked fully tampered.
+        """
         tagged = []
         untagged = []
         for rec in records:
@@ -95,25 +105,31 @@ class SubGameRuntime:
                 untagged.append(rec)
             elif int(declared) == self.n:
                 tagged.append(rec)
-        return tagged or untagged
+        return tagged + untagged
 
     def _verify_theirs(self, records: list) -> dict[str, Any]:
         scoped = self._records_for_this_game(records)
         res = audit_records(scoped)
         failed = list(res["failed_steps"])
-        by_step = {int(r["payload"].get("step", -1)): r for r in scoped if isinstance(r.get("payload"), dict)}
+        by_step = {
+            int(r["payload"].get("step", -1)): r
+            for r in scoped
+            if isinstance(r, dict) and isinstance(r.get("payload"), dict)
+        }
         for step, commit in self.inbox.played.items():
             rec = by_step.get(int(step))
             if rec is None or rec.get("commit") != commit:
                 failed.append(int(step))
-        passed = not failed
+        unique = sorted(set(failed))
+        passed = not unique
         return {
             "passed": passed,
             "log_verified": passed,
             "tampered": not passed,
-            "verified_steps": max(0, len(scoped) - len(set(failed))),
-            "failed_steps": sorted(set(failed)),
+            "verified_steps": max(0, len(scoped) - len(unique)),
+            "failed_steps": unique,
             "skipped": False,
+            "example": None if passed else _worked_example(by_step, unique),
         }
 
     def _poll_subgame_audit(self, turn_timeout: float) -> dict[str, Any] | None:
@@ -155,6 +171,7 @@ class SubGameRuntime:
                 "local_result_claim": outcome,
                 "peer_result_claim": None,
                 "result_agreed": False,
+                "example": None,
             }
         peer = AuditPayload.from_wire(theirs)
         audit = self._verify_theirs(peer.records)
@@ -176,6 +193,7 @@ class SubGameRuntime:
                 "local_result_claim": outcome,
                 "peer_result_claim": None,
                 "result_agreed": False,
+                "example": None,
             }
             if outcome == "timeout"
             else self._exchange_audit(outcome, turn_timeout)
@@ -195,3 +213,28 @@ class SubGameRuntime:
             "duration_seconds": time.monotonic() - self._t0,
             "tokens_total": 0,
         }
+
+
+def _worked_example(by_step: dict[int, dict], failed: list[int]) -> dict[str, Any] | None:
+    """One failed record as received, plus the digest we computed over it."""
+    for step in failed:
+        rec = by_step.get(int(step))
+        if not isinstance(rec, dict) or not isinstance(rec.get("payload"), dict):
+            continue
+        payload = rec["payload"]
+        nonce = str(rec.get("nonce", ""))
+        declared = str(rec.get("commit", ""))
+        computed = commit_of(payload, nonce) if nonce else ""
+        return {
+            "step": int(step),
+            "payload": payload,
+            "nonce": nonce,
+            "commit": declared,
+            "computed": computed,
+            "preimage": f"{canonical(payload)}|{nonce}",
+            "scheme": (
+                'sha256(json.dumps(payload, sort_keys=True, ensure_ascii=False, '
+                'separators=(",", ":")) + "|" + nonce)'
+            ),
+        }
+    return None

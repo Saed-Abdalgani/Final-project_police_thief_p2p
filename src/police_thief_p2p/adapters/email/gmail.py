@@ -45,6 +45,10 @@ class GmailSender:
         self._timeout = timeout_sec
         self._post = post_request
 
+    async def __call__(self, call: ExternalCall) -> ExternalResult:
+        """Satisfy the Gatekeeper executor contract (instance is callable)."""
+        return await self.execute(call)
+
     async def send(self, message: EmailMessage) -> EmailReceipt:
         """Implement the send-only email port for a JSON attachment."""
         raw = _mime_for_port(message, self._sender)

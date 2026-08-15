@@ -27,9 +27,9 @@ deadline_sec = 10
 # token.json = created automatically on first successful Google login/send (leave it alone).
 credential_path = "secrets/credentials.json"
 token_path = "secrets/token.json"
-sender = "your-account@gmail.com"
+sender = "lovely.lololagain@gmail.com"
 recipient_allowlist = [
-  "your-account@gmail.com",
+  "lovely.lololagain@gmail.com",
 ]
 [gui]
 enabled = false
