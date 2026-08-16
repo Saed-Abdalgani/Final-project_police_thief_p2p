@@ -48,6 +48,10 @@ class Negotiator:
             sub_game_number=sub_game_number,
             identity=self.identity,
             game_uid=game_uid,
+            config_sha256=self.identity.get("config_sha256"),
+            scent_model_sha256=self.identity.get("scent_model_sha256"),
+            code_version=self.identity.get("code_version"),
+            first_mover=self.identity.get("first_mover"),
         )
 
     def verify_peer(self, raw: dict[str, Any]) -> Agreed:

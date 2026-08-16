@@ -6,7 +6,7 @@ import random
 from typing import Any
 
 from police_thief_p2p.adapters.amireman.canonical import seal
-from police_thief_p2p.adapters.amireman.capture import evaluate_thief_caught
+from police_thief_p2p.adapters.amireman.capture import evaluate_thief_caught, thief_trapped
 from police_thief_p2p.adapters.amireman.scent import (
     MULTIPLICATIVE_KERNEL_V1,
     decay_only,
@@ -48,6 +48,7 @@ class PeerHalf:
         self.recv_scent: dict[tuple[int, int], float] = {}
         self.known_opp: tuple[int, int] | None = None
         self.last_target: tuple[int, int] | None = None
+        self.last_move: str | None = None
         self.step = 0
         self.rng = random.Random(seed + 100 + sub_game)
         self.records: list[dict[str, Any]] = [
@@ -71,7 +72,9 @@ class PeerHalf:
             max_steps=self.threshold,
             opp_start=self.opp_start,
             sub_game=self.sub_game,
+            last_move=self.last_move,
         )
+        self.last_move = move
         if barrier is not None:
             cell = (int(barrier[0]), int(barrier[1]))
             self.barriers.add(cell)
@@ -134,18 +137,29 @@ class PeerHalf:
     def receive(self, msg: dict[str, Any]) -> bool:
         """Fold inbound public fields; return True if this Thief is caught."""
         self.recv_scent = grid_in(msg.get("scent") or msg.get("smell_grid"))
+        from police_thief_p2p.adapters.amireman.capture import as_cell
+
         claim = msg.get("claim") if "claim" in msg else msg.get("capture_claim")
-        barrier = msg.get("barrier_placed")
-        if self.role == "police" and claim is None and isinstance(msg.get("capture_claim"), list):
+        if claim is None:
             claim = msg.get("capture_claim")
-        if isinstance(barrier, list) and len(barrier) == 2:
-            cell = (int(barrier[0]), int(barrier[1]))
-            if 0 <= cell[0] < self.size and 0 <= cell[1] < self.size and cell not in self.barriers:
-                self.barriers.add(cell)
-        if isinstance(claim, list) and len(claim) == 2 and self.role == "thief":
-            # Cop always claims own cell — that is where we believe the Cop is.
-            self.last_target = self.known_opp
-            self.known_opp = (int(claim[0]), int(claim[1]))
+        barrier = msg.get("barrier_placed")
+        barrier_cell = as_cell(barrier)
+        if barrier_cell is not None:
+            if (
+                0 <= barrier_cell[0] < self.size
+                and 0 <= barrier_cell[1] < self.size
+                and barrier_cell not in self.barriers
+            ):
+                self.barriers.add(barrier_cell)
+        if self.role == "thief":
+            cop = as_cell(claim) or as_cell(msg.get("capture_claim"))
+            if cop is not None:
+                self.last_target = self.known_opp
+                self.known_opp = cop
+            elif self.recv_scent:
+                peak = max(self.recv_scent.items(), key=lambda item: item[1])[0]
+                if self.known_opp is None:
+                    self.known_opp = peak
         if self.role == "police" and self.recv_scent:
             peak = max(self.recv_scent.items(), key=lambda item: item[1])[0]
             self.last_target = self.known_opp
@@ -160,6 +174,10 @@ class PeerHalf:
             size=self.size,
         )
 
+    def enclosed(self) -> bool:
+        """True when this Thief has no orthogonal escape (STAY does not count)."""
+        return self.role == "thief" and thief_trapped(self.pos, self.barriers, self.size)
+
 
 def _step0(group: str, sub_game: int, commit: str) -> dict[str, Any]:
     payload = {
@@ -169,7 +187,7 @@ def _step0(group: str, sub_game: int, commit: str) -> dict[str, Any]:
         "sub_game": sub_game,
         "sub_game_number": sub_game,
         "github_commit": commit,
-        "code_version": "amireman-compat-0.1",
+        "code_version": "1.00",
     }
     sealed = seal(payload)
     return {"payload": payload, **sealed}

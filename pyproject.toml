@@ -142,6 +142,10 @@ xfail_strict = true
 [tool.coverage.run]
 branch = true
 source = ["police_thief_p2p", "scripts"]
+omit = [
+    "scripts/_bench_ahk_police.py",
+    "scripts/_spar_ahk_police.py",
+]
 
 [tool.coverage.report]
 fail_under = 85

@@ -15,8 +15,9 @@ from police_thief_p2p.adapters.amireman.scent import (
     MULTIPLICATIVE_KERNEL_V1,
     SUBTRACTIVE_CHEBYSHEV_V1,
 )
-from police_thief_p2p.adapters.amireman.self_mail import send_series_mail_sync
+from police_thief_p2p.adapters.amireman.self_mail import _is_lecturer, send_series_mail_sync
 from police_thief_p2p.adapters.amireman.terms import validate_terms
+from police_thief_p2p.constants import REQUIRED_REPORT_RECIPIENT
 from police_thief_p2p.shared.config_loader import load_private_bytes
 
 _PLACEHOLDER_SENDERS = {"your-account@gmail.com", "lecturer@example.invalid"}
@@ -87,9 +88,14 @@ def build_parser() -> argparse.ArgumentParser:
     friendly.add_argument(
         "--mail-to",
         default=None,
-        help="Recipient. Default is --mail-from / configured sender (self). Never the lecturer unless you pass that address and it is allowlisted.",
+        help="Recipient. Default is --mail-from / configured sender (self). Lecturer is refused unless --counted.",
     )
     friendly.add_argument("--mail-from", default=None, help="Your Gmail From address")
+    friendly.add_argument(
+        "--counted",
+        action="store_true",
+        help="Permit mailing the lecturer. Omit for warmup: mail goes only to you.",
+    )
     friendly.add_argument("--private-config", type=Path, default=None)
     mail = sub.add_parser("mail", help="Email an existing result JSON now")
     mail.add_argument("--result", type=Path, required=True)
@@ -97,7 +103,29 @@ def build_parser() -> argparse.ArgumentParser:
     mail.add_argument("--mail-from", default=None)
     mail.add_argument("--private-config", type=Path, default=None)
     mail.add_argument("--game-id", default=None)
+    mail.add_argument(
+        "--counted",
+        action="store_true",
+        help="Permit mailing the lecturer. Omit for warmup: mail goes only to you.",
+    )
     return parser
+
+
+def _recipient_for(args, sender: str) -> str:
+    recipient = (args.mail_to or sender).strip()
+    counted = bool(getattr(args, "counted", False))
+    if _is_lecturer(recipient) and not counted:
+        raise SystemExit(
+            "refusing lecturer mail on a warmup/friendly run; "
+            f"this series mails only you ({sender}). "
+            "Pass --counted only for an agreed counted match."
+        )
+    if counted and not args.mail_to:
+        raise SystemExit(
+            "counted runs must pass --mail-to "
+            f"{REQUIRED_REPORT_RECIPIENT} explicitly; default remains self-mail"
+        )
+    return recipient
 
 
 def _do_mail(args, root: Path, result_doc: dict, artifacts: list) -> dict:
@@ -105,14 +133,15 @@ def _do_mail(args, root: Path, result_doc: dict, artifacts: list) -> dict:
     sender = args.mail_from or configured_sender
     if sender.lower() in _PLACEHOLDER_SENDERS:
         raise SystemExit("pass --mail-from your@gmail.com (sender is still a placeholder)")
-    recipient = args.mail_to or sender
+    recipient = _recipient_for(args, sender)
+    counted = bool(getattr(args, "counted", False))
     result_path = (
         Path(args.result)
         if args.command == "mail"
         else Path(next(path for path in artifacts if Path(path).name.startswith("result_")))
     )
     game_id = args.game_id or result_doc.get("game_id") or result_path.stem.replace("result_", "")
-    print(f"mail: sending {result_path.name} to {recipient} …", flush=True)
+    print(f"mail: sending {result_path.name} to {recipient} (counted={counted}) …", flush=True)
     info = send_series_mail_sync(
         result_json=result_path.resolve(),
         credentials=credentials,
@@ -122,6 +151,7 @@ def _do_mail(args, root: Path, result_doc: dict, artifacts: list) -> dict:
         artifact_root=(root / "results" / "amireman-demo").resolve(),
         game_id=str(game_id),
         allowlist=allowlist,
+        allow_lecturer=counted,
     )
     print(
         f"mail: accepted provider_id={info['provider_id']} at {info['sent_at_utc']}",

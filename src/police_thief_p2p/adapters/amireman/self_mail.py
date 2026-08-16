@@ -14,14 +14,23 @@ from police_thief_p2p.constants import REQUIRED_REPORT_RECIPIENT
 from police_thief_p2p.sdk.email import EmailMessage
 
 
+def _is_lecturer(address: str) -> bool:
+    return address.strip().lower() == REQUIRED_REPORT_RECIPIENT.strip().lower()
+
+
 def _assert_policy(
-    sender: str, recipient: str, allowlist: tuple[str, ...] = ()
+    sender: str,
+    recipient: str,
+    allowlist: tuple[str, ...] = (),
+    *,
+    allow_lecturer: bool = False,
 ) -> None:
     sender_n = sender.strip().lower()
     recipient_n = recipient.strip().lower()
-    lecturer = REQUIRED_REPORT_RECIPIENT.strip().lower()
-    if "@" not in sender_n or sender_n == lecturer:
+    if "@" not in sender_n or _is_lecturer(sender_n):
         raise ValueError("sender must be your own Gmail account")
+    if _is_lecturer(recipient_n) and not allow_lecturer:
+        raise ValueError("lecturer mail is blocked on warmup/friendly runs; pass --counted")
     allowed = {sender_n}
     for item in allowlist:
         text = str(item).strip().lower()
@@ -49,12 +58,13 @@ async def send_series_mail(
     artifact_root: Path,
     game_id: str,
     allowlist: tuple[str, ...] = (),
+    allow_lecturer: bool = False,
 ) -> dict[str, Any]:
-    """Send result JSON immediately after the series. Lecturer only if allowlisted."""
-    _assert_policy(sender, recipient, allowlist)
+    """Send result JSON immediately after the series. Lecturer only with --counted."""
+    _assert_policy(sender, recipient, allowlist, allow_lecturer=allow_lecturer)
     if not result_json.is_file():
         raise FileNotFoundError(f"missing result file: {result_json}")
-    to_lecturer = recipient.strip().lower() == REQUIRED_REPORT_RECIPIENT.strip().lower()
+    to_lecturer = _is_lecturer(recipient)
     _stamp_result(result_json, to_lecturer=to_lecturer)
     subject = (
         f"[COUNTED] Police-Thief series {game_id}"

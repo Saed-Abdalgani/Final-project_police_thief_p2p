@@ -73,34 +73,49 @@ class McpTransport:
 
     async def _invoke(self, tool: str, argument: dict[str, Any]) -> None:
         key = "payload" if tool == "submit_audit" else "message"
-        last_exc: BaseException | None = None
-        for _ in range(3):
-            try:
-                if self._client is None:
-                    self._client = Client(StreamableHttpTransport(self._url))
-                    await self._client.__aenter__()
-                await self._client.call_tool(tool, {key: argument})
-                return
-            except Exception as exc:
-                last_exc = exc
-                await self._aclose()
-                await asyncio.sleep(self._retry)
-        raise last_exc if last_exc is not None else RuntimeError("MCP invoke failed")
+        try:
+            if self._client is None:
+                self._client = Client(StreamableHttpTransport(self._url))
+                await self._client.__aenter__()
+            await self._client.call_tool(tool, {key: argument})
+        except Exception:
+            await self._aclose()
+            raise
 
-    def _call(self, tool: str, argument: dict[str, Any]) -> None:
+    def _call(self, tool: str, argument: dict[str, Any], *, timeout: float = 20.0) -> None:
         fut = asyncio.run_coroutine_threadsafe(self._invoke(tool, argument), self._loop)
-        fut.result(timeout=self._connect_timeout)
+        try:
+            fut.result(timeout=max(1.0, timeout))
+        except TimeoutError:
+            fut.cancel()
+            with contextlib.suppress(Exception):
+                closer = asyncio.run_coroutine_threadsafe(self._aclose(), self._loop)
+                closer.result(timeout=5.0)
+            raise
 
     def _call_with_retry(self, tool: str, argument: dict[str, Any], timeout: float | None = None) -> None:
-        deadline = time.time() + (timeout if timeout is not None else self._connect_timeout)
+        budget = timeout if timeout is not None else self._connect_timeout
+        deadline = time.time() + budget
+        last: BaseException | None = None
         while True:
+            remaining = deadline - time.time()
+            if remaining <= 0:
+                break
             try:
-                self._call(tool, argument)
+                self._call(tool, argument, timeout=min(20.0, remaining))
                 return
             except Exception as exc:
-                if time.time() >= deadline:
-                    raise RuntimeError(f"opponent MCP unreachable at {self._url}: {exc}") from exc
-                time.sleep(self._retry)
+                last = exc
+                left = deadline - time.time()
+                if left <= 0:
+                    break
+                print(
+                    f"mcp: waiting for opponent {self._url} ({type(exc).__name__}: {exc}) "
+                    f"{left:.0f}s left",
+                    flush=True,
+                )
+                time.sleep(min(self._retry, left))
+        raise RuntimeError(f"opponent MCP unreachable at {self._url}: {last}") from last
 
     def exchange_agreement(self, signed: dict[str, Any]) -> dict[str, Any]:
         """Push our signed terms and wait for the opponent greeting."""

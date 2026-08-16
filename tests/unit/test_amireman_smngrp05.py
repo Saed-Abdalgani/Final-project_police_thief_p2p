@@ -93,9 +93,34 @@ def test_mail_policy_allows_opponent_blocks_lecturer_unless_allowlisted() -> Non
     them = "afafgharra000@gmail.com"
     _assert_policy(me, me, (me, them))
     _assert_policy(me, them, (me, them))
-    with pytest.raises(ValueError, match="allowlist"):
+    with pytest.raises(ValueError, match="lecturer mail is blocked"):
         _assert_policy(me, REQUIRED_REPORT_RECIPIENT, (me, them))
-    _assert_policy(me, REQUIRED_REPORT_RECIPIENT, (me, REQUIRED_REPORT_RECIPIENT))
+    with pytest.raises(ValueError, match="lecturer mail is blocked"):
+        _assert_policy(me, REQUIRED_REPORT_RECIPIENT, (me, REQUIRED_REPORT_RECIPIENT))
+    _assert_policy(
+        me,
+        REQUIRED_REPORT_RECIPIENT,
+        (me, REQUIRED_REPORT_RECIPIENT),
+        allow_lecturer=True,
+    )
+
+
+def test_warmup_cli_refuses_lecturer_and_defaults_to_self() -> None:
+    from argparse import Namespace
+
+    from police_thief_p2p.adapters.amireman.cli import _recipient_for
+
+    me = "lovely.lololagain@gmail.com"
+    assert _recipient_for(Namespace(mail_to=None, counted=False), me) == me
+    assert _recipient_for(Namespace(mail_to=me, counted=False), me) == me
+    with pytest.raises(SystemExit, match="refusing lecturer mail"):
+        _recipient_for(Namespace(mail_to=REQUIRED_REPORT_RECIPIENT, counted=False), me)
+    with pytest.raises(SystemExit, match="must pass --mail-to"):
+        _recipient_for(Namespace(mail_to=None, counted=True), me)
+    assert (
+        _recipient_for(Namespace(mail_to=REQUIRED_REPORT_RECIPIENT, counted=True), me)
+        == REQUIRED_REPORT_RECIPIENT
+    )
 
 
 class _SilentTransport:

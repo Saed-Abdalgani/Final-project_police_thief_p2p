@@ -141,7 +141,8 @@ Remote series: exchange live `https://…/mcp` URLs, `--games 6`, `--role police
 (they start as Thief). When the series ends, the CLI mails `result_*.json` to
 `--mail-from` / the configured sender by default (`[DEMO NON-COUNTED]`).
 Pass `--mail-to afafgharra000@gmail.com` for a SMNGRP05 warmup report to them.
-Use `--no-mail` to skip. The lecturer address is never the default.
+Use `--no-mail` to skip. **Lecturer mail is refused unless you pass `--counted`
+and an explicit `--mail-to` lecturer address.** Warmups must omit `--counted`.
 
 ```powershell
   --mail-from lovely.lololagain@gmail.com `
@@ -163,6 +164,25 @@ uv run python -m police_thief_p2p.adapters.amireman.interop friendly `
   --out results/amireman-demo/smngrp05-warmup `
   --mail-from lovely.lololagain@gmail.com `
   --mail-to afafgharra000@gmail.com `
+  --private-config config/private/police.amireman.toml `
+  --verbose
+```
+
+ahk-yosi warmup (we are Police in sub-game 1; they open as Thief). **Self-mail
+only — do not pass `--counted` or the lecturer address.** Replace `PEER_URL`
+and `OUR_TUNNEL_URL` at kickoff:
+
+```powershell
+uv run python -m police_thief_p2p.adapters.amireman.interop friendly `
+  --peer PEER_URL --role police --group saedshki --games 6 `
+  --host 127.0.0.1 --port 8901 `
+  --terms config/shared/ahk-yosi.terms.json `
+  --scent-model multiplicative_kernel_v1 `
+  --member "Mohamed Shawki" --member "Saed-Abdalgani" `
+  --public-mcp-url OUR_TUNNEL_URL `
+  --out results/amireman-demo/ahk-yosi-warmup `
+  --mail-from lovely.lololagain@gmail.com `
+  --mail-to lovely.lololagain@gmail.com `
   --private-config config/private/police.amireman.toml `
   --verbose
 ```

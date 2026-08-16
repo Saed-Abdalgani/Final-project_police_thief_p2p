@@ -12,7 +12,7 @@ from police_thief_p2p.adapters.amireman.delivery import (
     Inbox,
     ProtocolViolationError,
 )
-from police_thief_p2p.adapters.amireman.engine import IncomingOutcome, SubEngine, _now_iso
+from police_thief_p2p.adapters.amireman.engine import IncomingOutcome, SubEngine, _now_iso, _win_kind
 from police_thief_p2p.adapters.amireman.scent import MULTIPLICATIVE_KERNEL_V1
 from police_thief_p2p.adapters.amireman.wire import AuditPayload, TurnMessage, is_series_consensus
 
@@ -44,18 +44,36 @@ class SubGameRuntime:
         self.started_at = _now_iso()
         self._t0 = time.monotonic()
         self.deferred_consensus: dict[str, Any] | None = None
+        self._peer_audit: dict[str, Any] | None = None
 
     def run(self, turn_timeout: float = 180.0, poll: float = 0.3) -> dict[str, Any]:
         if self.role == "thief":
             self._take_turn()
         deadline = time.monotonic() + turn_timeout
+        last_notice = time.monotonic()
         while self.result is None:
             incoming = self.transport.poll_turn(poll)
+            self._absorb_audits()
+            if self.result is not None:
+                break
             if incoming is None:
-                if time.monotonic() > deadline:
+                now = time.monotonic()
+                if now - last_notice >= 10.0:
+                    self._listen(
+                        {
+                            "type": "waiting",
+                            "sub_game": self.n,
+                            "role": self.role,
+                            "step": self.engine.step,
+                            "seconds": int(now - (deadline - turn_timeout)),
+                        }
+                    )
+                    last_notice = now
+                if now > deadline:
                     self.result = ("timeout", self.role)
                 continue
             deadline = time.monotonic() + turn_timeout
+            last_notice = time.monotonic()
             try:
                 ready = self.inbox.offer(incoming)
             except (EquivocationError, ProtocolViolationError):
@@ -65,14 +83,27 @@ class SubGameRuntime:
                 self._process(TurnMessage.from_wire(raw))
                 if self.result is not None:
                     break
+        outcome = self.result[0] if self.result is not None else "timeout"
+        self._listen(
+            {
+                "type": "ended",
+                "sub_game": self.n,
+                "role": self.role,
+                "result": outcome,
+                "step": self.engine.step,
+            }
+        )
         return self._finish(turn_timeout)
 
     def _take_turn(self) -> None:
         message = self.engine.take_turn()
         self.transport.send_turn(message.to_wire())
         self._listen({"type": "moved", "sub_game": self.n, "step": message.step})
-        if message.win_claim:
+        kind = _win_kind(message.win_claim)
+        if kind == "survival":
             self.result = ("survival", "thief")
+        elif kind in {"capture", "enclosure"}:
+            self.result = ("capture", "police")
 
     def _process(self, msg: TurnMessage) -> None:
         outcome: IncomingOutcome = self.engine.receive(msg)
@@ -83,8 +114,53 @@ class SubGameRuntime:
         elif outcome.i_am_caught:
             self.transport.send_turn(self.engine.concede().to_wire())
             self.result = ("capture", "police")
+        elif self.role == "thief" and self.engine.half.enclosed():
+            self.transport.send_turn(self.engine.report_enclosure().to_wire())
+            self.result = ("capture", "police")
         else:
             self._take_turn()
+
+    def _declared_subgame(self, peer: AuditPayload) -> int | None:
+        declared = peer.sub_game_number if peer.sub_game_number is not None else peer.sub_game
+        return int(declared) if declared is not None else None
+
+    def _apply_peer_audit(self, peer: AuditPayload) -> None:
+        claim = (peer.result_claim or "").strip().lower()
+        if claim in {"capture", "enclosure"}:
+            self.result = ("capture", "police")
+        elif claim == "survival":
+            self.result = ("survival", "thief")
+        elif claim == "technical_loss":
+            self.result = ("technical_loss", "-")
+        elif claim == "timeout":
+            self.result = ("timeout", self.role)
+        elif self.engine.ceiling_reached():
+            self.result = ("survival", "thief")
+        else:
+            self.result = ("capture", "police")
+
+    def _absorb_audits(self) -> None:
+        """Treat a same-sub-game audit as the opponent already closing this game.
+
+        Odd games hung for ``turn_timeout`` after step 35 because they audited
+        survival while we kept polling for turn 36. Even games hung on our first
+        thief move because their capture/survival audit sat unread in the queue.
+        """
+        while True:
+            theirs = self.transport.poll_audit(0.0)
+            if theirs is None:
+                return
+            if is_series_consensus(theirs):
+                self.deferred_consensus = theirs
+                continue
+            peer = AuditPayload.from_wire(theirs)
+            declared = self._declared_subgame(peer)
+            if declared is not None and declared != self.n:
+                continue
+            self._peer_audit = theirs
+            if self.result is None:
+                self._apply_peer_audit(peer)
+            return
 
     def _records_for_this_game(self, records: list) -> list:
         """Keep this sub-game's tagged records plus records that omit a tag.
@@ -133,6 +209,10 @@ class SubGameRuntime:
         }
 
     def _poll_subgame_audit(self, turn_timeout: float) -> dict[str, Any] | None:
+        if self._peer_audit is not None:
+            theirs = self._peer_audit
+            self._peer_audit = None
+            return theirs
         deadline = time.monotonic() + turn_timeout
         while True:
             remaining = deadline - time.monotonic()
@@ -140,13 +220,13 @@ class SubGameRuntime:
                 return None
             theirs = self.transport.poll_audit(remaining)
             if theirs is None:
-                continue
+                return None
             if is_series_consensus(theirs):
                 self.deferred_consensus = theirs
                 continue
             peer = AuditPayload.from_wire(theirs)
-            declared = peer.sub_game_number if peer.sub_game_number is not None else peer.sub_game
-            if declared is not None and int(declared) != self.n:
+            declared = self._declared_subgame(peer)
+            if declared is not None and declared != self.n:
                 continue
             return theirs
 
@@ -182,22 +262,11 @@ class SubGameRuntime:
 
     def _finish(self, turn_timeout: float) -> dict[str, Any]:
         outcome, winner = self.result  # type: ignore[misc]
-        audit = (
-            {
-                "passed": False,
-                "log_verified": False,
-                "tampered": False,
-                "verified_steps": 0,
-                "failed_steps": [],
-                "skipped": True,
-                "local_result_claim": outcome,
-                "peer_result_claim": None,
-                "result_agreed": False,
-                "example": None,
-            }
-            if outcome == "timeout"
-            else self._exchange_audit(outcome, turn_timeout)
-        )
+        # A timeout used to skip audit entirely, leaving their reveal in the
+        # inbox so the next sub-game waited a full turn_timeout for a move
+        # that had already been replaced by that leftover audit.
+        wait = min(2.0, turn_timeout) if outcome == "timeout" else turn_timeout
+        audit = self._exchange_audit(outcome, wait)
         while self.transport.poll_turn(0.0) is not None:
             pass
         steps = self.engine.threshold if outcome == "survival" else self.engine.step

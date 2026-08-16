@@ -3,9 +3,8 @@
 Police closes the wider axis toward the last-seen cell, paths around walls,
 and does not drop random spawn walls.
 
-Thief camps the south-east corner in the first two even games and the
-south-west corner in game 6, so a cop that learned (6, 6) does not find
-the same sit twice.
+Thief stays interior, keeps a two-cell buffer, and breaks a straight run so
+ahk-yosi's scent-velocity intercept and corner-squeeze cannot finish it.
 """
 
 from __future__ import annotations
@@ -52,17 +51,25 @@ def choose_move(
     max_steps: int = 35,
     opp_start: Cell | None = None,
     sub_game: int = 1,
+    last_move: str | None = None,
 ) -> tuple[str, list[int] | None]:
     """Return (move_token, barrier_placed_or_None). Barrier turns use STAY."""
     if role == "thief":
+        from police_thief_p2p.adapters.amireman.thief_policy import choose_thief
+
         return (
-            _choose_thief(
+            choose_thief(
                 pos=pos,
                 barriers=barriers,
                 size=size,
+                scent=scent,
                 known_opp=known_opp,
                 last_target=last_target,
                 opp_start=opp_start,
+                last_move=last_move,
+                step=step,
+                barriers_used=barriers_used,
+                barriers_max=barriers_max,
                 sub_game=sub_game,
             ),
             None,
@@ -79,38 +86,6 @@ def choose_move(
         step=step,
         max_steps=max_steps,
     )
-
-
-def _thief_camp(sub_game: int, size: int) -> Cell:
-    """(6,6) for games 2 and 4; (6,0) for game 6."""
-    last = size - 1
-    if int(sub_game) >= 6:
-        return (last, 0)
-    return (last, last)
-
-
-def _choose_thief(
-    *,
-    pos: Cell,
-    barriers: set[Cell],
-    size: int,
-    known_opp: Cell | None,
-    last_target: Cell | None,
-    opp_start: Cell | None,
-    sub_game: int,
-) -> str:
-    """Walk to this sub-game's camp and sit. Do not wander off it."""
-    moves = legal_moves(pos, barriers, size)
-    threat = known_opp or last_target or opp_start or (0, 0)
-    camp = _thief_camp(sub_game, size)
-    if camp in barriers:
-        camp = (size - 1, size - 1)
-
-    def score(move: str) -> tuple[int, ...]:
-        nxt = apply_move(pos, move)
-        return (-_manhattan(nxt, camp), _manhattan(nxt, threat), int(move == "STAY"))
-
-    return max(moves, key=score)
 
 
 def _choose_police(

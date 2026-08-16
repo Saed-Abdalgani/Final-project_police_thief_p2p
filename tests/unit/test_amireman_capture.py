@@ -49,6 +49,48 @@ def test_missed_claim_is_false() -> None:
     )
 
 
+def test_enclosed_thief_self_reports_capture_win_claim() -> None:
+    from police_thief_p2p.adapters.amireman.engine import SubEngine
+    from police_thief_p2p.adapters.amireman.terms import default_terms
+
+    engine = SubEngine("thief", default_terms(), "saedshki", "c" * 40, 1)
+    engine.half.pos = (1, 1)
+    engine.half.barriers = {(0, 1), (1, 0), (1, 2), (2, 1)}
+    assert engine.half.enclosed() is True
+    message = engine.report_enclosure()
+    assert message.win_claim == {"type": "capture"}
+    assert message.capture_claim is None
+
+
+def test_police_honors_thief_enclosure_win_claim() -> None:
+    from police_thief_p2p.adapters.amireman.engine import SubEngine
+    from police_thief_p2p.adapters.amireman.terms import default_terms
+    from police_thief_p2p.adapters.amireman.wire import TurnMessage
+
+    engine = SubEngine("police", default_terms(), "saedshki", "c" * 40, 1)
+    incoming = TurnMessage(
+        step=4,
+        sender="thief",
+        commit="a" * 64,
+        hint="",
+        win_claim={"type": "enclosure"},
+    )
+    outcome = engine.receive(incoming)
+    assert outcome.i_won is True
+    assert outcome.opponent_won is False
+
+
+def test_police_step_35_announces_survival() -> None:
+    from police_thief_p2p.adapters.amireman.engine import SubEngine
+    from police_thief_p2p.adapters.amireman.terms import default_terms
+
+    engine = SubEngine("police", default_terms(), "saedshki", "c" * 40, 1)
+    engine.half.step = 34
+    message = engine.take_turn()
+    assert message.step == 35
+    assert message.win_claim == {"type": "survival"}
+
+
 def test_inbox_exactly_once_and_equivocation() -> None:
     inbox = Inbox(window=4)
     first = {"step": 1, "commit": "aaa", "sender": "thief"}

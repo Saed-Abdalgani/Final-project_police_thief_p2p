@@ -15,6 +15,15 @@ def _now_iso() -> str:
     return datetime.now(UTC).isoformat()
 
 
+def _win_kind(win_claim: dict | str | None) -> str | None:
+    if isinstance(win_claim, str) and win_claim:
+        return win_claim
+    if isinstance(win_claim, dict):
+        kind = win_claim.get("type") or win_claim.get("result")
+        return str(kind) if kind else None
+    return None
+
+
 @dataclass
 class IncomingOutcome:
     i_won: bool = False
@@ -51,9 +60,16 @@ class SubEngine:
     def survived(self) -> bool:
         return self.role == "thief" and self.half.step >= self.threshold
 
+    def ceiling_reached(self) -> bool:
+        return self.half.step >= self.threshold
+
     def take_turn(self) -> TurnMessage:
         out = self.half.act(claim_response=self.pending_response)
-        win = {"type": "survival"} if self.survived() else None
+        win = None
+        if self.half.enclosed():
+            win = {"type": "capture"}
+        elif self.survived() or self.ceiling_reached():
+            win = {"type": "survival"}
         message = TurnMessage(
             step=out["step"],
             sender=out["sender"],
@@ -86,6 +102,22 @@ class SubEngine:
         self.pending_response = None
         return message
 
+    def report_enclosure(self) -> TurnMessage:
+        """Thief self-report: enclosed, no orthogonal escape, STAY does not save it."""
+        out = self.half.hold()
+        return TurnMessage(
+            step=out["step"],
+            sender=out["sender"],
+            commit=out["commit"],
+            hint=out["hint"],
+            smell_grid=out["scent"],
+            timestamp=_now_iso(),
+            barrier_placed=None,
+            capture_claim=None,
+            claim_response=None,
+            win_claim={"type": "capture"},
+        )
+
     def receive(self, msg: TurnMessage) -> IncomingOutcome:
         legacy = {
             "hint": msg.hint,
@@ -100,8 +132,20 @@ class SubEngine:
         if self.role == "police" and msg.claim_response and msg.claim_response.get("caught"):
             outcome.i_won = True
         if self.role == "thief" and msg.capture_claim is not None:
-            self.pending_response = {"claim": list(msg.capture_claim), "caught": bool(caught)}
+            from police_thief_p2p.adapters.amireman.capture import as_cell
+
+            cell = as_cell(msg.capture_claim)
+            self.pending_response = {
+                "claim": list(cell) if cell is not None else [0, 0],
+                "caught": bool(caught),
+            }
             outcome.i_am_caught = bool(caught)
-        if msg.win_claim and msg.win_claim.get("type") == "survival":
+        kind = _win_kind(msg.win_claim)
+        if kind == "survival":
             outcome.opponent_won = True
+        elif kind in {"capture", "enclosure"}:
+            if self.role == "police":
+                outcome.i_won = True
+            else:
+                outcome.i_am_caught = True
         return outcome

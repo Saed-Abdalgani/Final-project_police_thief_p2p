@@ -62,9 +62,11 @@ def run_friendly(
         members=members,
         github_commit=github_commit,
         public_mcp_url=advertised,
+        scent_model=scent_model,
     )
     server = start_peer_server(f"interop-{group}", host, port)
     print(f"mcp: listening on http://{host}:{port}/mcp (tunnel GET should be 406)", flush=True)
+    print("mcp: keep this process up; 502 from the opponent means they are not listening yet", flush=True)
     transport = McpTransport(opponent_url, server.inboxes)
     try:
         series = run_series(

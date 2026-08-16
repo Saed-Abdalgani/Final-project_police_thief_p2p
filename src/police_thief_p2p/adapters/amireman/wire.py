@@ -111,6 +111,10 @@ class Negotiation:
     sub_game_number: int | None = None
     identity: dict = field(default_factory=dict)
     game_uid: str | None = None
+    config_sha256: str | None = None
+    scent_model_sha256: str | None = None
+    code_version: str | None = None
+    first_mover: str | None = None
 
     def to_wire(self) -> dict[str, Any]:
         return {key: value for key, value in asdict(self).items() if value is not None}

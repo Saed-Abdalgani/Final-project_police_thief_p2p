@@ -6,18 +6,28 @@ Cell = tuple[int, int]
 _DELTAS = ((-1, 0), (1, 0), (0, 1), (0, -1))
 
 
-def claim_captures(claim: list | tuple | None, thief: Cell) -> bool:
+def as_cell(value: object) -> Cell | None:
+    """Accept [r,c], (r,c), or {cell:[r,c]} from either wire dialect."""
+    if isinstance(value, dict):
+        value = value.get("cell") or value.get("pos")
+    if isinstance(value, (list, tuple)) and len(value) == 2:
+        try:
+            return (int(value[0]), int(value[1]))
+        except (TypeError, ValueError):
+            return None
+    return None
+
+
+def claim_captures(claim: list | tuple | dict | None, thief: Cell) -> bool:
     """Case A: capture_claim equals the Thief's true cell."""
-    if claim is None:
-        return False
-    return (int(claim[0]), int(claim[1])) == thief
+    cell = as_cell(claim)
+    return cell == thief if cell is not None else False
 
 
-def barrier_captures(barrier: list | tuple | None, thief: Cell) -> bool:
+def barrier_captures(barrier: list | tuple | dict | None, thief: Cell) -> bool:
     """Case B: barrier_placed equals the Thief's true cell."""
-    if barrier is None:
-        return False
-    return (int(barrier[0]), int(barrier[1])) == thief
+    cell = as_cell(barrier)
+    return cell == thief if cell is not None else False
 
 
 def thief_trapped(thief: Cell, barriers: set[Cell], size: int) -> bool:
