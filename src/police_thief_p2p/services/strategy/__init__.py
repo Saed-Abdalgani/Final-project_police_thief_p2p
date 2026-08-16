@@ -9,6 +9,16 @@ from police_thief_p2p.services.strategy.commitment import (
     StrategyCommitmentFields,
     commitment_fields,
 )
+from police_thief_p2p.services.strategy.compatibility import (
+    CompatibilityStrategyProfile,
+    CompatibilityStrategySession,
+)
+from police_thief_p2p.services.strategy.compatibility_models import (
+    CompatibilityDecision,
+    CompatibilityStrategyMetrics,
+    CompatibilityTurnObservation,
+    OpponentFingerprint,
+)
 from police_thief_p2p.services.strategy.contracts import (
     BehaviorMode,
     Decision,
@@ -32,11 +42,17 @@ __all__ = [
     "AdvancedPoliceBrain",
     "AdvancedThiefBrain",
     "BehaviorMode",
+    "CompatibilityDecision",
+    "CompatibilityStrategyMetrics",
+    "CompatibilityStrategyProfile",
+    "CompatibilityStrategySession",
+    "CompatibilityTurnObservation",
     "Decision",
     "DecisionMetrics",
     "HintIntent",
     "HintVerdict",
     "ObservationSource",
+    "OpponentFingerprint",
     "OpponentObservation",
     "OpponentProfile",
     "OpponentSummary",

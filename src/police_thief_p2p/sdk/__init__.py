@@ -109,6 +109,16 @@ if TYPE_CHECKING:
         SemanticRegion,
         StrategyCommitmentFields,
     )
+    from police_thief_p2p.services.strategy.compatibility import (
+        CompatibilityStrategyProfile,
+        CompatibilityStrategySession,
+    )
+    from police_thief_p2p.services.strategy.compatibility_models import (
+        CompatibilityDecision,
+        CompatibilityStrategyMetrics,
+        CompatibilityTurnObservation,
+        OpponentFingerprint,
+    )
 
 __all__ = tuple(EXPORTS)
 

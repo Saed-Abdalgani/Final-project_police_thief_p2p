@@ -1,6 +1,15 @@
 """Offline experiment, tuning, and league-rehearsal services for milestone M12."""
 
 from police_thief_p2p.services.experiments.arena import MatchArena
+from police_thief_p2p.services.experiments.compatibility_arena import (
+    FAMILY_IDS,
+    OPPONENT_REVISIONS,
+    TRAINING_FAMILIES,
+    CompatibilityArena,
+    CompatibilityCampaignResult,
+    CompatibilityFamilyMetrics,
+    CompatibilityMatchOutcome,
+)
 from police_thief_p2p.services.experiments.gate_result import GateReport, GateResult
 from police_thief_p2p.services.experiments.gates import promotion_report
 from police_thief_p2p.services.experiments.generalization import (
@@ -37,10 +46,17 @@ from police_thief_p2p.services.experiments.studies import ABLATIONS, ROBUSTNESS_
 
 __all__ = [
     "ABLATIONS",
+    "FAMILY_IDS",
+    "OPPONENT_REVISIONS",
     "ROBUSTNESS_CASES",
     "ROSTER",
+    "TRAINING_FAMILIES",
     "BoardFixture",
     "CandidateFreeze",
+    "CompatibilityArena",
+    "CompatibilityCampaignResult",
+    "CompatibilityFamilyMetrics",
+    "CompatibilityMatchOutcome",
     "ExperimentRunner",
     "GateReport",
     "GateResult",

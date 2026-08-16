@@ -40,7 +40,9 @@ def main() -> int:
                 seeds=plan.seeds[:2],
             )
         )
-        score = repair_score(report.score_share, report.thief_success, report.reliability.deadline_misses)
+        score = repair_score(
+            report.score_share, report.thief_success, report.reliability.deadline_misses
+        )
         print(
             f"repair={index} thief={report.thief_success:.3f} share={report.score_share:.1f} "
             f"deadlines={report.reliability.deadline_misses} "

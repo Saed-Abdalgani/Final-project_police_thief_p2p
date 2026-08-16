@@ -15,12 +15,16 @@ from police_thief_p2p.adapters.amireman.queues import PeerInboxes
 class PeerServer:
     """Running peer MCP server with drain-aware graceful stop."""
 
-    def __init__(self, inboxes: PeerInboxes, server: uvicorn.Server, thread: threading.Thread) -> None:
+    def __init__(
+        self, inboxes: PeerInboxes, server: uvicorn.Server, thread: threading.Thread
+    ) -> None:
+        """Capture the running server and its inbound queues."""
         self.inboxes = inboxes
         self._server = server
         self._thread = thread
 
     def stop(self, max_linger: float = 8.0, settle: float = 0.3, grace: float = 5.0) -> None:
+        """Drain recent requests and stop the server within bounded time."""
         deadline = time.monotonic() + max_linger
         idle_since: float | None = None
         while time.monotonic() < deadline:
@@ -42,6 +46,7 @@ class PeerServer:
 
 
 def build_peer_server(name: str, inboxes: PeerInboxes) -> FastMCP:
+    """Build the compatibility MCP endpoint over provided queues."""
     mcp = FastMCP(name=name)
 
     @mcp.tool
@@ -68,6 +73,7 @@ def build_peer_server(name: str, inboxes: PeerInboxes) -> FastMCP:
 
 
 def start_peer_server(name: str, host: str, port: int) -> PeerServer:
+    """Start a background compatibility MCP server after checking its port."""
     probe = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         probe.bind((host, port))
@@ -75,7 +81,9 @@ def start_peer_server(name: str, host: str, port: int) -> PeerServer:
         probe.close()
     inboxes = PeerInboxes()
     app = build_peer_server(name, inboxes).http_app()
-    config = uvicorn.Config(app, host=host, port=port, log_level="warning", timeout_graceful_shutdown=5)
+    config = uvicorn.Config(
+        app, host=host, port=port, log_level="warning", timeout_graceful_shutdown=5
+    )
     server = uvicorn.Server(config)
     thread = threading.Thread(target=server.run, daemon=True, name=f"mcp-{name}")
     thread.start()

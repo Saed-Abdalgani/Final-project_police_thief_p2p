@@ -12,7 +12,10 @@ STEPS: tuple[tuple[str, list[str]], ...] = (
         "dual_process_mcp",
         ["uv", "run", "pytest", "tests/integration/test_dual_process_mcp.py", "-q", "--no-cov"],
     ),
-    ("league_rehearsal_loopback", ["uv", "run", "python", "-m", "scripts.run_m12_league_rehearsal"]),
+    (
+        "league_rehearsal_loopback",
+        ["uv", "run", "python", "-m", "scripts.run_m12_league_rehearsal"],
+    ),
     ("replay_screenshots", ["uv", "run", "python", "scripts/generate_m10_screenshots.py"]),
 )
 

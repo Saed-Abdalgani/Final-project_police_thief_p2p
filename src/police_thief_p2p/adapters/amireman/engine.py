@@ -3,29 +3,21 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import UTC, datetime
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
+from police_thief_p2p.adapters.amireman.engine_helpers import now_iso, win_kind
 from police_thief_p2p.adapters.amireman.half import PeerHalf
 from police_thief_p2p.adapters.amireman.scent import MULTIPLICATIVE_KERNEL_V1
 from police_thief_p2p.adapters.amireman.wire import TurnMessage
 
-
-def _now_iso() -> str:
-    return datetime.now(UTC).isoformat()
-
-
-def _win_kind(win_claim: dict | str | None) -> str | None:
-    if isinstance(win_claim, str) and win_claim:
-        return win_claim
-    if isinstance(win_claim, dict):
-        kind = win_claim.get("type") or win_claim.get("result")
-        return str(kind) if kind else None
-    return None
+if TYPE_CHECKING:
+    from police_thief_p2p.sdk import CompatibilityStrategySession
 
 
 @dataclass
 class IncomingOutcome:
+    """Local interpretation of one received public turn."""
+
     i_won: bool = False
     i_am_caught: bool = False
     opponent_won: bool = False
@@ -43,27 +35,43 @@ class SubEngine:
         sub_game_number: int,
         seed: int = 1234,
         scent_model: str = MULTIPLICATIVE_KERNEL_V1,
+        strategy_session: CompatibilityStrategySession | None = None,
     ) -> None:
-        self.half = PeerHalf(role, terms, group, github_commit, sub_game_number, seed, scent_model)
+        """Create one role-specific compatibility sub-game engine."""
+        self.half = PeerHalf(
+            role,
+            terms,
+            group,
+            github_commit,
+            sub_game_number,
+            seed,
+            scent_model,
+            strategy_session,
+        )
         self.role = role
         self.threshold = int(terms["max_steps"])
-        self.pending_response: dict | None = None
+        self.pending_response: dict[str, Any] | None = None
 
     @property
-    def records(self) -> list:
+    def records(self) -> list[dict[str, Any]]:
+        """Return this side's sealed audit records."""
         return self.half.records
 
     @property
     def step(self) -> int:
+        """Return the number of actions emitted by this side."""
         return self.half.step
 
     def survived(self) -> bool:
+        """Return whether the local Thief reached the survival threshold."""
         return self.role == "thief" and self.half.step >= self.threshold
 
     def ceiling_reached(self) -> bool:
+        """Return whether the configured turn ceiling was reached."""
         return self.half.step >= self.threshold
 
     def take_turn(self) -> TurnMessage:
+        """Compute and seal one normal outgoing turn."""
         out = self.half.act(claim_response=self.pending_response)
         win = None
         if self.half.enclosed():
@@ -76,7 +84,7 @@ class SubEngine:
             commit=out["commit"],
             hint=out["hint"],
             smell_grid=out["scent"],
-            timestamp=_now_iso(),
+            timestamp=now_iso(),
             barrier_placed=out["barrier_placed"],
             capture_claim=out["claim"],
             claim_response=self.pending_response,
@@ -86,6 +94,7 @@ class SubEngine:
         return message
 
     def concede(self) -> TurnMessage:
+        """Seal a final hold response after a verified capture."""
         out = self.half.hold(claim_response=self.pending_response)
         message = TurnMessage(
             step=out["step"],
@@ -93,7 +102,7 @@ class SubEngine:
             commit=out["commit"],
             hint=out["hint"],
             smell_grid=out["scent"],
-            timestamp=_now_iso(),
+            timestamp=now_iso(),
             barrier_placed=None,
             capture_claim=None,
             claim_response=self.pending_response,
@@ -111,7 +120,7 @@ class SubEngine:
             commit=out["commit"],
             hint=out["hint"],
             smell_grid=out["scent"],
-            timestamp=_now_iso(),
+            timestamp=now_iso(),
             barrier_placed=None,
             capture_claim=None,
             claim_response=None,
@@ -119,7 +128,9 @@ class SubEngine:
         )
 
     def receive(self, msg: TurnMessage) -> IncomingOutcome:
+        """Apply one inbound turn and classify its terminal implications."""
         legacy = {
+            "step": msg.step,
             "hint": msg.hint,
             "scent": msg.smell_grid,
             "smell_grid": msg.smell_grid,
@@ -140,7 +151,7 @@ class SubEngine:
                 "caught": bool(caught),
             }
             outcome.i_am_caught = bool(caught)
-        kind = _win_kind(msg.win_claim)
+        kind = win_kind(msg.win_claim)
         if kind == "survival":
             outcome.opponent_won = True
         elif kind in {"capture", "enclosure"}:

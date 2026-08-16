@@ -8,14 +8,23 @@ When they bar their own cell, pathing must still treat that cell as the cop.
 from __future__ import annotations
 
 from collections import deque
+from collections.abc import Callable
 
-from police_thief_p2p.adapters.amireman.strategy import (
-    _degree,
-    _manhattan,
-    _passable,
-    _peak,
+from police_thief_p2p.adapters.amireman.strategy_grid import (
     apply_move,
     legal_moves,
+)
+from police_thief_p2p.adapters.amireman.strategy_grid import (
+    degree as _degree,
+)
+from police_thief_p2p.adapters.amireman.strategy_grid import (
+    manhattan as _manhattan,
+)
+from police_thief_p2p.adapters.amireman.strategy_grid import (
+    passable as _passable,
+)
+from police_thief_p2p.adapters.amireman.strategy_grid import (
+    peak as _peak,
 )
 
 Cell = tuple[int, int]
@@ -78,7 +87,9 @@ def choose_thief(
     return max(pool or options, key=score)[0]
 
 
-def _prefer(pool: list, keep) -> list:
+def _prefer(
+    pool: list[tuple[str, Cell]], keep: Callable[[tuple[str, Cell]], bool]
+) -> list[tuple[str, Cell]]:
     kept = [item for item in pool if keep(item)]
     return kept or pool
 

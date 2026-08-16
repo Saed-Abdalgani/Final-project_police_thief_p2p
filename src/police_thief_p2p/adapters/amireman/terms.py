@@ -41,7 +41,9 @@ DEFAULTS: dict[str, Any] = {
 
 def default_terms(**overrides: Any) -> dict[str, Any]:
     """Standard agreed terms with optional per-key overrides."""
-    terms = {key: (list(value) if isinstance(value, list) else value) for key, value in DEFAULTS.items()}
+    terms = {
+        key: (list(value) if isinstance(value, list) else value) for key, value in DEFAULTS.items()
+    }
     terms.update(overrides)
     return terms
 

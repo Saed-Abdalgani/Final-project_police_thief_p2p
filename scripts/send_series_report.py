@@ -50,7 +50,9 @@ def _prepare(manifest_path: Path, artifact_root: Path, recipient: str, allowlist
     )
 
 
-async def _send(report, artifact_root: Path, credentials: Path, token: Path, sender: str, rates: Path):
+async def _send(
+    report, artifact_root: Path, credentials: Path, token: Path, sender: str, rates: Path
+):
     clock = SystemClock()
     oauth = GmailOAuth(credentials, token, artifact_root=artifact_root, timeout_sec=180)
     oauth.access_token()  # browser login happens here, outside Gatekeeper timeout
@@ -138,7 +140,9 @@ def main(argv: list[str] | None = None) -> int:
         "mime_bytes": len(mime),
     }
     if not args.send:
-        print(json.dumps({**base, "status": "VALID", "token_exists": token.exists()}, sort_keys=True))
+        print(
+            json.dumps({**base, "status": "VALID", "token_exists": token.exists()}, sort_keys=True)
+        )
         return 0
     receipt = asyncio.run(
         _send(report, artifact_root, credentials, token, sender, args.rate_limits.resolve())

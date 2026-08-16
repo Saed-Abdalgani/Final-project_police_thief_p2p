@@ -28,6 +28,8 @@ class PoliceWeightsConfig(FrozenModel):
     budget: Weight = 1.5
     risk: Annotated[float, Field(ge=0.0, le=1.0, allow_inf_nan=False)] = 0.25
     cycle: Weight = 3.0
+    intercept: Weight = 5.0
+    enclosure: Weight = 12.0
 
 
 class ThiefWeightsConfig(FrozenModel):
@@ -66,6 +68,10 @@ class StrategyConfig(FrozenModel):
     guard_margin_ms: Annotated[StrictInt, Field(ge=1, le=1_000)] = 40
     search_horizon: Annotated[StrictInt, Field(ge=1, le=8)] = 3
     posterior_samples: Annotated[StrictInt, Field(ge=1, le=256)] = 16
+    particle_count: Annotated[StrictInt, Field(ge=16, le=512)] = 64
+    observation_sharpness: Annotated[float, Field(gt=0.0, le=100.0, allow_inf_nan=False)] = 12.0
+    cvar_tail: Annotated[float, Field(ge=0.05, le=1.0, allow_inf_nan=False)] = 0.25
+    hint_urgency: Annotated[float, Field(ge=0.0, le=1.0, allow_inf_nan=False)] = 0.55
     cache_entries: Annotated[StrictInt, Field(ge=1, le=65_536)] = 512
     near_tie_epsilon: Annotated[float, Field(ge=0.0, le=0.25, allow_inf_nan=False)] = 0.02
     opponent_decay: Annotated[float, Field(gt=0.0, le=1.0, allow_inf_nan=False)] = 0.9

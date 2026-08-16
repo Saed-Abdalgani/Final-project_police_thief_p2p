@@ -7,6 +7,15 @@ _GROUPS = (
         "SubGameOutcome TerminalReason TransitionResult",
     ),
     ("police_thief_p2p.sdk.dto", "ReadinessReport ReadinessStatus"),
+    (
+        "police_thief_p2p.services.strategy.compatibility_models",
+        "CompatibilityDecision CompatibilityStrategyMetrics "
+        "CompatibilityTurnObservation OpponentFingerprint",
+    ),
+    (
+        "police_thief_p2p.services.strategy.compatibility",
+        "CompatibilityStrategyProfile CompatibilityStrategySession",
+    ),
     ("police_thief_p2p.sdk.errors", "ErrorCode SdkError"),
     ("police_thief_p2p.sdk.facade", "SimulationSdk"),
     (

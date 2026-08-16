@@ -37,11 +37,13 @@ class TurnMessage:
     win_claim: dict | None = None
 
     def to_wire(self) -> dict[str, Any]:
+        """Serialize the fixed turn schema."""
         raw = asdict(self)
         return {key: raw[key] for key in TURN_KEYS}
 
     @classmethod
     def from_wire(cls, data: dict[str, Any]) -> TurnMessage:
+        """Validate and parse one fixed-schema turn."""
         known = set(cls.__dataclass_fields__)
         missing = {"step", "sender", "commit"} - set(data)
         if missing:
@@ -62,7 +64,11 @@ def is_series_consensus(data: dict[str, Any] | AuditPayload) -> bool:
     if isinstance(data, AuditPayload):
         claim, sha, records = data.result_claim, data.consensus_sha, data.records
     else:
-        claim, sha, records = data.get("result_claim"), data.get("consensus_sha"), data.get("records")
+        claim, sha, records = (
+            data.get("result_claim"),
+            data.get("consensus_sha"),
+            data.get("records"),
+        )
     if claim == CONSENSUS_TAG:
         return True
     return bool(sha) and records == []
@@ -80,10 +86,12 @@ class AuditPayload:
     sub_game_number: int | None = None
 
     def to_wire(self) -> dict[str, Any]:
+        """Serialize non-null audit fields."""
         return {k: v for k, v in asdict(self).items() if v is not None}
 
     @classmethod
     def from_wire(cls, data: dict[str, Any]) -> AuditPayload:
+        """Parse and normalize an audit or consensus payload."""
         known = set(cls.__dataclass_fields__)
         payload = cls(**{key: value for key, value in data.items() if key in known})
         if payload.consensus_sha is not None and not _HEX64.match(str(payload.consensus_sha)):
@@ -117,9 +125,11 @@ class Negotiation:
     first_mover: str | None = None
 
     def to_wire(self) -> dict[str, Any]:
+        """Serialize non-null negotiation fields."""
         return {key: value for key, value in asdict(self).items() if value is not None}
 
     @classmethod
     def from_wire(cls, data: dict[str, Any]) -> Negotiation:
+        """Parse known negotiation fields while ignoring extensions."""
         known = set(cls.__dataclass_fields__)
         return cls(**{key: value for key, value in data.items() if key in known})

@@ -93,7 +93,9 @@ class McpTransport:
                 closer.result(timeout=5.0)
             raise
 
-    def _call_with_retry(self, tool: str, argument: dict[str, Any], timeout: float | None = None) -> None:
+    def _call_with_retry(
+        self, tool: str, argument: dict[str, Any], timeout: float | None = None
+    ) -> None:
         budget = timeout if timeout is not None else self._connect_timeout
         deadline = time.time() + budget
         last: BaseException | None = None

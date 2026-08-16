@@ -46,7 +46,9 @@ def main() -> int:
     """Materialize artifacts, print CLI verify hint, then open ReplayApp."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--no-gui", action="store_true", help="only write artifacts + CLI verify")
-    parser.add_argument("--seconds", type=float, default=None, help="auto-close GUI after N seconds")
+    parser.add_argument(
+        "--seconds", type=float, default=None, help="auto-close GUI after N seconds"
+    )
     args = parser.parse_args()
     manifest_path, artifact_root = materialize()
     sdk = SimulationSdk()

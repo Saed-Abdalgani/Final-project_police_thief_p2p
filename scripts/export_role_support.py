@@ -20,7 +20,9 @@ def load_manifest(role: str) -> dict[str, object]:
 
 def _excluded(relative: str, patterns: Sequence[str]) -> bool:
     posix = relative.replace("\\", "/")
-    return any(fnmatch(posix, pattern.rstrip("/")) or fnmatch(posix, pattern) for pattern in patterns)
+    return any(
+        fnmatch(posix, pattern.rstrip("/")) or fnmatch(posix, pattern) for pattern in patterns
+    )
 
 
 def selected_files(manifest: dict[str, object]) -> list[Path]:
@@ -37,9 +39,11 @@ def selected_files(manifest: dict[str, object]) -> list[Path]:
             continue
         if not source.is_dir():
             raise FileNotFoundError(f"export include path missing: {pattern}")
-        for path in source.rglob("*"):
-            if path.is_file() and not _excluded(path.relative_to(ROOT).as_posix(), exclude):
-                chosen.append(path.relative_to(ROOT))
+        chosen.extend(
+            path.relative_to(ROOT)
+            for path in source.rglob("*")
+            if path.is_file() and not _excluded(path.relative_to(ROOT).as_posix(), exclude)
+        )
     return sorted(set(chosen), key=lambda item: item.as_posix())
 
 

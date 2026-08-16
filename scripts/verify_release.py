@@ -7,12 +7,16 @@ import subprocess
 from collections.abc import Sequence
 from pathlib import Path
 
-SECRET_PATTERN = re.compile(r"(api[_-]?key|client_secret|refresh_token)\s*[:=]\s*['\"][^'\"]+['\"]", re.I)
+SECRET_PATTERN = re.compile(
+    r"(api[_-]?key|client_secret|refresh_token)\s*[:=]\s*['\"][^'\"]+['\"]", re.I
+)
 FORBIDDEN_LINKAGE = ("editable = true", 'path = "', "path = '")
 
 
 def _run(command: Sequence[str], cwd: Path) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(command, cwd=cwd, check=False, capture_output=True, text=True, timeout=600)
+    return subprocess.run(  # noqa: S603 - fixed release commands supplied by this repository
+        command, cwd=cwd, check=False, capture_output=True, text=True, timeout=600
+    )
 
 
 def verify_export(root: Path) -> list[str]:

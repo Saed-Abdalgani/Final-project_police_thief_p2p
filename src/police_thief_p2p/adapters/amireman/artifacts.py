@@ -19,6 +19,7 @@ def _write(path: Path, doc: dict[str, Any]) -> Path:
 
 
 def emit_artifacts(out_dir: Path, series: Any, terms: dict[str, Any]) -> tuple[list[Path], dict]:
+    """Write official declaration, configuration, summary, and result artifacts."""
     out_dir.mkdir(parents=True, exist_ok=True)
     gid, guid = series.game_id, series.game_uid
     ours = series.own_identity["group_id"]
@@ -39,7 +40,9 @@ def emit_artifacts(out_dir: Path, series: Any, terms: dict[str, Any]) -> tuple[l
     ]
     for summary in series.summaries:
         n = summary["sub_game_number"]
-        paths.append(_write(out_dir / f"config_{gid}_g{n:02d}.json", {"terms": terms, "sub_game": n}))
+        paths.append(
+            _write(out_dir / f"config_{gid}_g{n:02d}.json", {"terms": terms, "sub_game": n})
+        )
         slim = {k: v for k, v in summary.items() if k != "records"}
         paths.append(
             _write(
@@ -64,8 +67,28 @@ def emit_artifacts(out_dir: Path, series: Any, terms: dict[str, Any]) -> tuple[l
                 for item in series.summaries
             ),
         },
-        "summaries": [{k: v for k, v in item.items() if k != "records"} for item in series.summaries],
+        "summaries": [
+            {k: v for k, v in item.items() if k != "records"} for item in series.summaries
+        ],
         "ended_at": datetime.now(UTC).isoformat(),
     }
     paths.append(_write(out_dir / f"result_{gid}.json", result_doc))
     return paths, result_doc
+
+
+def emit_training_sidecar(
+    out_dir: Path,
+    series: Any,
+    strategy_snapshot: dict[str, Any],
+) -> Path:
+    """Write private replay material without changing official match artifacts."""
+    return _write(
+        out_dir / f"training_{series.game_id}.json",
+        {
+            "game_id": series.game_id,
+            "game_uid": series.game_uid,
+            "created_at": datetime.now(UTC).isoformat(),
+            "strategy": strategy_snapshot,
+            "audited_subgames": series.training_records,
+        },
+    )

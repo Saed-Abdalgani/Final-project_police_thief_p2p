@@ -240,7 +240,11 @@ def test_police_captures_naive_fleer_from_standard_starts() -> None:
     for step in range(1, 36):
         seen = thief
         moves = legal_moves(thief, barriers, 7)
-        t_move = max(moves, key=lambda move: abs(apply_move(thief, move)[0] - cop[0]) + abs(apply_move(thief, move)[1] - cop[1]))
+        t_move = max(
+            moves,
+            key=lambda move: abs(apply_move(thief, move)[0] - cop[0])
+            + abs(apply_move(thief, move)[1] - cop[1]),
+        )
         thief = apply_move(thief, t_move)
         p_move, barrier = _police(
             pos=cop,

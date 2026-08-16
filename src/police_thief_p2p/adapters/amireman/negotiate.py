@@ -5,7 +5,12 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from police_thief_p2p.adapters.amireman.canonical import commit_of, derive_game_ids, fresh_nonce, verify
+from police_thief_p2p.adapters.amireman.canonical import (
+    commit_of,
+    derive_game_ids,
+    fresh_nonce,
+    verify,
+)
 from police_thief_p2p.adapters.amireman.terms import TERMS_KEYS, terms_diff, terms_equal
 from police_thief_p2p.adapters.amireman.wire import Negotiation
 
@@ -16,6 +21,8 @@ class NegotiationRefusedError(Exception):
 
 @dataclass(frozen=True)
 class Agreed:
+    """Verified peer identity, terms, and deterministic series identifiers."""
+
     game_id: str
     game_uid: str
     opponent_group: str
@@ -28,6 +35,7 @@ class Negotiator:
     """One peer's side of the agreement handshake for a single sub-game."""
 
     def __init__(self, terms: dict[str, Any], identity: dict[str, Any], group_id: str) -> None:
+        """Create one signed-term negotiator."""
         self.terms = terms
         self.identity = identity
         self.group_id = group_id
@@ -36,6 +44,7 @@ class Negotiator:
     def signed(
         self, role: str, sub_game_number: int, opponent_group: str | None = None
     ) -> Negotiation:
+        """Build a sealed local agreement offer for one sub-game."""
         game_uid = None
         if opponent_group:
             game_uid = derive_game_ids(self.terms, self.group_id, opponent_group)[1]
@@ -55,6 +64,7 @@ class Negotiator:
         )
 
     def verify_peer(self, raw: dict[str, Any]) -> Agreed:
+        """Verify peer terms and return the agreed identity context."""
         if not isinstance(raw, dict) or not isinstance(raw.get("terms"), dict):
             raise NegotiationRefusedError("greeting carries no object terms")
         peer_terms = raw["terms"]
@@ -78,7 +88,9 @@ class Negotiator:
         game_id, game_uid = derive_game_ids(self.terms, self.group_id, str(opponent))
         declared = raw.get("game_uid")
         if isinstance(declared, str) and declared != game_uid:
-            raise NegotiationRefusedError(f"game_uid mismatch: derive {game_uid}, declared {declared}")
+            raise NegotiationRefusedError(
+                f"game_uid mismatch: derive {game_uid}, declared {declared}"
+            )
         return Agreed(
             game_id,
             game_uid,

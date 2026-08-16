@@ -51,7 +51,9 @@ def derive_game_ids(terms: dict[str, Any], group_a: str, group_b: str) -> tuple[
     """
     pair = sorted([group_a, group_b])
     game_id = "-vs-".join(pair)
-    fingerprint = hashlib.sha256(canonical({"game_id": game_id, "terms": terms}).encode("utf-8")).hexdigest()
+    fingerprint = hashlib.sha256(
+        canonical({"game_id": game_id, "terms": terms}).encode("utf-8")
+    ).hexdigest()
     game_uid = "-".join(
         [
             fingerprint[0:8],
@@ -67,7 +69,9 @@ def derive_game_ids(terms: dict[str, Any], group_a: str, group_b: str) -> tuple[
 def consensus_sha(game_id: str, game_uid: str, rows: list[dict[str, Any]]) -> str:
     """SHA-256 of the agreed consensus object {game_id, game_uid, sub_games}."""
     keys = ("sub_game_number", "result", "roles", "score", "winner_group")
-    sub_games = [{k: row[k] for k in keys} for row in sorted(rows, key=lambda r: r["sub_game_number"])]
+    sub_games = [
+        {k: row[k] for k in keys} for row in sorted(rows, key=lambda r: r["sub_game_number"])
+    ]
     obj = {"game_id": game_id, "game_uid": game_uid, "sub_games": sub_games}
     return hashlib.sha256(canonical(obj).encode("utf-8")).hexdigest()
 

@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from police_thief_p2p.sdk.compatibility_facade import CompatibilityStrategyFacade
+
 if TYPE_CHECKING:
     from police_thief_p2p.domain.state import LocalGameState
     from police_thief_p2p.domain.values import Action
@@ -16,7 +18,7 @@ if TYPE_CHECKING:
     from police_thief_p2p.shared.effective_config import EffectiveConfig
 
 
-class StrategyFacade:
+class StrategyFacade(CompatibilityStrategyFacade):
     """Expose role strategy without allowing adapters to import services."""
 
     __slots__ = ()

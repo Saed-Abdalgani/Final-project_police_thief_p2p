@@ -13,6 +13,7 @@ TIE_SCORE = 2
 
 
 def score_for(outcome: str, role: str) -> int:
+    """Return official points for one role and terminal outcome."""
     police, thief = SCORES.get(outcome, (0, 0))
     return police if role == "police" else thief
 
@@ -39,7 +40,9 @@ def canonical_rows(summaries: list, ours: str, theirs: str) -> list[dict]:
                 "roles": {ours: our_role, theirs: their_role},
                 "score": {ours: ours_score, theirs: theirs_score},
                 "winner_group": (
-                    ours if ours_score > theirs_score else (theirs if theirs_score > ours_score else None)
+                    ours
+                    if ours_score > theirs_score
+                    else (theirs if theirs_score > ours_score else None)
                 ),
             }
         )

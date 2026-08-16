@@ -56,9 +56,7 @@ class DemoLifecycle(LifecyclePort):
         with self._lock:
             if self._running:
                 self._step += 1
-                self._status = (
-                    ViewStatus.WAITING if self._step % 2 == 0 else ViewStatus.THINKING
-                )
+                self._status = ViewStatus.WAITING if self._step % 2 == 0 else ViewStatus.THINKING
             return replace(
                 self._base,
                 status=self._status,

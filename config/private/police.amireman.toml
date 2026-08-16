@@ -17,6 +17,37 @@ artifact_root = "results/amireman-demo"
 police_class = "police_thief_p2p.services.strategy.police.AdvancedPoliceBrain"
 thief_class = "police_thief_p2p.services.strategy.thief.AdvancedThiefBrain"
 profile = "amireman-demo"
+profile_version = "2.0.0"
+particle_count = 64
+observation_sharpness = 12.0
+opponent_decay = 0.90
+search_horizon = 3
+cvar_tail = 0.25
+hint_urgency = 0.55
+decision_budget_ms = 250
+near_tie_epsilon = 0.02
+[strategy.police]
+capture = 1000.0
+distance = 5.0
+intercept = 5.0
+cut = 8.0
+enclosure = 12.0
+risk = 0.30
+budget = 1.5
+cycle = 3.0
+[strategy.thief]
+survival = 1000.0
+space = 1.5
+routes = 12.0
+traps = 100.0
+scent = 3.0
+corner = 8.0
+cycle = 5.0
+[strategy.hints]
+trust_threshold = 0.55
+max_consecutive_lies = 2
+deceive_while_mobile = true
+template_variant = 0
 [language]
 provider = "template"
 model = "deterministic-template"
