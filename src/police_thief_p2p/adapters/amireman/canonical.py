@@ -94,7 +94,7 @@ def settlement_sha(game_id: str, aggregate: dict[str, Any], rows: list[dict[str,
                 "sub_game_number": row["sub_game_number"],
                 "winner_group": row["winner_group"],
             }
-            for row in rows
+            for row in sorted(rows, key=lambda item: item["sub_game_number"])
         ],
     }
     blob = json.dumps(document, sort_keys=True, ensure_ascii=False)

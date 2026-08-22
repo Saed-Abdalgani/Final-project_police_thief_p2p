@@ -6,7 +6,7 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any
 
-from police_thief_p2p.adapters.amireman.canonical import consensus_sha, settlement_sha
+from police_thief_p2p.adapters.amireman.canonical import settlement_sha
 from police_thief_p2p.adapters.amireman.negotiate import Negotiator
 from police_thief_p2p.adapters.amireman.runtime import SubGameRuntime
 from police_thief_p2p.adapters.amireman.scent import MULTIPLICATIVE_KERNEL_V1
@@ -142,8 +142,9 @@ def run_series(
             deferred_consensus = runtime.deferred_consensus
     theirs = result.peer_identity.get("group_id", "")
     rows = canonical_rows(result.summaries, group, theirs)
-    result.consensus_sha = consensus_sha(result.game_id or "", result.game_uid or "", rows)
-    result.settlement_sha = settlement_sha(result.game_id or "", aggregate(rows), rows)
+    digest = settlement_sha(result.game_id or "", aggregate(rows), rows)
+    result.consensus_sha = digest
+    result.settlement_sha = digest
     result.results_agreed = bool(result.summaries) and all(
         s["audit"].get("result_agreed", False) for s in result.summaries
     )
