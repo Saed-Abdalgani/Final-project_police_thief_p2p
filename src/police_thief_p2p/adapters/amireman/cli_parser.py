@@ -18,11 +18,12 @@ def build_parser() -> argparse.ArgumentParser:
     friendly = sub.add_parser("friendly", help="Series runner; mails result when finished")
     friendly.add_argument("--peer", required=True)
     friendly.add_argument("--role", required=True, choices=("police", "thief"))
-    friendly.add_argument("--group", default="saedshki")
+    friendly.add_argument("--group", default="GRP00001")
     friendly.add_argument("--games", type=int, default=6)
     friendly.add_argument("--host", default="127.0.0.1")
     friendly.add_argument("--port", type=int, default=8901)
     friendly.add_argument("--game-id", default=None)
+    friendly.add_argument("--game-uid", default=None)
     friendly.add_argument("--public-mcp-url", default=None)
     friendly.add_argument("--out", type=Path, required=True)
     friendly.add_argument("--terms", type=Path, default=None)
@@ -33,6 +34,9 @@ def build_parser() -> argparse.ArgumentParser:
     )
     friendly.add_argument("--member", action="append", default=[])
     friendly.add_argument("--commit", default=None)
+    friendly.add_argument("--police-commit", default=None)
+    friendly.add_argument("--thief-commit", default=None)
+    friendly.add_argument("--canonical-commit", default=None)
     friendly.add_argument("--turn-timeout", type=float, default=180.0)
     friendly.add_argument(
         "--seed",
@@ -48,6 +52,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="Wire scent physics. SMNGRP05 warmup: subtractive_chebyshev_v1",
     )
     friendly.add_argument("--no-mail", action="store_true", help="Skip post-series Gmail")
+    friendly.add_argument(
+        "--wait-enter",
+        action="store_true",
+        help="Listen on /mcp, then wait for ENTER before any negotiate",
+    )
     friendly.add_argument(
         "--mail-to",
         default=None,

@@ -32,12 +32,10 @@ def _assert_policy(
     if _is_lecturer(recipient_n) and not allow_lecturer:
         raise ValueError("lecturer mail is blocked on warmup/friendly runs; pass --counted")
     allowed = {sender_n}
-    for item in allowlist:
-        text = str(item).strip().lower()
-        if "@" in text:
-            allowed.add(text)
+    if allow_lecturer:
+        allowed.add(REQUIRED_REPORT_RECIPIENT.strip().lower())
     if recipient_n not in allowed:
-        raise ValueError("recipient is not on the private allowlist")
+        raise ValueError("warmup/friendly mail can only go to the sender")
 
 
 def _stamp_result(path: Path, *, to_lecturer: bool) -> None:

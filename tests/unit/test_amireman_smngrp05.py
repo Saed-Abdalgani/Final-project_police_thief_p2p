@@ -6,7 +6,12 @@ from pathlib import Path
 
 import pytest
 
-from police_thief_p2p.adapters.amireman.canonical import derive_game_ids, seal, terms_digest
+from police_thief_p2p.adapters.amireman.canonical import (
+    commit_of,
+    derive_game_ids,
+    seal,
+    terms_digest,
+)
 from police_thief_p2p.adapters.amireman.config_map import load_terms
 from police_thief_p2p.adapters.amireman.engine import SubEngine
 from police_thief_p2p.adapters.amireman.half import PeerHalf
@@ -88,11 +93,12 @@ def test_terms_mismatch_names_key_and_both_values() -> None:
         negotiator.verify_peer(greeting)
 
 
-def test_mail_policy_allows_opponent_blocks_lecturer_unless_allowlisted() -> None:
+def test_mail_policy_allows_only_sender_unless_counted_lecturer() -> None:
     me = "lovely.lololagain@gmail.com"
     them = "afafgharra000@gmail.com"
     _assert_policy(me, me, (me, them))
-    _assert_policy(me, them, (me, them))
+    with pytest.raises(ValueError, match="only go to the sender"):
+        _assert_policy(me, them, (me, them))
     with pytest.raises(ValueError, match="lecturer mail is blocked"):
         _assert_policy(me, REQUIRED_REPORT_RECIPIENT, (me, them))
     with pytest.raises(ValueError, match="lecturer mail is blocked"):
@@ -113,6 +119,8 @@ def test_warmup_cli_refuses_lecturer_and_defaults_to_self() -> None:
     me = "lovely.lololagain@gmail.com"
     assert _recipient_for(Namespace(mail_to=None, counted=False), me) == me
     assert _recipient_for(Namespace(mail_to=me, counted=False), me) == me
+    with pytest.raises(SystemExit, match="only go to you"):
+        _recipient_for(Namespace(mail_to="afafgharra000@gmail.com", counted=False), me)
     with pytest.raises(SystemExit, match="refusing lecturer mail"):
         _recipient_for(Namespace(mail_to=REQUIRED_REPORT_RECIPIENT, counted=False), me)
     with pytest.raises(SystemExit, match="must pass --mail-to"):
@@ -162,3 +170,42 @@ def test_reference_v3_step0_tag_does_not_drop_live_steps() -> None:
     assert audit["failed_steps"] == []
     assert audit["verified_steps"] == 2
     assert audit["example"] is None
+
+
+def test_forced_game_uid_accepts_declared_peer_value() -> None:
+    terms = default_terms()
+    forced = "4c32e6bd-a04b-f490-c6c1-a684a9d8903d"
+    negotiator = Negotiator(terms, {"group_id": "GRP00001"}, "GRP00001", game_uid=forced)
+    greeting = negotiator.signed("thief", 1, opponent_group="salareen").to_wire()
+    assert greeting["game_uid"] == forced
+    assert greeting["role"] == "thief"
+    assert greeting["sub_game_number"] == 1
+    peer = {
+        "terms": terms,
+        "nonce": "a" * 32,
+        "signature": commit_of(terms, "a" * 32),
+        "group_id": "salareen",
+        "role": "police",
+        "sub_game_number": 1,
+        "game_uid": forced,
+    }
+    agreed = negotiator.verify_peer(peer)
+    assert agreed.game_uid == forced
+    assert agreed.game_id == "GRP00001-vs-salareen"
+
+
+def test_role_attestation_uses_executing_repo_sha() -> None:
+    from police_thief_p2p.adapters.amireman.series_identity import attest_role, identity_for
+
+    police = "8596d0d4c84714d0ceb9ff7213cab977ccae4c28"
+    thief = "026eff06061998d1c48992edec0710235d13fed5"
+    canonical = "fe093bfd2ad2210741b17f69da917121ac86eb3d"
+    base = identity_for("GRP00001", members=["A"], github_commit=police, canonical_commit=canonical)
+    as_thief, sha = attest_role(
+        base, "thief", police_commit=police, thief_commit=thief, canonical_commit=canonical
+    )
+    assert sha == thief
+    assert as_thief["github_commit"] == thief
+    assert as_thief["git_commit_hash"] == thief
+    assert as_thief["canonical_commit"] == canonical
+    assert canonical not in {as_thief["github_commit"], as_thief["git_commit_hash"]}

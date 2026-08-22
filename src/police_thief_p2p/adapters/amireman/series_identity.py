@@ -31,6 +31,7 @@ def identity_for(
     repos: dict[str, str] | None = None,
     llm_model: str = "template",
     scent_model: str = MULTIPLICATIVE_KERNEL_V1,
+    canonical_commit: str | None = None,
 ) -> dict[str, Any]:
     """Build the public compatibility identity advertised at negotiation."""
     identity: dict[str, Any] = {
@@ -45,7 +46,26 @@ def identity_for(
         "code_version": WIRE_CODE_VERSION,
         "first_mover": "thief",
     }
+    if canonical_commit:
+        identity["canonical_commit"] = canonical_commit
     if scent_model == MULTIPLICATIVE_KERNEL_V1:
         identity["config_sha256"] = BOOK_V1_CONFIG_SHA256
         identity["scent_model_sha256"] = BOOK_V1_SCENT_SHA256
     return identity
+
+
+def attest_role(
+    identity: dict[str, Any],
+    role: str,
+    *,
+    police_commit: str,
+    thief_commit: str,
+    canonical_commit: str | None = None,
+) -> tuple[dict[str, Any], str]:
+    """Put the executing role SHA in github_commit / git_commit_hash only."""
+    sha = police_commit if role == "police" else thief_commit
+    attested = dict(identity)
+    attested["git_commit_hash"] = attested["github_commit"] = sha
+    if canonical_commit:
+        attested["canonical_commit"] = canonical_commit
+    return attested, sha

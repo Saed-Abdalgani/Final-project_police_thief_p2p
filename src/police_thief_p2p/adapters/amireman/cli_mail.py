@@ -32,9 +32,9 @@ def _mail_paths(root: Path, private_config: Path | None) -> tuple[Path, Path, st
 
 
 def _recipient_for(args: argparse.Namespace, sender: str) -> str:
-    recipient = (args.mail_to or sender).strip()
     counted = bool(getattr(args, "counted", False))
-    if _is_lecturer(recipient) and not counted:
+    requested = (args.mail_to or sender).strip()
+    if _is_lecturer(requested) and not counted:
         raise SystemExit(
             "refusing lecturer mail on a warmup/friendly run; "
             f"this series mails only you ({sender}). "
@@ -45,7 +45,9 @@ def _recipient_for(args: argparse.Namespace, sender: str) -> str:
             "counted runs must pass --mail-to "
             f"{REQUIRED_REPORT_RECIPIENT} explicitly; default remains self-mail"
         )
-    return recipient
+    if not counted and requested.lower() != sender.strip().lower():
+        raise SystemExit(f"warmup/friendly mail can only go to you ({sender})")
+    return requested
 
 
 def _do_mail(

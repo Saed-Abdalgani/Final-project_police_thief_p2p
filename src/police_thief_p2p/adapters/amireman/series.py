@@ -25,6 +25,9 @@ from police_thief_p2p.adapters.amireman.series_identity import (
     WIRE_CODE_VERSION as WIRE_CODE_VERSION,
 )
 from police_thief_p2p.adapters.amireman.series_identity import (
+    attest_role as attest_role,
+)
+from police_thief_p2p.adapters.amireman.series_identity import (
     identity_for as identity_for,
 )
 from police_thief_p2p.adapters.amireman.series_identity import (
@@ -65,22 +68,36 @@ def run_series(
     listener: Callable[[dict[str, Any]], None] | None = None,
     turn_timeout: float = 180.0,
     game_id: str | None = None,
+    game_uid: str | None = None,
     scent_model: str = MULTIPLICATIVE_KERNEL_V1,
     strategy_session: CompatibilityStrategySession | None = None,
+    police_commit: str | None = None,
+    thief_commit: str | None = None,
+    canonical_commit: str | None = None,
 ) -> SeriesResult:
     """Negotiate and play a role-alternating compatibility series."""
     result = SeriesResult(own_identity=own_identity)
     known_opponent: str | None = None
     deferred_consensus: dict[str, Any] | None = None
+    police_sha = police_commit or github_commit
+    thief_sha = thief_commit or github_commit
     for n in range(1, num_games + 1):
         role = role_for(natural_role, n)
-        negotiator = Negotiator(terms, own_identity, group)
+        identity, role_sha = attest_role(
+            own_identity,
+            role,
+            police_commit=police_sha,
+            thief_commit=thief_sha,
+            canonical_commit=canonical_commit,
+        )
+        negotiator = Negotiator(terms, identity, group, game_id=game_id, game_uid=game_uid)
         peer_msg = transport.exchange_agreement(
             negotiator.signed(role, n, opponent_group=known_opponent).to_wire()
         )
         agreed = negotiator.verify_peer(peer_msg)
         result.game_id = game_id or agreed.game_id
-        result.game_uid = agreed.game_uid
+        result.game_uid = game_uid or agreed.game_uid
+        result.own_identity = identity
         known_opponent = agreed.opponent_group
         result.peer_identity = agreed.opponent_identity or result.peer_identity
         if strategy_session is not None:
@@ -97,7 +114,7 @@ def run_series(
             terms,
             transport,
             group,
-            github_commit,
+            role_sha,
             n,
             seed,
             listener,

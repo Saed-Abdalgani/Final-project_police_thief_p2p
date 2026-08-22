@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import json
 import subprocess
+import threading
+import time
 from collections.abc import Sequence
 from pathlib import Path
 
@@ -56,6 +58,30 @@ def main(argv: Sequence[str] | None = None) -> int:
     private_path = args.private_config or root / "config/private/police.amireman.toml"
     private = load_private_bytes(_resolve(root, private_path).read_bytes())
     listener = (lambda event: print(event, flush=True)) if args.verbose else None
+
+    def _wait_enter() -> None:
+        marker = Path(args.out) / "EXECUTE"
+        marker.parent.mkdir(parents=True, exist_ok=True)
+        if marker.exists():
+            marker.unlink()
+
+        def _stdin() -> None:
+            try:
+                input()
+                marker.write_text("go\n", encoding="utf-8")
+            except EOFError:
+                return
+
+        threading.Thread(target=_stdin, daemon=True).start()
+        print(
+            "mcp: server is up for tools/list. Not negotiating. "
+            f"After EXECUTE FRIENDLY START press ENTER or create {marker}",
+            flush=True,
+        )
+        while not marker.exists():
+            time.sleep(0.4)
+        print("mcp: start barrier released; beginning negotiate", flush=True)
+
     result = run_friendly(
         args.group,
         mcp_url(args.peer),
@@ -72,12 +98,23 @@ def main(argv: Sequence[str] | None = None) -> int:
         public_mcp_url=mcp_url(args.public_mcp_url) if args.public_mcp_url else None,
         listener=listener,
         game_id=args.game_id,
+        game_uid=args.game_uid,
         scent_model=args.scent_model,
         strategy=private.strategy,
+        police_commit=args.police_commit,
+        thief_commit=args.thief_commit,
+        canonical_commit=args.canonical_commit or commit,
+        wait_start=_wait_enter if args.wait_enter else None,
     )
     payload = json.loads(dump_result(result))
     if not args.no_mail:
-        payload.update(_do_mail(args, root, result.result_doc, result.artifacts))
+        try:
+            payload.update(_do_mail(args, root, result.result_doc, result.artifacts))
+        except (PermissionError, OSError) as exc:
+            print(f"mail: failed ({exc}); local artifacts were already written", flush=True)
+            payload.update(
+                {"mail_sent": False, "lecturer_report_sent": False, "mail_error": str(exc)}
+            )
     else:
         payload.update({"mail_sent": False, "lecturer_report_sent": False})
     print(json.dumps(payload, indent=2))

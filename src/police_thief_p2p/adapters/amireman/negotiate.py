@@ -34,19 +34,29 @@ class Agreed:
 class Negotiator:
     """One peer's side of the agreement handshake for a single sub-game."""
 
-    def __init__(self, terms: dict[str, Any], identity: dict[str, Any], group_id: str) -> None:
-        """Create one signed-term negotiator."""
+    def __init__(
+        self,
+        terms: dict[str, Any],
+        identity: dict[str, Any],
+        group_id: str,
+        *,
+        game_id: str | None = None,
+        game_uid: str | None = None,
+    ) -> None:
+        """Create one signed-term negotiator, optionally freezing series ids."""
         self.terms = terms
         self.identity = identity
         self.group_id = group_id
+        self.forced_game_id = game_id
+        self.forced_game_uid = game_uid
         self._nonce = fresh_nonce()
 
     def signed(
         self, role: str, sub_game_number: int, opponent_group: str | None = None
     ) -> Negotiation:
         """Build a sealed local agreement offer for one sub-game."""
-        game_uid = None
-        if opponent_group:
+        game_uid = self.forced_game_uid
+        if game_uid is None and opponent_group:
             game_uid = derive_game_ids(self.terms, self.group_id, opponent_group)[1]
         return Negotiation(
             terms=self.terms,
@@ -86,6 +96,10 @@ class Negotiator:
         if not opponent:
             raise NegotiationRefusedError("greeting names no group_id")
         game_id, game_uid = derive_game_ids(self.terms, self.group_id, str(opponent))
+        if self.forced_game_id:
+            game_id = self.forced_game_id
+        if self.forced_game_uid:
+            game_uid = self.forced_game_uid
         declared = raw.get("game_uid")
         if isinstance(declared, str) and declared != game_uid:
             raise NegotiationRefusedError(

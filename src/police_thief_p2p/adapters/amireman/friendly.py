@@ -57,8 +57,13 @@ def run_friendly(
     public_mcp_url: str | None = None,
     listener: Callable[[dict], None] | None = None,
     game_id: str | None = None,
+    game_uid: str | None = None,
     scent_model: str = MULTIPLICATIVE_KERNEL_V1,
     strategy: Any = None,
+    police_commit: str | None = None,
+    thief_commit: str | None = None,
+    canonical_commit: str | None = None,
+    wait_start: Callable[[], None] | None = None,
 ) -> FriendlyResult:
     """Stand up server, play the series, write local artifacts (no mail here)."""
     if not members:
@@ -75,9 +80,10 @@ def run_friendly(
     identity = identity_for(
         group,
         members=members,
-        github_commit=github_commit,
+        github_commit=police_commit or github_commit,
         public_mcp_url=advertised,
         scent_model=scent_model,
+        canonical_commit=canonical_commit,
     )
     server = start_peer_server(f"interop-{group}", host, port)
     print(f"mcp: listening on http://{host}:{port}/mcp (tunnel GET should be 406)", flush=True)
@@ -85,6 +91,8 @@ def run_friendly(
         "mcp: keep this process up; 502 from the opponent means they are not listening yet",
         flush=True,
     )
+    if wait_start is not None:
+        wait_start()
     transport = McpTransport(opponent_url, server.inboxes)
     try:
         series = run_series(
@@ -99,8 +107,12 @@ def run_friendly(
             listener=listener,
             turn_timeout=turn_timeout,
             game_id=game_id,
+            game_uid=game_uid,
             scent_model=scent_model,
             strategy_session=strategy_session,
+            police_commit=police_commit,
+            thief_commit=thief_commit,
+            canonical_commit=canonical_commit,
         )
     finally:
         transport.close()

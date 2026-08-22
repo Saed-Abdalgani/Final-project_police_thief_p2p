@@ -54,7 +54,7 @@ class SubGameAuditMixin:
                 continue
             peer = AuditPayload.from_wire(theirs)
             declared = self._declared_subgame(peer)
-            if declared is not None and declared != self.n:
+            if declared != self.n:
                 continue
             self._peer_audit = theirs
             if self.result is None:
@@ -121,7 +121,11 @@ class SubGameAuditMixin:
     def _exchange_audit(self, outcome: str, turn_timeout: float) -> dict[str, Any]:
         mine = AuditPayload(
             sender=self.role,
-            records=self.engine.records,
+            records=[
+                rec
+                for rec in self.engine.records
+                if int((rec.get("payload") or {}).get("step", 0)) >= 1
+            ],
             result_claim=outcome,
             sub_game=self.n,
             sub_game_number=self.n,

@@ -127,9 +127,9 @@ class McpTransport:
         except queue.Empty as exc:
             raise RuntimeError("opponent never sent its agreement") from exc
 
-    def send_turn(self, message: dict[str, Any]) -> None:
+    def send_turn(self, message: dict[str, Any], timeout: float | None = None) -> None:
         """Push one public turn to the opponent."""
-        self._call_with_retry("receive_turn", message)
+        self._call_with_retry("receive_turn", message, timeout=timeout)
 
     def poll_turn(self, timeout: float) -> dict[str, Any] | None:
         """Pop an inbound turn, or None on timeout."""

@@ -14,6 +14,7 @@ from police_thief_p2p.adapters.amireman.delivery import (
 from police_thief_p2p.adapters.amireman.engine import SubEngine
 from police_thief_p2p.adapters.amireman.engine_helpers import now_iso, win_kind
 from police_thief_p2p.adapters.amireman.runtime_audit import SubGameAuditMixin
+from police_thief_p2p.adapters.amireman.runtime_idle import announce_wait, nudge_interval
 from police_thief_p2p.adapters.amireman.scent import MULTIPLICATIVE_KERNEL_V1
 from police_thief_p2p.adapters.amireman.wire import TurnMessage
 
@@ -63,9 +64,12 @@ class SubGameRuntime(SubGameAuditMixin):
     def run(self, turn_timeout: float = 180.0, poll: float = 0.3) -> dict[str, Any]:
         """Run turns and the mutual audit to a terminal summary."""
         if self.role == "thief":
+            if turn_timeout >= 60.0:
+                time.sleep(1.0)
             self._take_turn()
         deadline = time.monotonic() + turn_timeout
         last_notice = time.monotonic()
+        nudge = nudge_interval(turn_timeout)
         while True:
             if bool(self.result):
                 break
@@ -75,16 +79,8 @@ class SubGameRuntime(SubGameAuditMixin):
                 break
             if incoming is None:
                 now = time.monotonic()
-                if now - last_notice >= 10.0:
-                    self._listen(
-                        {
-                            "type": "waiting",
-                            "sub_game": self.n,
-                            "role": self.role,
-                            "step": self.engine.step,
-                            "seconds": int(now - (deadline - turn_timeout)),
-                        }
-                    )
+                if now - last_notice >= nudge:
+                    announce_wait(self, int(now - (deadline - turn_timeout)))
                     last_notice = now
                 if now > deadline:
                     self.result = ("timeout", self.role)
@@ -142,7 +138,7 @@ class SubGameRuntime(SubGameAuditMixin):
         # A timeout used to skip audit entirely, leaving their reveal in the
         # inbox so the next sub-game waited a full turn_timeout for a move
         # that had already been replaced by that leftover audit.
-        wait = min(2.0, turn_timeout) if outcome == "timeout" else turn_timeout
+        wait = min(30.0, turn_timeout) if outcome == "timeout" else turn_timeout
         audit = self._exchange_audit(outcome, wait)
         while self.transport.poll_turn(0.0) is not None:
             pass

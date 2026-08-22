@@ -14,6 +14,7 @@ class _FakeTransport:
         self._audits = list(audits)
         self.sent: dict | None = None
         self.last_turn: dict | None = None
+        self.sent_turns: list[dict] = []
 
     def send_audit(self, payload: dict) -> None:
         self.sent = payload
@@ -21,8 +22,10 @@ class _FakeTransport:
     def poll_audit(self, timeout: float) -> dict | None:
         return self._audits.pop(0) if self._audits else None
 
-    def send_turn(self, message: dict) -> None:
+    def send_turn(self, message: dict, timeout: float | None = None) -> None:
+        del timeout
         self.last_turn = message
+        self.sent_turns.append(message)
 
     def poll_turn(self, timeout: float) -> dict | None:
         return None
@@ -132,6 +135,26 @@ def test_stale_audit_from_other_subgame_is_ignored() -> None:
     assert summary["result"] == "timeout"
     assert transport.last_turn is not None
     assert transport.last_turn.get("step") == 1
+
+
+def test_untagged_audit_does_not_abort_fresh_police_game() -> None:
+    stale = {"sender": "thief", "records": [], "result_claim": "timeout"}
+    transport = _FakeTransport([stale])
+    runtime = SubGameRuntime("police", default_terms(), transport, "saedshki", "c" * 40, 4)
+    summary = runtime.run(turn_timeout=0.25)
+    assert summary["result"] == "timeout"
+    assert summary["duration_seconds"] >= 0.2
+    assert summary["audit"]["skipped"] is True
+    assert summary["audit"]["peer_result_claim"] is None
+
+
+def test_waiting_does_not_resend_thief_turn() -> None:
+    transport = _FakeTransport([])
+    runtime = SubGameRuntime("thief", default_terms(), transport, "saedshki", "c" * 40, 3)
+    summary = runtime.run(turn_timeout=0.35, poll=0.05)
+    assert summary["result"] == "timeout"
+    assert len(transport.sent_turns) == 1
+    assert transport.sent_turns[0]["step"] == 1
 
 
 def test_thief_closes_immediately_on_peer_capture_audit() -> None:
